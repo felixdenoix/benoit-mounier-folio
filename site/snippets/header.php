@@ -34,9 +34,9 @@
   */
   ?>
   <?= css([
-    'assets/css/prism.css',
-    'assets/css/lightbox.css',
-    'assets/css/index.css',
+    // 'assets/css/prism.css',
+    // 'assets/css/lightbox.css',
+    // 'assets/css/index.css',
     '@auto'
   ]) ?>
 
@@ -48,6 +48,7 @@
   */
   ?>
   <link rel="shortcut icon" type="image/x-icon" href="<?= url('favicon.ico') ?>">
+  <?= vite()->css("styles/index.css", try: true) ?>
 </head>
 <body>
 
@@ -60,7 +61,8 @@
     */
     ?>
     <a class="logo" href="<?= $site->url() ?>">
-      <?= $site->title()->esc() ?>
+      Benoit Mounier
+      <!--<?= $site->title()->esc() ?>-->
     </a>
 
     <nav class="menu">
@@ -84,4 +86,5 @@
     </nav>
   </header>
 
-  <main class="main">
+  <main class="main" data-taxi>
+    <div data-taxi-view>

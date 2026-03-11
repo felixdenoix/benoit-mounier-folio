@@ -1,3 +1,66 @@
+# Folio Benoit Mounier
+
+---
+
+Par [Félix Denoix](https://felixdenoix.fr)
+
+
+## Stack
+- `ddev@1.24` development environment (using plugin `ddev/ddev-pnpm`)
+- `kirby@5` cms
+- `vite@7` front end asset processing pipeline
+- `tailwind@4` styles
+
+## Development setup
+
+Use `ddev` for local developpement.
+
+The ddev config file has recieved the followong updates:
+```yaml
+# .ddev/config.yaml
+
+# ...
+# Update doc root to allow the "public" directory 
+docroot: ./public
+# ...
+# Ensure vite can run freely
+web_extra_exposed_ports:
+  - name: vite
+    container_port: 5173
+    http_port: 5172
+    https_port: 5173
+# ...
+```
+
+[Public directory setup](setup to work https://getkirby.com/docs/guide/configuration/custom-folder-setup#public-and-private-folder-setup)
+
+```bash
+# start ddev instance
+$> ddev start
+# install composer dependencies
+$> ddev composer install
+# install node dependencies
+$> ddev pnpm install
+# create local user to access Panel
+$> ddev exec kirby make:user
+``` 
+
+## Development running
+```bash
+# to run asset pipeline
+$> ddev pnpm dev
+
+# to run Kirby/Cli commands
+$> dev exec kirby
+```
+
+## Readlist
+
+## Tasks
+
+- 
+
+
 <img src="http://getkirby.com/assets/images/github/starterkit.jpg" width="300">
 
 **Kirby: the CMS that adapts to any project, loved by developers and editors alike.**
