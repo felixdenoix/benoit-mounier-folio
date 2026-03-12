@@ -6,7 +6,12 @@ Par [Félix Denoix](https://felixdenoix.fr)
 
 
 ## Stack
+
+### Env
+- `php@8.3`
 - `ddev@1.24` development environment (using plugin `ddev/ddev-pnpm`)
+
+### Project
 - `kirby@5` cms
 - `vite@7` front end asset processing pipeline
 - `tailwind@4` styles
@@ -46,6 +51,9 @@ $> ddev exec kirby make:user
 ``` 
 
 ## Development running
+
+All pnpm commands **must** be prefixed by `ddev`.
+
 ```bash
 # to run asset pipeline
 $> ddev pnpm dev
@@ -58,9 +66,15 @@ $> dev exec kirby
 
 ## Tasks
 
-- 
+### Production checklist
+
+- [ ] debug off
+- [ ] font subsetting
+- [ ] 
 
 
+
+---
 <img src="http://getkirby.com/assets/images/github/starterkit.jpg" width="300">
 
 **Kirby: the CMS that adapts to any project, loved by developers and editors alike.**

@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+# Ensure DDEV is running before attempting to format PHP
+if ! ddev describe | grep -q "OK"; then
+  echo "Error: DDEV is not running. Please run 'ddev start' first."
+  exit 1
+fi
+
+ddev pnpm lint-staged

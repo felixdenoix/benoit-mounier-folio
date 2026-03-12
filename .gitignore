@@ -92,3 +92,6 @@ dist-ssr
 *.sw?
 
 .pnpm-store/
+
+# Php linter
+.php-cs-fixer.cache
