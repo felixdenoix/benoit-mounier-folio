@@ -15,6 +15,10 @@ columns:
   # The second column has two sections, `notes` and `pages`
   - width: 1/2
     sections:
+      projects:
+        extends: sections/projects
+        status: listed
+
       # The `notes` section reuses the pages section defined in `/site/blueprints/sections/notes.yml`
       notes:
         extends: sections/notes

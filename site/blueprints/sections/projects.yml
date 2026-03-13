@@ -1,0 +1,6 @@
+type: pages
+label: Projects
+# By enforcing the project creation from the projects page we ensure projects are located within the "projects" directory ?
+parent: kirby.page('projects')
+template: project
+create: project

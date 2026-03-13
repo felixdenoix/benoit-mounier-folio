@@ -1,0 +1,36 @@
+Title:
+
+8⋅6
+
+----
+
+Cover: - 'file://ekitpix4kteu8nx3'
+
+----
+
+Headline:
+
+8⋅6
+
+----
+
+Subheadline: INTENSE BEER
+
+----
+
+Text: <p><strong>La 8.6, bière du groupe Bavaria puis Royal Swinkels, arrive sur le marché français en 1993. Reconnue à la fois pour son format 50cl et pour son titre alcoolique élevé, elle fait figure de pionnière dans le domaine des bières forte. Le caractère de la marque est représenté par un univers impactant et brut.</strong></p><p><strong>Réalisations</strong></p><ul><li><p><strong>Communication institutionnelle:</strong> campagnes de communication nationale &amp; internationale, affichage, annonces presses, bannières web...</p></li><li><p><strong>Identité visuelle:</strong> refonte graphique, logotype, charte graphique...</p></li><li><p><strong>Packaging:</strong> design des cannettes/bouteilles, packs multi formats, packs énènementiel.</p></li><li><p><strong>Signalétique:</strong> habillages camions, bars éphémères, box de vente, kakemonos, étiquettes BRI...</p></li></ul><p></p>
+
+----
+
+Dates:
+
+- '2014'
+- "Aujoud'hui"
+
+----
+
+Nextproject: []
+
+----
+
+Uuid: jgtfvyjkbmmmmr4g

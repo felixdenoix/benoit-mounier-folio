@@ -17,16 +17,10 @@ return function ($page) {
      * More about collections:
      * https://getkirby.com/docs/guide/templates/collections
      */
-    $notes = collection('notes');
-
-    $tag = param('tag');
-    if (empty($tag) === false) {
-        $notes = $notes->filterBy('tags', $tag, ',');
-    }
+    $notes = collection('projects');
 
     return [
-        'tag'   => $tag,
-        'notes' => $notes->paginate(6)
+        'entries' => $notes->paginate(6)
     ];
 
 };

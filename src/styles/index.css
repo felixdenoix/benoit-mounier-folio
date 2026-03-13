@@ -1,7 +1,118 @@
 @import "tailwindcss";
 
+@source "../../site/..";
+@source not "../../vendor";
+
+:root {
+  /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,22,1.414,4,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  /* Step -2: 12.5px → 11.0033px */
+  --step--2: clamp(0.6877rem, 0.8195rem + -0.1701vw, 0.7813rem);
+  /* Step -1: 15px → 15.5587px */
+  --step--1: clamp(0.9375rem, 0.9232rem + 0.0635vw, 0.9724rem);
+  /* Step 0: 18px → 22px */
+  --step-0: clamp(1.125rem, 1.0227rem + 0.4545vw, 1.375rem);
+  /* Step 1: 21.6px → 31.108px */
+  --step-1: clamp(1.35rem, 1.1069rem + 1.0805vw, 1.9443rem);
+  /* Step 2: 25.92px → 43.9867px */
+  --step-2: clamp(1.62rem, 1.1581rem + 2.053vw, 2.7492rem);
+  /* Step 3: 31.104px → 62.1972px */
+  --step-3: clamp(1.944rem, 1.149rem + 3.5333vw, 3.8873rem);
+  /* Step 4: 37.3248px → 87.9469px */
+  --step-4: clamp(2.3328rem, 1.0385rem + 5.7525vw, 5.4967rem);
+  /* Step 5: 44.7898px → 124.3569px */
+  --step-5: clamp(2.7994rem, 0.765rem + 9.0417vw, 7.7723rem);
+}
+
+@theme inline {
+  --font-sans:
+    "Codec Pro", "Gotham", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+
+  --breakpoint-3xl: 120rem;
+
+  --text-xs: var(--step--2);
+  --text-xs--line-height: calc(1.25 / 0.875);
+  --text-sm: var(--step--1);
+  --text-sm--line-height: calc(1 / 0.75);
+  --text-base: 1rem;
+  --text-base--line-height: calc(1.5 / 1);
+  --text-normal: var(--step-0);
+  --text-normal--line-height: calc(1.5 / 1);
+  --text-lg: var(--step-1);
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: var(--step-2);
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --text-2xl: var(--step-3);
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-3xl: var(--step-4);
+  --text-3xl--line-height: calc(2.25 / 1.875);
+  --text-4xl: var(--step-5);
+  --text-4xl--line-height: calc(2.25 / 1.875);
+
+  --color-gray-title: rgb(45 45 45);
+  --color-gray-text: rgb(60 60 60);
+
+  --grid-max-width: 82rem;
+  --grid-columns: 8;
+}
+
 @layer base {
   /*html {
     font-size: 100px;
   }*/
+  html {
+    @apply text-gray-text;
+  }
+
+  a {
+    color: black;
+  }
+
+  @variant md {
+    :root {
+      --grid-columns: 12;
+    }
+  }
+
+  pre {
+    max-width: 100%;
+    overflow: scroll;
+  }
+}
+
+@layer components {
+  .base-grid {
+    @apply grid grid-cols-(--grid-columns);
+  }
+
+  .sub-grid {
+    @apply grid-cols-subgrid;
+  }
+
+  .link-after-fill {
+    &:after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background-color: rgb(255 0 0 / 0.1);
+      z-index: -1;
+    }
+  }
+}
+
+.bd {
+  border: 1px solid black;
+}
+
+.bdr {
+  border: 1px solid red;
+}
+
+.bdg {
+  border: 1px solid green;
+}
+
+.bdb {
+  border: 1px solid blue;
 }

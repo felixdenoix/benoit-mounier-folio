@@ -1,0 +1,43 @@
+<?php
+/*
+  Templates render the content of your pages.
+
+  They contain the markup together with some control structures
+  like loops or if-statements. The `$page` variable always
+  refers to the currently active page.
+
+  To fetch the content from each field we call the field name as a
+  method on the `$page` object, e.g. `$page->title()`.
+
+  This template lists all the subpages of the `notes` page with
+  their title date sorted by date and links to each subpage.
+
+  This template receives additional variables like $tag and $notes
+  from the `notes.php` controller in `/site/controllers/notes.php`
+
+  Snippets like the header and footer contain markup used in
+  multiple templates. They also help to keep templates clean.
+
+  More about templates: https://getkirby.com/docs/guide/templates/basics
+*/
+?>
+<?php snippet('header') ?>
+
+<header class="heading mt-20 bdb p-20 grid place-items-center">
+  <h1 class="text-3xl font-bold">PROJETS</h1>
+</header>
+
+<ul style="--row-height: calc(100%/3);" class="h-full base-grid min grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 lg:gap-5 group">
+
+  <?php foreach($entries as $project):?>
+    <li class="col-span-1 grid place-content-center bdg aspect-3/2 relative place-items-center group-has-[:hover]:grayscale-100 hover:grayscale-0 transition">
+      <img class="absolute h-full w-full inset-0 object-cover object-center" src="<?= $project->cover()->url();?>" alt="">
+      <a href="<?= $project->url()?>" class="opacity-0 hover:opacity-100 text-shadow-lg text-shadow-black/10 transition block z-1 font-bold text-white text-xl link-after-fill after:bg-gray-800/20">
+        <?= $project->title()?>
+      </a>
+    </li>
+  <?php endforeach ?>
+
+</ul>
+
+<?php snippet('footer') ?>

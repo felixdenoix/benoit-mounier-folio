@@ -1,0 +1,29 @@
+Title: BPI France
+
+----
+
+Cover: - 'file://mfb04d5dny9kiwnm'
+
+----
+
+Headline: 
+
+----
+
+Subheadline: 
+
+----
+
+Text: 
+
+----
+
+Dates: []
+
+----
+
+Nextproject: []
+
+----
+
+Uuid: qbpjaiv5qyfvylyp

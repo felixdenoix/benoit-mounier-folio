@@ -56,10 +56,6 @@ export default defineConfig(({ mode }) => {
               name: "Codec Pro",
               local: "Codec Pro",
               src: "./src/assets/fonts/Codec/*.ttf",
-              subset: "latin-ext",
-              variable: {
-                wght: true,
-              },
             },
           ],
         },

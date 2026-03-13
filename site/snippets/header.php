@@ -50,9 +50,9 @@
   <link rel="shortcut icon" type="image/x-icon" href="<?= url('favicon.ico') ?>">
   <?= vite()->css("styles/index.css", try: true) ?>
 </head>
-<body>
+<body class="font-sans antialiased grid-base min-h-screen">
 
-  <header class="header">
+  <header class="header p-4 w-full fixed bdr top-0 flex flex-col items-center justify-center">
     <?php
     /*
       We use `$site->url()` to create a link back to the homepage
@@ -60,12 +60,14 @@
       probably want to replace this with an SVG.
     */
     ?>
-    <a class="logo" href="<?= $site->url() ?>">
-      Benoit Mounier
-      <!--<?= $site->title()->esc() ?>-->
+
+
+    <a class="logo block" href="<?= $site->url() ?>">
+      <?= $site->title()->esc() ?>
     </a>
 
-    <nav class="menu">
+
+    <nav class="w-fit bdb flex flex-row gap-x-4">
       <?php
       /*
         In the menu, we only fetch listed pages,
@@ -82,9 +84,9 @@
       <?php foreach ($site->children()->listed() as $item): ?>
       <a <?php e($item->isOpen(), 'aria-current="page"') ?> href="<?= $item->url() ?>"><?= $item->title()->esc() ?></a>
       <?php endforeach ?>
-      <?php snippet('social') ?>
+      <!-- <?php snippet('social') ?>-->
     </nav>
   </header>
 
-  <main class="main" data-taxi>
-    <div data-taxi-view>
+  <main class="main h-full" data-taxi>
+    <div class="h-full" data-taxi-view>
