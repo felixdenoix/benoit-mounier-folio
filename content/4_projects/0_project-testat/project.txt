@@ -33,4 +33,8 @@ Nextproject: []
 
 ----
 
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://uyzmegpixpsaw2rn","file://ekitpix4kteu8nx3"]},"id":"03406c0a-3058-4489-ad3e-8cf0206816c8","isHidden":false,"type":"gallery-simple"}],"id":"1a864515-b1c2-4fc1-8217-a2aabe2b41ab","width":"2/3"},{"blocks":[{"content":{"medias":["file://uyzmegpixpsaw2rn"]},"id":"aba5a3ef-e265-433d-9472-d602b6705c67","isHidden":false,"type":"gallery-simple"}],"id":"f48a882a-2cd8-4aa2-9dbd-219bb03dbd7e","width":"1/3"}],"id":"6918e2cf-2bdb-4e1d-8ffa-0e43d7dd5c4b"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"title":"Test","subtitle":"Sous test"},"id":"653e0bfb-5ef9-4089-946c-dae20e02062b","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://ekitpix4kteu8nx3","file://uyzmegpixpsaw2rn"]},"id":"328994c5-a69b-4343-b421-0a0cadf79e11","isHidden":false,"type":"gallery-simple"}],"id":"6a4d4c3b-d993-4f7a-9209-d77d3bbf7976","width":"1/1"}],"id":"e4dcefa2-d28a-47a1-83e5-97df6e05174c"}]
+
+----
+
 Uuid: jgtfvyjkbmmmmr4g

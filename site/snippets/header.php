@@ -61,7 +61,6 @@
     */
     ?>
 
-
     <a class="logo block" href="<?= $site->url() ?>">
       <?= $site->title()->esc() ?>
     </a>

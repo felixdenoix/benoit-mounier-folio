@@ -1,0 +1,7 @@
+name: Title Gallery
+icon: headline
+fields:
+  title:
+    type: text
+  subtitle:
+    type: text
