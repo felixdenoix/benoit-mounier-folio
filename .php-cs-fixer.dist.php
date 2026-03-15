@@ -15,12 +15,11 @@ return (new Config())
         (new Finder())
             // 💡 root folder to check
             ->in(__DIR__)
-            ->exclude('kirby')      // Ignore Kirby core
             ->exclude('vendor')     // Ignore Composer dependencies
             ->exclude('node_modules')
             ->name('*.php')
             // 💡 additional files, eg bin entry file
-            // ->append([__DIR__.'/bin-entry-file'])
+            ->append([__DIR__.'/kirby/bootstrap.php'])
             // 💡 folders to exclude, if any
             // ->exclude([/* ... */])
             // 💡 path patterns to exclude, if any
@@ -30,3 +29,23 @@ return (new Config())
             ->ignoreVCS(true) // true by default
     )
 ;
+
+
+// $finder = PhpCsFixer\Finder::create()
+//     ->in(__DIR__)
+//     ->exclude('kirby')      // Ignore Kirby core
+//     ->exclude('vendor')     // Ignore Composer dependencies
+//     ->exclude('node_modules')
+//     ->name('*.php')
+//     ->ignoreDotFiles(true)
+//     ->ignoreVCS(true);
+
+// $config = new PhpCsFixer\Config();
+// return $config
+//     ->setRules([
+//         '@PSR12' => true,                 // Standard PHP rules
+//         'array_syntax' => ['syntax' => 'short'],
+//         'no_unused_imports' => true,
+//         'trailing_comma_in_multiline' => true,
+//     ])
+//     ->setFinder($finder);

@@ -11,8 +11,6 @@ icon: 🖼️
 image:
   query: "page.cover.isNotEmpty ? page.cover : page.images.first"
 
-num: zero
-
 # Page status can be limited, here to `draft` and `listed`.
 # More about page status: https://getkirby.com/docs/reference/panel/blueprints/page#statuses
 status:
@@ -59,7 +57,6 @@ columns:
         type: entries
         fields:
           - text
-
       nextProject:
         type: pages
         layout: cardlets
@@ -79,6 +76,7 @@ columns:
         fieldsets:
           - gallery-title
           - gallery-simple
+        preview: fields
         settings:
           fields:
             title:

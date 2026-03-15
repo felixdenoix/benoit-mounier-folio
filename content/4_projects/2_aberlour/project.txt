@@ -1,0 +1,33 @@
+Title: Aberlour
+
+----
+
+Cover: - 'file://kgaavkkwjzhxbhdh'
+
+----
+
+Headline: ABERLOUR
+
+----
+
+Subheadline: DISTILLERY
+
+----
+
+Text: <p><strong>Fondée en 1879, Aberlour est une distillerie Écossaise de whisky single malt appartenant au groupe Pernod Ricard.<br>Son image et sa communication sont oriantées sur la nature, le terroire et l’héritage.</strong></p><p><strong>Réalisations:</strong></p><ul><li><p><strong>Appel d'offre:<br></strong>Création de coffrets en bois de chêne, acajou et noyer pour 3 références de la collection: 10 ans, 12 ans et 15 ans d’ages.</p><p>Chaque coffret et marqué d’une gravure sur bois, inspiré du chêne, symbole d’Aberlour.</p></li></ul>
+
+----
+
+Dates: - '2016'
+
+----
+
+Nextproject: []
+
+----
+
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://kgaavkkwjzhxbhdh","file://zpf7jsnplpwikrve","file://epo9fqhbqbymw26h"]},"id":"5cf51dd3-8a84-4b65-8443-39c59f42ffd7","isHidden":false,"type":"gallery-simple"}],"id":"f713a23c-7eaa-4257-9939-294ee72869a1","width":"1/2"},{"blocks":[{"content":{"medias":["file://uvlyr6ncmke2tccb","file://b5ztsijgy9bzqdp9"]},"id":"017268d3-9ddc-4617-82b2-2cd8b6404147","isHidden":false,"type":"gallery-simple"}],"id":"81a74339-952e-4ec2-bfc3-fddca1ed16c5","width":"1/2"}],"id":"af940659-5ea8-4a47-813a-e1a60d0c393c"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://uvlyr6ncmke2tccb"]},"id":"63558ac3-6dca-4c54-b741-4a289e30ce3e","isHidden":false,"type":"gallery-simple"}],"id":"39ffc64e-d985-4b7b-bcde-18dc59018b69","width":"1/2"},{"blocks":[{"content":{"medias":["file://bwrvxhp21zgsljhp"]},"id":"0d7c0148-d65b-4fec-98f8-2bfda67237b3","isHidden":false,"type":"gallery-simple"}],"id":"cf2cdf30-4f94-476d-b0d4-d2ed62e1df50","width":"1/2"}],"id":"82235c98-380a-477c-bd25-012be502ba93"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://xequzyata2brpcbt"]},"id":"19643de9-80b8-4938-a2cf-9727603244a4","isHidden":false,"type":"gallery-simple"}],"id":"6b6ee743-cabc-46a1-9b15-7f07260aa533","width":"1/1"}],"id":"a7799923-e646-4267-8579-f4808c3f87c4"}]
+
+----
+
+Uuid: 70tyokk4i69cxzzm

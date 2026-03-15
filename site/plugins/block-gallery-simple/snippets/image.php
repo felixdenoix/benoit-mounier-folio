@@ -1,17 +1,16 @@
 <?php
 
 $attrs = attr([
-  'data-lightbox' => $lightbox ?? false,
   'href'          => $href     ?? $src,
 ]);
 
 ?>
+
 <img
-  src="<?= esc($src, 'attr') ?>"
-  alt="<?= esc($alt, 'attr') ?>"
-  class="<?= esc($class, 'attr') ?>"
-  style="
+src="<?= esc($src, 'attr') ?>"
+alt="<?= esc($alt, 'attr') ?>"
+style="
     aspect-ratio: <?= $ratio ?? 'auto' ?>;
     object-fit: <?= ($contain ?? false) ? 'contain' : 'cover' ?>
-  "
+"
 >

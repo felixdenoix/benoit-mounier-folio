@@ -1,0 +1,38 @@
+Title:
+
+8⋅6
+
+----
+
+Cover: - 'file://ekitpix4kteu8nx3'
+
+----
+
+Headline: 8•6
+
+----
+
+Subheadline: INTENSE BEER
+
+----
+
+Text: <p><strong>La 8.6, bière du groupe Bavaria puis Royal Swinkels, arrive sur le marché français en 1993. Reconnue à la fois pour son format 50cl et pour son titre alcoolique élevé, elle fait figure de pionnière dans le domaine des bières forte. Le caractère de la marque est représenté par un univers impactant et brut.</strong></p><p><strong>Réalisations</strong></p><ul><li><p><strong>Communication institutionnelle:</strong> campagnes de communication nationale &amp; internationale, affichage, annonces presses, bannières web...</p></li><li><p><strong>Identité visuelle:</strong> refonte graphique, logotype, charte graphique...</p></li><li><p><strong>Packaging:</strong> design des cannettes/bouteilles, packs multi formats, packs énènementiel.</p></li><li><p><strong>Signalétique:</strong> habillages camions, bars éphémères, box de vente, kakemonos, étiquettes BRI...</p></li></ul>
+
+----
+
+Dates:
+
+- '2014'
+- "Aujoud'hui"
+
+----
+
+Nextproject: []
+
+----
+
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://ksgyk3yjmfxyywzy"]},"id":"888bc37c-58a8-4426-b70b-5165f8e31883","isHidden":false,"type":"gallery-simple"},{"content":{"title":"campagne d'affichage","subtitle":""},"id":"f3701ee1-30ae-43e8-bbe2-8d0f6af411a6","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://k48kqo1qmkbexzlu","file://lzzrbimclxmeqblp","file://dbypitikz2cwq8dm","file://cq0a8hm0nvp8weqb","file://s0yctqgivgzisxf8"]},"id":"c4783499-ab51-4561-a705-7d2acd2be05c","isHidden":false,"type":"gallery-simple"},{"content":{"title":"ÉVÈNEMENTIEL","subtitle":"8.6 X MONDIAL DU TATTOUAGE"},"id":"afb13cd1-6f55-4ecc-aac3-92b42288ae3e","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://7mbcqyitzmjktaa6","file://3kmnbk9xddoahjmr","file://odkpfgzx9hzudarb","file://gnsdmbi03li0ny1j","file://5xm84pofoei7vkpy","file://hwaqrzhnmbg4v8kh"]},"id":"2062c669-51a7-42da-88bc-a0ea08613747","isHidden":false,"type":"gallery-simple"},{"content":{"title":"8.6 X ROCK EN SEINE","subtitle":""},"id":"b2eae93b-a841-43a6-b263-cf4f52041319","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://8rru2ox2gsxi3xfj"]},"id":"9b567abe-1327-4ba5-aa34-8339a635d18d","isHidden":false,"type":"gallery-simple"},{"content":{"title":"PACKS 8.6 STANDARDS, BOX & PLV","subtitle":""},"id":"ad563bf1-8e65-40e4-add0-92da926e11a1","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://cb99kf7hgitxghcn","file://2a0hpnrudjl5bjzv"]},"id":"8a1c9345-a252-402b-be90-da06b3661a91","isHidden":false,"type":"gallery-simple"},{"content":{"title":"EXTRAIT BRAND BOOK/PARTNER BOOK","subtitle":""},"id":"30004e92-1f9c-4a1b-bd39-bd843826acb1","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://7o6ccee0yqoadg75"]},"id":"71e81a3e-266c-4afb-9a32-0f4866001514","isHidden":false,"type":"gallery-simple"}],"id":"72de69d1-73a4-4297-b281-38abaa0c5e8a","width":"1/1"}],"id":"f0276a90-f8a2-4608-9ae4-d24c1b08bcf1"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://qao3sxgf1ezrcbmg"]},"id":"dc685697-1007-42c3-b776-6b973e0476e9","isHidden":false,"type":"gallery-simple"}],"id":"02f60c51-7583-41d3-8213-726b36948cd0","width":"1/2"},{"blocks":[{"content":{"medias":["file://hwi4q11pjmgd3x5j"]},"id":"476efbc5-8c70-4755-aa41-51fbdbaa4775","isHidden":false,"type":"gallery-simple"}],"id":"aea013f4-2995-41f5-97ac-61ec2f9d75ee","width":"1/2"}],"id":"3cf376b7-dbaf-4db8-bb25-ad21fec82819"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://lqm95ekl91ni4rpp","file://kszodpcosmm5otrb"]},"id":"ef289b66-07f0-4d0d-841b-1ec205cca0af","isHidden":false,"type":"gallery-simple"}],"id":"593a5c58-52ba-4ec6-b002-492a7bb1fe8c","width":"1/1"}],"id":"5aa41859-acb9-4c7e-a593-83a0282eb406"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://euner53dhp0gnk5s"]},"id":"f7f115bd-5c0b-4a10-a9aa-bafb5a7fad49","isHidden":false,"type":"gallery-simple"}],"id":"b49f949e-f624-4fc7-a509-5cbf30fcd6ac","width":"1/2"},{"blocks":[{"content":{"medias":["file://pundjws5lcfrkygj","file://fhxaxlnpspehdfef"]},"id":"2174f5a2-944a-46bc-9f84-37d0ad30b979","isHidden":false,"type":"gallery-simple"}],"id":"30670adf-31db-4132-b8ff-ad5462a068c1","width":"1/2"}],"id":"9cbd0ceb-ac82-488d-8fd1-4403821e9078"}]
+
+----
+
+Uuid: jgtfvyjkbmmmmr4g

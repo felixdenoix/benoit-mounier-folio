@@ -6,10 +6,6 @@ Alt:
 
 ----
 
-Photographer: 
-
-----
-
 License: 
 
 ----
@@ -18,11 +14,11 @@ Link:
 
 ----
 
-Sort: 1
+Sort: 17
 
 ----
 
-Uuid: uyzmegpixpsaw2rn
+Uuid: 8rru2ox2gsxi3xfj
 
 ----
 

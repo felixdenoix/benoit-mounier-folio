@@ -3,6 +3,19 @@
 @source "../../site/..";
 @source not "../../vendor";
 
+/* https://vite.dev/guide/assets#importing-asset-as-url Common image, media, and font filetypes are detected as assets automatically. You can extend the internal list using the assetsInclude option.*/
+@font-face {
+  font-family: "Codec Pro";
+  src:
+    url("/assets/fonts/CodecProVariableGX.ttf") format("truetype")
+      tech("variations"),
+    url("/assets/fonts/CodecProVariableGX.ttf") format("truetype-variations"),
+    url("/assets/fonts/CodecProVariableGX.ttf") format("truetype");
+  font-weight: 38 682;
+  /*font-feature-settings: "frac" on;*/
+  font-display: swap;
+}
+
 :root {
   /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,22,1.414,4,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
@@ -31,6 +44,9 @@
 
   --breakpoint-3xl: 120rem;
 
+  --codec-pro-variable-wght: 38;
+  --codec-pro-variable-ital: 100;
+
   --text-xs: var(--step--2);
   --text-xs--line-height: calc(1.25 / 0.875);
   --text-sm: var(--step--1);
@@ -52,9 +68,30 @@
 
   --color-gray-title: rgb(45 45 45);
   --color-gray-text: rgb(60 60 60);
+  --color-gray-primary: rgb(60 60 60);
 
   --grid-max-width: 82rem;
-  --grid-columns: 8;
+  --grid-columns: repeat(12, minmax(0, 1fr));
+
+  --header-height: 78px;
+
+  --grid-padding: calc(2.5 * var(--spacing));
+  --spacing-grid-padding: var(--grid-padding);
+
+  --font-weight-thin: 38;
+  --font-weight-extralight: 77;
+  --font-weight-light: 118;
+  --font-weight-news: 157;
+  --font-weight-normal: 177;
+  --font-weight-regular: 177;
+  --font-weight-medium: 200;
+  --font-weight-bold: 249;
+  --font-weight-extrabold: 317;
+  --font-weight-heavy: 377;
+  --font-weight-ultra: 484;
+  --font-weight-ultrablack: 593;
+  --font-weight-fat: 682;
+  --font-weight-black: 682;
 }
 
 @layer base {
@@ -65,13 +102,28 @@
     @apply text-gray-text;
   }
 
+  body {
+    scrollbar-gutter: stable;
+    /* ensure browser does not generate missing weights in font family */
+    font-synthesis-weight: none;
+    font-weight: var(--font-weight-normal);
+  }
+
   a {
     color: black;
   }
 
   @variant md {
     :root {
-      --grid-columns: 12;
+      --grid-columns: repeat(12, minmax(0, 1fr));
+      --header-height: 78px;
+      --grid-padding: calc(4 * var(--spacing));
+    }
+  }
+
+  @variant lg {
+    :root {
+      --grid-padding: calc(6 * var(--spacing));
     }
   }
 
@@ -79,11 +131,15 @@
     max-width: 100%;
     overflow: scroll;
   }
+
+  strong {
+    font-weight: var(--font-weight-extrabold);
+  }
 }
 
 @layer components {
   .base-grid {
-    @apply grid grid-cols-(--grid-columns);
+    @apply grid grid-cols-(--grid-columns) px-2.5 md:px-4 lg:px-6 max-w-(--grid-max-width) mx-auto gap-2.5 md:gap-4 lg:gap-6;
   }
 
   .sub-grid {
@@ -95,10 +151,22 @@
       position: absolute;
       inset: 0;
       content: "";
-      background-color: rgb(255 0 0 / 0.1);
       z-index: -1;
     }
   }
+
+  .link {
+  }
+}
+
+.grid-padding {
+  @apply p-grid-padding;
+}
+.grid-padding-x {
+  @apply px-grid-padding;
+}
+.grid-padding-y {
+  @apply py-grid-padding;
 }
 
 .bd {
@@ -116,3 +184,73 @@
 .bdb {
   border: 1px solid blue;
 }
+
+.bdo {
+  border: 1px solid orange;
+}
+
+/* Classes to apply the variable instances */
+.codec-pro-variable-italic {
+  --codec-pro-variable-ital: 1000;
+}
+
+.codec-pro-variable-thin {
+  --codec-pro-variable-wght: 38;
+}
+
+.codec-pro-variable-extralight {
+  --codec-pro-variable-wght: 77;
+}
+
+.codec-pro-variable-light {
+  --codec-pro-variable-wght: 118;
+}
+
+.codec-pro-variable-news {
+  --codec-pro-variable-wght: 157;
+}
+
+.codec-pro-variable-regular {
+  --codec-pro-variable-wght: 177;
+}
+
+.codec-pro-variable-bold {
+  --codec-pro-variable-wght: 249;
+}
+
+.codec-pro-variable-extrabold {
+  --codec-pro-variable-wght: 317;
+}
+
+.codec-pro-variable-heavy {
+  --codec-pro-variable-wght: 377;
+}
+
+.codec-pro-variable-ultra {
+  --codec-pro-variable-wght: 484;
+}
+
+.codec-pro-variable-ultrablack {
+  --codec-pro-variable-wght: 593;
+}
+
+.codec-pro-variable-fat {
+  --codec-pro-variable-wght: 682;
+}
+
+/* Apply the variable axes set by the classes */
+/*.font-italic,
+.font-thin,
+.font-extralight,
+.font-light,
+.font-news,
+.font-regular,
+.font-bold,
+.font-extrabold,
+.font-heavy,
+.font-ultra,
+.font-ultrablack,
+.font-fat {
+  font-weight: var(--codec-pro-variable-wght);
+  font-variation-settings: "ital" var(--codec-pro-variable-ital);
+}*/

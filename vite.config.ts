@@ -1,6 +1,6 @@
 import { resolve } from "path";
 import { defineConfig, type UserConfig } from "vite";
-import uFonts from "unplugin-fonts/vite";
+import { fontless } from "fontless";
 import tailwindcss from "@tailwindcss/vite";
 import kirby from "vite-plugin-kirby";
 
@@ -49,15 +49,23 @@ export default defineConfig(({ mode }) => {
     },
 
     plugins: [
-      uFonts({
-        custom: {
-          families: [
-            {
-              name: "Codec Pro",
-              local: "Codec Pro",
-              src: "./src/assets/fonts/Codec/*.ttf",
-            },
-          ],
+      fontless({
+        families: [
+          {
+            name: "Codec Pro",
+            src: [
+              {
+                url: "/assets/fonts/CodecProVariableGX.ttf",
+                format: "truetype-variations",
+              },
+            ],
+            weight: "38 682",
+          },
+        ],
+        defaults: {
+          preload: true,
+          subsets: ["latin-extended"],
+          formats: ["woff2", "ttf"],
         },
       }),
       tailwindcss(),

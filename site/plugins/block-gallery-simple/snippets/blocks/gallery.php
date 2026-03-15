@@ -1,17 +1,18 @@
 <?php
 /** @var \Kirby\Cms\Block $block */
 ?>
-<div class="gallery-simple">
+<figure class="gallery">
   <ul>
-    <?php foreach ($block->medias()->toFiles() as $image): ?>
+    <?php foreach ($block->images()->toFiles() as $image): ?>
     <li>
       <?php snippet('image', [
         'alt'      => $image->alt(),
         'contain'  => $block->crop()->isTrue(),
+        'lightbox' => true,
         'ratio'    => $block->ratio()->or('auto'),
         'src'      => $image->url(),
       ]) ?>
     </li>
     <?php endforeach ?>
   </ul>
-</div>
+</figure>

@@ -12,8 +12,10 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="grid">
+  <footer class="footer pt-16 px-grid-padding pb-grid-padding base-grid">
+    <div class="col-span-full flex justify-between">
+      <a class="bloc link [text-box-trim:trim-both]" href="">mentions légales</a>
+      <a class="bloc link [text-box-trim:trim-both]" href="https://felixdenoix.fr">site par</a>
     </div>
   </footer>
 

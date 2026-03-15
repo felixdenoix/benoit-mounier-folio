@@ -10,9 +10,6 @@
     "phpactor": {
       "settings": {
         "phpactor.php_cs_fixer.executable": "vendor/bin/php-cs-fixer",
-        "phpactor.lsp.phpactor_lsp_server.indexing_paths": [
-          "/home/felix/_code/benoit/benoit-mounier-folio/vendor",
-        ],
       },
     },
   },
