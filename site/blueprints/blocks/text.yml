@@ -1,0 +1,16 @@
+name: field.blocks.text.name
+icon: text
+wysiwyg: true
+preview: text
+fields:
+  text:
+    type: writer
+    marks:
+      - italic
+      - bold
+      - email
+      - link
+    nodes: false
+    placeholder: field.blocks.text.placeholder
+    toolbar:
+      inline: false

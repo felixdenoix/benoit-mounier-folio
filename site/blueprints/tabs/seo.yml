@@ -1,0 +1,5 @@
+icon: search
+label: SEO
+sections:
+  seo:
+    extends: sections/seo

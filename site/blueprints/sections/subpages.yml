@@ -1,0 +1,12 @@
+type: fields
+label: Sub-pages
+
+fields:
+  drafts:
+    type: pages
+    extends: sections/editorial
+    label: Sub-pages Draft
+  listed:
+    type: pages
+    extends: sections/editorial
+    label: Published Sub-pages

@@ -1,0 +1,26 @@
+type: fields
+label: SEO
+
+fields:
+  pageLinkLabel:
+    labe: Link label
+    help: label for the page when appearing in menu.
+    type: text
+  seoTitle:
+    label: SEO Title
+    type: text
+  seoDescription:
+    label: SEO Description
+    type: textarea
+    size: small
+    maxLength: 250
+    buttons: false
+    files: false
+  seoImage:
+    label: SEO Image
+    type: files
+    multiple: false
+    template: image
+    size: small
+    create:
+      width: 1200

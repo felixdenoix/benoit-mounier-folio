@@ -96,7 +96,7 @@ columns:
         template: image
         info: "{{ file.dimensions }}"
         image:
-          ratio: 5/4
+          ratio: 1
           cover: true
         min: 1
         size: small
