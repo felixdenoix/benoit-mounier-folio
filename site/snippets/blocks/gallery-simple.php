@@ -11,7 +11,7 @@
         'contain'  => $block->crop()->isTrue(),
         'ratio'    => $block->ratio()->or('auto'),
         'src'      => $image->url(),
-        'class'    => 'h-full'
+        'class'    => 'h-full w-full'
       ]) ?>
     </li>
     <?php endforeach ?>

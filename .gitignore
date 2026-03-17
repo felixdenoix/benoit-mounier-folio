@@ -95,3 +95,5 @@ dist-ssr
 
 # Php linter
 .php-cs-fixer.cache
+
+.dev

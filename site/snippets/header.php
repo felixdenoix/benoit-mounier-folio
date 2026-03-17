@@ -24,7 +24,31 @@
     site and the title of the current page
   */
   ?>
+  <?php if (isset($seo)): ?>
+  <title><?= $site->title()->esc() ?> | <?= $seo->title()->esc() ?></title>
+  <?php else: ?>
   <title><?= $site->title()->esc() ?> | <?= $page->title()->esc() ?></title>
+  <?php endif ?>
+
+  <!-- Open Graph Basic Tags -->
+  <meta property="og:url" content="<?= $page->url() ?>">
+  <meta property="og:type" content="website">
+  <?php if (isset($seo)): ?>
+  <meta property="og:title" content="<?= $seo->title()->esc() ?> | <?= $site->title()->esc() ?>">
+  <?php else: ?>
+  <meta property="og:title" content="<?= $page->title()->esc() ?> | <?= $site->title()->esc() ?>">
+  <?php endif ?>
+
+  <!-- SEO Description -->
+  <?php if (isset($seo) && $seo->description()->isNotEmpty()): ?>
+  <meta name="description" content="<?= $seo->description()->html() ?>">
+  <meta property="og:description" content="<?= $seo->description()->html() ?>">
+  <?php endif ?>
+
+  <!-- SEO Image (Open Graph) -->
+  <?php if (isset($seo) && $seo->image()): ?>
+  <meta property="og:image" content="<?= $seo->image()->url() ?>">
+  <?php endif ?>
 
   <?php
   /*
@@ -49,6 +73,7 @@
   ?>
   <link rel="shortcut icon" type="image/x-icon" href="<?= url('favicon.ico') ?>">
   <?= vite()->css("styles/index.css", try: true) ?>
+   <?= vite()->css("styles/templates/" . $page->template() . ".css", try: true) ?>
 </head>
 <body class="font-sans antialiased grid-base min-h-screen">
 
