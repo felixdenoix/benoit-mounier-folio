@@ -1,7 +1,7 @@
 <?php
 /** @var Kirby\Cms\Page $page */
 ?>
-<?php snippet('header') ?>
+<?php snippet('header', ['seo' => $page->seo()]) ?>
 
 <article class="project base-grid mt-40 mb-24">
   <header class="project header block col-span-full row-span-1 grid place-items-center text-black mb-26">

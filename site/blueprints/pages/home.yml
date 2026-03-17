@@ -11,26 +11,48 @@ options:
   changeStatus: false
 
 # Here we define an info section and a pages section (`photography`)
-sections:
+tabs:
   content:
-    type: fields
-    fields:
-      menuTitle:
-        type: text
-      headline:
-        type: text
-        width: 1/2
-      gap:
-        width: 1/2
-      subheadline:
-        type: text
-        width: 1/2
+    icon: palette
+    sections:
+      content:
+        type: fields
+        fields:
+          headline:
+            type: text
+            width: 1/2
+          gap:
+            width: 1/2
+          subheadline:
+            type: text
+            width: 1/2
+          intro:
+            type: structure
+            fields:
+              images:
+                type: files
+              mode:
+                type: select
+                options:
+                  simple: Simple
+                  meet: Merge
+              background:
+                type: color
+                alpha: true
+          hiatus:
+            type: textarea
+            size: small
+            files: false
+            buttons:
+              - bold
+          callToAction:
+            type: structure
+            fields:
+              label:
+                type: text
+              projects:
+                type: pages
+                query: site.children.published
 
-  # The photography section extends a pages section defined in the `/site/blueprints/section/album.yml` blueprint
-  # More about reusing and extending sections: https://getkirby.com/docs/guide/blueprints/extending-blueprints#reusing-and-extending-sectionss
-  photography:
-    label: Photography
-    extends: sections/albums
-    status: listed
-    size: small
-    help: All projects for the homepage are being pulled from the photography page.
+  seo:
+    extends: tabs/seo

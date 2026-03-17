@@ -35,4 +35,20 @@ Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"con
 
 ----
 
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: - 'file://ksgyk3yjmfxyywzy'
+
+----
+
 Uuid: jgtfvyjkbmmmmr4g

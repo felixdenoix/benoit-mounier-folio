@@ -21,7 +21,7 @@
   More about templates: https://getkirby.com/docs/guide/templates/basics
 */
 ?>
-<?php snippet('header') ?>
+<?php snippet('header', ['seo' => $page->seo()]) ?>
 
 <header class="heading mt-20 bdb p-20 grid place-items-center">
   <h1 class="text-3xl font-bold">PROJETS</h1>

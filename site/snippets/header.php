@@ -113,4 +113,7 @@
   </header>
 
   <main class="main h-full" data-taxi>
-    <div class="h-full" data-taxi-view>
+    <div class="h-full" data-taxi-view
+         data-title="<?= isset($seo) ? $site->title()->esc() . ' | ' . $seo->title()->esc() : $site->title()->esc() . ' | ' . $page->title()->esc() ?>"
+         data-description="<?= (isset($seo) && $seo->description()->isNotEmpty()) ? $seo->description()->html() : '' ?>"
+         data-image="<?= (isset($seo) && $seo->image()) ? $seo->image()->url() : '' ?>">

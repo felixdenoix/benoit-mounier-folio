@@ -19,7 +19,7 @@
 */
 
 ?>
-<?php snippet('header') ?>
+<?php snippet('header', ['seo' => $page->seo()]) ?>
   <?php snippet('intro') ?>
   <?php
   /*

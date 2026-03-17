@@ -1,26 +1,26 @@
-# Each page blueprint must have a title, the title may be different from the file name
 title: Projects
-
-# Each page can have an icon that is shown in page listings when no preview image is available.
 icon: 💼
 
-# Page options allow you to control how users can interact with the page.
-# Here we prevent changing the page status (the home page cannot be renamed or deleted by default)
-# More about page options: https://getkirby.com/docs/reference/panel/blueprints/page#options
 options:
   changeStatus: false
 
-preset: pages
-
-drafts:
-  extends: sections/projects
-  label: Project Drafts
-
-listed:
-  extends: sections/projects
-  label: Published Projects
-  layout: cards
-  image:
-    query: page.images.template("cover").first
-    ratio: 3/2
-    cover: true
+tabs:
+  content:
+    label: Projects
+    icon: folder
+    sections:
+      drafts:
+        extends: sections/projects
+        status: draft
+        label: Project Drafts
+      listed:
+        extends: sections/projects
+        status: listed
+        label: Published Projects
+        layout: cards
+        image:
+          query: page.images.template("cover").first
+          ratio: 3/2
+          cover: true
+  seo:
+    extends: tabs/seo
