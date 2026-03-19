@@ -17,10 +17,10 @@ return function ($page) {
      * More about collections:
      * https://getkirby.com/docs/guide/templates/collections
      */
-    $notes = collection('projects');
+    $projects = collection('projects');
 
     return [
-        'entries' => $notes->paginate(6)
+        'entries' => $projects
     ];
 
 };

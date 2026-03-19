@@ -31,8 +31,12 @@ tabs:
             fields:
               images:
                 type: files
+              backgroundImage:
+                type: files
+                multiple: false
               mode:
                 type: select
+                required: true
                 options:
                   simple: Simple
                   meet: Merge
@@ -50,9 +54,12 @@ tabs:
             fields:
               label:
                 type: text
+                required: true
               projects:
                 type: pages
                 query: site.children.published
+                min: 1
+                required: true
 
   seo:
     extends: tabs/seo

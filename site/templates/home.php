@@ -20,7 +20,44 @@
 
 ?>
 <?php snippet('header', ['seo' => $page->seo()]) ?>
-  <?php snippet('intro') ?>
+
+<div class="intro mt-40 bdr">
+
+  <?php
+  // using the `toStructure()` method, we create a structure collection
+  $items = $page->intro()->toStructure();
+  // we can then loop through the entries and render the individual fields
+  foreach ($items as $item): ?>
+  <div class="bdo bg-(--bgc)" style="--bgc:<?= $item->background() ?>">
+    <pre>
+      mode: <?= $item->mode() ?>
+    </pre>
+
+    <?php foreach ($item->images()->toFiles() as $image): ?>
+      <img src="<?= $image->crop(400)->url() ?>">
+    <?php endforeach ?>
+  </div>
+  <?php endforeach ?>
+</div>
+
+<div class="hiatus mt-40 grid place-items-center bdr min-h-screen p-grid-padding">
+  <?= $page->hiatus()->kirbyText() ?>
+</div>
+
+<div class="bdg min-h-screen call-to-action mt-40 flex flex-col items-center justify-center gap-4">
+
+  <?php
+  // using the `toStructure()` method, we create a structure collection
+  $items = $page->callToAction()->toStructure();
+  // we can then loop through the entries and render the individual fields
+  foreach ($items as $item): ?>
+    <a class="bdb block p-4" href="<?= $item->projects()->random()->toPage()->url() ?>">
+      <?= $item->label() ?>
+    </a>
+  <?php endforeach ?>
+</div>
+
+
   <?php
   /*
     We always use an if-statement to check if a page exists to
@@ -29,33 +66,5 @@
   */
   ?>
   <?php if ($photographyPage = page('photography')): ?>
-  <ul class="home-grid">
-    <?php foreach ($photographyPage->children()->listed() as $album): ?>
-    <li>
-      <a href="<?= $album->url() ?>">
-        <figure>
-          <?php
-          /*
-            The `cover()` method defined in the `album.php`
-            page model can be used everywhere across the site
-            for this type of page
-
-            We can automatically resize images to a useful
-            size with Kirby's built-in image manipulation API
-          */
-          ?>
-          <?php if ($cover = $album->cover()): ?>
-          <img src="<?= $cover->resize(1024, 1024)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
-          <?php endif ?>
-          <figcaption>
-            <span>
-              <span class="example-name"><?= $album->title()->esc() ?></span>
-            </span>
-          </figcaption>
-        </figure>
-      </a>
-    </li>
-    <?php endforeach ?>
-  </ul>
   <?php endif ?>
 <?php snippet('footer') ?>

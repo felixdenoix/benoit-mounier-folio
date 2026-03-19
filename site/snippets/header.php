@@ -77,7 +77,7 @@
 </head>
 <body class="font-sans antialiased grid-base min-h-screen">
 
-  <header class="header p-4 w-full fixed bdr top-0 flex flex-col items-center justify-center bg-white shadow z-1">
+  <header class="header p-4 w-full fixed top-0 flex flex-col items-center justify-center bg-white shadow z-1">
     <?php
     /*
       We use `$site->url()` to create a link back to the homepage

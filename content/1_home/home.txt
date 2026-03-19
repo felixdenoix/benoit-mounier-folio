@@ -1,0 +1,65 @@
+Title: Home
+
+----
+
+Headline: Welcome to Kirby's Starterkit
+
+----
+
+Subheadline: A fully documented example project
+
+----
+
+Intro:
+
+-
+  images:
+    - 'file://8jo9ftwie66s2wup'
+    - 'file://clvyi5kvhpisryml'
+  mode: meet
+  background: '#32323270'
+-
+  images:
+    - 'file://umunumtwck6lrhas'
+  mode: simple
+  background: ''
+
+----
+
+Hiatus:
+
+GRAPHISTE FREELANCE DEPUIS 2013 À PARIS, JE SUIS SPÉCIALISÉ DANS LE **PRINT** ET **L’ILLUSTRATION**.
+J’INTERVIENS SUR LA **CONCEPTION CRÉATIVE** ET LE **DÉVELOPPEMENT VISUEL** DE PROJETS VARIÉS, AVEC UNE APPROCHE SUR MESURE, ALLIANT CRÉATIVITÉ, COHÉRENCES ET SENS DU DÉTAIL.
+
+----
+
+Calltoaction:
+
+-
+  label: spiritueux
+  projects:
+    - 'page://70tyokk4i69cxzzm'
+-
+  label: illustration
+  projects:
+    - 'page://qbpjaiv5qyfvylyp'
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
+Uuid: wljMYhm0m3e9QOwC
