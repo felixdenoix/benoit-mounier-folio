@@ -50,3 +50,5 @@ jobs:
             composer.lock
             .phpactor.json
             .php-cs-ficer.dist.php
+            src/**
+            .husky/**
