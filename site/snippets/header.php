@@ -86,12 +86,14 @@
     */
     ?>
 
-    <a class="logo block" href="<?= $site->url() ?>">
+    <a
+      class="logo block"
+      href="<?= $site->url() ?>">
       <?= $site->title()->esc() ?>
     </a>
 
 
-    <nav class="w-fit bdb flex flex-row gap-x-4">
+    <nav class="w-fit flex flex-row gap-x-4">
       <?php
       /*
         In the menu, we only fetch listed pages,
@@ -106,14 +108,21 @@
       */
       ?>
       <?php foreach ($site->children()->listed() as $item): ?>
-      <a <?php e($item->isOpen(), 'aria-current="page"') ?> href="<?= $item->url() ?>"><?= $item->title()->esc() ?></a>
+      <a
+        class="uppercase header-link header-link-hover block text-[1.1rem]"
+        <?php e($item->isOpen(), 'data-current aria-current="page"') ?>
+        href="<?= $item->url() ?>"><?= $item->title()->esc() ?>
+      </a>
       <?php endforeach ?>
-      <!-- <?php snippet('social') ?>-->
     </nav>
   </header>
 
-  <main class="main h-full" data-taxi>
-    <div class="h-full" data-taxi-view
-         data-title="<?= isset($seo) ? $site->title()->esc() . ' | ' . $seo->title()->esc() : $site->title()->esc() . ' | ' . $page->title()->esc() ?>"
-         data-description="<?= (isset($seo) && $seo->description()->isNotEmpty()) ? $seo->description()->html() : '' ?>"
-         data-image="<?= (isset($seo) && $seo->image()) ? $seo->image()->url() : '' ?>">
+  <main
+    class="main h-full"
+    data-taxi>
+    <div
+      class="h-full"
+      data-taxi-view
+      data-title="<?= isset($seo) ? $site->title()->esc() . ' | ' . $seo->title()->esc() : $site->title()->esc() . ' | ' . $page->title()->esc() ?>"
+      data-description="<?= (isset($seo) && $seo->description()->isNotEmpty()) ? $seo->description()->html() : '' ?>"
+      data-image="<?= (isset($seo) && $seo->image()) ? $seo->image()->url() : '' ?>">

@@ -23,18 +23,27 @@
 ?>
 <?php snippet('header', ['seo' => $page->seo()]) ?>
 
-<header class="heading mt-20 bdb p-20 grid place-items-center">
+<header class="heading mt-20 p-20 grid place-items-center">
   <h1 class="text-3xl font-bold">PROJETS</h1>
 </header>
 
-<ul style="--row-height: calc(100%/3);" class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group">
+<ul
+  style="--row-height: calc(100%/3);"
+  class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group">
 
   <?php foreach($entries as $project):?>
-    <li class="col-span-1 grid place-content-center aspect-3/2 relative place-items-center group-has-[:hover]:*:blur-xs hover:*:blur-none hover:*:scale-101 overflow-hidden transition">
-      <img class="absolute h-full w-full inset-0 object-cover object-center scale-103 transition" src="<?= $project->cover()->url();?>" alt="">
-      <a href="<?= $project->url()?>" class="opacity-0 hover:opacity-100 text-shadow-lg text-shadow-black/10 transition block z-1 font-bold text-white text-xl link-after-fill after:bg-gray-800/20">
+    <li class="col-span-1 grid place-content-center aspect-3/2 relative place-items-stretch group-has-[:hover]:*:blur-xs hover:*:blur-none hover:*:scale-101 overflow-hidden transition duration-750 ease-projects relative">
+
+      <img
+        class="absolute h-full w-full inset-0 -z-1 object-cover object-center scale-102 duration-400 ease-projects transition"
+        src="<?= $project->cover()->url();?>" alt="">
+
+      <a
+        href="<?= $project->url()?>"
+        class="inset-0 block font-bold text-white text-xl z-10 absolute">
         <span class="sr-only"><?= $project->title()?></span>
       </a>
+
     </li>
   <?php endforeach ?>
 
