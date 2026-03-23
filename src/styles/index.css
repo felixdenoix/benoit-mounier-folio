@@ -47,6 +47,14 @@
   --codec-pro-variable-wght: 38;
   --codec-pro-variable-ital: 100;
 
+  /*
+  USED FOR REFERENCE
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;*/
+
   --text-xs: var(--step--2);
   --text-xs--line-height: calc(1.25 / 0.875);
   --text-sm: var(--step--1);

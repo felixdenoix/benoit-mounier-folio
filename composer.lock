@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ecc916482d4415a8fecd3436cd07341a",
+    "content-hash": "299b197f6901263099d9eda1dd5ac090",
     "packages": [
         {
             "name": "arnoson/kirby-vite",
@@ -1960,6 +1960,79 @@
                 }
             ],
             "time": "2026-02-09T09:33:46+00:00"
+        },
+        {
+            "name": "timnarr/kirby-imagex",
+            "version": "0.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/timnarr/kirby-imagex.git",
+                "reference": "cd0fbabd17fef6cbb540a94b4d4b489efb4d2090"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/timnarr/kirby-imagex/zipball/cd0fbabd17fef6cbb540a94b4d4b489efb4d2090",
+                "reference": "cd0fbabd17fef6cbb540a94b4d4b489efb4d2090",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "getkirby/cms": "^4.0",
+                "phpunit/phpunit": "^10.5"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "kirby-cms-path": false
+            },
+            "autoload": {
+                "files": [
+                    "helpers/aspectRatio.php",
+                    "helpers/attributes.php",
+                    "helpers/misc.php",
+                    "helpers/srcset.php"
+                ],
+                "psr-4": {
+                    "TimNarr\\": [
+                        "classes/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Narr",
+                    "email": "dev@tim-narr.com",
+                    "homepage": "https://tim-narr.com"
+                }
+            ],
+            "description": "Modern images for Kirby CMS – This plugin helps you orchestrate modern, responsive and performant images in Kirby",
+            "homepage": "https://github.com/timnarr/kirby-imagex",
+            "keywords": [
+                "images",
+                "kirby",
+                "kirby-cms",
+                "kirby-plugin",
+                "modern-images",
+                "responsive-images"
+            ],
+            "support": {
+                "issues": "https://github.com/timnarr/kirby-imagex/issues",
+                "source": "https://github.com/timnarr/kirby-imagex/tree/0.1.4"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/tim.n",
+                    "type": "custom"
+                }
+            ],
+            "time": "2025-05-28T07:11:17+00:00"
         }
     ],
     "packages-dev": [
@@ -4190,7 +4263,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+        "php": "~8.3.0 || ~8.4.0 || ~8.5.0"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"

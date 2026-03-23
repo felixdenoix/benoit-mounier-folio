@@ -12,9 +12,9 @@
     </div>
   </main>
 
-  <footer class="footer pt-16 px-grid-padding pb-grid-padding base-grid">
+  <footer class="footer box-border block pt-16 px-grid-padding pb-grid-padding base-grid">
     <div class="col-span-full flex justify-between">
-      <a class="bloc link [text-box-trim:trim-both]" href="">mentions légales</a>
+      <a class="bloc link [text-box-trim:trim-both]" href="<?= page('mentions-legales')?->url()?>">mentions légales</a>
       <a class="bloc link [text-box-trim:trim-both]" href="https://felixdenoix.fr">site par</a>
     </div>
   </footer>
@@ -28,6 +28,6 @@
   ]) ?>
   <!--https://getkirby.com/docs/reference/templates/helpers/js#examples__autoloading-template-specific-script-files-->
 
-  <?= vite()->js("index.ts", ['async' => true, 'defer' => true], try: true) ?>
+  <?= vite()->js("index.ts", ['async' => true], try: true) ?>
 </body>
 </html>

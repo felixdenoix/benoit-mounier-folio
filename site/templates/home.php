@@ -21,7 +21,7 @@
 ?>
 <?php snippet('header', ['seo' => $page->seo()]) ?>
 
-<div class="intro mt-40 bdr">
+<div class="intro pb-40 bdr">
 
   <?php
   // using the `toStructure()` method, we create a structure collection

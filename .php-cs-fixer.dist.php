@@ -17,6 +17,7 @@ return (new Config())
             ->in(__DIR__)
             ->exclude('vendor')     // Ignore Composer dependencies
             ->exclude('node_modules')
+            ->exclude('src/**')
             ->name('*.php')
             // 💡 additional files, eg bin entry file
             ->append([__DIR__.'/kirby/bootstrap.php'])

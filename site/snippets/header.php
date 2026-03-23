@@ -75,7 +75,7 @@
   <?= vite()->css("styles/index.css", try: true) ?>
    <?= vite()->css("styles/templates/" . $page->template() . ".css", try: true) ?>
 </head>
-<body class="font-sans antialiased grid-base min-h-screen">
+<body class="font-sans antialiased box-border">
 
   <header class="header p-4 w-full fixed top-0 flex flex-col items-center justify-center bg-white shadow z-1">
     <?php
@@ -118,7 +118,7 @@
   </header>
 
   <main
-    class="main h-full"
+    class="main h-full min-h-screen"
     data-taxi>
     <div
       class="h-full"
