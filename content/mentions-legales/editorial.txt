@@ -1,0 +1,33 @@
+Title: Mentions légales
+
+----
+
+Content: [{"attrs":[],"columns":[{"blocks":[{"content":{"level":"h1","text":"Mentions Légales"},"id":"8993369d-b856-4e18-abc5-5e6ce1717782","isHidden":false,"type":"heading"},{"content":{"text":"<p>mentions légales blablabla</p>"},"id":"4f134b33-76a3-4777-8604-70dbabd3277b","isHidden":false,"type":"text"}],"id":"c9f4527b-d36c-49cf-940e-1c72fbc21e20","width":"1/1"}],"id":"19d5e0f8-6640-4bc9-be4e-5ceef144c0b2"}]
+
+----
+
+Drafts: []
+
+----
+
+Listed: []
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
+Uuid: cvttewmvqcbbpmn9
