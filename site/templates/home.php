@@ -21,41 +21,31 @@
 ?>
 <?php snippet('header', ['seo' => $page->seo()]) ?>
 
-<div class="intro pb-40 bdr">
+<div class="intro bdr">
 
-  <?php
-  // using the `toStructure()` method, we create a structure collection
-  $items = $page->intro()->toStructure();
-  // we can then loop through the entries and render the individual fields
-  foreach ($items as $item): ?>
-  <div class="bdo bg-(--bgc)" style="--bgc:<?= $item->background() ?>">
-    <pre>
-      mode: <?= $item->mode() ?>
-    </pre>
-
-    <?php foreach ($item->images()->toFiles() as $image): ?>
-      <img src="<?= $image->crop(400)->url() ?>">
-    <?php endforeach ?>
-  </div>
-  <?php endforeach ?>
+  <?php snippet('home/intro') ?>
 </div>
 
-<div class="hiatus py-[50svh] grid place-items-center min-h-screen h-[200%] p-grid-padding bg-black relative">
+<div class="hiatus py-[50svh] grid place-items-center min-h-screen p-grid-padding bg-black relative">
   <c-text-reveal
     log
-    class="w-11/12 w-10/12 lg:w-2/3 xl:w-1/2 max-w-[800px] text-xl text-white leading-none h-[calc(5*var(--paragraph-height))]"
+    class="w-11/12 w-10/12 lg:w-2/3 xl:w-1/2 max-w-[800px] text-xl text-white bdr leading-none h-[calc(10*var(--paragraph-height))]"
     style="--paragraph-height:auto;"
     string="progress"
     string-key="--text-reveal-progress"
     string-enter-el="top"
     string-enter-vp="bottom"
-    string-offset-bottom="-50%-50sh"
+    string-offset-bottom="-60%"
     string-exit-el="bottom"
     string-exit-vp="bottom"
     string-easing="cubic-bezier(.19,.6,.4,1)"
   >
+    <!--
+      ajusting scroll height and offset
+        -50% - 1/2*(100%/paragraph-repeat-count)
+    -->
     <p
-      class="sticky *:inline-block top-[calc(50vh-var(--paragraph-height)/2)] text-white"
+      class="sticky bdb *:inline-block top-[calc(50vh-var(--paragraph-height)/2)] text-white"
       string="split"
       string-split="word"><?= $page->hiatus()->sp()->kirbytextinline()->splitsubelements('strong', 'class="text-gray-400"')?></p>
   </c-text-reveal>

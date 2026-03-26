@@ -13,15 +13,115 @@ Subheadline: A fully documented example project
 Intro:
 
 -
-  images:
-    - 'file://8jo9ftwie66s2wup'
-    - 'file://clvyi5kvhpisryml'
-  mode: meet
-  background: '#32323270'
+  scenes:
+    -
+      images_ft:
+        - 'file://hpdy3ugklxr6hdmz'
+        - 'file://nko1ftfhrebpyljy'
+        - 'file://6laupkmnm9anhm9h'
+        - 'file://rnnnr6ham5xzhiku'
+        - 'file://nuuijsicfecl0txt'
+        - 'file://xvyuaz4bgctjwwzd'
+        - 'file://xxo0z4bghie7reab'
+        - 'file://ojz86d9vorine6xm'
+        - 'file://ouw3voaprd70pzi4'
+        - 'file://bpouxawfpoqyesmt'
+        - 'file://0elsds5hwdpbz0mp'
+        - 'file://6qxa4mkg81mt16sg'
+        - 'file://aoigkwix9xhm5zid'
+      images_fb:
+        - 'file://mszjxkbg10rv4xgx'
+        - 'file://isjy8jqhtwmgiz67'
+        - 'file://bglvyewc9mba8dbh'
+        - 'file://js3szojqiv1gacgm'
+        - 'file://fqxklcl6ldnb7grw'
+        - 'file://r6jznzr1badn1ade'
+        - 'file://j9v6rqo5l3hi8sxs'
+        - 'file://kpssltcti7cahp6h'
+        - 'file://9hlshr3xzvaftbsk'
+        - 'file://ngsfxtwqx71iltsb'
+        - 'file://qplcchoo50ioh4o1'
+        - 'file://8jxffbuuzj9uodij'
+        - 'file://bpnuqsonsrtgo507'
+      images_fade: []
+      animation_mode: random
+      animation-mode: stagger
+  background_image: []
+  background_color: ''
+  backgroundimage: []
+  backgroundcolor: ''
+  scene:
+    -
+      images_ft:
+        - 'file://rnnnr6ham5xzhiku'
+        - 'file://xvyuaz4bgctjwwzd'
+        - 'file://6qxa4mkg81mt16sg'
+        - 'file://xxo0z4bghie7reab'
+        - 'file://6laupkmnm9anhm9h'
+        - 'file://ouw3voaprd70pzi4'
+        - 'file://hpdy3ugklxr6hdmz'
+        - 'file://nuuijsicfecl0txt'
+        - 'file://aoigkwix9xhm5zid'
+        - 'file://bpouxawfpoqyesmt'
+        - 'file://0elsds5hwdpbz0mp'
+        - 'file://nko1ftfhrebpyljy'
+        - 'file://ojz86d9vorine6xm'
+      images_fb:
+        - 'file://isjy8jqhtwmgiz67'
+        - 'file://js3szojqiv1gacgm'
+        - 'file://bglvyewc9mba8dbh'
+        - 'file://fqxklcl6ldnb7grw'
+        - 'file://r6jznzr1badn1ade'
+        - 'file://mszjxkbg10rv4xgx'
+        - 'file://qplcchoo50ioh4o1'
+        - 'file://kpssltcti7cahp6h'
+        - 'file://j9v6rqo5l3hi8sxs'
+        - 'file://ngsfxtwqx71iltsb'
+        - 'file://9hlshr3xzvaftbsk'
+        - 'file://8jxffbuuzj9uodij'
+        - 'file://bpnuqsonsrtgo507'
+      images_fade: []
+      animation-mode: stagger
+      backgroundimage: []
+      background: ''
+      mode: ''
+  background: ''
 -
-  images:
-    - 'file://umunumtwck6lrhas'
-  mode: simple
+  scenes:
+    -
+      images_ft:
+        - 'file://n5jr8vnztieo6hkg'
+        - 'file://tavhy2t0flnsnpsx'
+        - 'file://mds6wgnngmqqcs4q'
+        - 'file://viqaa8adordnypcl'
+        - 'file://k2bl2jxhh5nyi3qt'
+        - 'file://4bciqb5tqxmfprri'
+      images_fb:
+        - 'file://y8wjhb44ypfj0ghh'
+        - 'file://nry71taqarpbm4qd'
+        - 'file://hg1zm9kw3r4hm1f0'
+        - 'file://iw0d2tslc1ncjz7t'
+        - 'file://bus55mqu2nuutcha'
+        - 'file://cbhu8hgz0yubna2e'
+        - 'file://xteeukcuku61aomx'
+      images_fade: []
+      animation_mode: stagger
+      animation-mode: random
+    -
+      images_ft: []
+      images_fb: []
+      images_fade:
+        - 'file://34w4vze9ps5o7qmf'
+        - 'file://o70ej7am9gcgcyfg'
+      animation_mode: simultaneous
+      animation-mode: simultaneous
+  background_image:
+    - 'file://iktuaagsvm7zh5p7'
+  background_color: '#8e8e8e'
+  backgroundimage:
+    - 'file://iktuaagsvm7zh5p7'
+  backgroundcolor: '#8c8c8c'
+  scene: []
   background: ''
 
 ----
@@ -36,13 +136,22 @@ J’INTERVIENS SUR LA **CONCEPTION CRÉATIVE** ET LE **DÉVELOPPEMENT VISUEL** D
 Calltoaction:
 
 -
-  label: spiritueux
+  label: 'Identité visuelle'
   projects:
     - 'page://70tyokk4i69cxzzm'
 -
   label: illustration
   projects:
     - 'page://qbpjaiv5qyfvylyp'
+-
+  label: Packaging
+  projects:
+    - 'page://jgtfvyjkbmmmmr4g'
+-
+  label: 'Mise en page'
+  projects:
+    - 'page://qbpjaiv5qyfvylyp'
+    - 'page://jgtfvyjkbmmmmr4g'
 
 ----
 

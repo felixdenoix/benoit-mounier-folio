@@ -29,18 +29,33 @@ tabs:
           intro:
             type: structure
             fields:
-              images:
-                type: files
-              backgroundImage:
+              scenes:
+                type: structure
+                help: Scenes will occur sequentially and superpose one another
+                fields:
+                  images_ft:
+                    label: Appears from top
+                    type: files
+                  images_fb:
+                    label: Appears from bottom
+                    type: files
+                  images_fade:
+                    label: Appears from opacity 0
+                    type: files
+                  animation_mode:
+                    type: select
+                    required: true
+                    default: none
+                    options:
+                      none: none
+                      stagger: Stagger
+                      random: Random
+                      simultaneous: Simultaneous
+              background_image:
                 type: files
                 multiple: false
-              mode:
-                type: select
-                required: true
-                options:
-                  simple: Simple
-                  meet: Merge
-              background:
+                help: Will always be visible if defined
+              background_color:
                 type: color
                 alpha: true
           hiatus:
