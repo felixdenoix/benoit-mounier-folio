@@ -17,7 +17,7 @@
 }
 
 :root {
-  /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,22,1.414,4,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  /* @link https://utopia.fyi/type/calculator/?c=360,18,1.333,1240,22,1.414,5,2,&s=0.75,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
   /* Step -2: 10.1301px → 11.0033px */
   --step--2: clamp(0.6331rem, 0.6108rem + 0.0992vw, 0.6877rem);
@@ -117,6 +117,11 @@
     /* ensure browser does not generate missing weights in font family */
     font-synthesis-weight: none;
     font-weight: var(--font-weight-normal);
+  }
+
+  picture,
+  img {
+    pointer-events: none;
   }
 
   @variant md {

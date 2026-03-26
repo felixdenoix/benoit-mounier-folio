@@ -4,13 +4,13 @@
 <?php snippet('header', ['seo' => $page->seo()]) ?>
 
 <article class="project base-grid pb-24">
-  <header class="project header block col-span-full row-span-1 grid place-items-center text-black py-26">
-    <h1 class="block w-fit text-4xl font-heavy"><?= $page->headline()->esc() ?: $page->title()->esc() ?></h1>
+  <header class="project header block col-span-full row-span-1 grid place-items-center text-black pt-(--header-height) pb-8 md:pb-16 lg:pb-20 xl:pb-26">
+    <h1 class="block w-fit text-4xl font-heavy mt-8 md:mt-16 lg:mt-20 xl:mt-26"><?= $page->headline()->esc() ?: $page->title()->esc() ?></h1>
     <?php if ($page->subheadline()->isNotEmpty()): ?>
     <h2 class="block w-fit text-2xl"><?= $page->subheadline()->esc() ?></h2>
     <?php endif ?>
   </header>
-  <div class="text-content flex flex-col col-span-full md:col-span-4 md:col-end-13">
+  <div class="text-content flex flex-col col-span-full md:col-span-4 md:col-end-13 lg:col-span-3 lg:col-end-13">
     <div class="text-content-wrapper sticky z-0 top-[calc(var(--header-height)+var(--grid-padding))] max-h-[calc(100dvh-var(--header-height))] md:overflow-y-auto flex flex-col gap-y-4 [&_li:not(:last-of-type)]:mb-2">
       <?= $page->text()->toBlocks() ?>
       <div class="dates">
@@ -30,7 +30,7 @@
       </div>
     </div>
   </div>
-  <div class="asset-content col-span-full md:col-span-8 md:col-start-1 md:row-start-2">
+  <div class="asset-content col-span-full md:col-span-8 md:col-start-1 md:row-start-2 lg:col-span-9 lg:col-start-1 lg:row-start-2">
     <?php foreach ($page->medias()->toLayouts() as $layout): ?>
     <section class="grid auto-cols-fr gap-2.5 not-last:mb-2.5" id="<?= $layout->id() ?>">
       <?php foreach ($layout->columns() as $column): ?>
