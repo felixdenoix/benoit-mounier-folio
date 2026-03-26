@@ -49,6 +49,7 @@ tabs:
             files: false
             buttons:
               - bold
+              - link
           callToAction:
             type: structure
             fields:

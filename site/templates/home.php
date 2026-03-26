@@ -40,8 +40,25 @@
   <?php endforeach ?>
 </div>
 
-<div class="hiatus mt-40 grid place-items-center bdr min-h-screen p-grid-padding">
-  <?= $page->hiatus()->kirbyText() ?>
+<div class="hiatus py-[50svh] grid place-items-center min-h-screen h-[200%] p-grid-padding bg-black relative">
+  <c-text-reveal
+    log
+    class="w-11/12 w-10/12 lg:w-2/3 xl:w-1/2 max-w-[800px] text-xl text-white leading-none h-[calc(5*var(--paragraph-height))]"
+    style="--paragraph-height:auto;"
+    string="progress"
+    string-key="--text-reveal-progress"
+    string-enter-el="top"
+    string-enter-vp="bottom"
+    string-offset-bottom="-50%-50sh"
+    string-exit-el="bottom"
+    string-exit-vp="bottom"
+    string-easing="cubic-bezier(.19,.6,.4,1)"
+  >
+    <p
+      class="sticky *:inline-block top-[calc(50vh-var(--paragraph-height)/2)] text-white"
+      string="split"
+      string-split="word"><?= $page->hiatus()->sp()->kirbytextinline()->splitsubelements('strong', 'class="text-gray-400"')?></p>
+  </c-text-reveal>
 </div>
 
 <div class="bdg min-h-screen call-to-action mt-40 flex flex-col items-center justify-center gap-4">

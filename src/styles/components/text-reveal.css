@@ -1,0 +1,72 @@
+@import "../index.css";
+
+@property --word-global-total {
+  syntax: "<number>";
+  inherits: true;
+  initial: 0;
+}
+@property --text-reveal-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial: 0;
+}
+@property --progress-unit {
+  syntax: "<number>";
+  inherits: false;
+  initial: 0;
+}
+@property --min-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial: 0;
+}
+@property --max-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial: 1;
+}
+@property --word-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial: 0;
+}
+@property --word-opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial: 0;
+}
+
+c-text-reveal {
+  .-s-word {
+    display: inline-block;
+
+    --progress-unit: calc(1 / var(--word-global-total));
+    --min-progress: clamp(
+      0,
+      calc((var(--word-index) - 2) * var(--progress-unit)),
+      1
+    );
+    --max-progress: clamp(
+      0,
+      calc((var(--word-index) + 2) * var(--progress-unit)),
+      1
+    );
+    --word-progress: clamp(
+      var(--min-progress),
+      var(--text-reveal-progress),
+      var(--max-progress)
+    );
+
+    --word-opacity: calc(
+      (var(--word-progress) - var(--min-progress)) /
+        (var(--max-progress) - var(--min-progress))
+    );
+
+    will-change: opacity;
+    opacity: var(--word-opacity);
+  }
+
+  .-s-char {
+    display: inline-block;
+  }
+}

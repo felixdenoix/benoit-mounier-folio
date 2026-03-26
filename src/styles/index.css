@@ -119,10 +119,6 @@
     font-weight: var(--font-weight-normal);
   }
 
-  a {
-    color: black;
-  }
-
   @variant md {
     :root {
       --grid-columns: repeat(12, minmax(0, 1fr));

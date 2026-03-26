@@ -2,10 +2,14 @@ import { StringTune } from "@fiddle-digital/string-tune";
 import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
+import { StringSplit, StringProgress } from "@fiddle-digital/string-tune";
+import { piecesManager } from "piecesjs";
+import { loader as loadComponents } from "../components";
 
 export default class App {
   private router: Core | undefined;
   public smoothScroll: StringTune | undefined;
+  private stylesheetToLoad: number = 0;
 
   constructor() {
     this.router = new Core({
@@ -28,23 +32,31 @@ export default class App {
         lerp: 0.65,
         strength: 0.4,
       });
+
+      this.smoothScroll.use(StringSplit);
+      this.smoothScroll.use(StringProgress);
+
       this.smoothScroll.speed = 0.12;
       this.smoothScroll.speedAccelerate = 0.35;
     }
   }
 
   startSmooth() {
-    console.log("😸 startSmooth");
     this.smoothScroll?.start(60);
   }
 
-  init() {
-    console.log("😸 this.router", this.router);
-    this.initSmooth();
+  async init() {
     this.initRouterEvents();
+    await loadComponents(document.body);
+    console.log("😸 pieces have loaded", piecesManager);
 
     requestAnimationFrame(() => {
+      this.initSmooth();
       this.startSmooth();
+    });
+
+    this.handleStylesheetLoading(() => {
+      console.log("😸 all stylesheets have loaded");
     });
   }
 
@@ -90,6 +102,9 @@ export default class App {
       if (image) {
         document.querySelector('meta[property="og:image"]')?.setAttribute("content", image);
       }
+
+      // Update components
+      loadComponents(to.content as HTMLElement);
     });
 
     this.router?.on(
@@ -110,5 +125,43 @@ export default class App {
         });
       },
     );
+  }
+
+  private handleStylesheetLoading(callback: () => void) {
+    // trigger resize upon load end
+    const styleSheets = Array.from(
+      document.head.querySelectorAll('link[rel="stylesheet"]'),
+    ) as HTMLLinkElement[];
+    console.log("😸 stylesheets", styleSheets);
+
+    this.stylesheetToLoad = styleSheets.length;
+
+    const stylesheetsLoaded = () => {
+      console.log("😸 stylesheetsLoaded");
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event("resize"));
+        callback();
+      });
+    };
+
+    styleSheets.map((stylesheet) => {
+      const hasLoaded = Boolean(stylesheet.sheet);
+      console.log("😸 stylesheet hasLoaded", stylesheet, hasLoaded);
+
+      if (hasLoaded) {
+        this.stylesheetToLoad--;
+        if (this.stylesheetToLoad === 0) {
+          stylesheetsLoaded();
+        }
+      } else {
+        stylesheet.onload = () => {
+          console.log("😸 link onload", stylesheet);
+          this.stylesheetToLoad--;
+          if (this.stylesheetToLoad === 0) {
+            stylesheetsLoaded();
+          }
+        };
+      }
+    });
   }
 }

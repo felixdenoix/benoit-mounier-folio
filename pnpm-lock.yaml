@@ -8,14 +8,17 @@ importers:
   .:
     dependencies:
       "@fiddle-digital/string-tune":
-        specifier: ^1.1.50
-        version: 1.1.51
+        specifier: ^1.1.53
+        version: 1.1.53
       "@unseenco/taxi":
         specifier: ^1.9.1
         version: 1.9.1
       gsap:
         specifier: ^3.14.2
         version: 3.14.2
+      piecesjs:
+        specifier: ^0.5.5
+        version: 0.5.5
     devDependencies:
       "@tailwindcss/vite":
         specifier: ^4.2.1
@@ -299,10 +302,10 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  "@fiddle-digital/string-tune@1.1.51":
+  "@fiddle-digital/string-tune@1.1.53":
     resolution:
       {
-        integrity: sha512-Alf0iQUyzYsVtcUPSDHsUsYmniqTfwe14SwUzx0LaUPUtr3wF2Wl/7Z0thuGCYHM8THHWlWLKm4YNBU56TibcA==,
+        integrity: sha512-UTqIh1dQqF1khTTONxdgv60ldysHoLCnFenbMe++TyknUDDZil2Aa8u14raIVD+bPJdWJMm2auEAKFDZ0FYhuQ==,
       }
 
   "@jridgewell/gen-mapping@0.3.13":
@@ -1657,6 +1660,18 @@ packages:
       }
     engines: { node: ">=12" }
 
+  piecesjs@0.4.1:
+    resolution:
+      {
+        integrity: sha512-HQBfVrn5YKzXlkpeTt+8fPel/XMJfMfLz5P3eGV7yDcbUhenYKrbaGRIK3KjezCIBSMvhfm/olXTMqr+dPlNMg==,
+      }
+
+  piecesjs@0.5.5:
+    resolution:
+      {
+        integrity: sha512-Ml5ZcKt8/1vllM+KtoHEPimxB0GyBMf3NP1Qg2Kk8SGo3qD9FyCm0TieuFgmd7T0d2OZrr0VZlZJYZy4DyMawg==,
+      }
+
   pkg-types@1.3.1:
     resolution:
       {
@@ -2161,7 +2176,7 @@ snapshots:
   "@esbuild/win32-x64@0.27.3":
     optional: true
 
-  "@fiddle-digital/string-tune@1.1.51": {}
+  "@fiddle-digital/string-tune@1.1.53": {}
 
   "@jridgewell/gen-mapping@0.3.13":
     dependencies:
@@ -2902,6 +2917,12 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.3: {}
+
+  piecesjs@0.4.1: {}
+
+  piecesjs@0.5.5:
+    dependencies:
+      piecesjs: 0.4.1
 
   pkg-types@1.3.1:
     dependencies:
