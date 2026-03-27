@@ -10,6 +10,10 @@ export const components: ComponentDefinition[] = [
     tag: "c-text-reveal",
     loader: () => import("./text-reveal.ts"),
   },
+  {
+    tag: "c-home-intro",
+    loader: () => import("./home-intro.ts"),
+  },
 ];
 
 export const loader = (dom: HTMLElement) => {

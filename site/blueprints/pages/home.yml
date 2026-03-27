@@ -48,8 +48,8 @@ tabs:
                     default: none
                     options:
                       none: none
-                      stagger: Stagger
-                      random: Random
+                      stagger: Linear Stagger
+                      random: Random Stagger
                       simultaneous: Simultaneous
               background_image:
                 type: files

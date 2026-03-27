@@ -2,7 +2,7 @@ import { StringTune } from "@fiddle-digital/string-tune";
 import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
-import { StringSplit, StringProgress } from "@fiddle-digital/string-tune";
+import { StringSplit, StringProgress, StringProgressPart } from "@fiddle-digital/string-tune";
 import { piecesManager } from "piecesjs";
 import { loader as loadComponents } from "../components";
 
@@ -35,6 +35,7 @@ export default class App {
 
       this.smoothScroll.use(StringSplit);
       this.smoothScroll.use(StringProgress);
+      this.smoothScroll.use(StringProgressPart);
 
       this.smoothScroll.speed = 0.12;
       this.smoothScroll.speedAccelerate = 0.35;

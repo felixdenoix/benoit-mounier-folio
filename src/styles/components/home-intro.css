@@ -1,0 +1,49 @@
+@property --home-intro-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --progress-slice {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+c-home-intro {
+  .scene {
+    .from-top {
+      transform: translate3d(0, calc((1 - var(--progress-slice)) * -100%), 0);
+    }
+
+    .from-bottom {
+      transform: translate3d(0, calc((1 - var(--progress-slice)) * 100%), 0);
+    }
+
+    .from-fade {
+      opacity: var(--progress-slice);
+    }
+
+    &.animation-mode-random,
+    &.animation-mode-none,
+    &.animation-mode-stagger,
+    &.animation-mode-simultaneous {
+      overflow: hidden;
+    }
+
+    &.animation-mode-random {
+      border: 10px solid purple;
+    }
+
+    &.animation-mode-none {
+      border: 10px solid greenyellow;
+    }
+
+    &.animation-mode-stagger {
+      border: 10px solid royalblue;
+    }
+
+    &.animation-mode-simultaneous {
+      border: 10px solid orangered;
+    }
+  }
+}

@@ -92,18 +92,18 @@ Intro:
       images_ft:
         - 'file://n5jr8vnztieo6hkg'
         - 'file://tavhy2t0flnsnpsx'
-        - 'file://mds6wgnngmqqcs4q'
         - 'file://viqaa8adordnypcl'
+        - 'file://mds6wgnngmqqcs4q'
         - 'file://k2bl2jxhh5nyi3qt'
         - 'file://4bciqb5tqxmfprri'
       images_fb:
-        - 'file://y8wjhb44ypfj0ghh'
-        - 'file://nry71taqarpbm4qd'
         - 'file://hg1zm9kw3r4hm1f0'
-        - 'file://iw0d2tslc1ncjz7t'
         - 'file://bus55mqu2nuutcha'
-        - 'file://cbhu8hgz0yubna2e'
         - 'file://xteeukcuku61aomx'
+        - 'file://iw0d2tslc1ncjz7t'
+        - 'file://nry71taqarpbm4qd'
+        - 'file://y8wjhb44ypfj0ghh'
+        - 'file://cbhu8hgz0yubna2e'
       images_fade: []
       animation_mode: stagger
       animation-mode: random
