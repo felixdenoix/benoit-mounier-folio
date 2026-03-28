@@ -21,6 +21,7 @@
 
 c-home-intro {
   .scene {
+    contain: paint;
     /* Speed multiplier based on index: higher index reaches 100% faster */
 
     &.animation-mode-random,
@@ -39,6 +40,7 @@ c-home-intro {
       /* variation between stagger and random handled in snippet `snippets/home-intro` */
 
       .from-top {
+        will-change: transform;
         --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
         /* Varying start position based on index (e.g., between -100% and -250%) */
         --start-y: calc(-100% - (var(--animation-index) * 10%));
@@ -57,6 +59,7 @@ c-home-intro {
       }
 
       .from-bottom {
+        will-change: transform;
         --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
         /* Varying start position based on index (e.g., between -100% and -250%) */
         --start-y: calc(100% + (var(--animation-index) * 10%));
@@ -75,8 +78,9 @@ c-home-intro {
       }
 
       .from-fade {
+        will-change: opacity;
         --speed: calc(1 + var(--animation-index) / var(--animation-count));
-        --local-progress: calc(var(--slice-progress) * var(--speed));
+        --local-progress: calc(var(--progress-slice) * var(--speed));
         opacity: clamp(0, var(--local-progress), 1);
       }
     }
@@ -85,6 +89,7 @@ c-home-intro {
       --speed: 1.25;
       --animation-offset: 10%;
       .from-top {
+        will-change: transform;
         /* Varying start position based on index (e.g., between -100% and -250%) */
         --start-y: calc(-100% - var(--animation-offset));
         /* Linear progress that hits 1.0 before the global scene ends */
@@ -100,6 +105,7 @@ c-home-intro {
         );
       }
       .from-bottom {
+        will-change: transform;
         /* Varying start position based on index (e.g., between -100% and -250%) */
         --start-y: calc(100% + var(--animation-offset));
         /* Linear progress that hits 1.0 before the global scene ends */
@@ -115,6 +121,7 @@ c-home-intro {
         );
       }
       .from-fade {
+        will-change: opacity;
         opacity: var(--progress-slice);
       }
     }

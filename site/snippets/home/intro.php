@@ -45,6 +45,7 @@ foreach ($items as $index => $item):
     >
       <img
         class="absolute top-0 w-full h-full object-center object-contain"
+        decoding="async"
         src="<?= $item->background_image()->toFile()->url() ?>">
     </div>
 
@@ -72,6 +73,7 @@ foreach ($items as $index => $item):
         foreach ($ftFiles as $imageFt): ?>
         <img
           class="from-top absolute top-0 left-0 object-center object-contain h-full w-full"
+          decoding="async"
           style="--animation-index:<?= $fileIndexes[$ftFiles->indexOf($imageFt)] ?>; --animation-count:<?= count($ftFiles) ?>"
           height="<?= $imageFt->height()?>"
           width="<?= $imageFt->width()?>"
@@ -87,6 +89,7 @@ foreach ($items as $index => $item):
         foreach ($fbFiles as $imageFb): ?>
         <img
           class="from-bottom absolute top-0 left-0 object-center object-contain h-full w-full"
+          decoding="async"
           style="--animation-index:<?= $fileIndexes[$fbFiles->indexOf($imageFb)] ?>; --animation-count: <?= count($fbFiles) ?>"
           height="<?= $imageFb->height()?>"
           width="<?= $imageFb->width()?>"
@@ -102,6 +105,7 @@ foreach ($items as $index => $item):
         foreach ($imagesFade as $imageFade): ?>
         <img
           class="from-fade absolute top-0 left-0 object-center object-contain h-full w-full"
+          decoding="async"
           style="--animation-index:<?= $fileIndexes[$imagesFade->indexOf($imageFade)] ?>; --animation-count: <?= count($imagesFade) ?>"
           height="<?= $imageFade->height()?>"
           width="<?= $imageFade->width()?>"
