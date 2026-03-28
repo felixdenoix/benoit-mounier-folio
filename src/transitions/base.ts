@@ -24,7 +24,10 @@ export default class BaseTransition extends Transition {
     gsap.to(from, {
       autoAlpha: 0,
       duration: 1,
-      onComplete: done,
+      onComplete: () => {
+        window.app.smoothScroll?.scrollTo({ position: 0, immediate: true });
+        done();
+      },
     });
   }
 
