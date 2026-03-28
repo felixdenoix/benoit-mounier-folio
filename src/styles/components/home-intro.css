@@ -8,20 +8,20 @@
   inherits: true;
   initial-value: 0;
 }
+@property --animation-index {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --animation-count {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
 
 c-home-intro {
   .scene {
-    .from-top {
-      transform: translate3d(0, calc((1 - var(--progress-slice)) * -100%), 0);
-    }
-
-    .from-bottom {
-      transform: translate3d(0, calc((1 - var(--progress-slice)) * 100%), 0);
-    }
-
-    .from-fade {
-      opacity: var(--progress-slice);
-    }
+    /* Speed multiplier based on index: higher index reaches 100% faster */
 
     &.animation-mode-random,
     &.animation-mode-none,
@@ -30,20 +30,93 @@ c-home-intro {
       overflow: hidden;
     }
 
-    &.animation-mode-random {
-      border: 10px solid purple;
-    }
-
     &.animation-mode-none {
-      border: 10px solid greenyellow;
+      transform: unset;
     }
 
+    &.animation-mode-random,
     &.animation-mode-stagger {
-      border: 10px solid royalblue;
+      /* variation between stagger and random handled in snippet `snippets/home-intro` */
+
+      .from-top {
+        --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
+        /* Varying start position based on index (e.g., between -100% and -250%) */
+        --start-y: calc(-100% - (var(--animation-index) * 10%));
+        /* Linear progress that hits 1.0 before the global scene ends */
+        --t: clamp(0, var(--progress-slice) * var(--speed), 1);
+        /* Sine Out ease: https://easings.net/#easeOutSine */
+        --local-progress: calc(sin(var(--t) * 90deg));
+        --local-progress: calc(sin((var(--t) * pi) / 2));
+
+        /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
+        transform: translate3d(
+          0,
+          calc((1 - var(--local-progress)) * var(--start-y)),
+          0
+        );
+      }
+
+      .from-bottom {
+        --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
+        /* Varying start position based on index (e.g., between -100% and -250%) */
+        --start-y: calc(100% + (var(--animation-index) * 10%));
+        /* Linear progress that hits 1.0 before the global scene ends */
+        --t: clamp(0, var(--progress-slice) * var(--speed), 1);
+        /* Sine Out ease: https://easings.net/#easeOutSine */
+        --local-progress: calc(sin(var(--t) * 90deg));
+        --local-progress: calc(sin((var(--t) * pi) / 2));
+
+        /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
+        transform: translate3d(
+          0,
+          calc((1 - var(--local-progress)) * var(--start-y)),
+          0
+        );
+      }
+
+      .from-fade {
+        --speed: calc(1 + var(--animation-index) / var(--animation-count));
+        --local-progress: calc(var(--slice-progress) * var(--speed));
+        opacity: clamp(0, var(--local-progress), 1);
+      }
     }
 
     &.animation-mode-simultaneous {
-      border: 10px solid orangered;
+      --speed: 1.25;
+      --animation-offset: 10%;
+      .from-top {
+        /* Varying start position based on index (e.g., between -100% and -250%) */
+        --start-y: calc(-100% - var(--animation-offset));
+        /* Linear progress that hits 1.0 before the global scene ends */
+        --t: clamp(0, var(--progress-slice) * var(--speed), 1);
+        /* Sine Out ease: https://easings.net/#easeOutSine */
+        --local-progress: calc(sin(var(--t) * 90deg));
+        --local-progress: calc(sin((var(--t) * pi) / 2));
+        /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
+        transform: translate3d(
+          0,
+          calc((1 - var(--local-progress)) * var(--start-y)),
+          0
+        );
+      }
+      .from-bottom {
+        /* Varying start position based on index (e.g., between -100% and -250%) */
+        --start-y: calc(100% + var(--animation-offset));
+        /* Linear progress that hits 1.0 before the global scene ends */
+        --t: clamp(0, var(--progress-slice) * var(--speed), 1);
+        /* Sine Out ease: https://easings.net/#easeOutSine */
+        --local-progress: calc(sin(var(--t) * 90deg));
+        --local-progress: calc(sin((var(--t) * pi) / 2));
+        /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
+        transform: translate3d(
+          0,
+          calc((1 - var(--local-progress)) * var(--start-y)),
+          0
+        );
+      }
+      .from-fade {
+        opacity: var(--progress-slice);
+      }
     }
   }
 }

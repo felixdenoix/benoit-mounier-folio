@@ -18,28 +18,33 @@
 $items = $page->intro()->toStructure();
 // we can then loop through the entries and render the individual fields
 foreach ($items as $index => $item):
-  $intro_block_id="into-block-progress" . $index;
+  $intro_block_id = "into-block-progress" . $index;
+  $scenes_count = count($item->scenes()->toStructure());
 ?>
 
 <c-home-intro
-  class="block bdo bg-(--bgc) sticky top-0 w-screen h-[calc(100vh+(var(--scenes,1)*100svh))] object-center object-contain pt-screen"
+  class="block bg-(--bgc) sticky top-0 w-full h-[calc(100vh+var(--scenes-height))] object-center object-contain pt-screen z-(--section-index)"
   string="progress"
   string-key="--home-intro-progress"
   string-id="<?=$intro_block_id?>"
   <?php if ($index == 0) : ?>
   <?php endif ?>
+  string-easing="cubic-bezier(0.25, 0.25, 0.25, 0.25)"
   string-enter-el="top"
   string-enter-vp="top"
   string-offset-bottom="0%"
   string-exit-el="bottom"
   string-exit-vp="bottom"
-  style="--bgc:<?= $item->background_color()->or("transparent") ?>;--scenes:<?= count($item->scenes()->toStructure()) ?>;--intro-section-height:calc(100vh + (<?= count($item->scenes()->toStructure()) ?> * 100vh));">
+  style="--bgc:<?= $item->background_color()->or("transparent") ?>; --scenes-count:<?= $scenes_count ?>; --scenes-height: calc(<?= $scenes_count ?> * 100vh); --intro-section-height:calc(100vh + var(--scenes-height)); --section-index:<?= $index ?>;">
 
-    <?php if($item->background_image()->isNotEmpty()): ?>
+    <?php if ($item->background_image()->isNotEmpty()): ?>
 
-    <div class="absolute top-0 h-svh w-full transform-gpu translate-y-[calc(var(--home-intro-progress)*(var(--scenes,1)*100svh))]">
+    <div
+      data-background
+      class="absolute z-1 top-0 h-screen w-full will-change-transform transform-[translate3d(0,calc(var(--home-intro-progress)*var(--scenes-height)),0)]"
+    >
       <img
-        class="absolute top-0 w-full h-full object-center object-contain "
+        class="absolute top-0 w-full h-full object-center object-contain"
         src="<?= $item->background_image()->toFile()->url() ?>">
     </div>
 
@@ -56,17 +61,17 @@ foreach ($items as $index => $item):
     <div
       string="progress-part"
       string-part-of="<?= "{$intro_block_id}[{$part_start}-{$part_end}]"?>"
-      class="scene sticky top-0 w-full h-svh aspect-16/9 <?= "animation-mode-".$scene->animation_mode() ?>">
+      class="z-10 scene sticky top-0 w-full h-screen aspect-16/9 <?= "animation-mode-".$scene->animation_mode() ?>">
 
       <?php
         $ftFiles = $scene->images_ft()->toFiles();
         $fileIndexes = range(1, count($ftFiles));
-        if ($scene->animation_mode() === 'random') {
+        if ($scene->animation_mode() == 'random') {
           shuffle($fileIndexes);
         }
         foreach ($ftFiles as $imageFt): ?>
         <img
-          class="from-top bdo absolute top-0 left-0 object-center object-contain h-full w-full"
+          class="from-top absolute top-0 left-0 object-center object-contain h-full w-full"
           style="--animation-index:<?= $fileIndexes[$ftFiles->indexOf($imageFt)] ?>; --animation-count:<?= count($ftFiles) ?>"
           height="<?= $imageFt->height()?>"
           width="<?= $imageFt->width()?>"

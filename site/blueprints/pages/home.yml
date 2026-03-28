@@ -76,6 +76,7 @@ tabs:
                 query: site.children.published
                 min: 1
                 required: true
-
+      assets:
+        extends: sections/sidebar-images
   seo:
     extends: tabs/seo

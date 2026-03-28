@@ -1,3 +1,5 @@
 type: files
+batch: true
+limit: 20
 layout: cards
 size: small
