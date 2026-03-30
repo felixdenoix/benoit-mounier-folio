@@ -18,6 +18,10 @@ export const components: ComponentDefinition[] = [
     tag: "c-home-intro",
     loader: () => import("./home-intro.ts"),
   },
+  {
+    tag: "c-mailto",
+    loader: () => import("./mailto.ts"),
+  },
 ];
 
 export const loader = (dom: HTMLElement) => {

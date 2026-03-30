@@ -5,7 +5,7 @@ export default class HomePage extends Piece {
     super("HomePage");
   }
 
-  mounted() {
+  mount() {
     if (window.app) {
       // TODO: scroll to the end of the first section of the intro component
       // window.app.smoothScroll?.scrollTo(window.innerHeight * 2);

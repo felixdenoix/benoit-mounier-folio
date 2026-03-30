@@ -1,4 +1,5 @@
 import { StringTune } from "@fiddle-digital/string-tune";
+import { gsap } from "gsap";
 import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
@@ -15,6 +16,7 @@ export default class App {
   private router: Core | undefined;
   public smoothScroll: StringTune | undefined;
   private stylesheetToLoad: number = 0;
+  public gsap: gsap = gsap;
 
   constructor() {
     this.router = new Core({
@@ -50,7 +52,7 @@ export default class App {
   async init() {
     this.initRouterEvents();
     await loadComponents(document.body);
-    console.log("😸 pieces have loaded", piecesManager);
+    // console.log("😸 pieces have loaded", piecesManager);
 
     requestAnimationFrame(() => {
       this.initSmooth();
@@ -58,7 +60,7 @@ export default class App {
     });
 
     this.handleStylesheetLoading(() => {
-      console.log("😸 all stylesheets have loaded");
+      // console.log("😸 all stylesheets have loaded");
     });
   }
 
@@ -120,7 +122,7 @@ export default class App {
         from: CacheEntry;
         trigger: boolean | string | HTMLElement;
       }) => {
-        console.log("😸 Navigate end: to, from, trigger", to, from, trigger);
+        // console.log("😸 Navigate end: to, from, trigger", to, from, trigger);
         requestAnimationFrame(() => {
           this.smoothScroll?.onResize(true);
           // this.smoothScroll?.invalidateCenters(); // TODO: not documented anymore
@@ -134,12 +136,10 @@ export default class App {
     const styleSheets = Array.from(
       document.head.querySelectorAll('link[rel="stylesheet"]'),
     ) as HTMLLinkElement[];
-    console.log("😸 stylesheets", styleSheets);
 
     this.stylesheetToLoad = styleSheets.length;
 
     const stylesheetsLoaded = () => {
-      console.log("😸 stylesheetsLoaded");
       requestAnimationFrame(() => {
         window.dispatchEvent(new Event("resize"));
         callback();
@@ -148,7 +148,6 @@ export default class App {
 
     styleSheets.map((stylesheet) => {
       const hasLoaded = Boolean(stylesheet.sheet);
-      console.log("😸 stylesheet hasLoaded", stylesheet, hasLoaded);
 
       if (hasLoaded) {
         this.stylesheetToLoad--;
@@ -157,7 +156,6 @@ export default class App {
         }
       } else {
         stylesheet.onload = () => {
-          console.log("😸 link onload", stylesheet);
           this.stylesheetToLoad--;
           if (this.stylesheetToLoad === 0) {
             stylesheetsLoaded();

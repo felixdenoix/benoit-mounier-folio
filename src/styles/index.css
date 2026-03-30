@@ -284,6 +284,18 @@
   --codec-pro-variable-wght: 682;
 }
 
+@utility text-cap {
+  text-box: trim-both cap alphabetic;
+}
+
+.cta {
+  @apply relative px-20 py-4 leading-none uppercase text-lg font-extrabold text-cap;
+  text-box: trim-both cap alphabetic;
+}
+
+.cta-light {
+  @apply bg-white text-gray-text;
+}
 /* Apply the variable axes set by the classes */
 /*.font-italic,
 .font-thin,

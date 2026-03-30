@@ -54,9 +54,9 @@ foreach ($items as $index => $item):
           decoding="async"
           src="<?= $item->background_image()->toFile()->url() ?>">
         <?php endif ?>
-        <div class="headings text-center">
+        <div class="headings text-center w-full">
           <?php if($item->title()->isNotEmpty()): ?>
-          <h1 class="text-3xl lg:text-4xl font-extrabold"><?= $item->title()->escape() ?></h1>
+          <h1 string="split" string-split="char|fit" class="font-extrabold text-[calc(var(--fit-font-size)*1px)]" style=><?= $item->title()->escape() ?></h1>
           <?php endif ?>
           <?php if($item->subtitle()->isNotEmpty()) : ?>
           <h2 class="text-md font-bold"><?= $item->subtitle()->escape() ?></h2>
