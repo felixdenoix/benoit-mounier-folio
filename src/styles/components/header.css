@@ -1,0 +1,21 @@
+c-header {
+  header {
+    /* Critical css in index.css */
+
+    html.-string & {
+      transition:
+        transform 0.5s ease-out,
+        opacity 0.5s ease-out !important;
+      transform: translate3d(0, calc(-100% * var(--progress)), 0);
+      /* the progress css var is set by the footer by using the `string-copy-from` attribute*/
+
+      &.hide {
+        opacity: 0;
+      }
+
+      &.collapsed {
+        transform: translate3d(0, -100%, 0);
+      }
+    }
+  }
+}

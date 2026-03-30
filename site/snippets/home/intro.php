@@ -27,16 +27,14 @@ foreach ($items as $index => $item):
   string="progress"
   string-key="--home-intro-progress"
   string-id="<?=$intro_block_id?>"
+  <?php if($index === 0):?>
+  string-offset-bottom="-25%"
+  <?php endif ?>
   <?php if ($item->background_image()->isNotEmpty()) : ?>
   string-enter-el="top"
   string-enter-vp="top"
   string-offset-bottom="0%"
-  <?php else : ?>
-  string-enter-el="top"
-  string-enter-vp="top"
-  string-offset-bottom="0%"
   <?php endif ?>
-  string-easing="cubic-bezier(0.25, 0.25, 0.25, 0.25)"
   string-exit-el="bottom"
   string-exit-vp="bottom"
   style="--bgc:<?= $item->background_color()->or("white") ?>; --scenes-count:<?= $scenes_count ?>; --scenes-height: calc(<?= $scenes_count ?: 1 ?> * 100vh); --section-index:<?= $index * 10?>;">

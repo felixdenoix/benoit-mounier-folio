@@ -1,5 +1,6 @@
 import { Transition } from "@unseenco/taxi";
 import gsap from "gsap";
+import { frameDOM } from "@fiddle-digital/string-tune";
 
 export interface TransitionParams {
   trigger: string | HTMLElement | false;
@@ -24,6 +25,11 @@ export default class BaseTransition extends Transition {
     gsap.to(from, {
       autoAlpha: 0,
       duration: 1,
+      onStart: () => {
+        frameDOM.mutate(() => {
+          document.body.classList.add("cursor-progress");
+        });
+      },
       onComplete: () => {
         window.app.smoothScroll?.scrollTo({ position: 0, immediate: true });
         done();
@@ -44,7 +50,12 @@ export default class BaseTransition extends Transition {
       },
       {
         autoAlpha: 1,
-        onComplete: done,
+        onComplete: () => {
+          frameDOM.mutate(() => {
+            document.body.classList.remove("cursor-progress");
+          });
+          done();
+        },
         duration: 1,
       },
     );

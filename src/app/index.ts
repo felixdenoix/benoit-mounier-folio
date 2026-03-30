@@ -1,5 +1,5 @@
 import { StringTune } from "@fiddle-digital/string-tune";
-import { gsap } from "gsap";
+import gsap from "gsap";
 import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
@@ -9,14 +9,14 @@ import {
   StringProgressPart,
   StringPositionTracker,
 } from "@fiddle-digital/string-tune";
-import { piecesManager } from "piecesjs";
+// import { piecesManager } from "piecesjs";
 import { loader as loadComponents } from "../components";
 
 export default class App {
   private router: Core | undefined;
   public smoothScroll: StringTune | undefined;
   private stylesheetToLoad: number = 0;
-  public gsap: gsap = gsap;
+  public gsap: typeof gsap = gsap;
 
   constructor() {
     this.router = new Core({
@@ -37,8 +37,10 @@ export default class App {
       this.smoothScroll.use(StringProgress);
       this.smoothScroll.use(StringProgressPart);
 
-      this.smoothScroll.use(StringPositionTracker);
-      this.smoothScroll.PositionTrackerVisible = true;
+      if (import.meta.env.MODE === "development") {
+        this.smoothScroll.use(StringPositionTracker);
+        this.smoothScroll.PositionTrackerVisible = true;
+      }
 
       this.smoothScroll.speed = 0.12;
       this.smoothScroll.speedAccelerate = 0.35;
@@ -50,13 +52,20 @@ export default class App {
   }
 
   async init() {
+    globalThis.gsap = gsap;
+    this.gsap = gsap;
+
     this.initRouterEvents();
+    this.initSmooth();
+    this.startSmooth();
+
     await loadComponents(document.body);
     // console.log("😸 pieces have loaded", piecesManager);
 
-    requestAnimationFrame(() => {
-      this.initSmooth();
-      this.startSmooth();
+    gsap.config({
+      autoSleep: 60,
+      force3D: true,
+      nullTargetWarn: import.meta.env.MODE === "development",
     });
 
     this.handleStylesheetLoading(() => {
@@ -66,11 +75,12 @@ export default class App {
 
   initRouterEvents() {
     this.router?.on("NAVIGATE_IN", ({ to }: { to: CacheEntry }) => {
-      const { title, description, image } = (to.content as HTMLElement).dataset;
+      const { title, description, image, hideHeader } = (to.content as HTMLElement).dataset;
 
       // update header
       const updatedLinks = Array.from((to.page as Document).querySelectorAll("nav>a.header-link"));
       const currentLinks = Array.from(document.querySelectorAll("nav>a.header-link"));
+
       for (let index = 0; index < currentLinks.length; index++) {
         const link = currentLinks[index];
         const targetDataset = (updatedLinks[index] as HTMLElement).dataset;
@@ -86,7 +96,13 @@ export default class App {
       document
         .querySelector('meta[property="og:url"]')
         ?.setAttribute("content", window.location.href);
-      document.querySelectorAll("nav>a.header-link");
+      // document.querySelectorAll("nav>a.header-link");
+
+      if (hideHeader !== undefined) {
+        document.querySelector("c-header")?.setAttribute("hide", "true");
+      } else {
+        document.querySelector("c-header")?.removeAttribute("hide");
+      }
 
       // Update Title
       if (title) {
@@ -114,9 +130,9 @@ export default class App {
     this.router?.on(
       "NAVIGATE_END",
       ({
-        to,
-        from,
-        trigger,
+        // to,
+        // from,
+        // trigger,
       }: {
         to: CacheEntry;
         from: CacheEntry;

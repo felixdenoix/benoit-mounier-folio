@@ -77,45 +77,24 @@
 </head>
 <body class="font-sans antialiased box-border">
 
-  <header class="header p-4 w-full fixed top-0 flex flex-col items-center justify-center bg-white shadow z-100">
-    <?php
-    /*
-      We use `$site->url()` to create a link back to the homepage
-      for the logo and `$site->title()` as a temporary logo. You
-      probably want to replace this with an SVG.
-    */
-    ?>
-
-    <a
-      class="logo block"
-      href="<?= $site->url() ?>">
-      <?= $site->title()->esc() ?>
-    </a>
-
-
-    <nav class="w-fit flex flex-row gap-x-4">
+  <c-header
+    <?= isset($hide_header) ? 'hide="true"': false?>
+    class="w-full"
+    string-copy-from="footer">
+    <header
+      data-dom="header"
+      class="header p-4 w-full fixed z-(--z-header) top-0 flex flex-col items-center justify-center bg-white shadow">
       <?php
       /*
-        In the menu, we only fetch listed pages,
-        i.e. the pages that have a prepended number
-        in their foldername.
-
-        We do not want to display links to unlisted
-        `error`, `home`, or `sandbox` pages.
-
-        More about page status:
-        https://getkirby.com/docs/reference/panel/blueprints/page#statuses
+        We use `$site->url()` to create a link back to the homepage
+        for the logo and `$site->title()` as a temporary logo. You
+        probably want to replace this with an SVG.
       */
       ?>
-      <?php foreach ($site->children()->listed() as $item): ?>
-      <a
-        class="uppercase header-link header-link-hover block text-[1.1rem]"
-        <?php e($item->isOpen(), 'data-current aria-current="page"') ?>
-        href="<?= $item->url() ?>"><?= $item->title()->esc() ?>
-      </a>
-      <?php endforeach ?>
-    </nav>
-  </header>
+
+      <?php snippet("navigation") ?>
+    </header>
+  </c-header>
 
   <main
     class="main h-auto min-h-screen"
@@ -123,6 +102,7 @@
     <div
       class="h-auto"
       data-taxi-view
+      <?= isset($hide_header) ? "data-hide-header='true'" : false ?>
       data-title="<?= isset($seo) ? $site->title()->esc() . ' | ' . $seo->title()->esc() : $site->title()->esc() . ' | ' . $page->title()->esc() ?>"
       data-description="<?= (isset($seo) && $seo->description()->isNotEmpty()) ? $seo->description()->html() : '' ?>"
       data-image="<?= (isset($seo) && $seo->image()) ? $seo->image()->url() : '' ?>">

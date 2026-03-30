@@ -63,6 +63,8 @@
   --text-base--line-height: calc(1.5 / 1);
   --text-normal: var(--step-0);
   --text-normal--line-height: calc(1.5 / 1);
+  --text-md: calc(var(--step-0) * 1.2);
+  --text-md--line-height: calc(1.5 / 1);
   --text-lg: var(--step-1);
   --text-lg--line-height: calc(1.75 / 1.125);
   --text-xl: var(--step-2);
@@ -102,6 +104,7 @@
   --font-weight-black: 682;
 
   --ease-projects: cubic-bezier(0.44, 0.07, 0.41, 1);
+  --z-header: 100;
 }
 
 @layer base {
@@ -150,6 +153,31 @@
 
   strong {
     font-weight: var(--font-weight-extrabold);
+  }
+
+  c-header {
+    header {
+      visibility: hidden;
+      opacity: 0;
+    }
+    html.-string & {
+      &:not([hide="true"]) {
+        header {
+          visibility: inherit;
+          opacity: 1;
+          transition: opacity 0.35s ease-out;
+        }
+      }
+    }
+  }
+
+  c-home-intro {
+    .from-fade {
+      opacity: 0;
+      html.-inline & {
+        opacity: 1;
+      }
+    }
   }
 }
 
@@ -207,30 +235,42 @@
 
 .header-link-hover {
   font-weight: unset;
-  font-variation-settings: "wght" var(--font-weight-bold);
+  font-variation-settings: "wght" var(--font-weight-normal);
   transition: font-variation-settings 0.3s ease;
   position: relative;
-  &:after {
-    font-size: 1.5rem;
+  line-height: 1;
+  &:after,
+  &:before {
+    /*font-size: 1.5rem;*/
+    font-variation-settings: "wght" var(--font-weight-normal);
     opacity: 0;
     position: absolute;
-    bottom: 0;
+    top: 0%;
+    height: 100%;
     transition: opacity 0.35s ease-out;
-    left: 50%;
-    translate: -50% 50%;
     content: "\00B7";
+  }
+  &:before {
+    left: 0;
+    translate: -8px -10% 0;
+  }
+  &:after {
+    right: 0;
+    translate: 8px -10% 0;
   }
 
   &[data-current=""] {
     font-variation-settings: "wght" var(--font-weight-normal);
-    &:after {
+    cursor: default;
+    &:after,
+    &:before {
       opacity: 1;
     }
   }
 
   @media (hover: hover) {
-    &:hover {
-      font-variation-settings: "wght" var(--font-weight-normal);
+    &:hover:not([data-current=""]) {
+      font-variation-settings: "wght" var(--font-weight-bold);
     }
   }
 }
@@ -289,7 +329,7 @@
 }
 
 .cta {
-  @apply relative px-20 py-4 leading-none uppercase text-lg font-extrabold text-cap;
+  @apply relative px-10 py-4 leading-none uppercase text-md font-extrabold text-cap;
   text-box: trim-both cap alphabetic;
 }
 

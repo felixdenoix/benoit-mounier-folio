@@ -1,5 +1,4 @@
 import { Piece } from "piecesjs";
-import { gsap } from "gsap";
 
 export default class Mailto extends Piece {
   public $link: HTMLLinkElement | undefined;
@@ -28,13 +27,13 @@ export default class Mailto extends Piece {
     try {
       if (!this.$clipboardFallback && this.$link) {
         e.preventDefault();
-        const target = e.target as HTMLElement;
+        const target = e.target as HTMLLinkElement;
         const mailto = target?.href as string;
 
         const [, mail] = mailto.split(":");
 
         await navigator.clipboard.writeText(mail);
-        const tl = gsap
+        const tl = globalThis.gsap
           .timeline({ paused: true })
           .to(this.$link, {
             autoAlpha: 0,

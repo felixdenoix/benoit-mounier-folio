@@ -22,6 +22,14 @@ export const components: ComponentDefinition[] = [
     tag: "c-mailto",
     loader: () => import("./mailto.ts"),
   },
+  {
+    tag: "c-header",
+    loader: () => import("./header.ts"),
+  },
+  {
+    tag: "c-footer",
+    loader: () => import("./footer.ts"),
+  },
 ];
 
 export const loader = (dom: HTMLElement) => {

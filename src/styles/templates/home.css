@@ -1,10 +1,7 @@
 @import "../index";
 
 .expertise {
-  border: 10px red solid;
   html.-string & {
-    border-color: green;
-
     .animate-opacity {
       opacity: 0;
       transition: opacity 1s ease;
@@ -14,7 +11,7 @@
       scale: 0 1 1;
       opacity: 0;
       transition:
-        scale 2s ease-out,
+        scale 1.5s ease-out,
         opacity 0.35s ease-out;
       &.from-left {
         transform-origin: right;
@@ -25,8 +22,6 @@
     }
 
     &.-inview {
-      border-color: deeppink;
-
       .animate-opacity {
         opacity: 1;
         transition-delay: 0;
