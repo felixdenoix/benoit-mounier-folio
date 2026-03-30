@@ -5,7 +5,7 @@
 
 <article class="project base-grid pb-24">
   <header class="project header block col-span-full row-span-1 grid place-items-center text-black pt-(--header-height) pb-8 md:pb-16 lg:pb-20 xl:pb-26">
-    <h1 class="block w-fit text-4xl font-heavy mt-8 md:mt-16 lg:mt-20 xl:mt-26"><?= $page->headline()->esc() ?: $page->title()->esc() ?></h1>
+    <h1 class="block w-fit text-3xl md:text-4xl font-heavy mt-8 md:mt-16 lg:mt-20 xl:mt-26"><?= $page->headline()->esc() ?: $page->title()->esc() ?></h1>
     <?php if ($page->subheadline()->isNotEmpty()): ?>
     <h2 class="block w-fit text-2xl"><?= $page->subheadline()->esc() ?></h2>
     <?php endif ?>
