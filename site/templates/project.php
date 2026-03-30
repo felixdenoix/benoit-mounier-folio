@@ -47,7 +47,7 @@
     </section>
     <?php endforeach ?>
   </div>
-  <div class="next md:hidden flex items-stretch *:w-full w-full">
+  <div class="next md:hidden flex items-stretch *:w-full col-span-full mt-10">
     <?php snippet('nextproject') ?>
   </div>
 
