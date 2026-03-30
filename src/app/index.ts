@@ -26,7 +26,6 @@ export default class App {
 
   initSmooth() {
     const smooth = StringTune.getInstance();
-
     this.smoothScroll = smooth;
 
     if (this.smoothScroll) {

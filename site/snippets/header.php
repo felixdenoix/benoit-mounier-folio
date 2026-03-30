@@ -77,7 +77,7 @@
 </head>
 <body class="font-sans antialiased box-border">
 
-  <header class="hidden! header p-4 w-full fixed top-0 flex flex-col items-center justify-center bg-white shadow z-1">
+  <header class="header p-4 w-full fixed top-0 flex flex-col items-center justify-center bg-white shadow z-100">
     <?php
     /*
       We use `$site->url()` to create a link back to the homepage
@@ -118,10 +118,10 @@
   </header>
 
   <main
-    class="main h-full min-h-screen"
+    class="main h-auto min-h-screen"
     data-taxi>
     <div
-      class="h-full"
+      class="h-auto"
       data-taxi-view
       data-title="<?= isset($seo) ? $site->title()->esc() . ' | ' . $seo->title()->esc() : $site->title()->esc() . ' | ' . $page->title()->esc() ?>"
       data-description="<?= (isset($seo) && $seo->description()->isNotEmpty()) ? $seo->description()->html() : '' ?>"

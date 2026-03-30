@@ -3,37 +3,37 @@
 @property --word-global-total {
   syntax: "<number>";
   inherits: true;
-  initial: 0;
+  initial-value: 0;
 }
 @property --text-reveal-progress {
   syntax: "<number>";
   inherits: true;
-  initial: 0;
+  initial-value: 0;
 }
 @property --progress-unit {
   syntax: "<number>";
   inherits: false;
-  initial: 0;
+  initial-value: 0;
 }
 @property --min-progress {
   syntax: "<number>";
   inherits: false;
-  initial: 0;
+  initial-value: 0;
 }
 @property --max-progress {
   syntax: "<number>";
   inherits: false;
-  initial: 1;
+  initial-value: 1;
 }
 @property --word-progress {
   syntax: "<number>";
   inherits: false;
-  initial: 0;
+  initial-value: 0;
 }
 @property --word-opacity {
   syntax: "<number>";
   inherits: false;
-  initial: 0;
+  initial-value: 0;
 }
 
 c-text-reveal {

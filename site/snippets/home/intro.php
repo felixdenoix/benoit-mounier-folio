@@ -23,30 +23,49 @@ foreach ($items as $index => $item):
 ?>
 
 <c-home-intro
-  class="block bg-(--bgc) sticky top-0 w-full h-[calc(100vh+var(--scenes-height))] object-center object-contain pt-screen z-(--section-index)"
+  class="block bg-(--bgc) sticky top-0 w-full h-(--scenes-height) <?= count($item->scenes()->toStructure()) > 0 ? 'min-h-[200vh]' : '' ?> object-center object-contain px-[5%] lg:px-[10%] z-(--section-index)"
   string="progress"
   string-key="--home-intro-progress"
   string-id="<?=$intro_block_id?>"
-  <?php if ($index == 0) : ?>
-  <?php endif ?>
-  string-easing="cubic-bezier(0.25, 0.25, 0.25, 0.25)"
+  <?php if ($item->background_image()->isNotEmpty()) : ?>
   string-enter-el="top"
   string-enter-vp="top"
   string-offset-bottom="0%"
+  <?php else : ?>
+  string-enter-el="top"
+  string-enter-vp="top"
+  string-offset-bottom="0%"
+  <?php endif ?>
+  string-easing="cubic-bezier(0.25, 0.25, 0.25, 0.25)"
   string-exit-el="bottom"
   string-exit-vp="bottom"
-  style="--bgc:<?= $item->background_color()->or("transparent") ?>; --scenes-count:<?= $scenes_count ?>; --scenes-height: calc(<?= $scenes_count ?> * 100vh); --intro-section-height:calc(100vh + var(--scenes-height)); --section-index:<?= $index ?>;">
+  style="--bgc:<?= $item->background_color()->or("white") ?>; --scenes-count:<?= $scenes_count ?>; --scenes-height: calc(<?= $scenes_count ?: 1 ?> * 100vh); --section-index:<?= $index * 10?>;">
 
-    <?php if ($item->background_image()->isNotEmpty()): ?>
+    <?php if ($item->background_image()->isNotEmpty() || $item->title()->isNotEmpty()) : ?>
 
-    <div
-      data-background
-      class="absolute z-1 top-0 h-screen w-full will-change-transform transform-[translate3d(0,calc(var(--home-intro-progress)*var(--scenes-height)),0)]"
-    >
-      <img
-        class="absolute top-0 w-full h-full object-center object-contain"
-        decoding="async"
-        src="<?= $item->background_image()->toFile()->url() ?>">
+    <div class="background-wrapper absolute h-(--scenes-height) w-9/10 lg:w-8/10 ">
+      <div
+        data-background
+        class="sticky grid place-items-center z-1 top-0 h-screen w-full left-[5%] lg:left-[10%]"
+      >
+        <?php if($item->background_image()->isNotEmpty()) : ?>
+        <img
+          class="absolute top-0 w-full h-full object-center object-contain"
+          decoding="async"
+          src="<?= $item->background_image()->toFile()->url() ?>">
+        <?php endif ?>
+        <div class="headings text-center">
+          <?php if($item->title()->isNotEmpty()): ?>
+          <h1 class="text-3xl lg:text-4xl font-extrabold"><?= $item->title()->escape() ?></h1>
+          <?php endif ?>
+          <?php if($item->subtitle()->isNotEmpty()) : ?>
+          <h2 class="text-md font-bold"><?= $item->subtitle()->escape() ?></h2>
+          <?php endif ?>
+          <h1></h1>
+        </div>
+
+      </div>
+
     </div>
 
     <?php endif ?>
@@ -62,7 +81,7 @@ foreach ($items as $index => $item):
     <div
       string="progress-part"
       string-part-of="<?= "{$intro_block_id}[{$part_start}-{$part_end}]"?>"
-      class="z-10 scene sticky top-0 w-full h-screen aspect-16/9 <?= "animation-mode-".$scene->animation_mode() ?>">
+      class="z-10 scene h-screen top-0 aspect-16/9 <?= "animation-mode-".$scene->animation_mode() ?> <?= $scene->scroll_mode() == 'normal' ? 'sticky w-full' : 'fixed w-9/10 lg:w-8/10' ?>">
 
       <?php
         $ftFiles = $scene->images_ft()->toFiles();
@@ -72,7 +91,7 @@ foreach ($items as $index => $item):
         }
         foreach ($ftFiles as $imageFt): ?>
         <img
-          class="from-top absolute top-0 left-0 object-center object-contain h-full w-full"
+          class="z-1 from-top absolute top-0 left-0 object-center object-contain h-full w-full"
           decoding="async"
           style="--animation-index:<?= $fileIndexes[$ftFiles->indexOf($imageFt)] ?>; --animation-count:<?= count($ftFiles) ?>"
           height="<?= $imageFt->height()?>"
@@ -88,7 +107,7 @@ foreach ($items as $index => $item):
         }
         foreach ($fbFiles as $imageFb): ?>
         <img
-          class="from-bottom absolute top-0 left-0 object-center object-contain h-full w-full"
+          class="z-2 from-bottom absolute top-0 left-0 object-center object-contain h-full w-full"
           decoding="async"
           style="--animation-index:<?= $fileIndexes[$fbFiles->indexOf($imageFb)] ?>; --animation-count: <?= count($fbFiles) ?>"
           height="<?= $imageFb->height()?>"
@@ -104,7 +123,7 @@ foreach ($items as $index => $item):
         }
         foreach ($imagesFade as $imageFade): ?>
         <img
-          class="from-fade absolute top-0 left-0 object-center object-contain h-full w-full"
+          class="z-3 from-fade absolute top-0 left-0 object-center object-contain h-full w-full"
           decoding="async"
           style="--animation-index:<?= $fileIndexes[$imagesFade->indexOf($imageFade)] ?>; --animation-count: <?= count($imagesFade) ?>"
           height="<?= $imageFade->height()?>"

@@ -138,7 +138,9 @@
   }
 
   @variant xl {
-    --grid-padding: calc(6 * var(--spacing));
+    :root {
+      --grid-padding: calc(6 * var(--spacing));
+    }
   }
 
   pre {

@@ -51,6 +51,12 @@ tabs:
                       stagger: Linear Stagger
                       random: Random Stagger
                       simultaneous: Simultaneous
+                  scroll_mode:
+                    type: select
+                    options:
+                      normal: normal
+                      fixed: fixed
+                    default: normal
               background_image:
                 type: files
                 multiple: false
@@ -58,6 +64,11 @@ tabs:
               background_color:
                 type: color
                 alpha: true
+              title:
+                type: text
+              subtitle:
+                type: text
+
           hiatus:
             type: textarea
             size: small

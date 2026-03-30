@@ -11,6 +11,10 @@ export const components: ComponentDefinition[] = [
     loader: () => import("./text-reveal.ts"),
   },
   {
+    tag: "c-homepage",
+    loader: () => import("./home-page.ts"),
+  },
+  {
     tag: "c-home-intro",
     loader: () => import("./home-intro.ts"),
   },

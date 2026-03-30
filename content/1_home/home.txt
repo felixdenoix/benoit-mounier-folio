@@ -45,9 +45,14 @@ Intro:
         - 'file://bpnuqsonsrtgo507'
       images_fade: []
       animation_mode: random
+      scroll_mode: normal
+      title: ''
+      subtitle: ''
       animation-mode: stagger
   background_image: []
   background_color: ''
+  title: ''
+  subtitle: ''
   backgroundimage: []
   backgroundcolor: ''
   scene:
@@ -106,6 +111,9 @@ Intro:
         - 'file://swuuhqrkitrtfphd'
       images_fade: []
       animation_mode: stagger
+      scroll_mode: normal
+      title: ''
+      subtitle: ''
       animation-mode: random
     -
       images_ft: []
@@ -114,15 +122,26 @@ Intro:
         - 'file://whapmlk2fls6jkjy'
         - 'file://owecykusphwuvpsp'
       animation_mode: simultaneous
+      scroll_mode: fixed
+      title: ''
+      subtitle: ''
       animation-mode: simultaneous
   background_image:
     - 'file://qhikne21dqiwq500'
   background_color: '#8e8e8e'
+  title: ''
+  subtitle: ''
   backgroundimage:
     - 'file://iktuaagsvm7zh5p7'
   backgroundcolor: '#8c8c8c'
   scene: []
   background: ''
+-
+  scenes: []
+  background_image: []
+  background_color: ''
+  title: 'BENOIT MOUNIER'
+  subtitle: "GRAPHISTE\_-\_ILLUSTRATEUR"
 
 ----
 
