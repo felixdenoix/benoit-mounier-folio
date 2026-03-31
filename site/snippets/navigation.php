@@ -1,4 +1,4 @@
-<nav class="w-fit flex flex-row gap-x-10">
+<nav class="w-fit flex flex-row gap-x-[calc(100vh/12)] md:gap-x-[calc(2*100vh/12)]">
   <?php
   /*
     In the menu, we only fetch listed pages,
@@ -15,8 +15,9 @@
   <?php foreach ($site->children()->listed() as $item): ?>
   <a
     class="uppercase header-link header-link-hover block text-[1.1rem] leading-none"
-    <?php e($item->isOpen(), 'data-current aria-current="page"') ?>
+    <?php e($item->isActive(), 'data-current aria-current="page"') ?>
     href="<?= $item->url() ?>"><?= $item->title()->esc() ?>
   </a>
+  <!--<?php var_dump($item); ?>-->
   <?php endforeach ?>
 </nav>

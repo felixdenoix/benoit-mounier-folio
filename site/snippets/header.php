@@ -79,20 +79,19 @@
 
   <c-header
     <?= isset($hide_header) ? 'hide="true"': false?>
-    class="w-full"
+    class="w-full h-auto"
     string-copy-from="footer">
     <header
       data-dom="header"
-      class="header p-4 w-full fixed z-(--z-header) top-0 flex flex-col items-center justify-center bg-white shadow">
-      <?php
-      /*
-        We use `$site->url()` to create a link back to the homepage
-        for the logo and `$site->title()` as a temporary logo. You
-        probably want to replace this with an SVG.
-      */
-      ?>
+      class="header p-4 w-screen fixed z-(--z-header) top-0 bg-white shadow">
+        <div class="c-animated-grid w-full project-title" data-dom="grid">
+          <div id="header-menu-project-title" class="bg-red-500 h-full overflow-hidden" data-dom="project-title">
+          </div>
 
-      <?php snippet("navigation") ?>
+          <div id="header-menu-nav" class="nav flex justify-center col-start-3 col-span-1" data-dom="project-menu">
+            <?php snippet("navigation") ?>
+          </div>
+        </div>
     </header>
   </c-header>
 

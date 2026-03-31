@@ -261,7 +261,7 @@
 
   &[data-current=""] {
     font-variation-settings: "wght" var(--font-weight-normal);
-    cursor: default;
+    /*cursor: default;*/
     &:after,
     &:before {
       opacity: 1;

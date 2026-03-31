@@ -30,6 +30,10 @@ export const components: ComponentDefinition[] = [
     tag: "c-footer",
     loader: () => import("./footer.ts"),
   },
+  {
+    tag: "c-project",
+    loader: () => import("./project.ts"),
+  },
 ];
 
 export const loader = (dom: HTMLElement) => {

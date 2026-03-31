@@ -1,3 +1,9 @@
+@property --header-menu-project-title {
+  syntax: "<length> | <percentage>";
+  inherits: false;
+  initial-value: 0;
+}
+
 c-header {
   header {
     /* Critical css in index.css */
@@ -15,6 +21,28 @@ c-header {
 
       &.collapsed {
         transform: translate3d(0, -100%, 0);
+      }
+    }
+
+    .c-animated-grid {
+      border: 1px solid purple;
+      transition: 1000ms;
+      display: grid;
+      /*grid-template-columns: 20px auto;*/
+      /*grid-template-columns:
+        var(--header-menu-project-title, 0%)
+        auto min-content auto;
+        */
+      grid-template-columns:
+        0
+        auto min-content auto;
+
+      &.project-title,
+      &:has(#header-menu-project-title:hover) {
+        /*--header-menu-project-title: 60%;*/
+        grid-template-columns:
+          var(--header-menu-project-title, 0%)
+          auto min-content auto;
       }
     }
   }

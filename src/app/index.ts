@@ -86,9 +86,15 @@ export default class App {
         const targetDataset = (updatedLinks[index] as HTMLElement).dataset;
         Object.keys((link as HTMLElement).dataset).map((key) => {
           delete (link as HTMLElement).dataset[key];
+          if (key === "current") {
+            link.removeAttribute("aria-current");
+          }
         });
         Object.keys(targetDataset).map((key) => {
           (link as HTMLElement).dataset[key] = targetDataset[key];
+          if (key === "current") {
+            link.setAttribute("aria-current", "page");
+          }
         });
       }
 
