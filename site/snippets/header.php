@@ -81,15 +81,29 @@
     <?= isset($hide_header) ? 'hide="true"': false?>
     class="w-full h-auto"
     string-copy-from="footer">
+    <!-- TODO: handle header height as its currently too big -->
     <header
       data-dom="header"
-      class="header p-4 w-screen fixed z-(--z-header) top-0 bg-white shadow">
-        <div class="c-animated-grid w-full project-title" data-dom="grid">
-          <div id="header-menu-project-title" class="bg-red-500 h-full overflow-hidden" data-dom="project-title">
+      class="header py-(--spacing-grid-padding) w-screen fixed z-(--z-header) top-0 bg-white shadow">
+        <div
+          class="c-animated-grid leading-none w-full project-title max-w-(--grid-max-width) px-(--spacing-grid-padding) mx-auto group h-[var(--text-lg)] lg:h-(--text-xl)"
+          data-dom="grid"
+        >
+          <div
+            id="header-menu-project-title"
+            class="h-full overflow-hidden grid place-items-center grid-cols-1"
+            string-copy-id="project-heading">
+              <span
+                id="toto"
+                data-dom="project-title"
+                class="text-lg lg:text-xl leading-none font-extrabold block whitespace-nowrap w-fit text-center opacity-0 transition duration-500 delay-0 group-[.project-title]:opacity-100 group-[.project-title]:delay-500"
+              ></span>
           </div>
 
-          <div id="header-menu-nav" class="nav flex justify-center col-start-3 col-span-1" data-dom="project-menu">
-            <?php snippet("navigation") ?>
+          <div
+            id="header-menu-nav"
+            class="nav text-md! flex justify-center col-start-3 col-span-1" data-dom="project-menu">
+              <?php snippet("navigation", ['classes' => 'width-col-6 md:width-col-4 lg:width-col-3 px-(--spacing-grid-padding)']) ?>
           </div>
         </div>
     </header>

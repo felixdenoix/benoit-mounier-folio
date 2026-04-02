@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 22
           cache: "pnpm"
-      - run: pnpm install
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm run build
       - name: FTP Deployment
         uses: SamKirkland/FTP-Deploy-Action@4.3.3

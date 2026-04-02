@@ -1,4 +1,4 @@
-<nav class="w-fit flex flex-row gap-x-[calc(100vh/12)] md:gap-x-[calc(2*100vh/12)]">
+<nav class="flex flex-row justify-between text-md items-center <?= isset($classes) ? $classes : '' ?>">
   <?php
   /*
     In the menu, we only fetch listed pages,
@@ -16,8 +16,7 @@
   <a
     class="uppercase header-link header-link-hover block text-[1.1rem] leading-none"
     <?php e($item->isActive(), 'data-current aria-current="page"') ?>
-    href="<?= $item->url() ?>"><?= $item->title()->esc() ?>
+    href="<?= $item->url() ?>"><?= $item->pagelinklabel()->isNotEmpty() ? $item->pagelinklabel()->esc() : $item->title()->esc() ?>
   </a>
-  <!--<?php var_dump($item); ?>-->
   <?php endforeach ?>
 </nav>

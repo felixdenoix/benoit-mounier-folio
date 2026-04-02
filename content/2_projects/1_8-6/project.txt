@@ -8,7 +8,7 @@ Cover: - 'file://ekitpix4kteu8nx3'
 
 ----
 
-Headline: 8 • 6
+Headline: 8<span style="color:red;">·</span>6
 
 ----
 
@@ -35,15 +35,15 @@ Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"con
 
 ----
 
-Pagelinklabel: 
+Pagelinklabel:
 
 ----
 
-Seotitle: 
+Seotitle:
 
 ----
 
-Seodescription: 
+Seodescription:
 
 ----
 

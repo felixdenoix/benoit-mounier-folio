@@ -16,6 +16,28 @@
   font-display: swap;
 }
 
+@property --grid-padding {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 10px;
+}
+@property --grid-width {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 100vw;
+}
+@property --header-height {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 78px;
+}
+
+@property --text-md {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 40px;
+}
+
 :root {
   /* @link https://utopia.fyi/type/calculator/?c=360,18,1.333,1240,22,1.414,5,2,&s=0.75,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
@@ -81,6 +103,7 @@
   --color-gray-primary: rgb(60 60 60);
 
   --grid-max-width: 82rem;
+  --grid-width: min(100vw, var(--grid-max-width));
   --grid-columns: repeat(12, minmax(0, 1fr));
 
   --header-height: 78px;
@@ -233,16 +256,22 @@
   border: 1px solid orange;
 }
 
+/* To use whenever needing to size element by columns but without using grid columns*/
+@utility width-col-* {
+  --col-width: calc(var(--grid-width) / 12);
+  width: calc(var(--col-width) * --value(integer));
+}
+
 .header-link-hover {
   font-weight: unset;
-  font-variation-settings: "wght" var(--font-weight-normal);
+  font-variation-settings: "wght" var(--font-weight-bold);
   transition: font-variation-settings 0.3s ease;
   position: relative;
   line-height: 1;
   &:after,
   &:before {
     /*font-size: 1.5rem;*/
-    font-variation-settings: "wght" var(--font-weight-normal);
+    font-variation-settings: "wght" var(--font-weight-bold);
     opacity: 0;
     position: absolute;
     top: 0%;
@@ -260,7 +289,7 @@
   }
 
   &[data-current=""] {
-    font-variation-settings: "wght" var(--font-weight-normal);
+    font-variation-settings: "wght" var(--font-weight-bold);
     /*cursor: default;*/
     &:after,
     &:before {
@@ -270,7 +299,7 @@
 
   @media (hover: hover) {
     &:hover:not([data-current=""]) {
-      font-variation-settings: "wght" var(--font-weight-bold);
+      font-variation-settings: "wght" var(--font-weight-normal);
     }
   }
 }

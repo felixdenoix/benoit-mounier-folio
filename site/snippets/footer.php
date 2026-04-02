@@ -22,7 +22,7 @@
       string-offset-top="-40sh"
       class="footer box-border block pt-8 px-grid-padding pb-grid-padding base-grid">
       <div class="col-span-full flex justify-center mb-4">
-        <?php snippet('navigation'); ?>
+        <?php snippet('navigation', ['classes' => 'text-md font-extrabold width-col-8 md:width-col-4 lg:width-col-3']); ?>
       </div>
 
       <div class="col-span-full flex justify-center mb-8 text-lg font-extrabold">

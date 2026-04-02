@@ -2,14 +2,6 @@ Title: Home
 
 ----
 
-Headline: Welcome to Kirby's Starterkit
-
-----
-
-Subheadline: A fully documented example project
-
-----
-
 Intro:
 
 -
@@ -178,11 +170,11 @@ Pagelinklabel: À PROPOS
 
 ----
 
-Seotitle: 
+Seotitle:
 
 ----
 
-Seodescription: 
+Seodescription:
 
 ----
 

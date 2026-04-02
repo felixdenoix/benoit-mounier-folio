@@ -9,9 +9,7 @@ c-header {
     /* Critical css in index.css */
 
     html.-string & {
-      transition:
-        transform 0.5s ease-out,
-        opacity 0.5s ease-out !important;
+      transition: opacity 0.5s ease-out !important;
       transform: translate3d(0, calc(-100% * var(--progress)), 0);
       /* the progress css var is set by the footer by using the `string-copy-from` attribute*/
 
@@ -25,8 +23,7 @@ c-header {
     }
 
     .c-animated-grid {
-      border: 1px solid purple;
-      transition: 1000ms;
+      transition: 750ms;
       display: grid;
       /*grid-template-columns: 20px auto;*/
       /*grid-template-columns:
@@ -35,14 +32,17 @@ c-header {
         */
       grid-template-columns:
         0
-        auto min-content auto;
+        minmax(var(--spacing-grid-padding), auto)
+        min-content
+        minmax(var(--spacing-grid-padding), auto);
 
-      &.project-title,
-      &:has(#header-menu-project-title:hover) {
+      &.project-title {
         /*--header-menu-project-title: 60%;*/
         grid-template-columns:
           var(--header-menu-project-title, 0%)
-          auto min-content auto;
+          minmax(var(--spacing-grid-padding), auto)
+          min-content
+          minmax(var(--spacing-grid-padding), auto);
       }
     }
   }

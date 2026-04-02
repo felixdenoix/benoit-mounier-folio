@@ -1,8 +1,9 @@
-import { StringTune } from "@fiddle-digital/string-tune";
+import { StringTune, frameDOM } from "@fiddle-digital/string-tune";
 import gsap from "gsap";
 import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
+import { debounce } from "lodash";
 import {
   StringSplit,
   StringProgress,
@@ -17,6 +18,14 @@ export default class App {
   public smoothScroll: StringTune | undefined;
   private stylesheetToLoad: number = 0;
   public gsap: typeof gsap = gsap;
+  public rootStyles: CSSStyleDeclaration | undefined;
+  public consts: {
+    innerHeight: number;
+    innerWidth: number;
+  } = {
+    innerHeight: 0,
+    innerWidth: 0,
+  };
 
   constructor() {
     this.router = new Core({
@@ -55,6 +64,17 @@ export default class App {
     globalThis.gsap = gsap;
     this.gsap = gsap;
 
+    this.initGlobalVars();
+    window.addEventListener(
+      "resize",
+      debounce(
+        (e: Event) => {
+          this.initGlobalVars(e);
+        },
+        300,
+        { maxWait: 750 },
+      ),
+    );
     this.initRouterEvents();
     this.initSmooth();
     this.startSmooth();
@@ -151,6 +171,16 @@ export default class App {
         });
       },
     );
+  }
+
+  private initGlobalVars(e?: Event) {
+    frameDOM.measure(() => {
+      const windowElement = (e?.target as Window) || window;
+      this.rootStyles = getComputedStyle(windowElement.document.documentElement);
+
+      this.consts.innerHeight = windowElement.innerHeight;
+      this.consts.innerWidth = windowElement.innerWidth;
+    });
   }
 
   private handleStylesheetLoading(callback: () => void) {

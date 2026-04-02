@@ -7,14 +7,19 @@
 
   <article class="project base-grid pb-24">
 
-    <header class="project header block col-span-full row-span-1 grid place-items-center text-black pt-(--header-height) pb-8 md:pb-16 lg:pb-20 xl:pb-26">
+    <?php $headline = $page->headline() ?: $page->title()?>
+    <?php $sub_headline = $page->subheadline()->isNotEmpty() ? $page->subheadline()->esc() : null  ?>
+
+    <header
+      string="progress"
+      string-id="project-heading"
+      data-dom="project-heading"
+      data-heading="<?= $headline->esc() . ($sub_headline ? ' ' . $sub_headline : '') ?>"
+      class="project header col-span-full row-span-1 grid place-items-center text-black pt-(--header-height) pb-8 md:pb-16 lg:pb-20 xl:pb-26">
       <h1
-        string="progress"
-        string-id="project-heading"
-        data-dom="project-heading"
-        class="block w-fit text-3xl md:text-4xl font-heavy mt-8 md:mt-16 lg:mt-20 xl:mt-26"><?= $page->headline()->esc() ?: $page->title()->esc() ?></h1>
-      <?php if ($page->subheadline()->isNotEmpty()): ?>
-      <h2 class="block w-fit text-2xl"><?= $page->subheadline()->esc() ?></h2>
+        class="block w-fit text-3xl md:text-4xl font-heavy mt-8 md:mt-16 lg:mt-20 xl:mt-26"><?= $headline ?></h1>
+      <?php if ($sub_headline): ?>
+      <h2 class="block w-fit text-2xl"><?= $sub_headline ?></h2>
       <?php endif ?>
     </header>
 

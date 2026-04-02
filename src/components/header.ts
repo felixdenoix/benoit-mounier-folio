@@ -3,6 +3,7 @@ import { frameDOM } from "@fiddle-digital/string-tune";
 
 export default class CustomHeader extends Piece {
   // private $tween: gsap.core.Tween | undefined;
+  $projectTitleSlot: HTMLElement | undefined;
   $projectTitle: HTMLElement | undefined;
   $menu: HTMLElement | undefined;
   $grid: HTMLElement | undefined;
@@ -16,9 +17,12 @@ export default class CustomHeader extends Piece {
   mount() {
     this.setTransparent({ value: this.hide });
 
-    this.$projectTitle = this.$("#header-menu-project-title") as HTMLElement;
-    this.$menu = this.$("#header-menu-nav") as HTMLElement;
-    this.$grid = this.domAttr("grid") as HTMLElement;
+    frameDOM.measure(() => {
+      this.$projectTitleSlot = this.$("#header-menu-project-title") as HTMLElement;
+      this.$projectTitle = this.domAttr("project-title") as HTMLElement;
+      this.$menu = this.$("#header-menu-nav") as HTMLElement;
+      this.$grid = this.domAttr("grid") as HTMLElement;
+    });
   }
 
   update() {
@@ -48,10 +52,15 @@ export default class CustomHeader extends Piece {
     }
   }
 
-  toggleProjectMode(activate?: boolean) {
+  toggleProjectMode(params: { activate?: boolean; heading?: string }) {
     console.log("😸 toggleProjectMode");
-    console.log("😸 activate", activate);
-    if (activate) {
+    console.log("😸 activate", params.activate);
+
+    if (params.activate && params.heading && this.$projectTitle) {
+      frameDOM.mutate(() => {
+        this.$projectTitle!.innerHTML = params.heading as string;
+      });
+
       this.updateProjectTitleWidth();
 
       window.addEventListener("resize", this.updateProjectTitleWidth.bind(this));
@@ -64,6 +73,7 @@ export default class CustomHeader extends Piece {
 
       frameDOM.mutate(() => {
         this.$grid?.classList.remove("project-title");
+        // setTimeout(() => this)
       });
     }
   }
@@ -75,9 +85,16 @@ export default class CustomHeader extends Piece {
       const gridWidth = this.$grid?.getBoundingClientRect().width || 0;
       const menuWidth = this.$menu?.getBoundingClientRect().width || 0;
 
-      const projectTitleWidth = gridWidth - menuWidth;
+      // value from browser migth have units appened
+      const gridGutterWidth = window.app.rootStyles
+        ?.getPropertyValue("--grid-padding")
+        ?.match(/^\d+/gm)?.[0];
 
-      console.log("😸 projectTitleWidth", projectTitleWidth);
+      const GRID_GUTTER_WIDTH = gridGutterWidth ? parseFloat(gridGutterWidth) : 10;
+      // grid padding is same as grid gutter
+      const GRID_PADDING = GRID_GUTTER_WIDTH;
+
+      const projectTitleWidth = gridWidth - menuWidth - 2 * GRID_PADDING;
 
       frameDOM.mutate(() => {
         this.$grid?.style.setProperty("--header-menu-project-title", `${projectTitleWidth}px`);

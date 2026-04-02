@@ -19,9 +19,10 @@ export default class HomePage extends Piece {
     frameDOM.measure(() => {
       const elOffset = this?.$hiatus?.getBoundingClientRect().top || 0;
       const scrollOffset = window.app.smoothScroll?.scrollPosition || 0;
+      const offset = elOffset + scrollOffset - window.app.consts.innerHeight; // start on the last slide of the intro
       const trigger: ScrollTriggerRule = {
         id: MENU_TRIGGER,
-        offset: elOffset + scrollOffset - 200,
+        offset: offset,
         direction: "any",
         onEnter: () => {
           this.call("setTransparent", { value: false }, "Header");
