@@ -7,7 +7,32 @@
  * This setting must be set to false in production.
  * All config options: https://getkirby.com/docs/reference/system/options
  */
+
+// =============================================
+// START: Preserve protocol for localhost access
+
+// 1. Get the host and port exactly as requested by the browser
+$host = $_SERVER['HTTP_HOST'] ?? 'benoit-mounier-folio.ddev.site';
+
+// 2. Determine if the request is HTTP or HTTPS
+$isSecure = false;
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+    $isSecure = true;
+} elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $isSecure = true;
+}
+
+$protocol = $isSecure ? 'https' : 'http';
+
+$dynamicUrl = $protocol . '://' . $host;
+
+// END: Preserve protocol for localhost access
+// ===========================================
+
+
 return [
+    // Tell Kirby to use our dynamically calculated URL
+    'url' => $dynamicUrl,
     'debug' => true,
     'yaml.handler' => 'symfony', // already makes use of the more modern Symfony YAML parser: https://getkirby.com/docs/reference/system/options/yaml (will become the default in a future Kirby version)
     'timnarr.imagex' => [

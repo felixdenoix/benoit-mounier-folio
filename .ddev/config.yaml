@@ -1,6 +1,6 @@
 name: benoit-mounier-folio
 type: php
-docroot: "./public"
+docroot: ./public
 php_version: "8.3"
 webserver_type: nginx-fpm
 xdebug_enabled: false
@@ -9,7 +9,9 @@ additional_fqdns: []
 database:
   type: mariadb
   version: "10.11"
+bind_all_interfaces: true
 omit_containers: [db]
+host_webserver_port: "6060"
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []

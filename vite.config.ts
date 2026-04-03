@@ -11,6 +11,10 @@ export default defineConfig(({ mode }) => {
 
     base: mode === "development" ? "/" : "/dist/",
 
+    optimizeDeps: {
+      // exclude: ["@fiddle-digital/string-tune"],
+    },
+
     build: {
       outDir: resolve(process.cwd(), "public/dist"),
       emptyOutDir: true,
@@ -52,6 +56,10 @@ export default defineConfig(({ mode }) => {
       hmr: {
         host: `${process.env.DDEV_SITENAME}.ddev.site`, // resolves to "site.ddev.site"
         protocol: "wss",
+      },
+
+      watch: {
+        // ignored: ["!**/node_modules/@fiddle-digital/string-tune/**"],
       },
     },
 
