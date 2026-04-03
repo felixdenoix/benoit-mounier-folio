@@ -28,7 +28,7 @@ foreach ($items as $index => $item):
   string-key="--home-intro-progress"
   string-id="<?=$intro_block_id?>"
   <?php if($index === 0):?>
-  string-offset-bottom="-25%"
+  string-offset-bottom="-100%"
   <?php endif ?>
   <?php if ($item->background_image()->isNotEmpty()) : ?>
   string-enter-el="top"
@@ -37,7 +37,7 @@ foreach ($items as $index => $item):
   <?php endif ?>
   string-exit-el="bottom"
   string-exit-vp="bottom"
-  style="--bgc:<?= $item->background_color()->or("white") ?>; --scenes-count:<?= $scenes_count ?>; --scenes-height: calc(<?= $scenes_count ?: 1 ?> * 100vh); --section-index:<?= $index * 10?>;">
+  style="--bgc:<?= $item->background_color()->or("white") ?>; --scenes-count:<?= $scenes_count ?>; --scenes-height: calc(<?= $scenes_count ? ($scenes_count < 2 ? 2 : $scenes_count ) : 1 ?> * 100vh); --section-index:<?= $index * 10?>;">
 
     <?php if ($item->background_image()->isNotEmpty() || $item->title()->isNotEmpty()) : ?>
 
@@ -59,11 +59,8 @@ foreach ($items as $index => $item):
           <?php if($item->subtitle()->isNotEmpty()) : ?>
           <h2 class="text-md font-bold"><?= $item->subtitle()->escape() ?></h2>
           <?php endif ?>
-          <h1></h1>
         </div>
-
       </div>
-
     </div>
 
     <?php endif ?>
