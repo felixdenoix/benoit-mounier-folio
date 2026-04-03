@@ -1,7 +1,15 @@
+@import "../index.css";
+
 @property --header-menu-project-title {
   syntax: "<length> | <percentage>";
   inherits: false;
   initial-value: 0;
+}
+
+@property --header-menu-project-title-height {
+  syntax: "<length> | <number> | <percentage>";
+  inherits: true;
+  initial-value: 0px;
 }
 
 c-header {
@@ -23,26 +31,44 @@ c-header {
     }
 
     .c-animated-grid {
-      transition: 750ms;
+      transition:
+        grid-template-rows 750ms,
+        grid-template-columns 750ms;
       display: grid;
-      /*grid-template-columns: 20px auto;*/
-      /*grid-template-columns:
-        var(--header-menu-project-title, 0%)
-        auto min-content auto;
-        */
-      grid-template-columns:
-        0
-        minmax(var(--spacing-grid-padding), auto)
-        min-content
-        minmax(var(--spacing-grid-padding), auto);
+
+      --header-menu-project-title-height: 0px;
+
+      grid-template-rows: 0 min-content;
+
+      grid-template-rows: 0 min-content;
 
       &.project-title {
+        --header-menu-project-title-height: calc(var(--text-md) * 1.2);
+        grid-template-rows:
+          var(--header-menu-project-title-height, 0px)
+          min-content;
         /*--header-menu-project-title: 60%;*/
+      }
+    }
+
+    @variant md {
+      .c-animated-grid {
+        grid-template-rows: unset;
         grid-template-columns:
-          var(--header-menu-project-title, 0%)
+          0
           minmax(var(--spacing-grid-padding), auto)
           min-content
           minmax(var(--spacing-grid-padding), auto);
+
+        &.project-title {
+          /*--header-menu-project-title: 60%;*/
+          grid-template-rows: unset;
+          grid-template-columns:
+            var(--header-menu-project-title-width, 0%)
+            minmax(var(--spacing-grid-padding), auto)
+            min-content
+            minmax(var(--spacing-grid-padding), auto);
+        }
       }
     }
   }

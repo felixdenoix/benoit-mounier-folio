@@ -7,14 +7,18 @@
 
   <article class="project base-grid pb-24">
 
-    <?php $headline = $page->headline() ?: $page->title()?>
-    <?php $sub_headline = $page->subheadline()->isNotEmpty() ? $page->subheadline()->esc() : null  ?>
+    <?php
+      $headline = $page->headline() ?: $page->title();
+      $sub_headline = $page->subheadline()->isNotEmpty() ? $page->subheadline()->esc() : null;
+      $sub_headline_dataset = $page->subheadline()->isNotEmpty() ? "<span class='hidden md:inline!'>{$page->subheadline()->esc()}</span>" : null;
+
+      ?>
 
     <header
       string="progress"
       string-id="project-heading"
       data-dom="project-heading"
-      data-heading="<?= $headline->esc() . ($sub_headline ? ' ' . $sub_headline : '') ?>"
+      data-heading="<?= $headline->esc() . ($sub_headline_dataset ? ' ' . $sub_headline_dataset : '') ?>"
       class="project header col-span-full row-span-1 grid place-items-center text-black pt-(--header-height) pb-8 md:pb-16 lg:pb-20 xl:pb-26">
       <h1
         class="block w-fit text-3xl md:text-4xl font-heavy mt-8 md:mt-16 lg:mt-20 xl:mt-26"><?= $headline ?></h1>

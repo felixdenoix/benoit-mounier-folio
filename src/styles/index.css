@@ -186,7 +186,7 @@
     html.-string & {
       &:not([hide="true"]) {
         header {
-          visibility: inherit;
+          visibility: visible;
           opacity: 1;
           transition: opacity 0.35s ease-out;
         }

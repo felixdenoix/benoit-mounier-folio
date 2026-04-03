@@ -25,6 +25,7 @@ export default class CustomHeader extends Piece {
     });
   }
 
+  // lifecycle method
   update() {
     (this.domAttr("header") as HTMLElement)?.classList.toggle("hide", this.hide);
   }
@@ -45,6 +46,7 @@ export default class CustomHeader extends Piece {
   // Lifecycle END
 
   setTransparent({ value, toggle }: { value?: boolean; toggle?: boolean }) {
+    console.log("😸 set transparent", value, toggle);
     if (toggle) {
       this.hide = !this.hide;
     } else if (value !== undefined && value !== this.hide) {
@@ -80,8 +82,6 @@ export default class CustomHeader extends Piece {
 
   updateProjectTitleWidth() {
     frameDOM.measure(() => {
-      console.log("😸 this.$grid", this.$grid);
-      console.log("😸 this.$menu", this.$menu);
       const gridWidth = this.$grid?.getBoundingClientRect().width || 0;
       const menuWidth = this.$menu?.getBoundingClientRect().width || 0;
 
@@ -97,7 +97,10 @@ export default class CustomHeader extends Piece {
       const projectTitleWidth = gridWidth - menuWidth - 2 * GRID_PADDING;
 
       frameDOM.mutate(() => {
-        this.$grid?.style.setProperty("--header-menu-project-title", `${projectTitleWidth}px`);
+        this.$grid?.style.setProperty(
+          "--header-menu-project-title-width",
+          `${projectTitleWidth}px`,
+        );
       });
     });
   }
