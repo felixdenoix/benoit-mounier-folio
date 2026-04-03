@@ -70,7 +70,7 @@ $> dev exec kirby
 
 - [ ] debug off
 - [ ] font subsetting
-- [ ] 
+- [ ] remove sourcemap from build
 
 ## Learnings
 
