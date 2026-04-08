@@ -18,8 +18,8 @@
 $items = $page->intro()->toStructure();
 // we can then loop through the entries and render the individual fields
 foreach ($items as $index => $item):
-  $intro_block_id = "into-block-progress" . $index;
-  $scenes_count = count($item->scenes()->toStructure());
+    $intro_block_id = "into-block-progress".$index;
+    $scenes_count = count($item->scenes()->toStructure());
 ?>
 
 <c-home-intro
@@ -46,11 +46,38 @@ foreach ($items as $index => $item):
         data-background
         class="sticky grid place-items-center z-1 top-0 h-screen w-full left-[5%] lg:left-[10%]"
       >
-        <?php if($item->background_image()->isNotEmpty()) : ?>
-        <img
-          class="absolute top-0 w-full h-full object-center object-contain"
-          decoding="async"
-          src="<?= $item->background_image()->toFile()->url() ?>">
+        <?php if($item->background_image()->isNotEmpty()) :
+            $background = $item->background_image()->toFile();
+        ?>
+
+        <?php
+            snippet('imagex-picture', [
+                        'image' => $background,
+                        'pictureAttributes' => [
+                            'shared' => [
+                                'class' => [
+                                    'absolute h-full w-full inset-0 z-1 object-contain object-center'
+                                ],
+                            ],
+                        ],
+                        'imgAttributes' => [
+                            'shared' => [
+                                'class' => ['h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]'],
+                                'style' => [
+                                    "--bg-image: url(data:{$background->mime()};base64,{$background->thumb(['width' => 30, 'blur' => true, 'quality' => 50])->base64()});",
+                                ],
+                                'sizes' => '100vw',
+                                'decoding' => 'async',
+                            ],
+                        ],
+                        'sourcesAttributes' => [
+                            'shared' => [
+                                'sizes' => '100vw',
+                            ],
+                        ],
+                        'srcsetName' => 'ben-srcset',
+                    ])
+        ?>
         <?php endif ?>
         <div class="headings text-center w-full">
           <?php if($item->title()->isNotEmpty()): ?>
@@ -69,62 +96,139 @@ foreach ($items as $index => $item):
     $scenes = $item->scenes()->toStructure();
     $scenes_count = count($scenes);
     foreach ($scenes as $scene_index => $scene):
-      $step = 1 / $scenes_count;
-      $part_start = $scene_index * $step;
-      $part_end = $scene_index === $scenes_count - 1 ? 1 : ($scene_index + 1) * $step;
+        $step = 1 / $scenes_count;
+        $part_start = $scene_index * $step;
+        $part_end = $scene_index === $scenes_count - 1 ? 1 : ($scene_index + 1) * $step;
     ?>
     <div
-      string="progress-part"
-      string-part-of="<?= "{$intro_block_id}[{$part_start}-{$part_end}]"?>"
-      class="z-10 scene h-screen top-0 aspect-16/9 <?= "animation-mode-".$scene->animation_mode() ?> <?= $scene->scroll_mode() == 'normal' ? 'sticky w-full' : 'fixed w-9/10 lg:w-8/10' ?>">
+        string="progress-part"
+        string-part-of="<?= "{$intro_block_id}[{$part_start}-{$part_end}]"?>"
+        class="z-10 scene h-screen top-0 aspect-16/9 <?= "animation-mode-".$scene->animation_mode() ?> <?= $scene->scroll_mode() == 'normal' ? 'sticky w-full' : 'fixed w-9/10 lg:w-8/10' ?>">
 
-      <?php
-        $ftFiles = $scene->images_ft()->toFiles();
-        $fileIndexes = range(1, count($ftFiles));
-        if ($scene->animation_mode() == 'random') {
-          shuffle($fileIndexes);
-        }
-        foreach ($ftFiles as $imageFt): ?>
-        <img
-          class="z-1 from-top absolute top-0 left-0 object-center object-contain h-full w-full"
-          decoding="async"
-          style="--animation-index:<?= $fileIndexes[$ftFiles->indexOf($imageFt)] ?>; --animation-count:<?= count($ftFiles) ?>"
-          height="<?= $imageFt->height()?>"
-          width="<?= $imageFt->width()?>"
-          src="<?= $imageFt->url()?>">
-      <?php endforeach ?>
+        <?php
+            $ftFiles = $scene->images_ft()->toFiles();
+            $ftFilesCount = count($ftFiles);
+            $fileIndexes = range(1, $ftFilesCount);
+            if ($scene->animation_mode() == 'random') {
+                shuffle($fileIndexes);
+            }
+            foreach ($ftFiles as $imageFt): ?>
+            <?php snippet('imagex-picture', [
+                'image' => $imageFt,
+                'pictureAttributes' => [
+                    'shared' => [
+                        'class' => [
+                            'absolute h-full w-full inset-0 z-1 object-contain object-center from-top'
+                        ],
+                        'style' => [
+                            "--animation-index: {$fileIndexes[$ftFiles->indexOf($imageFt)]};",
+                            "--animation-count: {$ftFilesCount}",
+                        ],
+                    ],
+                ],
+                'imgAttributes' => [
+                    'shared' => [
+                        'class' => ['h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]'],
+                        'style' => [
+                            "--bg-image: url(data:{$imageFt->mime()};base64,{$imageFt->thumb(['width' => 30, 'blur' => true, 'quality' => 50])->base64()});",
+                        ],
+                        'sizes' => '100vw',
+                        'decoding' => 'async',
+                    ],
+                ],
+                'sourcesAttributes' => [
+                    'shared' => [
+                        'sizes' => '100vw',
+                    ],
+                ],
+                'srcsetName' => 'ben-srcset',
+            ]) ?>
+        <?php endforeach ?>
 
-      <?php
-        $fbFiles = $scene->images_fb()->toFiles();
-        $fileIndexes = range(1, count($fbFiles));
-        if ($scene->animation_mode() === 'random') {
-          shuffle($fileIndexes);
-        }
-        foreach ($fbFiles as $imageFb): ?>
-        <img
-          class="z-2 from-bottom absolute top-0 left-0 object-center object-contain h-full w-full"
-          decoding="async"
-          style="--animation-index:<?= $fileIndexes[$fbFiles->indexOf($imageFb)] ?>; --animation-count: <?= count($fbFiles) ?>"
-          height="<?= $imageFb->height()?>"
-          width="<?= $imageFb->width()?>"
-          src="<?= $imageFb->url()?>">
-      <?php endforeach ?>
+        <?php
+            $fbFiles = $scene->images_fb()->toFiles();
+            $fbFilesCount = count($fbFiles);
+            $fileIndexes = range(1, count($fbFiles));
+            if ($scene->animation_mode() === 'random') {
+            shuffle($fileIndexes);
+            }
+            foreach ($fbFiles as $imageFb): ?>
+            <?php
+            snippet('imagex-picture', [
+                'image' => $imageFb,
+                'pictureAttributes' => [
+                    'shared' => [
+                        'class' => [
+                            'absolute h-full w-full inset-0 z-2 object-contain object-center from-bottom'
+                        ],
+                        'style' => [
+                            "--animation-index: {$fileIndexes[$fbFiles->indexOf($imageFb)]};",
+                            "--animation-count: {$fbFilesCount}",
+                        ],
+                    ],
+                ],
+                'imgAttributes' => [
+                    'shared' => [
+                        'class' => ['h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]'],
+                        'style' => [
+                            "--bg-image: url(data:{$imageFb->mime()};base64,{$imageFb->thumb(['width' => 30, 'blur' => true, 'quality' => 50])->base64()});",
+                        ],
+                        'sizes' => '100vw',
+                        'decoding' => 'async',
+                    ],
+                ],
+                'sourcesAttributes' => [
+                    'shared' => [
+                        'sizes' => '100vw',
+                    ],
+                ],
+                'srcsetName' => 'ben-srcset',
+            ])
+            ?>
+        <?php endforeach ?>
 
-      <?php
-        $imagesFade = $scene->images_fade()->toFiles();
-        $fileIndexes = range(1, count($imagesFade));
-        if ($scene->animation_mode() === 'random') {
-          shuffle($fileIndexes);
-        }
-        foreach ($imagesFade as $imageFade): ?>
-        <img
-          class="z-3 from-fade absolute top-0 left-0 object-center object-contain h-full w-full"
-          decoding="async"
-          style="--animation-index:<?= $fileIndexes[$imagesFade->indexOf($imageFade)] ?>; --animation-count: <?= count($imagesFade) ?>"
-          height="<?= $imageFade->height()?>"
-          width="<?= $imageFade->width()?>"
-          src="<?= $imageFade->url()?>">
-      <?php endforeach ?>
+        <?php
+            $imagesFade = $scene->images_fade()->toFiles();
+            $imagesFadeCount = count($imagesFade);
+            $fileIndexes = range(1, count($imagesFade));
+            if ($scene->animation_mode() === 'random') {
+                shuffle($fileIndexes);
+            }
+            foreach ($imagesFade as $imageFade): ?>
+
+            <?php
+            snippet('imagex-picture', [
+                'image' => $imageFade,
+                'pictureAttributes' => [
+                    'shared' => [
+                        'class' => [
+                            'absolute h-full w-full inset-0 object-contain object-center z-3 from-fade'
+                        ],
+                        'style' => [
+                            "--animation-index: {$fileIndexes[$imagesFade->indexOf($imageFade)]};",
+                            "--animation-count: {$imagesFadeCount}",
+                        ],
+                    ],
+                ],
+                'imgAttributes' => [
+                    'shared' => [
+                        'class' => ['h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]'],
+                        'style' => [
+                            "--bg-image: url(data:{$imageFade->mime()};base64,{$imageFade->thumb(['width' => 30, 'blur' => true, 'quality' => 50])->base64()});",
+                        ],
+                        'sizes' => '100vw',
+                        'decoding' => 'async',
+                    ],
+                ],
+                'sourcesAttributes' => [
+                    'shared' => [
+                        'sizes' => '100vw',
+                    ],
+                ],
+                'srcsetName' => 'ben-srcset',
+            ])
+            ?>
+        <?php endforeach ?>
 
     </div>
     <?php endforeach ?>

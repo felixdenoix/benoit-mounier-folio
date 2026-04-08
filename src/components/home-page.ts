@@ -30,6 +30,10 @@ export default class HomePage extends Piece {
 
     // 2. Attach the fixed debounced reference to the resize listener
     window.addEventListener("resize", this.debouncedSetupScrollHandlers);
+
+    setTimeout(() => {
+      window.app.smoothScroll?.scrollTo(window.innerHeight);
+    }, 1000);
   }
 
   unmount() {

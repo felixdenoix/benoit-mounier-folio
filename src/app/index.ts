@@ -40,7 +40,10 @@ export default class App {
     this.smoothScroll = smooth;
 
     if (this.smoothScroll) {
-      this.smoothScroll.setupSettings({});
+      this.smoothScroll.setupSettings({
+        lerp: 0.3,
+        strength: 0.1,
+      });
 
       this.smoothScroll.use(StringSplit);
       this.smoothScroll.use(StringProgress);

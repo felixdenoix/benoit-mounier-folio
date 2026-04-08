@@ -8,7 +8,8 @@ use PhpCsFixer\Finder;
 return (new Config())
     ->setRiskyAllowed(false)
     ->setRules([
-        '@auto' => true
+        '@auto' => true,
+
     ])
     // 💡 by default, Fixer looks for `*.php` files excluding `./vendor/` - here, you can groom this config
     ->setFinder(
