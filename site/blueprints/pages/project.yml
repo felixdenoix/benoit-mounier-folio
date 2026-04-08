@@ -60,12 +60,12 @@ tabs:
             type: entries
             fields:
               - text
-          nextProject:
-            type: pages
-            layout: cardlets
-            help: Leave empty to select the next project in listing
-            multiple: false
-            query: page.siblings(false)
+          # nextProject:
+          #   type: pages
+          #   layout: cardlets
+          #   help: Leave empty to select the next project in listing
+          #   multiple: false
+          #   query: page.siblings(false)
 
           medias:
             type: layout

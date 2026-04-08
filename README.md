@@ -74,7 +74,10 @@ $> dev exec kirby
 
 ## Learnings
 
-Expose ddev app locally:
+
+<details>
+<summary> #### Expose ddev app locally: </summary> 
+
 ```bash
 $> ddev config --host-webserver-port=6060 --bind-all-interfaces && ddev poweroff && ddev start 
 ```
@@ -222,7 +225,19 @@ server {
 
 ```
 
+</details>
 
+<details>
+<summary> 
+    
+    #### Access `src` assets from template 
+    
+</summary>
+
+created symlink between `public/assets` and `src/assets`
+assets from src can now be called everywhere.
+
+</details>
 
 ---
 <img src="http://getkirby.com/assets/images/github/starterkit.jpg" width="300">

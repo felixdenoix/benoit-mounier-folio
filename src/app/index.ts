@@ -5,10 +5,12 @@ import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
 import { debounce } from "lodash";
 import {
-  StringSplit,
+  StringLerp,
+  StringPositionTracker,
   StringProgress,
   StringProgressPart,
-  StringPositionTracker,
+  StringScrollContainer,
+  StringSplit,
 } from "@fiddle-digital/string-tune";
 // import { piecesManager } from "piecesjs";
 import { loader as loadComponents } from "../components";
@@ -45,9 +47,11 @@ export default class App {
         strength: 0.1,
       });
 
-      this.smoothScroll.use(StringSplit);
+      this.smoothScroll.use(StringLerp);
       this.smoothScroll.use(StringProgress);
       this.smoothScroll.use(StringProgressPart);
+      this.smoothScroll.use(StringScrollContainer);
+      this.smoothScroll.use(StringSplit);
 
       if (import.meta.env.MODE === "development") {
         this.smoothScroll.use(StringPositionTracker);
