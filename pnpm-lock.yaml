@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fiddle-digital/string-tune':
-        specifier: ^1.1.54
-        version: 1.1.54
+        specifier: ^1.1.55
+        version: 1.1.55
       '@unseenco/taxi':
         specifier: ^1.9.1
         version: 1.9.1
@@ -235,8 +235,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fiddle-digital/string-tune@1.1.54':
-    resolution: {integrity: sha512-Cyc0MHhzfPJfmvk13UKCev4eD/HoqrukDU7oxBYjyhvDYqOWTzBKjClrEUpXvYiCjbZyRELUawpGscPu8AOUBQ==}
+  '@fiddle-digital/string-tune@1.1.55':
+    resolution: {integrity: sha512-xTS+UzJzbPsI1a0xWpSdymjlQMuZrEx+XSVXzHqzcrptlfKQHtQDITuuw1oqJljDJQF+7uth6fkxtgb0j3yiBw==}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1540,7 +1540,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.3':
     optional: true
 
-  '@fiddle-digital/string-tune@1.1.54': {}
+  '@fiddle-digital/string-tune@1.1.55': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:

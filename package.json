@@ -38,7 +38,7 @@
     "vite-plugin-mkcert": "^1.17.10"
   },
   "dependencies": {
-    "@fiddle-digital/string-tune": "^1.1.54",
+    "@fiddle-digital/string-tune": "^1.1.55",
     "@unseenco/taxi": "^1.9.1",
     "gsap": "^3.14.2",
     "lodash": "^4.17.21",
