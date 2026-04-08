@@ -2,7 +2,9 @@
   "project_name": "Benoit Mounier",
   "languages": {
     "PHP": {
-      "language_servers": ["phpactor", "!intelephense", "!phptools", "..."],
+      "language_servers": ["intelephense", "!phpactor", "!phptools", "..."],
+      "formatter": "language_server",
+      // "formatter": "prettier",
       "colorize_brackets": true,
     },
   },

@@ -5,7 +5,7 @@ export default {
   "*.{js,ts,mjs,cjs}": "oxfmt",
 
   // 2. Format YAML (Kirby Blueprints, Configs) using Prettier
-  "*.{yml,yaml}": "prettier --write",
+  "*.{yml,yaml,php}": "prettier --write",
 
   // 3. Format PHP using PHP-CS-Fixer via DDEV
   "*.php": (absolutePaths) => {
