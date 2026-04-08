@@ -12,75 +12,173 @@
 // START: Preserve protocol for localhost access
 
 // 1. Get the host and port exactly as requested by the browser
-$host = $_SERVER['HTTP_HOST'] ?? 'benoit-mounier-folio.ddev.site';
+$host = $_SERVER["HTTP_HOST"] ?? "benoit-mounier-folio.ddev.site";
 
 // 2. Determine if the request is HTTP or HTTPS
 $isSecure = false;
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
     $isSecure = true;
-} elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+} elseif (
+    isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) &&
+    $_SERVER["HTTP_X_FORWARDED_PROTO"] === "https"
+) {
     $isSecure = true;
 }
 
-$protocol = $isSecure ? 'https' : 'http';
+$protocol = $isSecure ? "https" : "http";
 
-$dynamicUrl = $protocol . '://' . $host;
+$dynamicUrl = $protocol . "://" . $host;
 
 // END: Preserve protocol for localhost access
 // ===========================================
 
-
 return [
     // Tell Kirby to use our dynamically calculated URL
-    'url' => $dynamicUrl,
-    'debug' => true,
-    'yaml.handler' => 'symfony', // already makes use of the more modern Symfony YAML parser: https://getkirby.com/docs/reference/system/options/yaml (will become the default in a future Kirby version)
-    'timnarr.imagex' => [
-      'cache' => true,
-      'compareFormatsWeights' => 'balanced',
-      'customLazyloading' => false,
-      'formats' => ['avif', 'webp'],
-      'includeInitialFormat' => false,
-      'noSrcsetInImg' => false,
-      'relativeUrls' => false,
+    "url" => $dynamicUrl,
+    "debug" => true,
+    "yaml.handler" => "symfony", // already makes use of the more modern Symfony YAML parser: https://getkirby.com/docs/reference/system/options/yaml (will become the default in a future Kirby version)
+    "afbora.kirby-minify-html" => [
+        "enabled" => false,
+    ], // https://github.com/afbora/kirby-minify-html?tab=readme-ov-file#available-minify-options
+    "timnarr.imagex" => [
+        "cache" => true,
+        "compareFormatsWeights" => "balanced",
+        "customLazyloading" => false,
+        "formats" => ["avif", "webp"],
+        "includeInitialFormat" => false,
+        "noSrcsetInImg" => false,
+        "relativeUrls" => false,
     ], // https://github.com/timnarr/kirby-imagex?tab=readme-ov-file#global-options
-    'thumbs' => [
-        'srcsets' => [
-            'default' => [
-                '800w' => ['width' => 800, 'quality' => 80],
-                '1024w' => ['width' => 1024, 'quality' => 80],
-                '1440w' => ['width' => 1440, 'quality' => 80],
+    "thumbs" => [
+        "srcsets" => [
+            "default" => [
+                "800w" => ["width" => 800, "quality" => 80],
+                "1024w" => ["width" => 1024, "quality" => 80],
+                "1440w" => ["width" => 1440, "quality" => 80],
             ],
-            'default-webp' => [
-                '800w' => ['width' => 800, 'quality' => 75, 'format' => 'webp', 'sharpen' => 10],
-                '1024w' => ['width' => 1024, 'quality' => 75, 'format' => 'webp', 'sharpen' => 10],
-                '1440w' => ['width' => 1440, 'quality' => 75, 'format' => 'webp', 'sharpen' => 10],
+            "default-webp" => [
+                "800w" => [
+                    "width" => 800,
+                    "quality" => 75,
+                    "format" => "webp",
+                    "sharpen" => 10,
+                ],
+                "1024w" => [
+                    "width" => 1024,
+                    "quality" => 75,
+                    "format" => "webp",
+                    "sharpen" => 10,
+                ],
+                "1440w" => [
+                    "width" => 1440,
+                    "quality" => 75,
+                    "format" => "webp",
+                    "sharpen" => 10,
+                ],
             ],
-            'default-avif' => [
-                '800w' => ['width' => 800, 'quality' => 65, 'format' => 'avif', 'sharpen' => 25],
-                '1024w' => ['width' => 1024, 'quality' => 65, 'format' => 'avif', 'sharpen' => 25],
-                '1440w' => ['width' => 1440, 'quality' => 65, 'format' => 'avif', 'sharpen' => 25],
+            "default-avif" => [
+                "800w" => [
+                    "width" => 800,
+                    "quality" => 65,
+                    "format" => "avif",
+                    "sharpen" => 25,
+                ],
+                "1024w" => [
+                    "width" => 1024,
+                    "quality" => 65,
+                    "format" => "avif",
+                    "sharpen" => 25,
+                ],
+                "1440w" => [
+                    "width" => 1440,
+                    "quality" => 65,
+                    "format" => "avif",
+                    "sharpen" => 25,
+                ],
             ],
-            'ben-srcset' => [ // preset for jpeg and png
-                '400w'  => ['width' =>  400, 'crop' => true, 'quality' => 80],
-                '800w'  => ['width' =>  800, 'crop' => true, 'quality' => 80],
-                '1200w' => ['width' => 1200, 'crop' => true, 'quality' => 80],
-                '1440w' => ['width' => 1440, 'crop' => true, 'quality' => 80],
-                '2048w' => ['width' => 2048, 'crop' => true, 'quality' => 80],
+            "ben-srcset" => [
+                // preset for jpeg and png
+                "400w" => ["width" => 400, "crop" => true, "quality" => 80],
+                "800w" => ["width" => 800, "crop" => true, "quality" => 80],
+                "1200w" => ["width" => 1200, "crop" => true, "quality" => 80],
+                "1440w" => ["width" => 1440, "crop" => true, "quality" => 80],
+                "2048w" => ["width" => 2048, "crop" => true, "quality" => 80],
             ],
-            'ben-srcset-webp' => [ // preset for webp
-                '400w'  => ['width' =>  400, 'crop' => true, 'quality' => 75, 'format' => 'webp', 'sharpen' => 10],
-                '800w'  => ['width' =>  800, 'crop' => true, 'quality' => 75, 'format' => 'webp', 'sharpen' => 10],
-                '1200w' => ['width' => 1200, 'crop' => true, 'quality' => 75, 'format' => 'webp', 'sharpen' => 10],
-                '1440w' => ['width' => 1440, 'crop' => true, 'quality' => 75, 'format' => 'webp', 'sharpen' => 10],
-                '2048w' => ['width' => 2048, 'crop' => true, 'quality' => 75, 'format' => 'webp', 'sharpen' => 10],
+            "ben-srcset-webp" => [
+                // preset for webp
+                "400w" => [
+                    "width" => 400,
+                    "crop" => true,
+                    "quality" => 75,
+                    "format" => "webp",
+                    "sharpen" => 10,
+                ],
+                "800w" => [
+                    "width" => 800,
+                    "crop" => true,
+                    "quality" => 75,
+                    "format" => "webp",
+                    "sharpen" => 10,
+                ],
+                "1200w" => [
+                    "width" => 1200,
+                    "crop" => true,
+                    "quality" => 75,
+                    "format" => "webp",
+                    "sharpen" => 10,
+                ],
+                "1440w" => [
+                    "width" => 1440,
+                    "crop" => true,
+                    "quality" => 75,
+                    "format" => "webp",
+                    "sharpen" => 10,
+                ],
+                "2048w" => [
+                    "width" => 2048,
+                    "crop" => true,
+                    "quality" => 75,
+                    "format" => "webp",
+                    "sharpen" => 10,
+                ],
             ],
-            'ben-srcset-avif' => [ // preset for avif
-                '400w'  => ['width' =>  400, 'crop' => true, 'quality' => 65, 'format' => 'avif', 'sharpen' => 25],
-                '800w'  => ['width' =>  800, 'crop' => true, 'quality' => 65, 'format' => 'avif', 'sharpen' => 25],
-                '1200w' => ['width' => 1200, 'crop' => true, 'quality' => 65, 'format' => 'avif', 'sharpen' => 25],
-                '1440w' => ['width' => 1440, 'crop' => true, 'quality' => 65, 'format' => 'avif', 'sharpen' => 25],
-                '2048w' => ['width' => 2048, 'crop' => true, 'quality' => 65, 'format' => 'avif', 'sharpen' => 25],
+            "ben-srcset-avif" => [
+                // preset for avif
+                "400w" => [
+                    "width" => 400,
+                    "crop" => true,
+                    "quality" => 65,
+                    "format" => "avif",
+                    "sharpen" => 25,
+                ],
+                "800w" => [
+                    "width" => 800,
+                    "crop" => true,
+                    "quality" => 65,
+                    "format" => "avif",
+                    "sharpen" => 25,
+                ],
+                "1200w" => [
+                    "width" => 1200,
+                    "crop" => true,
+                    "quality" => 65,
+                    "format" => "avif",
+                    "sharpen" => 25,
+                ],
+                "1440w" => [
+                    "width" => 1440,
+                    "crop" => true,
+                    "quality" => 65,
+                    "format" => "avif",
+                    "sharpen" => 25,
+                ],
+                "2048w" => [
+                    "width" => 2048,
+                    "crop" => true,
+                    "quality" => 65,
+                    "format" => "avif",
+                    "sharpen" => 25,
+                ],
             ],
         ],
     ],

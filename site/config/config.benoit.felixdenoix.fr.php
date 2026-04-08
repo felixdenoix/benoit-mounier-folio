@@ -8,8 +8,15 @@
  * All config options: https://getkirby.com/docs/reference/system/options
  */
 return [
-    'url' => [
-      'https://benoit.felixdenoix.fr',
+    "url" => ["https://benoit.felixdenoix.fr"],
+    "afbora.kirby-minify-html" => [
+        "enabled" => true,
+        "ignore" => ["sitemap"],
+        "options" => [
+            "doOptimizeViaHtmlDomParser" => true,
+            "doRemoveSpacesBetweenTags" => false,
+            // 'doMakeSameDomainsLinksRelative' => ['example.com']
+        ],
     ],
-    'yaml.handler' => 'symfony', // already makes use of the more modern Symfony YAML parser: https://getkirby.com/docs/reference/system/options/yaml (will become the default in a future Kirby version)
+    "yaml.handler" => "symfony", // already makes use of the more modern Symfony YAML parser: https://getkirby.com/docs/reference/system/options/yaml (will become the default in a future Kirby version)
 ];
