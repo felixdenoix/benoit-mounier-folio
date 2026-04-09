@@ -22,8 +22,8 @@
         string-offset-top="-40sh"
         class="footer box-border block pt-8 px-grid-padding pb-grid-padding shadow-md-upwards">
         <div class="base-grid w-full">
-            <div class="col-span-full flex justify-center mb-8">
-                <?php snippet("navigation", ["classes" => "text-md font-extrabold width-col-8 md:width-col-4 lg:width-col-3"]); ?>
+            <div class="col-span-full flex justify-center mb-5">
+                <?php snippet("navigation", ["classes" => "text-md font-extrabold width-auto gap-5 md:gap-0 md:width-col-4 lg:width-col-3"]); ?>
             </div>
 
             <div class="col-span-full flex justify-between">
