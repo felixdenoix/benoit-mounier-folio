@@ -21,65 +21,66 @@
   More about templates: https://getkirby.com/docs/guide/templates/basics
 */
 ?>
-<?php snippet('header', ['seo' => $page->seo()]) ?>
+<?php snippet("header", ["seo" => $page->seo()]); ?>
 
 <div class="pt-(--header-height)">
 
-  <header class="heading py-20 p-20 grid place-items-center">
-    <h1 class="text-3xl font-bold">PROJETS</h1>
-  </header>
+    <header class="heading py-20 p-20 grid place-items-center">
+        <h1 class="text-3xl font-bold">PROJETS</h1>
+    </header>
 
-  <ul
-    style="--row-height: calc(100%/3);"
-    class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group">
+    <ul
+        style="--row-height: calc(100%/3);"
+        class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group">
 
-    <?php foreach($entries as $project):?>
-      <li class="col-span-1 grid place-content-center aspect-3/2 relative place-items-stretch not-pointer-coarse:group-has-[:hover]:*:blur-xs hover:*:blur-none hover:*:scale-101 overflow-hidden transition duration-750 ease-projects relative">
-        <!--<img
-          class="absolute h-full w-full inset-0 -z-1 object-cover object-center scale-102 duration-400 ease-projects transition"
-          src="<?= $project->cover()->url();?>" alt="">-->
+        <?php foreach ($entries as $project): ?>
+            <li class="col-span-1 grid place-content-center aspect-3/2 relative place-items-stretch not-pointer-coarse:group-has-[:hover]:*:blur-xs hover:*:blur-none hover:*:scale-101 overflow-hidden transition duration-750 ease-projects">
 
-        <?php if ($cover = $project->cover()): ?>
-          <?php snippet('imagex-picture', [
-            'image' => $cover,
-            'pictureAttributes'=> [
-              'shared' => [
-                "class" => ['absolute h-full w-full inset-0 -z-1 object-cover object-center scale-102 duration-400 ease-projects transition']
-              ]
-            ],
-            'imgAttributes' => [
-              'shared' => [
-                'class' => ["object-cover h-full w-full bg-cover bg-center bg-[var(--bg-image)]"],
-                'style' => ["--bg-image: url(data:{$cover->mime()};base64,{$cover->thumb(['width' => 30, 'blur' => true, 'quality' => 50])->base64()});"],
-                'sizes' => '(48rem <= width) 33vw,
+                <?php if ($cover = $project->cover()): ?>
+                    <?php snippet("imagex-picture", [
+                        "image" => $cover,
+                        "pictureAttributes" => [
+                            "shared" => [
+                                "class" => ["absolute h-full w-full inset-0 -z-1 object-cover object-center scale-102 duration-400 ease-projects transition"],
+                            ],
+                        ],
+                        "imgAttributes" => [
+                            "shared" => [
+                                "class" => ["object-cover h-full w-full bg-cover bg-center bg-[var(--bg-image)]"],
+                                "style" => [
+                                    "--bg-image: url(data:{$cover->mime()};base64,{$cover->thumb([
+                                        "width" => 30,
+                                        "blur" => true,
+                                        "quality" => 50,
+                                    ])->base64()});",
+                                ],
+                                "sizes" => '(48rem <= width) 33vw,
+                                (40em <= width < 48rem) 50vw,
+                                (width < 40rem) 100vw',
+                                "data-dom" => "lazy-media",
+                            ],
+                        ],
+                        "sourcesAttributes" => [
+                            "shared" => [
+                                "sizes" => '(48rem <= width) 33vw,
                               (40em <= width < 48rem) 50vw,
                               (width < 40rem) 100vw',
-              ],
-            ],
+                            ],
+                        ],
+                        "loading" => "lazy",
+                        "srcsetName" => "ben-srcset",
+                    ]); ?>
+                <?php endif; ?>
 
-            'sourcesAttributes' => [
-              'shared' => [
-                   'sizes' => '(48rem <= width) 33vw,
-                            (40em <= width < 48rem) 50vw,
-                            (width < 40rem) 100vw',
-              ]
-            ],
-            'srcsetName' => 'ben-srcset',
-          ]) ?>
-        <?php endif ?>
+                <a
+                    href="<?= $project->url() ?>"
+                    class="inset-0 block font-bold text-white text-xl z-10 absolute">
+                    <span class="sr-only"><?= $project->title() ?></span>
+                </a>
+            </li>
+        <?php endforeach; ?>
 
-        <a
-          href="<?= $project->url()?>"
-          class="inset-0 block font-bold text-white text-xl z-10 absolute">
-          <span class="sr-only"><?= $project->title()?></span>
-        </a>
-
-      </li>
-    <?php endforeach ?>
-
-  </ul>
+    </ul>
 </div>
 
-
-
-<?php snippet('footer') ?>
+<?php snippet("footer"); ?>

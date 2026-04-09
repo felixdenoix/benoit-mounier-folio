@@ -209,7 +209,7 @@
     user-select: none;
   }*/
 
-  img[data-dom="lazy-media"].lazy-load {
+  img[loading="lazy"][data-dom="lazy-media"] {
     opacity: 0;
     transition: opacity 0.35s ease-out;
 
