@@ -208,6 +208,19 @@
     pointer-events: none;
     user-select: none;
   }*/
+
+  img[data-dom="lazy-media"].lazy-load {
+    opacity: 0;
+    transition: opacity 0.35s ease-out;
+
+    &.loaded {
+      opacity: 1;
+    }
+    &.error {
+      /*TODO: handle background on loading error*/
+      content: "";
+    }
+  }
 }
 
 @layer components {

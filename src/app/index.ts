@@ -12,8 +12,8 @@ import {
   StringScrollContainer,
   StringSplit,
 } from "@fiddle-digital/string-tune";
-// import { piecesManager } from "piecesjs";
 import { loader as loadComponents } from "../components";
+import DefaultRenderer from "./defaultRenderer";
 
 export default class App {
   private router: Core | undefined;
@@ -31,6 +31,9 @@ export default class App {
 
   constructor() {
     this.router = new Core({
+      renderers: {
+        default: DefaultRenderer,
+      },
       transitions: {
         default: BaseTransition,
       },
@@ -87,7 +90,6 @@ export default class App {
     this.startSmooth();
 
     await loadComponents(document.body);
-    // console.log("😸 pieces have loaded", piecesManager);
 
     gsap.config({
       autoSleep: 60,
@@ -126,9 +128,7 @@ export default class App {
       }
 
       // Update URL
-      document
-        .querySelector('meta[property="og:url"]')
-        ?.setAttribute("content", window.location.href);
+      document.querySelector('meta[property="og:url"]')?.setAttribute("content", window.location.href);
       // document.querySelectorAll("nav>a.header-link");
 
       if (hideHeader !== undefined) {
@@ -146,9 +146,7 @@ export default class App {
       // Update Description
       if (description) {
         document.querySelector('meta[name="description"]')?.setAttribute("content", description);
-        document
-          .querySelector('meta[property="og:description"]')
-          ?.setAttribute("content", description);
+        document.querySelector('meta[property="og:description"]')?.setAttribute("content", description);
       }
 
       // Update Image
@@ -192,9 +190,7 @@ export default class App {
 
   private handleStylesheetLoading(callback: () => void) {
     // trigger resize upon load end
-    const styleSheets = Array.from(
-      document.head.querySelectorAll('link[rel="stylesheet"]'),
-    ) as HTMLLinkElement[];
+    const styleSheets = Array.from(document.head.querySelectorAll('link[rel="stylesheet"]')) as HTMLLinkElement[];
 
     this.stylesheetToLoad = styleSheets.length;
 

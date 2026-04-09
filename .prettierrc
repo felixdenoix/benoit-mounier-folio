@@ -1,4 +1,5 @@
 {
+  "singleAttributePerLine": true,
   "plugins": ["@prettier/plugin-php"],
   "overrides": [
     {

@@ -7,8 +7,12 @@ export type ComponentDefinition = {
 
 export const components: ComponentDefinition[] = [
   {
-    tag: "c-text-reveal",
-    loader: () => import("./text-reveal.ts"),
+    tag: "c-footer",
+    loader: () => import("./footer.ts"),
+  },
+  {
+    tag: "c-header",
+    loader: () => import("./header.ts"),
   },
   {
     tag: "c-homepage",
@@ -23,16 +27,12 @@ export const components: ComponentDefinition[] = [
     loader: () => import("./mailto.ts"),
   },
   {
-    tag: "c-header",
-    loader: () => import("./header.ts"),
-  },
-  {
-    tag: "c-footer",
-    loader: () => import("./footer.ts"),
-  },
-  {
     tag: "c-project",
     loader: () => import("./project.ts"),
+  },
+  {
+    tag: "c-text-reveal",
+    loader: () => import("./text-reveal.ts"),
   },
 ];
 
