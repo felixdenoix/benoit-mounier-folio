@@ -84,7 +84,7 @@
     <!-- TODO: handle header height as its currently too big -->
     <header
       data-dom="header"
-      class="header py-(--spacing-grid-padding) w-screen fixed z-(--z-header) top-0 bg-white shadow">
+      class="header py-(--spacing-grid-padding) w-screen fixed z-(--z-header) top-0 bg-white shadow-md">
         <div
           class="c-animated-grid leading-none w-full max-w-(--grid-max-width) px-(--spacing-grid-padding) mx-auto group md:h-(--text-lg) lg:h-(--text-xl) md:px-[var(--spacing-grid-padding)]"
           data-dom="grid"
@@ -94,7 +94,6 @@
             class="md:h-full overflow-hidden grid place-items-center w-full max-md:row-span-1 max-md:col-span-1 md:grid-cols-1"
             string-copy-id="project-heading">
               <span
-                id="toto"
                 data-dom="project-title"
                 class="text-cap text-lg lg:text-xl leading-none font-extrabold block whitespace-nowrap w-fit text-center opacity-0 transition duration-500 delay-0 group-[.project-title]:opacity-100 group-[.project-title]:delay-500"
               ></span>

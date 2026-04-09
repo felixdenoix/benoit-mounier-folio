@@ -9,46 +9,46 @@
   https://getkirby.com/docs/guide/templates/snippets
 */
 ?>
-    </div>
-  </main>
+</div>
+</main>
 
-  <c-footer>
+<c-footer>
     <footer
-      string="progress"
-      string-repeat
-      string-id="footer"
-      string-exit-el="bottom"
-      string-exit-vp="bottom"
-      string-offset-top="-40sh"
-      class="footer box-border block pt-8 px-grid-padding pb-grid-padding base-grid">
-      <div class="col-span-full flex justify-center mb-4">
-        <?php snippet('navigation', ['classes' => 'text-md font-extrabold width-col-8 md:width-col-4 lg:width-col-3']); ?>
-      </div>
+        string="progress"
+        string-repeat
+        string-id="footer"
+        string-exit-el="bottom"
+        string-exit-vp="bottom"
+        string-offset-top="-40sh"
+        class="footer box-border block pt-8 px-grid-padding pb-grid-padding shadow-md-upwards">
+        <div class="base-grid w-full">
+            <div class="col-span-full flex justify-center mb-8">
+                <?php snippet("navigation", ["classes" => "text-md font-extrabold width-col-8 md:width-col-4 lg:width-col-3"]); ?>
+            </div>
 
-      <div class="col-span-full flex justify-center mb-8 text-lg font-extrabold">
-        <a
-          class="logo block uppercase"
-          href="<?= $site->url() ?>">
-          <h2><?= $site->title()->esc() ?></h2>
-        </a>
-      </div>
-
-      <div class="col-span-full flex justify-between">
-        <a class="bloc link [text-box-trim:trim-both]" href="<?= page('mentions-legales')?->url()?>">mentions légales</a>
-        <a class="bloc link [text-box-trim:trim-both]" href="https://felixdenoix.fr">site par</a>
-      </div>
+            <div class="col-span-full flex justify-between">
+                <a class="bloc link [text-box-trim:trim-both] flex-1 text-left" href="<?= page("mentions-legales")?->url() ?>">mentions légales</a>
+                <a
+                    class="logo block uppercase font-extrabold flex-1 text-center"
+                    href="<?= $site->url() ?>">
+                    <h2><?= $site->title()->esc() ?></h2>
+                </a>
+                <a class="bloc link [text-box-trim:trim-both] flex-1 text-right" href="https://felixdenoix.fr">site par</a>
+            </div>
+        </div>
     </footer>
-  </c-footer>
+</c-footer>
 
-  <!--TODO: clean useless libs-->
-  <?= js([
+<!--TODO: clean useless libs-->
+<?= js([
     // 'assets/js/prism.js',
     // 'assets/js/lightbox.js',
     // 'assets/js/index.js',
-    '@auto'
-  ]) ?>
-  <!--https://getkirby.com/docs/reference/templates/helpers/js#examples__autoloading-template-specific-script-files-->
+    "@auto",
+]) ?>
+<!--https://getkirby.com/docs/reference/templates/helpers/js#examples__autoloading-template-specific-script-files-->
 
-  <?= vite()->js("index.ts", ['async' => true], try: true) ?>
+<?= vite()->js("index.ts", ["async" => true], try: true) ?>
 </body>
+
 </html>
