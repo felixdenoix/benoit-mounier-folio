@@ -202,6 +202,12 @@
       }
     }
   }
+
+  /*picture,
+  img {
+    pointer-events: none;
+    user-select: none;
+  }*/
 }
 
 @layer components {
@@ -224,6 +230,21 @@
 
   .link {
   }
+}
+
+/* To use whenever needing to size element by columns but without using grid columns*/
+
+@property --col-width {
+  syntax: "length";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@utility width-col-* {
+  --col-width: calc((var(--grid-width) - 2 * var(--spacing-grid-padding)) / 12);
+  width: calc(
+    var(--col-width) * --value(integer) - var(--spacing-grid-padding)
+  );
 }
 
 .grid-padding {
@@ -254,12 +275,6 @@
 
 @utility bdo {
   border: 1px solid orange;
-}
-
-/* To use whenever needing to size element by columns but without using grid columns*/
-@utility width-col-* {
-  --col-width: calc(var(--grid-width) / 12);
-  width: calc(var(--col-width) * --value(integer));
 }
 
 .header-link-hover {

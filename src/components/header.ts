@@ -46,7 +46,6 @@ export default class CustomHeader extends Piece {
   // Lifecycle END
 
   setTransparent({ value, toggle }: { value?: boolean; toggle?: boolean }) {
-    console.log("😸 set transparent", value, toggle);
     if (toggle) {
       this.hide = !this.hide;
     } else if (value !== undefined && value !== this.hide) {
@@ -55,9 +54,6 @@ export default class CustomHeader extends Piece {
   }
 
   toggleProjectMode(params: { activate?: boolean; heading?: string }) {
-    console.log("😸 toggleProjectMode");
-    console.log("😸 activate", params.activate);
-
     if (params.activate && params.heading && this.$projectTitle) {
       frameDOM.mutate(() => {
         this.$projectTitle!.innerHTML = params.heading as string;
@@ -94,7 +90,8 @@ export default class CustomHeader extends Piece {
       // grid padding is same as grid gutter
       const GRID_PADDING = GRID_GUTTER_WIDTH;
 
-      const projectTitleWidth = gridWidth - menuWidth - 2 * GRID_PADDING;
+      // 2 for the grid padding + 1 for gutter between the project title and the nav
+      const projectTitleWidth = gridWidth - menuWidth - 3 * GRID_PADDING;
 
       frameDOM.mutate(() => {
         this.$grid?.style.setProperty(
