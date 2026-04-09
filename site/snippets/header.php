@@ -86,7 +86,7 @@
       data-dom="header"
       class="header py-(--spacing-grid-padding) w-screen fixed z-(--z-header) top-0 bg-white shadow-md">
         <div
-          class="c-animated-grid leading-none w-full max-w-(--grid-max-width) px-(--spacing-grid-padding) mx-auto group md:h-(--text-lg) lg:h-(--text-xl) md:px-[var(--spacing-grid-padding)]"
+          class="c-animated-grid leading-none w-full max-w-(--grid-max-width) px-(--spacing-grid-padding) mx-auto group gap-y-2 md:gap-y-0 md:h-(--text-lg) lg:h-(--text-xl) md:px-[var(--spacing-grid-padding)]"
           data-dom="grid"
         >
           <div
@@ -95,14 +95,14 @@
             string-copy-id="project-heading">
               <span
                 data-dom="project-title"
-                class="text-cap text-lg lg:text-xl leading-none font-extrabold block whitespace-nowrap w-fit text-center opacity-0 transition duration-500 delay-0 group-[.project-title]:opacity-100 group-[.project-title]:delay-500"
+                class="text-cap text-xl leading-none font-extrabold block whitespace-nowrap w-fit text-center opacity-0 transition duration-200 delay-0 group-[.project-title]:duration-500 group-[.project-title]:opacity-100 group-[.project-title]:delay-500"
               ></span>
           </div>
 
           <div
             id="header-menu-nav"
             class="nav text-md! text-cap flex justify-center max-md:row-span-1 max-md:row-start-2 md:col-start-3 md:col-span-1" data-dom="project-menu">
-              <?php snippet("navigation", ["classes" => "width-col-10 md:width-col-4 lg:width-col-3"]); ?>
+              <?php snippet("navigation", ["classes" => "w-auto gap-3 md:width-col-4 lg:width-col-3"]); ?>
           </div>
         </div>
     </header>
