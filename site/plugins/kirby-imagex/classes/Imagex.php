@@ -4,369 +4,572 @@ namespace TimNarr;
 
 use Kirby\Cms\File;
 use Kirby\Exception\Exception;
+use Kirby\Exception\InvalidArgumentException;
 use Kirby\Filesystem\F;
 use Kirby\Toolkit\A;
+use Kirby\Toolkit\Str;
 
 class Imagex
 {
-	protected bool $critical;
-	protected bool $customLazyloading;
-	protected array $formats;
-	protected File $image;
-	protected array $imgAttributes;
-	protected array $pictureAttributes;
-	protected string $ratio;
-	protected array $sourcesArtDirected;
-	protected array $sourcesAttributes;
-	protected string $srcsetName;
-	protected string $formatSizeHandling;
+    protected string $loading;
+    protected bool $customLazyloading;
+    protected array $formats;
+    protected File $image;
+    protected array $imgAttributes;
+    protected array $pictureAttributes;
+    protected string $ratio;
+    protected array $artDirection;
+    protected array $sourcesAttributes;
+    protected string $srcset;
+    protected bool $compareFormats;
+    protected array $compareFormatsWeights;
+    protected bool $addOriginalFormatAsSource;
+    protected bool $noSrcsetInImg;
+    protected array $thumbsSrcsets;
+    protected $kirby;
 
-	/**
-	 * Constructor to initialize Imagex with its options.
-	 *
-	 * @param array $options
-	 */
-	public function __construct(array $options)
-	{
-		$this->critical = $options['critical'];
-		$this->customLazyloading = kirby()->option('timnarr.imagex.customLazyloading');
-		$this->formats = kirby()->option('timnarr.imagex.formats');
-		$this->image = $options['image'];
-		$this->imgAttributes = $options['imgAttributes'];
-		$this->pictureAttributes = $options['pictureAttributes'];
-		$this->ratio = $options['ratio'];
-		$this->sourcesArtDirected = $options['sourcesArtDirected'];
-		$this->sourcesAttributes = $options['sourcesAttributes'];
-		$this->srcsetName = $options['srcsetName'];
-		$this->formatSizeHandling = $options['formatSizeHandling'];
-	}
+    /**
+     * Constructor to initialize Imagex with its options.
+     *
+     * @param array $options
+     * @throws InvalidArgumentException If required options are missing or have invalid types.
+     */
+    public function __construct(array $options)
+    {
+        // Validate required option: image
+        if (!isset($options["image"])) {
+            throw new InvalidArgumentException("[kirby-imagex] Missing required option: image");
+        }
 
-	/**
-	 * Determines the loading mode based on the critical flag.
-	 *
-	 * @return string The loading mode - 'eager' or 'lazy'
-	 */
-	private function getLoadingMode(): string
-	{
-		return $this->critical ? 'eager' : 'lazy';
-	}
+        // Type validation for image
+        if (!($options["image"] instanceof File)) {
+            throw new InvalidArgumentException("[kirby-imagex] Option 'image' must be an instance of Kirby\Cms\File");
+        }
 
-	/**
-	 * Get image formats, ensuring uniqueness and correct naming.
-	 *
-	 * @return array Array with all formats as strings
-	 */
-	private function getFormats(): array
-	{
-		$configFormats = $this->formats;
-		$includeInitialFormat = kirby()->option('timnarr.imagex.includeInitialFormat');
-		$formats = $includeInitialFormat ? A::append($configFormats, ['initialformat']) : $configFormats;
+        // Validate loading option
+        $loading = $options["loading"] ?? "lazy";
+        if (!in_array($loading, ["eager", "lazy"])) {
+            throw new InvalidArgumentException(
+                "[kirby-imagex] Option 'loading' must be 'eager' or 'lazy'. Got: '{$loading}'",
+            );
+        }
 
-		$formats = array_unique(array_map(function ($item) {
-			return normalizeFormat($item);
-		}, $formats));
+        // Assign options to properties
+        $this->loading = $loading;
+        $this->image = $options["image"];
+        $this->ratio = $options["ratio"];
+        $this->srcset = $options["srcset"];
+        $this->compareFormats = $options["compareFormats"];
 
-		// Reindex the array to ensure the keys start from 0
-		return array_values($formats);
-	}
+        // Normalize and assign attributes
+        $attributes = $options["attributes"] ?? [];
+        $this->imgAttributes = normalizeAttributesStructure($attributes["img"] ?? []);
+        $this->pictureAttributes = normalizeAttributesStructure($attributes["picture"] ?? []);
+        $this->sourcesAttributes = normalizeAttributesStructure($attributes["sources"] ?? []);
 
-	/**
-	 * Get the file format of a image
-	 *
-	 * @param File|null $image Optional file object to determine format; defaults to main image.
-	 * @return string The image file format.
-	 */
-	private function getImageFormat(File|null $image = null): string
-	{
-		$image = $image ?? $this->image;
+        // Assign art direction
+        $this->artDirection = $options["artDirection"] ?? [];
 
-		return normalizeFormat($image->extension());
-	}
+        // Cache kirby instance and assign options
+        $this->kirby = kirby();
+        $this->customLazyloading = $this->kirby->option("timnarr.imagex.customLazyloading");
+        $this->compareFormatsWeights = resolveCompareFormatsWeights(
+            $this->kirby->option("timnarr.imagex.compareFormatsWeights"),
+        );
+        $this->formats = $this->kirby->option("timnarr.imagex.formats");
+        $this->addOriginalFormatAsSource = $this->kirby->option("timnarr.imagex.addOriginalFormatAsSource");
+        $this->noSrcsetInImg = $this->kirby->option("timnarr.imagex.noSrcsetInImg");
+        $this->thumbsSrcsets = $this->kirby->option("thumbs.srcsets");
 
-	/**
-	 * Get the srcset preset by name from the Kirby config.
-	 *
-	 * @return array Srcset presets for used formats.
-	 * @throws Exception If srcset preset is not found.
-	 */
-	private function getSrcsetPresetFromConfig(): array
-	{
-		$allSrcsetPresets = kirby()->option('thumbs.srcsets');
+        $this->validateSrcsetPresets();
+    }
 
-		if (!isset($allSrcsetPresets[$this->srcsetName])) {
-			throw new Exception("[kirby-imagex] Srcset configuration for '{$this->srcsetName}' not found.");
-		}
+    /**
+     * Validates that all required srcset presets exist in the Kirby thumbs config.
+     *
+     * Checks the base preset and all format-specific variants (e.g. 'my-srcset-webp',
+     * 'my-srcset-avif') up front so misconfiguration is caught immediately with a
+     * helpful error message rather than failing silently later during rendering.
+     *
+     * @throws InvalidArgumentException If required presets are missing.
+     */
+    private function validateSrcsetPresets(): void
+    {
+        if (!is_array($this->thumbsSrcsets) || empty($this->thumbsSrcsets)) {
+            // getSrcsetPresetFromConfig() will handle the detailed error at render time
+            return;
+        }
 
-		$srcsetName = $this->srcsetName;
-		$srcsetPreset[$this->getImageFormat()] = $allSrcsetPresets[$srcsetName];
+        if (!isset($this->thumbsSrcsets[$this->srcset])) {
+            $available = implode(", ", array_keys($this->thumbsSrcsets));
 
-		foreach ($this->getFormats() as $format) {
-			if ($format === 'initialformat') {
-				$srcsetPreset[$format] = $allSrcsetPresets[$srcsetName];
-			} else {
-				// Check if specific format configuration exists
-				if (!isset($allSrcsetPresets[$srcsetName . '-' . $format])) {
-					throw new Exception("[kirby-imagex] Srcset configuration for '{$srcsetName}-{$format}' not found.");
-				}
+            throw new InvalidArgumentException(
+                "[kirby-imagex] Srcset preset '{$this->srcset}' not found in 'thumbs.srcsets'. Available: {$available}",
+            );
+        }
 
-				$srcsetPreset[$format] = $allSrcsetPresets[$srcsetName . '-' . $format];
-			}
-		}
+        $missing = [];
 
-		return $srcsetPreset;
-	}
+        foreach ($this->getFormats() as $format) {
+            if ($format === "originalformat") {
+                continue;
+            }
 
-	/**
-	 * Get srcset preset with dynamic heights based on aspect ratio.
-	 *
-	 * @param string|null $ratio Optional aspect ratio; defaults to object's ratio.
-	 * @param File|null $image Optional file object; defaults to main image.
-	 * @return array Srcset preset with dynamic heights.
-	 */
-	private function getDynamicSrcsetPreset(string|null $ratio = null, File|null $image = null): array
-	{
-		$srcsetPreset = $this->getSrcsetPresetFromConfig();
-		['x' => $ratioX, 'y' => $ratioY] = getAspectRatio($ratio ?? $this->ratio, $image ?? $this->image);
+            $key = $this->srcset . "-" . $format;
 
-		// Cache settings
-		$version = kirby()->plugin('timnarr/imagex')->version();
-		$cache = kirby()->cache('timnarr.imagex');
-		$cacheId = 'srcset-config-' . hash('xxh3', $version . $ratioX . $ratioY . json_encode($srcsetPreset));
+            if (!isset($this->thumbsSrcsets[$key])) {
+                $missing[] = "'{$key}'";
+            }
+        }
 
-		// Get srcsetPreset from cache or set it
-		$data = $cache->getOrSet($cacheId, function () use ($srcsetPreset, $ratioX, $ratioY) {
-			return addRatioBasedHeightToSrcsetPreset($srcsetPreset, $ratioX, $ratioY);
-		});
+        if (!empty($missing)) {
+            $available = implode(", ", array_keys($this->thumbsSrcsets));
+            $missingList = implode(", ", $missing);
 
-		return $data;
-	}
+            throw new InvalidArgumentException(
+                "[kirby-imagex] Missing srcset preset(s) for active formats: {$missingList}. Add them to 'thumbs.srcsets' in config.php, or remove the corresponding format from 'timnarr.imagex.formats'. Available presets: {$available}",
+            );
+        }
+    }
 
-	/**
-	 * Get the srcset value for a given srcset preset.
-	 *
-	 * @param array $srcsetPreset Srcset preset array.
-	 * @param File|null $image Optional file object; defaults to main image.
-	 * @return string Srcset value string.
-	 */
-	private function getSrcsetValue(array $srcsetPreset, File|null $image = null): string
-	{
-		$image = $image ?? $this->image;
+    /**
+     * Determines the loading mode based on the loading option.
+     *
+     * @return string The loading mode - 'eager' or 'lazy'
+     */
+    private function getLoadingMode(): string
+    {
+        return $this->loading;
+    }
 
-		return $image->srcset($srcsetPreset);
-	}
+    /**
+     * Get image formats, ensuring uniqueness and correct naming.
+     *
+     * @return array Array with all formats as strings
+     */
+    private function getFormats(): array
+    {
+        $configFormats = $this->formats;
+        $formats = $this->addOriginalFormatAsSource ? A::append($configFormats, ["originalformat"]) : $configFormats;
 
-	/**
-	 * Get the smallest image format based on file size.
-	 *
-	 * @return string|null Format of the smallest format or null if unable to determine.
-	 * @throws Exception If not enough formats are provided for comparison.
-	 */
-	public function getSmallestFormat(): string|null
-	{
-		$formats = $this->getFormats();
-		$formatsCount = A::count($formats);
-		$formatSizeHandling = $this->formatSizeHandling;
-		$includeInitialFormat = kirby()->option('timnarr.imagex.includeInitialFormat');
+        $formats = array_unique(
+            array_map(function ($item) {
+                return normalizeFormat($item);
+            }, $formats),
+        );
 
-		// Throw an exception if formatSizeHandling is active and there are one or less formats
-		if ($formatSizeHandling && $formatsCount <= 1) {
-			throw new Exception('[kirby-imagex] Not enough formats to determine the smallest. Please set "formatSizeHandling" to false or add at least two formats in the configuration.');
-		}
+        // Reindex the array to ensure the keys start from 0
+        return array_values($formats);
+    }
 
-		// Check for the specific condition where only the 'initialformat' is present and includeInitialFormat is true.
-		if (!$formatSizeHandling && $formatsCount === 1 && A::has($formats, 'initialformat') && $includeInitialFormat) {
-			return null;
-		}
+    /**
+     * Get the file format of a image
+     *
+     * @param File|null $image Optional file object to determine format; defaults to main image.
+     * @return string The image file format.
+     */
+    private function getImageFormat(File|null $image = null): string
+    {
+        $image = $image ?? $this->image;
 
-		// Return the first format if there is only one format, regardless of formatSizeHandling's state.
-		if (!$formatSizeHandling || $formatsCount === 1) {
-			return A::first($formats);
-		}
+        return normalizeFormat($image->extension());
+    }
 
-		$image = $this->image;
-		$srcsets = $this->getDynamicSrcsetPreset();
-		$formatSizes = [];
+    /**
+     * Get the srcset preset by name from the Kirby config.
+     *
+     * @return array Srcset presets for used formats.
+     * @throws Exception If srcset preset is not found.
+     */
+    private function getSrcsetPresetFromConfig(): array
+    {
+        $allSrcsetPresets = $this->thumbsSrcsets;
 
-		foreach ($formats as $format) {
-			if (!isset($srcsets[$format])) {
-				throw new Exception("[kirby-imagex] No srcset configurations found for format: {$format}");
-			}
+        if (!is_array($allSrcsetPresets) || empty($allSrcsetPresets)) {
+            throw new Exception(
+                '[kirby-imagex] No srcset presets found. Please configure "thumbs.srcsets" in your config.',
+            );
+        }
 
-			$midSizedsrcsetValue = findMiddleArray($srcsets[$format])['middleValue'];
-			$formatSizes[$format] = $image->thumb($midSizedsrcsetValue)->size();
-		}
+        if (!isset($allSrcsetPresets[$this->srcset])) {
+            $available = implode(", ", array_keys($allSrcsetPresets));
 
-		// Find the format with the smallest size
-		$smallestFormat = findSmallestValueAndKey($formatSizes);
+            throw new Exception(
+                "[kirby-imagex] Srcset configuration '{$this->srcset}' not found. Available presets: {$available}",
+            );
+        }
 
-		return $smallestFormat;
-	}
+        $srcsetName = $this->srcset;
+        $srcsetPreset[$this->getImageFormat()] = $allSrcsetPresets[$srcsetName];
 
-	/**
-	 * Get the <img> tag attributes based on srcset preset and user defined + default attributes.
-	 *
-	 * @return array Attributes for the <img> tag.
-	 */
-	public function getImgAttributes(): array
-	{
-		$format = $this->getImageFormat();
-		$srcsetPreset = $this->getDynamicSrcsetPreset();
-		$srcsetValue = $this->getSrcsetValue($srcsetPreset[$format]);
+        foreach ($this->getFormats() as $format) {
+            if ($format === "originalformat") {
+                $srcsetPreset[$format] = $allSrcsetPresets[$srcsetName];
+            } else {
+                // Check if specific format configuration exists
+                if (!isset($allSrcsetPresets[$srcsetName . "-" . $format])) {
+                    $available = implode(", ", array_keys($allSrcsetPresets));
 
-		$image = $this->image;
-		$isCritical = $this->critical;
-		$userAttributes = $this->imgAttributes;
-		$customLazyloading = $this->customLazyloading;
-		$useNoSrcsetInImg = kirby()->option('timnarr.imagex.noSrcsetInImg');
+                    throw new Exception(
+                        "[kirby-imagex] Srcset configuration '{$srcsetName}-{$format}' not found. Available presets: {$available}",
+                    );
+                }
 
-		$firstItemInSrcsetConfig = A::first($srcsetPreset[$format]);
-		$src = $image->thumb($firstItemInSrcsetConfig)->url();
-		['width' => $width, 'height' => $height] = $firstItemInSrcsetConfig;
+                $srcsetPreset[$format] = $allSrcsetPresets[$srcsetName . "-" . $format];
+            }
+        }
 
-		$defaultAttributes = [
-			'shared' => [
-				'src' => srcHandler($src, $userAttributes, 'shared'),
-				'width' => $width,
-				'height' => $height,
-				'decoding' => 'async',
-				'fetchpriority' => $isCritical ? 'high' : null,
-			],
-			'eager' => [
-				'src' => srcHandler($src, $userAttributes, 'eager'),
-				'srcset' => $useNoSrcsetInImg ? null : urlHandler($srcsetValue),
-			],
-			'lazy' => [
-				'loading' => $customLazyloading ? null : ($isCritical ? null : 'lazy'),
-				'data-src' => $customLazyloading ? urlHandler($src) : null,
-				'src' => srcHandler($src, $userAttributes, 'lazy'),
-				'data-srcset' => $useNoSrcsetInImg ? null : ($customLazyloading ? urlHandler($srcsetValue) : null),
-				'srcset' => $useNoSrcsetInImg ? null : (!$customLazyloading ? urlHandler($srcsetValue) : null),
-			],
-		];
+        return $srcsetPreset;
+    }
 
-		return mergeHTMLAttributes($userAttributes, $this->getLoadingMode(), $defaultAttributes);
-	}
+    /**
+     * Get srcset preset with dynamic heights based on aspect ratio.
+     *
+     * @param string|null $ratio Optional aspect ratio; defaults to object's ratio.
+     * @param File|null $image Optional file object; defaults to main image.
+     * @return array Srcset preset with dynamic heights.
+     */
+    private function getDynamicSrcsetPreset(string|null $ratio = null, File|null $image = null): array
+    {
+        $srcsetPreset = $this->getSrcsetPresetFromConfig();
+        $targetRatio = $ratio ?? $this->ratio;
+        $targetImage = $image ?? $this->image;
+        ["x" => $ratioX, "y" => $ratioY] = getAspectRatio($targetRatio, $targetImage);
 
-	/**
-	 * Get HTML attributes for the <picture> element based on loading mode and user defined attributes.
-	 *
-	 * @return array HTML attributes for the <picture> element.
-	 */
-	public function getPictureAttributes(): array
-	{
-		return mergeHTMLAttributes($this->pictureAttributes, $this->getLoadingMode());
-	}
+        // Cache settings
+        $version = $this->kirby->plugin("timnarr/imagex")->version();
+        $cache = $this->kirby->cache("timnarr.imagex");
+        $cacheKey = implode("-", [$version, $ratioX, $ratioY, json_encode($srcsetPreset)]);
+        $cacheId = "srcset-config-" . hash("xxh3", $cacheKey);
 
-	/**
-	 * Get HTML attributes for a <source> element within a <picture>, including responsive and art direction settings.
-	 *
-	 * @param string $format Image format for the source.
-	 * @param string $srcsetValue Srcset definition string.
-	 * @param array $srcsetPreset Srcset configuration array.
-	 * @param array $source Additional source settings for art direction.
-	 * @return array HTML attributes for the source element.
-	 */
-	private function getSourceAttributes(string $format, string $srcsetValue, array $srcsetPreset, array $source = []): array
-	{
-		['width' => $width, 'height' => $height] = A::first($srcsetPreset[$format]);
+        // Get srcsetPreset from cache or set it
+        $data = $cache->getOrSet($cacheId, function () use ($srcsetPreset, $ratioX, $ratioY) {
+            return addRatioBasedHeightToSrcsetPreset($srcsetPreset, $ratioX, $ratioY);
+        });
 
-		if ($format === 'initialformat') {
-			$image = $source['image'] ?? $this->image;
-			$format = $this->getImageFormat($image);
-		}
+        return $data;
+    }
 
-		$customLazyloading = $this->customLazyloading;
-		$defaultAttributes = [
-			'shared' => [
-				'type' => F::extensionToMime($format),
-				'width' => $width,
-				'height' => $height,
-				'media' => $source['media'] ?? null,
-				...($this->sourcesAttributes['shared'] ?? []),
-			],
-			'eager' => [
-				'srcset' => urlHandler($srcsetValue),
-				...($this->sourcesAttributes['eager'] ?? []),
-			],
-			'lazy' => [
-				'srcset' => $customLazyloading ? null : urlHandler($srcsetValue),
-				'data-srcset' => $customLazyloading ? urlHandler($srcsetValue) : null,
-				...($this->sourcesAttributes['lazy'] ?? []),
-			],
-		];
+    /**
+     * Get the srcset value for a given srcset preset.
+     *
+     * @param array $srcsetPreset Srcset preset array.
+     * @param File|null $image Optional file object; defaults to main image.
+     * @return string Srcset value string.
+     */
+    private function getSrcsetValue(array $srcsetPreset, File|null $image = null): string
+    {
+        $image = $image ?? $this->image;
 
-		return mergeHTMLAttributes($source['attributes'] ?? [], $this->getLoadingMode(), $defaultAttributes);
-	}
+        return $image->srcset($srcsetPreset);
+    }
 
-	/**
-	 * Get art-directed picture sources for a specific format.
-	 *
-	 * @param string $format Image format.
-	 * @return array HTML attributes for art-directed picture sources.
-	 */
-	private function getArtDirectedSourcesPerFormat(string $format): array
-	{
-		$sources = [];
+    /**
+     * Get the smallest image format based on weighted file size comparison.
+     * Uses mobile-first weighting across multiple srcset samples.
+     *
+     * @param File|null $image Optional file object; defaults to main image.
+     * @param string|null $ratio Optional aspect ratio; defaults to object's ratio.
+     * @return string|null Format of the smallest format or null if unable to determine.
+     * @throws Exception If not enough formats are provided for comparison.
+     */
+    public function getSmallestFormatForImage(File|null $image = null, string|null $ratio = null): string|null
+    {
+        $image = $image ?? $this->image;
+        $ratio = $ratio ?? $this->ratio;
 
-		foreach ($this->sourcesArtDirected as $source) {
-			$sourceRatio = $source['ratio'] ?? 'intrinsic';
-			$sourceImage = $source['image'] ?? null;
+        $formats = $this->getFormats();
+        $formatsCount = A::count($formats);
+        $compareFormats = $this->compareFormats;
 
-			$srcsetPreset = $this->getDynamicSrcsetPreset($sourceRatio, $sourceImage);
-			$srcsetValue = $this->getSrcsetValue($srcsetPreset[$format], $sourceImage);
-			$sourceAttributes = $this->getSourceAttributes($format, $srcsetValue, $srcsetPreset, $source);
+        // Throw an exception if compareFormats is active and there are one or less formats
+        if ($compareFormats && $formatsCount <= 1) {
+            throw new Exception(
+                '[kirby-imagex] Not enough formats to determine the smallest. Please set "compareFormats" to false or add at least two formats in the configuration.',
+            );
+        }
 
-			$sources[] = $sourceAttributes;
-		}
+        // Check for the specific condition where only the 'originalformat' is present and addOriginalFormatAsSource is true.
+        if (
+            !$compareFormats &&
+            $formatsCount === 1 &&
+            A::has($formats, "originalformat") &&
+            $this->addOriginalFormatAsSource
+        ) {
+            return null;
+        }
 
-		return $sources;
-	}
+        // Return the first format if there is only one format, regardless of compareFormats's state.
+        if (!$compareFormats || $formatsCount === 1) {
+            return A::first($formats);
+        }
 
-	/**
-	 * Get default picture sources for a specific format.
-	 *
-	 * @param string $format Image format.
-	 * @return array HTML attributes for default picture sources.
-	 */
-	private function getDefaultSourcesPerFormat(string $format): array
-	{
-		$srcsetPreset = $this->getDynamicSrcsetPreset();
-		$srcsetValue = $this->getSrcsetValue($srcsetPreset[$format]);
-		$attributes = $this->getSourceAttributes($format, $srcsetValue, $srcsetPreset);
+        // Cache the expensive format comparison result
+        $version = $this->kirby->plugin("timnarr/imagex")->version();
+        $cache = $this->kirby->cache("timnarr.imagex");
+        $cacheKey = implode("-", [
+            $version,
+            $image->id(),
+            (string) $image->modified(),
+            $ratio,
+            json_encode($this->getSrcsetPresetFromConfig()),
+            implode(",", $formats),
+            json_encode($this->compareFormatsWeights),
+        ]);
+        $imageSlug = Str::slug($image->id());
+        $cacheId = "compare-formats-" . $imageSlug . "-" . hash("xxh3", $cacheKey);
 
-		return $attributes;
-	}
+        return $cache->getOrSet($cacheId, function () use ($image, $ratio, $formats) {
+            $srcsets = $this->getDynamicSrcsetPreset($ratio, $image);
+            $formatSizes = [];
 
-	/**
-	 * Get all picture sources, including both art-directed and default sources for formats.
-	 *
-	 * @return array Compiled data of all picture sources.
-	 */
-	public function getPictureSources(): array
-	{
-		$formats = $this->getFormats();
-		$smallestFormat = $this->getSmallestFormat();
-		$sources = [];
+            foreach ($formats as $format) {
+                if (!isset($srcsets[$format])) {
+                    throw new Exception("[kirby-imagex] No srcset configurations found for format: {$format}");
+                }
 
-		for ($i = 0; $i < count($formats); $i++) {
-			$format = $formats[$i];
+                $formatSizes[$format] = calculateWeightedFormatSize(
+                    $image,
+                    $srcsets[$format],
+                    $this->compareFormatsWeights,
+                );
+            }
 
-			// If formatSizeHandling is true, skip the current format if the next format is smaller
-			if ($smallestFormat && isset($formats[$i + 1])) {
-				$nextFormat = $formats[$i + 1];
+            return findSmallestValueAndKey($formatSizes);
+        });
+    }
 
-				if ($smallestFormat === $nextFormat) {
-					continue;
-				}
-			}
+    /**
+     * Get the smallest image format based on file size (wrapper for backwards compatibility).
+     *
+     * @return string|null Format of the smallest format or null if unable to determine.
+     * @throws Exception If not enough formats are provided for comparison.
+     */
+    public function getSmallestFormat(): string|null
+    {
+        return $this->getSmallestFormatForImage();
+    }
 
-			if (!empty($this->sourcesArtDirected)) {
-				$sources = array_merge($sources, $this->getArtDirectedSourcesPerFormat($format));
-			}
+    /**
+     * Get the <img> tag attributes based on srcset preset and user defined + default attributes.
+     *
+     * @return array Attributes for the <img> tag.
+     */
+    public function getImgAttributes(): array
+    {
+        $format = $this->getImageFormat();
+        $srcsetPreset = $this->getDynamicSrcsetPreset();
+        $srcsetValue = $this->getSrcsetValue($srcsetPreset[$format]);
 
-			$sources[] = $this->getDefaultSourcesPerFormat($format);
-		}
+        $image = $this->image;
+        $isEager = $this->loading === "eager";
+        $userAttributes = $this->imgAttributes;
+        $customLazyloading = $this->customLazyloading;
+        $useNoSrcsetInImg = $this->noSrcsetInImg;
 
-		return $sources;
-	}
+        $firstItemInSrcsetConfig = A::first($srcsetPreset[$format]);
+        $src = $image->thumb($firstItemInSrcsetConfig)->url();
+        ["width" => $width, "height" => $height] = $firstItemInSrcsetConfig;
+
+        $defaultAttributes = [
+            "shared" => [
+                "src" => srcHandler($src, $userAttributes, "shared"),
+                "width" => $width,
+                "height" => $height,
+                "decoding" => "async",
+                "fetchpriority" => $isEager ? "high" : null,
+            ],
+            "eager" => [
+                "src" => srcHandler($src, $userAttributes, "eager"),
+                "srcset" => $useNoSrcsetInImg ? null : $srcsetValue,
+            ],
+            "lazy" => [
+                "loading" => $customLazyloading ? null : "lazy",
+                "data-src" => $customLazyloading ? $src : null,
+                "src" => srcHandler($src, $userAttributes, "lazy"),
+                "data-srcset" => $useNoSrcsetInImg ? null : ($customLazyloading ? $srcsetValue : null),
+                "srcset" => $useNoSrcsetInImg ? null : (!$customLazyloading ? $srcsetValue : null),
+            ],
+        ];
+
+        $mergedAttributes = mergeHTMLAttributes($userAttributes, $this->getLoadingMode(), $defaultAttributes);
+
+        // Apply urlHandler to all URL-based attributes (handles user-overridden attributes)
+        return applyUrlHandlerToAttributes($mergedAttributes);
+    }
+
+    /**
+     * Get HTML attributes for the <picture> element based on loading mode and user defined attributes.
+     *
+     * @return array HTML attributes for the <picture> element.
+     */
+    public function getPictureAttributes(): array
+    {
+        return mergeHTMLAttributes($this->pictureAttributes, $this->getLoadingMode());
+    }
+
+    /**
+     * Get HTML attributes for a <source> element within a <picture>, including responsive and art direction settings.
+     *
+     * @param string $format Image format for the source.
+     * @param string $srcsetValue Srcset definition string.
+     * @param array $srcsetPreset Srcset configuration array.
+     * @param array $source Additional source settings for art direction.
+     * @return array HTML attributes for the source element.
+     */
+    private function getSourceAttributes(
+        string $format,
+        string $srcsetValue,
+        array $srcsetPreset,
+        array $source = [],
+    ): array {
+        ["width" => $width, "height" => $height] = A::first($srcsetPreset[$format]);
+
+        if ($format === "originalformat") {
+            $image = $source["image"] ?? $this->image;
+            $format = $this->getImageFormat($image);
+        }
+
+        $customLazyloading = $this->customLazyloading;
+        $defaultAttributes = [
+            "shared" => [
+                "type" => F::extensionToMime($format),
+                "width" => $width,
+                "height" => $height,
+                "media" => $source["media"] ?? null,
+                ...$this->sourcesAttributes["shared"] ?? [],
+            ],
+            "eager" => [
+                "srcset" => $srcsetValue,
+                ...$this->sourcesAttributes["eager"] ?? [],
+            ],
+            "lazy" => [
+                "srcset" => $customLazyloading ? null : $srcsetValue,
+                "data-srcset" => $customLazyloading ? $srcsetValue : null,
+                ...$this->sourcesAttributes["lazy"] ?? [],
+            ],
+        ];
+
+        $mergedAttributes = mergeHTMLAttributes(
+            $source["attributes"] ?? [],
+            $this->getLoadingMode(),
+            $defaultAttributes,
+        );
+
+        // Apply urlHandler to all URL-based attributes (handles user-overridden attributes)
+        return applyUrlHandlerToAttributes($mergedAttributes);
+    }
+
+    /**
+     * Get art-directed picture sources for a specific format.
+     * When compareFormats is enabled and a different image is used,
+     * performs per-image format comparison.
+     *
+     * @param string $format Image format.
+     * @return array HTML attributes for art-directed picture sources.
+     */
+    private function getArtDirectedSourcesPerFormat(string $format): array
+    {
+        $sources = [];
+        $formats = $this->getFormats();
+
+        foreach ($this->artDirection as $source) {
+            $sourceRatio = $source["ratio"] ?? "intrinsic";
+            $sourceImage = $source["image"] ?? null;
+
+            // Per-image format decision when using a different image
+            if ($this->compareFormats && $sourceImage !== null) {
+                $sourceSmallestFormat = $this->getSmallestFormatForImage($sourceImage, $sourceRatio);
+
+                // Skip if this format is not the smallest for this specific image
+                if ($sourceSmallestFormat && $format !== $sourceSmallestFormat) {
+                    // Only skip if we're not the smallest format
+                    // and a smaller format exists in the array
+                    $formatIndex = array_search($format, $formats);
+                    $smallestIndex = array_search($sourceSmallestFormat, $formats);
+
+                    if ($formatIndex < $smallestIndex) {
+                        continue;
+                    }
+                }
+            }
+
+            $srcsetPreset = $this->getDynamicSrcsetPreset($sourceRatio, $sourceImage);
+            $srcsetValue = $this->getSrcsetValue($srcsetPreset[$format], $sourceImage);
+            $sourceAttributes = $this->getSourceAttributes($format, $srcsetValue, $srcsetPreset, $source);
+
+            $sources[] = $sourceAttributes;
+        }
+
+        return $sources;
+    }
+
+    /**
+     * Get default picture sources for a specific format.
+     *
+     * @param string $format Image format.
+     * @return array HTML attributes for default picture sources.
+     */
+    private function getDefaultSourcesPerFormat(string $format): array
+    {
+        $srcsetPreset = $this->getDynamicSrcsetPreset();
+        $srcsetValue = $this->getSrcsetValue($srcsetPreset[$format]);
+
+        return $this->getSourceAttributes($format, $srcsetValue, $srcsetPreset);
+    }
+
+    /**
+     * Get all picture sources, including both art-directed and default sources for formats.
+     *
+     * @return array Compiled data of all picture sources.
+     */
+    public function getPictureSources(): array
+    {
+        $formats = $this->getFormats();
+        $formatsCount = count($formats);
+        $sources = [];
+
+        // Determine smallest format for main image
+        $mainSmallestFormat = $this->compareFormats ? $this->getSmallestFormatForImage() : null;
+
+        for ($i = 0; $i < $formatsCount; $i++) {
+            $format = $formats[$i];
+
+            // Skip format if a smaller format exists for main image
+            if ($mainSmallestFormat && $this->shouldSkipFormat($format, $formats, $i, $mainSmallestFormat)) {
+                continue;
+            }
+
+            if (!empty($this->artDirection)) {
+                // Per-source format decision for art-directed images
+                $sources = array_merge($sources, $this->getArtDirectedSourcesPerFormat($format));
+            }
+
+            $sources[] = $this->getDefaultSourcesPerFormat($format);
+        }
+
+        return $sources;
+    }
+
+    /**
+     * Determines if a format should be skipped based on smallest format comparison.
+     *
+     * @param string $format Current format being processed.
+     * @param array $formats All available formats.
+     * @param int $index Current index in formats array.
+     * @param string $smallestFormat The determined smallest format.
+     * @return bool True if format should be skipped.
+     */
+    private function shouldSkipFormat(string $format, array $formats, int $index, string $smallestFormat): bool
+    {
+        if (!$smallestFormat) {
+            return false;
+        }
+
+        if (!isset($formats[$index + 1])) {
+            return false;
+        }
+
+        return $smallestFormat === $formats[$index + 1];
+    }
 }

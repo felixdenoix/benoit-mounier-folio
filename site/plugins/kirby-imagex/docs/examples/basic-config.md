@@ -2,7 +2,7 @@
 
 1. [Minimal Configuration Based on Imagex Defaults](#example-1-minimal-configuration-based-on-imagex-defaults)
 2. [Change Ratio to `16/9` and Add HTML Attributes to `<img>`](#example-2-change-ratio-to-169-and-add-html-attributes-to-img)
-2. [Add HTML Attributes to `<picture>`](#example-3-add-html-attributes-to-picture)
+3. [Add HTML Attributes to `<picture>`](#example-3-add-html-attributes-to-picture)
 
 ## Example 1. Minimal Configuration Based on Imagex Defaults
 
@@ -16,7 +16,7 @@ return [
     'cache' => true,
     'customLazyloading' => false,
     'formats' => ['avif', 'webp'],
-    'includeInitialFormat' => false,
+    'addOriginalFormatAsSource' => false,
     'noSrcsetInImg' => false,
     'relativeUrls' => false,
   ],
@@ -29,7 +29,7 @@ return [
 <?php
 $options = [
   'image' => $image->toFile(), // let's assume: `image.jpg` and aspect ratio of 1/1
-  'srcsetName' => 'imagex-demo',
+  'srcset' => 'imagex-demo',
 ];
 ?>
 
@@ -70,19 +70,19 @@ $options = [
 <?php
 $options = [
   'image' => $image->toFile(), // let's assume: `image.jpg` and aspect ratio of 1/1
-  'srcsetName' => 'imagex-demo',
+  'srcset' => 'imagex-demo',
   'ratio' => '16/9',
-  'imgAttributes' => [
-    'shared' => [
+  'attributes' => [
+    'img' => [
       'alt' => $image->toFile()->alt(),
       'sizes' => '(min-width: 800px) 400px, 100vw',
       'class' => [
         'my-image',
-        $conditionalClass ? 'my-image--variant' : null // let's ssume $conditionalClass is `true`
+        $conditionalClass ? 'my-image--variant' : null // let's assume $conditionalClass is `true`
       ],
       'style' => [
         'object-fit: cover;',
-        'object-position: ' . $image->toFile()->focus(); . ';'
+        'object-position: ' . $image->toFile()->focus() . ';'
       ]
     ]
   ]
@@ -129,21 +129,19 @@ $options = [
 <?php
 $options = [
   'image' => $image->toFile(), // let's assume: `image.jpg` and aspect ratio of 1/1
-  'srcsetName' => 'imagex-demo',
+  'srcset' => 'imagex-demo',
   'ratio' => '16/9',
-  'imgAttributes' => [
-    'shared' => [
+  'attributes' => [
+    'img' => [
       'alt' => $image->toFile()->alt(),
       'sizes' => '(min-width: 800px) 400px, 100vw',
       'class' => ['my-image'],
       'style' => [
         'object-fit: cover;',
-        'object-position: ' . $image->toFile()->focus(); . ';'
+        'object-position: ' . $image->toFile()->focus() . ';'
       ]
     ],
-  ],
-  'pictureAttributes' => [
-    'shared' => [
+    'picture' => [
       'class' => ['my-picture'],
       'data-attr' => 'some-data-attribute'
     ]
@@ -168,7 +166,7 @@ $options = [
       https://example.com/image-400x225-crop-52-65-q75-sharpen10.webp 400w,
       https://example.com/image-800x450-crop-52-65-q75-sharpen10.webp 800w">
   <img
-    class="my-image my-image--variant" sizes="(min-width: 800px) 400px, 100vw"
+    class="my-image" sizes="(min-width: 800px) 400px, 100vw"
     style="object-fit: cover; object-position: 52% 65%;"
     width="400" height="225" decoding="async" loading="lazy"
     alt="A cat sits in the sun in front of yellow flowers."

@@ -44,33 +44,34 @@ foreach ($items as $index => $item):
 
                         <?php snippet("imagex-picture", [
                             "image" => $background,
-                            "pictureAttributes" => [
-                                "shared" => [
-                                    "class" => ["absolute h-full w-full inset-0 z-1 object-contain object-center"],
-                                ],
-                            ],
-                            "imgAttributes" => [
-                                "shared" => [
-                                    "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
-                                    "style" => [
-                                        new CssStyle([
-                                            "--bg-image" => "url(data:{$background->mime()};base64,{$background->thumb([
-                                                "width" => 30,
-                                                "blur" => true,
-                                                "quality" => 50,
-                                            ])->base64()})",
-                                        ]),
+                            "attributes" => [
+                                "picture" => [
+                                    "shared" => [
+                                        "class" => "absolute h-full w-full inset-0 z-1 object-contain object-center",
                                     ],
-                                    "sizes" => "100vw",
-                                    "decoding" => "async",
+                                ],
+                                "img" => [
+                                    "shared" => [
+                                        "class" => "h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]",
+                                        "style" => [
+                                            new CssStyle([
+                                                "--bg-image" => "url(data:{$background->mime()};base64,{$background->thumb([
+                                                    "width" => 30,
+                                                    "blur" => true,
+                                                    "quality" => 50,
+                                                ])->base64()})",
+                                            ]),
+                                        ],
+                                        "sizes" => "100vw",
+                                    ],
+                                ],
+                                "sources" => [
+                                    "shared" => [
+                                        "sizes" => "100vw",
+                                    ],
                                 ],
                             ],
-                            "sourcesAttributes" => [
-                                "shared" => [
-                                    "sizes" => "100vw",
-                                ],
-                            ],
-                            "srcsetName" => "ben-srcset",
+                            "srcset" => "ben-srcset",
                         ]); ?>
                     <?php
                     endif; ?>
@@ -122,39 +123,40 @@ foreach ($items as $index => $item):
                 foreach ($ftFiles as $imageFt): ?>
                     <?php snippet("imagex-picture", [
                         "image" => $imageFt,
-                        "pictureAttributes" => [
-                            "shared" => [
-                                "class" => ["absolute h-full w-full inset-0 z-1 object-contain object-center from-top"],
-                                "style" => [
-                                    new CssStyle([
-                                        "--animation-index" => "{$fileIndexes[$ftFiles->indexOf($imageFt)]}",
-                                        "--animation-count" => $ftFilesCount,
-                                    ]),
+                        "attributes" => [
+                            "picture" => [
+                                "shared" => [
+                                    "class" => ["absolute h-full w-full inset-0 z-1 object-contain object-center from-top"],
+                                    "style" => [
+                                        new CssStyle([
+                                            "--animation-index" => "{$fileIndexes[$ftFiles->indexOf($imageFt)]}",
+                                            "--animation-count" => $ftFilesCount,
+                                        ]),
+                                    ],
+                                ],
+                            ],
+                            "img" => [
+                                "shared" => [
+                                    "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
+                                    "style" => [
+                                        new CssStyle([
+                                            "--bg-image" => "url(data:{$imageFt->mime()};base64,{$imageFt->thumb([
+                                                "width" => 30,
+                                                "blur" => true,
+                                                "quality" => 50,
+                                            ])->base64()})",
+                                        ]),
+                                    ],
+                                    "sizes" => "100vw",
+                                ],
+                            ],
+                            "sources" => [
+                                "shared" => [
+                                    "sizes" => "100vw",
                                 ],
                             ],
                         ],
-                        "imgAttributes" => [
-                            "shared" => [
-                                "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
-                                "style" => [
-                                    new CssStyle([
-                                        "--bg-image" => "url(data:{$imageFt->mime()};base64,{$imageFt->thumb([
-                                            "width" => 30,
-                                            "blur" => true,
-                                            "quality" => 50,
-                                        ])->base64()})",
-                                    ]),
-                                ],
-                                "sizes" => "100vw",
-                                "decoding" => "async",
-                            ],
-                        ],
-                        "sourcesAttributes" => [
-                            "shared" => [
-                                "sizes" => "100vw",
-                            ],
-                        ],
-                        "srcsetName" => "ben-srcset",
+                        "srcset" => "ben-srcset",
                         "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
                 <?php endforeach;
@@ -170,39 +172,40 @@ foreach ($items as $index => $item):
                 foreach ($fbFiles as $imageFb): ?>
                     <?php snippet("imagex-picture", [
                         "image" => $imageFb,
-                        "pictureAttributes" => [
-                            "shared" => [
-                                "class" => ["absolute h-full w-full inset-0 z-2 object-contain object-center from-bottom"],
-                                "style" => [
-                                    new CssStyle([
-                                        "--animation-index" => $fileIndexes[$fbFiles->indexOf($imageFb)],
-                                        "--animation-count" => $fbFilesCount,
-                                    ]),
+                        "attributes" => [
+                            "picture" => [
+                                "shared" => [
+                                    "class" => ["absolute h-full w-full inset-0 z-2 object-contain object-center from-bottom"],
+                                    "style" => [
+                                        new CssStyle([
+                                            "--animation-index" => $fileIndexes[$fbFiles->indexOf($imageFb)],
+                                            "--animation-count" => $fbFilesCount,
+                                        ]),
+                                    ],
+                                ],
+                            ],
+                            "img" => [
+                                "shared" => [
+                                    "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
+                                    "style" => [
+                                        new CssStyle([
+                                            "--bg-image" => "url(data:{$imageFb->mime()};base64,{$imageFb->thumb([
+                                                "width" => 30,
+                                                "blur" => true,
+                                                "quality" => 50,
+                                            ])->base64()})",
+                                        ]),
+                                    ],
+                                    "sizes" => "100vw",
+                                ],
+                            ],
+                            "sources" => [
+                                "shared" => [
+                                    "sizes" => "100vw",
                                 ],
                             ],
                         ],
-                        "imgAttributes" => [
-                            "shared" => [
-                                "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
-                                "style" => [
-                                    new CssStyle([
-                                        "--bg-image" => "url(data:{$imageFb->mime()};base64,{$imageFb->thumb([
-                                            "width" => 30,
-                                            "blur" => true,
-                                            "quality" => 50,
-                                        ])->base64()})",
-                                    ]),
-                                ],
-                                "sizes" => "100vw",
-                                "decoding" => "async",
-                            ],
-                        ],
-                        "sourcesAttributes" => [
-                            "shared" => [
-                                "sizes" => "100vw",
-                            ],
-                        ],
-                        "srcsetName" => "ben-srcset",
+                        "srcset" => "ben-srcset",
                         "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
                 <?php endforeach;
@@ -219,39 +222,40 @@ foreach ($items as $index => $item):
 
                     <?php snippet("imagex-picture", [
                         "image" => $imageFade,
-                        "pictureAttributes" => [
-                            "shared" => [
-                                "class" => ["absolute h-full w-full inset-0 object-contain object-center z-3 from-fade"],
-                                "style" => [
-                                    new CssStyle([
-                                        "--animation-index" => "{$fileIndexes[$imagesFade->indexOf($imageFade)]}",
-                                        "--animation-count" => $imagesFadeCount,
-                                    ]),
+                        "attributes" => [
+                            "picture" => [
+                                "shared" => [
+                                    "class" => ["absolute h-full w-full inset-0 object-contain object-center z-3 from-fade"],
+                                    "style" => [
+                                        new CssStyle([
+                                            "--animation-index" => "{$fileIndexes[$imagesFade->indexOf($imageFade)]}",
+                                            "--animation-count" => $imagesFadeCount,
+                                        ]),
+                                    ],
+                                ],
+                            ],
+                            "img" => [
+                                "shared" => [
+                                    "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
+                                    "style" => [
+                                        new CssStyle([
+                                            "--bg-image" => "url(data:{$imageFade->mime()};base64,{$imageFade->thumb([
+                                                "width" => 30,
+                                                "blur" => true,
+                                                "quality" => 50,
+                                            ])->base64()})",
+                                        ]),
+                                    ],
+                                    "sizes" => "100vw",
+                                ],
+                            ],
+                            "sources" => [
+                                "shared" => [
+                                    "sizes" => "100vw",
                                 ],
                             ],
                         ],
-                        "imgAttributes" => [
-                            "shared" => [
-                                "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
-                                "style" => [
-                                    new CssStyle([
-                                        "--bg-image" => "url(data:{$imageFade->mime()};base64,{$imageFade->thumb([
-                                            "width" => 30,
-                                            "blur" => true,
-                                            "quality" => 50,
-                                        ])->base64()})",
-                                    ]),
-                                ],
-                                "sizes" => "100vw",
-                                "decoding" => "async",
-                            ],
-                        ],
-                        "sourcesAttributes" => [
-                            "shared" => [
-                                "sizes" => "100vw",
-                            ],
-                        ],
-                        "srcsetName" => "ben-srcset",
+                        "srcset" => "ben-srcset",
                         "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
                 <?php endforeach;

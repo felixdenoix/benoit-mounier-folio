@@ -26,7 +26,7 @@
     "getkirby/cms": "^5.2",
     "getkirby/cli": "^1.9",
     "arnoson/kirby-vite": "^5.6",
-    "timnarr/kirby-imagex": "^0.1.4",
+    "timnarr/kirby-imagex": "^0.2.0",
     "afbora/kirby-minify-html": "^2.2"
   },
   "config": {

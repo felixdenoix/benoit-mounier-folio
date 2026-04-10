@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86b3af52de52d185024c47b52683ed89",
+    "content-hash": "75171eff5ec8ae33127a3bb3b3be83e3",
     "packages": [
         {
             "name": "afbora/kirby-minify-html",
@@ -2076,16 +2076,16 @@
         },
         {
             "name": "timnarr/kirby-imagex",
-            "version": "0.1.4",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/timnarr/kirby-imagex.git",
-                "reference": "cd0fbabd17fef6cbb540a94b4d4b489efb4d2090"
+                "reference": "bd9abbe6447f6643e6046b35392d3cdfb12117bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/timnarr/kirby-imagex/zipball/cd0fbabd17fef6cbb540a94b4d4b489efb4d2090",
-                "reference": "cd0fbabd17fef6cbb540a94b4d4b489efb4d2090",
+                "url": "https://api.github.com/repos/timnarr/kirby-imagex/zipball/bd9abbe6447f6643e6046b35392d3cdfb12117bc",
+                "reference": "bd9abbe6447f6643e6046b35392d3cdfb12117bc",
                 "shasum": ""
             },
             "require": {
@@ -2094,8 +2094,8 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3",
-                "getkirby/cms": "^4.0",
-                "phpunit/phpunit": "^10.5"
+                "getkirby/cms": "^5.0",
+                "phpunit/phpunit": "^13.0.5"
             },
             "type": "kirby-plugin",
             "extra": {
@@ -2137,7 +2137,7 @@
             ],
             "support": {
                 "issues": "https://github.com/timnarr/kirby-imagex/issues",
-                "source": "https://github.com/timnarr/kirby-imagex/tree/0.1.4"
+                "source": "https://github.com/timnarr/kirby-imagex/tree/0.2.0"
             },
             "funding": [
                 {
@@ -2145,7 +2145,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-05-28T07:11:17+00:00"
+            "time": "2026-04-06T19:21:37+00:00"
         },
         {
             "name": "voku/html-min",

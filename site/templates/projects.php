@@ -39,36 +39,40 @@
                 <?php if ($cover = $project->cover()): ?>
                     <?php snippet("imagex-picture", [
                         "image" => $cover,
-                        "pictureAttributes" => [
-                            "shared" => [
-                                "class" => ["absolute h-full w-full inset-0 -z-1 object-cover object-center scale-102 duration-400 ease-projects transition"],
-                            ],
-                        ],
-                        "imgAttributes" => [
-                            "shared" => [
-                                "class" => ["object-cover h-full w-full bg-cover bg-center bg-[var(--bg-image)]"],
-                                "style" => [
-                                    "--bg-image: url(data:{$cover->mime()};base64,{$cover->thumb([
-                                        "width" => 30,
-                                        "blur" => true,
-                                        "quality" => 50,
-                                    ])->base64()});",
+                        "attributes" => [
+                            "picture" => [
+                                "shared" => [
+                                    "class" => [
+                                        "absolute h-full w-full inset-0 -z-1 object-cover object-center scale-102 duration-400 ease-projects transition",
+                                    ],
                                 ],
-                                "sizes" => '(48rem <= width) 33vw,
+                            ],
+                            "img" => [
+                                "shared" => [
+                                    "class" => ["object-cover h-full w-full bg-cover bg-center bg-[var(--bg-image)]"],
+                                    "style" => [
+                                        "--bg-image: url(data:{$cover->mime()};base64,{$cover->thumb([
+                                            "width" => 30,
+                                            "blur" => true,
+                                            "quality" => 50,
+                                        ])->base64()});",
+                                    ],
+                                    "sizes" => '(48rem <= width) 33vw,
+                                    (40em <= width < 48rem) 50vw,
+                                    (width < 40rem) 100vw',
+                                    "data-dom" => "lazy-media",
+                                ],
+                            ],
+                            "sources" => [
+                                "shared" => [
+                                    "sizes" => '(48rem <= width) 33vw,
                                 (40em <= width < 48rem) 50vw,
                                 (width < 40rem) 100vw',
-                                "data-dom" => "lazy-media",
-                            ],
-                        ],
-                        "sourcesAttributes" => [
-                            "shared" => [
-                                "sizes" => '(48rem <= width) 33vw,
-                              (40em <= width < 48rem) 50vw,
-                              (width < 40rem) 100vw',
+                                ],
                             ],
                         ],
                         "loading" => "lazy",
-                        "srcsetName" => "ben-srcset",
+                        "srcset" => "ben-srcset",
                     ]); ?>
                 <?php endif; ?>
 

@@ -15,14 +15,18 @@ namespace TimNarr;
  */
 function addRatioBasedHeightToSrcsetPreset(array $srcsetPreset, int $ratioX, int $ratioY): array
 {
-	$ratio = $ratioY / $ratioX;
+    $ratio = $ratioY / $ratioX;
 
-	foreach ($srcsetPreset as $format => $srcset) {
-		foreach ($srcset as $key => $src) {
-			$width = (int)$src['width'];
-			$srcsetPreset[$format][$key]['height'] = (int)(round($width * $ratio));
-		}
-	}
+    foreach ($srcsetPreset as $format => $srcset) {
+        foreach ($srcset as $key => $src) {
+            $width = (int) $src["width"];
+            $srcsetPreset[$format][$key]["height"] = (int) round($width * $ratio);
+            // 'crop' option must be enabled when height is ratio calculated; explicit false is invalid in this context
+            if (empty($srcsetPreset[$format][$key]["crop"])) {
+                $srcsetPreset[$format][$key]["crop"] = true;
+            }
+        }
+    }
 
-	return $srcsetPreset;
+    return $srcsetPreset;
 }

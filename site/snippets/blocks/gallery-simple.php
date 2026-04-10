@@ -8,25 +8,31 @@
             <li class="h-full">
                 <?php snippet("imagex-picture", [
                     "image" => $image,
-                    "pictureAttributes" => [
-                        "shared" => [
-                            "class" => [" h-full w-full"],
-                        ],
-                    ],
-                    "imgAttributes" => [
-                        "shared" => [
-                            "class" => ["lazy-load object-cover h-full w-full bg-cover bg-center bg-[var(--bg-image)]"],
-                            "style" => [
-                                "--bg-image: url(data:{$image->mime()};base64,{$image->thumb(["width" => 30, "blur" => true, "quality" => 50])->base64()});",
+                    "attributes" => [
+                        "picture" => [
+                            "shared" => [
+                                "class" => [" h-full w-full"],
                             ],
+                        ],
+                        "img" => [
+                            "shared" => [
+                                "class" => ["lazy-load object-cover h-full w-full bg-cover bg-center bg-[var(--bg-image)]"],
+                                "style" => [
+                                    "--bg-image: url(data:{$image->mime()};base64,{$image->thumb([
+                                        "width" => 30,
+                                        "blur" => true,
+                                        "quality" => 50,
+                                    ])->base64()});",
+                                ],
+                                "sizes" => "(40em <= width) 50vw, (width < 40rem) 100vw",
+                                "data-dom" => "lazy-media",
+                            ],
+                        ],
+                        "sources" => [
                             "sizes" => "(40em <= width) 50vw, (width < 40rem) 100vw",
-                            "data-dom" => "lazy-media",
                         ],
                     ],
-                    "sourcesAttributes" => [
-                        "sizes" => "(40em <= width) 50vw, (width < 40rem) 100vw",
-                    ],
-                    "srcsetName" => "ben-srcset",
+                    "srcset" => "ben-srcset",
                     "loading" => "lazy",
                 ]); ?>
             </li>
