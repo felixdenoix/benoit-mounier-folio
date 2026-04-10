@@ -96,6 +96,7 @@ foreach ($items as $index => $item):
         <?php
         $scenes = $item->scenes()->toStructure();
         $scenes_count = count($scenes);
+
         foreach ($scenes as $scene_index => $scene):
 
             $step = 1 / $scenes_count;
@@ -154,6 +155,7 @@ foreach ($items as $index => $item):
                             ],
                         ],
                         "srcsetName" => "ben-srcset",
+                        "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
                 <?php endforeach;
                 ?>
@@ -201,6 +203,7 @@ foreach ($items as $index => $item):
                             ],
                         ],
                         "srcsetName" => "ben-srcset",
+                        "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
                 <?php endforeach;
                 ?>
@@ -249,6 +252,7 @@ foreach ($items as $index => $item):
                             ],
                         ],
                         "srcsetName" => "ben-srcset",
+                        "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
                 <?php endforeach;
                 ?>

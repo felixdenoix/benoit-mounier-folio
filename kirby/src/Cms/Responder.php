@@ -75,7 +75,7 @@ class Responder implements Stringable
 	 */
 	public function __toString(): string
 	{
-		return (string)$this->send();
+		return (string) $this->send();
 	}
 
 	/**
@@ -105,7 +105,10 @@ class Responder implements Stringable
 	{
 		if ($cache === null) {
 			// never ever cache private responses
-			if (static::isPrivate($this->usesAuth(), $this->usesCookies()) === true) {
+			if (
+				static::isPrivate($this->usesAuth(), $this->usesCookies()) ===
+				true
+			) {
 				return false;
 			}
 
@@ -154,7 +157,7 @@ class Responder implements Stringable
 	 *
 	 * @return array|$this
 	 */
-	public function usesCookies(array|null $usesCookies = null)
+	public function usesCookies(array|null $usesCookies = null): array|static
 	{
 		if ($usesCookies === null) {
 			return $this->usesCookies;
@@ -173,8 +176,10 @@ class Responder implements Stringable
 	 * @param bool $override If `true`, the already defined timestamp will be overridden
 	 * @return int|null|$this
 	 */
-	public function expires($expires = null, bool $override = false)
-	{
+	public function expires(
+		$expires = null,
+		bool $override = false,
+	): static|int|null {
 		// getter
 		if ($expires === null && $override === false) {
 			return $this->expires;
@@ -189,14 +194,14 @@ class Responder implements Stringable
 		// normalize the value to an integer timestamp
 		if (is_int($expires) === true && $expires < 1000000000) {
 			// number of minutes
-			$expires = time() + ($expires * 60);
+			$expires = time() + $expires * 60;
 		} elseif (is_int($expires) !== true) {
 			// time string
 			$parsedExpires = strtotime($expires);
 
 			if (is_int($parsedExpires) !== true) {
 				throw new InvalidArgumentException(
-					message: 'Invalid time string "' . $expires . '"'
+					message: 'Invalid time string "' . $expires . '"',
 				);
 			}
 
@@ -218,9 +223,9 @@ class Responder implements Stringable
 	/**
 	 * Setter and getter for the status code
 	 *
-	 * @return int|$this
+	 * @return int|null|$this
 	 */
-	public function code(int|null $code = null)
+	public function code(int|null $code = null): static|int|null
 	{
 		if ($code === null) {
 			return $this->code;
@@ -235,15 +240,15 @@ class Responder implements Stringable
 	 */
 	public function fromArray(array $response): void
 	{
-		$this->body($response['body'] ?? null);
-		$this->cache($response['cache'] ?? null);
-		$this->code($response['code'] ?? null);
-		$this->expires($response['expires'] ?? null);
-		$this->headers($response['headers'] ?? null);
-		$this->type($response['type'] ?? null);
-		$this->usesAuth($response['usesAuth'] ?? null);
-		$this->usesCookies($response['usesCookies'] ?? null);
-		$this->volatileHeaders($response['volatileHeaders'] ?? null);
+		$this->body($response["body"] ?? null);
+		$this->cache($response["cache"] ?? null);
+		$this->code($response["code"] ?? null);
+		$this->expires($response["expires"] ?? null);
+		$this->headers($response["headers"] ?? null);
+		$this->type($response["type"] ?? null);
+		$this->usesAuth($response["usesAuth"] ?? null);
+		$this->usesCookies($response["usesCookies"] ?? null);
+		$this->volatileHeaders($response["volatileHeaders"] ?? null);
 	}
 
 	/**
@@ -251,10 +256,13 @@ class Responder implements Stringable
 	 *
 	 * @param string|false|null $value
 	 * @param bool $lazy If `true`, an existing header value is not overridden
-	 * @return string|$this
+	 * @return string|null|$this
 	 */
-	public function header(string $key, $value = null, bool $lazy = false)
-	{
+	public function header(
+		string $key,
+		$value = null,
+		bool $lazy = false,
+	): static|string|null {
 		if ($value === null) {
 			return $this->headers()[$key] ?? null;
 		}
@@ -277,15 +285,18 @@ class Responder implements Stringable
 	 *
 	 * @return array|$this
 	 */
-	public function headers(array|null $headers = null)
+	public function headers(array|null $headers = null): static|array
 	{
 		if ($headers === null) {
 			$injectedHeaders = [];
-			$isPrivate = static::isPrivate($this->usesAuth(), $this->usesCookies());
+			$isPrivate = static::isPrivate(
+				$this->usesAuth(),
+				$this->usesCookies(),
+			);
 
 			if ($isPrivate === true) {
 				// never ever cache private responses
-				$injectedHeaders['Cache-Control'] = 'no-store, private';
+				$injectedHeaders["Cache-Control"] = "no-store, private";
 			}
 
 			// inject CORS headers if enabled
@@ -300,22 +311,25 @@ class Responder implements Stringable
 				$vary = [];
 
 				if ($this->usesAuth() === true) {
-					$vary[] = 'Authorization';
+					$vary[] = "Authorization";
 				}
 
 				if ($this->usesCookies() !== []) {
-					$vary[] = 'Cookie';
+					$vary[] = "Cookie";
 				}
 
 				// merge Vary from CORS if present
-				if (isset($injectedHeaders['Vary']) === true) {
+				if (isset($injectedHeaders["Vary"]) === true) {
 					// split CORS Vary into individual values to avoid duplication
-					$corsVaryValues = array_map('trim', explode(',', $injectedHeaders['Vary']));
+					$corsVaryValues = array_map(
+						"trim",
+						explode(",", $injectedHeaders["Vary"]),
+					);
 					$vary = [...$vary, ...$corsVaryValues];
 				}
 
 				if ($vary !== []) {
-					$injectedHeaders['Vary'] = implode(', ', $vary);
+					$injectedHeaders["Vary"] = implode(", ", $vary);
 				}
 			}
 
@@ -333,13 +347,13 @@ class Responder implements Stringable
 	 *
 	 * @return string|$this
 	 */
-	public function json(array|null $json = null)
+	public function json(array|null $json = null): static|string
 	{
 		if ($json !== null) {
 			$this->body(json_encode($json));
 		}
 
-		return $this->type('application/json');
+		return $this->type("application/json");
 	}
 
 	/**
@@ -349,14 +363,14 @@ class Responder implements Stringable
 	 */
 	public function redirect(
 		string|null $location = null,
-		int|null $code = null
-	) {
-		$location = Url::to($location ?? '/');
+		int|null $code = null,
+	): static {
+		$location = Url::to($location ?? "/");
 		$location = Url::unIdn($location);
 
-		return $this
-			->header('Location', (string)$location)
-			->code($code ?? 302);
+		return $this->header("Location", (string) $location)->code(
+			$code ?? 302,
+		);
 	}
 
 	/**
@@ -388,10 +402,10 @@ class Responder implements Stringable
 		// `volatileHeaders` values are explicitly *not* serialized
 		// as they are volatile and not to be exported
 		return [
-			'body'    => $this->body(),
-			'code'    => $this->code(),
-			'headers' => $this->headers(),
-			'type'    => $this->type(),
+			"body" => $this->body(),
+			"code" => $this->code(),
+			"headers" => $this->headers(),
+			"type" => $this->type(),
 		];
 	}
 
@@ -410,22 +424,25 @@ class Responder implements Stringable
 			return $response;
 		}
 
-		$response['headers'] = $this->volatileHeaders()->strip($response['headers'], $volatile);
+		$response["headers"] = $this->volatileHeaders()->strip(
+			$response["headers"],
+			$volatile,
+		);
 		return $response;
 	}
 
 	/**
 	 * Setter and getter for the content type
 	 *
-	 * @return string|$this
+	 * @return string|null|$this
 	 */
-	public function type(string|null $type = null)
+	public function type(string|null $type = null): static|string|null
 	{
 		if ($type === null) {
 			return $this->type;
 		}
 
-		if (Str::contains($type, '/') === false) {
+		if (Str::contains($type, "/") === false) {
 			$type = Mime::fromExtension($type);
 		}
 
@@ -466,8 +483,10 @@ class Responder implements Stringable
 	 * @since 5.2.0
 	 * @deprecated 5.3.0 Use `::volatileHeaders()->mark($name, $values)` instead. Will be removed in Kirby 6.
 	 */
-	public function markVolatileHeader(string $name, array|null $values = null): void
-	{
+	public function markVolatileHeader(
+		string $name,
+		array|null $values = null,
+	): void {
 		$this->volatileHeaders()->mark($name, $values);
 	}
 
@@ -475,8 +494,9 @@ class Responder implements Stringable
 	 * Setter and getter for the volatile headers manager
 	 * @since 5.3.0
 	 */
-	public function volatileHeaders(VolatileHeaders|array|null $headers = null): VolatileHeaders
-	{
+	public function volatileHeaders(
+		VolatileHeaders|array|null $headers = null,
+	): VolatileHeaders {
 		if ($headers === null) {
 			return $this->volatileHeaders ??= new VolatileHeaders();
 		}
