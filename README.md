@@ -78,6 +78,94 @@ $> dev exec kirby
 ## Learnings
 
 <details>
+
+<summary> #### Add noise to image </summary>
+    
+[source](https://web.archive.org/web/20260219003448/https://randombits.dev/articles/canvas-grain)
+
+Color version:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Realistic Film Grain Effect with Canvas</title>
+    <style>
+    body { margin: 20px; background: #0d0d0d; display: grid; place-items: center; font-family: sans-serif; }
+    canvas { max-width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+    h1 { color: #fff; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Vintage Film Grain Effect</h1>
+    <canvas id="canvas"></canvas>
+
+    <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://picsum.photos/1200/800?' + Date.now(); // Random beautiful photo
+
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        // Add beautiful color film grain
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        const intensity = 42;
+
+        for (let i = 0; i < data.length; i += 4) {
+        data[i]     += (Math.random() - 0.5) * intensity * 1.1;
+        data[i + 1] += (Math.random() - 0.5) * intensity * 0.9;
+        data[i + 2] += (Math.random() - 0.5) * intensity * 1.3;
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+    };
+    </script>
+</body>
+</html>
+```
+
+Black and white version
+```js
+function() {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+
+    // Step 1: Get all pixel data
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    // Step 2: Control how strong the grain is
+    const intensity = 35; // Try 20 (subtle) to 60 (strong)
+
+    // Step 3: Loop through every pixel (jump by 4 because RGBA)
+    for (let i = 0; i < data.length; i += 4) {
+    // Generate random noise between -intensity/2 and +intensity/2
+    const noise = (Math.random() - 0.5) * intensity;
+
+    // Add the same noise to red, green, and blue (monochrome grain)
+    data[i]     += noise; // Red
+    data[i + 1] += noise; // Green
+    data[i + 2] += noise; // Blue
+    // We don't touch data[i + 3] (alpha)
+    }
+
+    // Step 4: Put the modified pixels back on the canvas
+    ctx.putImageData(imageData, 0, 0);
+};
+```
+
+</details>
+
+<details>
 <summary> #### Expose ddev app locally: </summary>
 
 ```bash

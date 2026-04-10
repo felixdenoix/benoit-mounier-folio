@@ -95,7 +95,7 @@
             string-copy-id="project-heading">
               <span
                 data-dom="project-title"
-                class="text-cap text-xl md:text-lg lg:text-xl leading-none font-extrabold block whitespace-nowrap w-fit text-center opacity-0 transition duration-200 delay-0 group-[.project-title]:duration-500 group-[.project-title]:opacity-100 group-[.project-title]:delay-500"
+                class="text-cap text-xl md:text-lg lg:text-xl leading-none font-extrabold block whitespace-nowrap w-fit text-center opacity-0 transition duration-200 delay-0 group-[.project-title]:duration-500 group-[.project-title]:opacity-100 group-[.project-title]:delay-500 cursor-default"
               ></span>
           </div>
 

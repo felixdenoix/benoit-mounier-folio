@@ -38,7 +38,6 @@ export default class HomePage extends Piece {
 
   unmount() {
     this.registeredScrollMarks?.forEach((el) => {
-      console.log("😸 removing scrollMark", el);
       window.app.smoothScroll?.removeScrollMark(el);
     });
 
@@ -50,17 +49,15 @@ export default class HomePage extends Piece {
   }
 
   setupScrollHandlers() {
-    console.log("😸 setupScrollHandlers");
-
     this.registeredScrollMarks?.forEach((el) => {
       window.app.smoothScroll?.removeScrollMark(el);
     });
     this.registeredScrollMarks = new Set();
 
     frameDOM.measure(() => {
-      const elOffset = this?.$hiatus?.getBoundingClientRect().top || 0;
-      const scrollOffset = window.app.smoothScroll?.scrollPosition || 0;
-      const offset = elOffset + scrollOffset - window.app.consts.innerHeight; // start on the last slide of the intro
+      const elOffset = this?.$hiatus?.offsetTop || 0;
+
+      const offset = elOffset - window.app.consts.innerHeight; // start on the last slide of the intro
 
       const trigger: ScrollTriggerRule = {
         id: MENU_TRIGGER,

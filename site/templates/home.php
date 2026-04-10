@@ -17,14 +17,13 @@
 
   More about templates: https://getkirby.com/docs/guide/templates/basics
 */
-
 ?>
-<?php snippet('header', ['seo' => $page->seo(), 'hide_header' => true]) ?>
+<?php snippet("header", ["seo" => $page->seo(), "hide_header" => true]); ?>
 
 <c-homepage log>
 
   <div class="intro relative">
-    <?php snippet('home/intro') ?>
+    <?php snippet("home/intro"); ?>
   </div>
 
   <div
@@ -49,7 +48,7 @@
       <p
         class="sticky *:inline-block top-[calc(50vh-var(--paragraph-height)/2)] text-white"
         string="split"
-        string-split="word"><?= $page->hiatus()->sp()->kirbytextinline()->splitsubelements('strong', 'class="text-gray-400"')?></p>
+        string-split="word"><?= $page->hiatus()->sp()->kirbytextinline()->splitsubelements("strong", 'class="text-gray-400"') ?></p>
     </c-text-reveal>
   </div>
 
@@ -65,12 +64,16 @@
       </div>
 
       <!--TODO: extact to snipet et tout-->
-      <div class="animate-opacity delay-750! flex flex-col lg:flex-row gap-4 lg:gap-unset justify-between items-center w-full mb-10 md:mb-26 text-white ">
+      <div class="animate-opacity delay-750! flex flex-col lg:flex-row gap-4 lg:gap-unset justify-between items-center w-full mb-10 md:mb-26 text-white group">
         <?php
         $items = $page->callToAction()->toStructure();
         foreach ($items as $item): ?>
           <a
-            class="text cap block uppercase text-[1.3rem] text-bold" href="<?= $item->projects()->random()->toPage()->url() ?>">
+            class="text cap block uppercase text-[1.3rem] text-bold decoration-1 underline transition-[text-decoration-color] ease-projects underline-offset-4 duration-500 not-pointer-coarse:group-has-[:hover]:decoration-transparent not-pointer-coarse:hover:decoration-inherit" href="<?= $item
+                ->projects()
+                ->random()
+                ->toPage()
+                ->url() ?>">
             <?= $item->label() ?>
           </a>
           <hr
@@ -79,12 +82,13 @@
           <span
             aria-hidden
             class="hidden lg:block last:hidden">|</span>
-        <?php endforeach ?>
+        <?php endforeach;
+        ?>
       </div>
 
       <div class="animate-opacity delay-1250! contact mb-10 md:mb-20 lg:mb-30 flex justify-center">
 
-        <?php if ($site->email()->isNotEmpty()) : ?>
+        <?php if ($site->email()->isNotEmpty()): ?>
         <c-mailto
           class="cta cta-light grid place-items-center w-fit">
           <a
@@ -93,7 +97,7 @@
             class="block"><span class=" pointer-events-none">contact</span>
           </a>
         </c-mailto>
-        <?php endif ?>
+        <?php endif; ?>
 
       </div>
     </div>
@@ -101,4 +105,4 @@
 
 </c-homepage>
 
-<?php snippet('footer') ?>
+<?php snippet("footer"); ?>
