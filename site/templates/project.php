@@ -38,7 +38,7 @@ $previous_project = $page->prevListed() ?? $page->templateSiblings(false)->liste
                     class="text-content-shadow-wrapper h-full shrink min-h-0"
                     style="--css-progress:0;">
                     <div
-                        class="relative text-content-scroll-wrapper h-full md:overflow-y-auto overflow-x-hidden overflowing"
+                        class="relative text-content-scroll-wrapper h-full md:overflow-y-auto hide-scrollbar overflow-x-hidden overflowing"
                         string="scroll-container"
                         data-dom="text-content-scroll-wrapper"
                         string-lerp="0.18">

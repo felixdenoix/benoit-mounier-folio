@@ -102,7 +102,7 @@
           <div
             id="header-menu-nav"
             class="nav text-md! text-cap flex justify-center max-md:row-span-1 max-md:row-start-2 md:col-start-3 md:col-span-1" data-dom="project-menu">
-              <?php snippet("navigation", ["classes" => "w-auto gap-3 md:width-col-4 lg:width-col-3"]); ?>
+              <?php snippet("navigation", ["classes" => "w-auto gap-4 md:width-col-4 lg:width-col-3"]); ?>
           </div>
         </div>
     </header>

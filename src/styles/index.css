@@ -139,10 +139,13 @@
   }*/
   html {
     @apply text-gray-text;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
   }
 
   body {
     scrollbar-gutter: stable;
+    scrollbar-width: thin;
     /* ensure browser does not generate missing weights in font family */
     font-synthesis-weight: none;
     font-weight: var(--font-weight-normal);
@@ -262,6 +265,15 @@
   width: calc(
     var(--col-width) * --value(integer) - var(--spacing-grid-padding)
   );
+}
+
+@utility hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .grid-padding {

@@ -2,6 +2,14 @@ Title: Home
 
 ----
 
+Headline: 
+
+----
+
+Subheadline: 
+
+----
+
 Intro:
 
 -
@@ -119,7 +127,7 @@ Intro:
       subtitle: ''
       animation-mode: simultaneous
   background_image:
-    - 'file://qhikne21dqiwq500'
+    - 'file://rq457msnn42xnxdh'
   background_color: '#8e8e8e'
   title: ''
   subtitle: ''
@@ -170,11 +178,11 @@ Pagelinklabel: À PROPOS
 
 ----
 
-Seotitle:
+Seotitle: 
 
 ----
 
-Seodescription:
+Seodescription: 
 
 ----
 
