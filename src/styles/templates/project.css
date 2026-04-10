@@ -5,15 +5,15 @@
 
       &:after,
       &:before {
-        --shadow-offset: 4px;
+        --shadow-offset: 8px;
         position: absolute;
         display: block;
         z-index: 1;
         content: "";
         left: calc(-1 * var(--shadow-offset));
         width: calc(100% + 2 * var(--shadow-offset));
-        height: 10px;
-        filter: blur(3px);
+        height: 6px;
+        filter: blur(2px);
         background-size: 100% 100%;
         background-repeat: no-repeat;
         mask-composite: intersect;
@@ -26,9 +26,9 @@
         bottom: 0;
         background: radial-gradient(
           ellipse at 50% 150%,
-          rgba(0, 0, 0, 0.7),
-          rgba(0, 0, 0, 0.5) 4%,
-          rgba(0, 0, 0, 0.4) 10%,
+          rgba(0, 0, 0, 0.9),
+          rgba(0, 0, 0, 0.7) 4%,
+          rgba(0, 0, 0, 0.4) 20%,
           rgba(0, 0, 0, 0) 80%,
           transparent
         );

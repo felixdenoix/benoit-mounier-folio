@@ -156,13 +156,14 @@
   @variant md {
     :root {
       --grid-columns: repeat(12, minmax(0, 1fr));
-      --header-height: 78px;
+      --header-height: 48px;
     }
   }
 
   @variant lg {
     :root {
       --grid-padding: calc(4 * var(--spacing));
+      --header-height: 78px;
     }
   }
 

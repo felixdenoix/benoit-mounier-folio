@@ -3,9 +3,14 @@
 ?>
 <?php snippet("header", ["seo" => $page->seo()]); ?>
 
+<?php
+$next_project = $page->nextListed() ?? $page->templateSiblings(false)->listed()->first();
+$previous_project = $page->prevListed() ?? $page->templateSiblings(false)->listed()->last();
+?>
+
 <c-project log>
 
-    <article class="project base-grid pb-24">
+    <article class="project base-grid pb-10">
 
         <?php
         $headline = $page->headline() ?: $page->title();
@@ -26,8 +31,8 @@
             <?php endif; ?>
         </header>
 
-        <div class="text-content flex flex-col col-span-full md:col-span-4 md:col-end-13 lg:col-span-3 lg:col-end-13 relative">
-            <div class="text-content-wrapper sticky z-0 top-[calc(var(--header-height)+var(--grid-padding))] max-h-[calc(100svh-var(--header-height)-70px)] h-full flex flex-col justify-between gap-y-4">
+        <div class="text-content flex flex-col col-span-10 col-start-2 mb-[calc(var(--spacing-grid-padding)*2)] md:mb-0 md:col-span-4 md:col-end-13 lg:col-span-3 lg:col-end-13 relative">
+            <div class="text-content-wrapper sticky z-0 top-[calc(var(--header-height)+var(--grid-padding))] md:max-h-[calc(100svh-var(--header-height)-2*var(--grid-padding))] h-full flex flex-col justify-between gap-y-4">
                 <div
                     data-dom="text-content-shadow-wrapper"
                     class="text-content-shadow-wrapper h-full shrink min-h-0"
@@ -39,7 +44,7 @@
                         string-lerp="0.18">
                         <div
                             data-dom="text-content-scroller"
-                            class="text-content-scroller relative flex flex-col [&_li:not(:last-of-type)]:mb-2">
+                            class="text-content-scroller relative flex flex-col gap-4 [&_li:not(:last-of-type)]:mb-2">
                             <?= $page->text()->toBlocks() ?>
                             <div class="dates">
                                 <span class="font-extrabold">Date:</span>
@@ -60,13 +65,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="hidden md:block w-full min-h-0  shrink-0">
-                    <?php snippet("project-nav"); ?>
+                <div data-dom="text-content-project-nav" class="hidden md:block w-full min-h-0 shrink-0 group">
+                    <?php snippet("project-nav", ["classes" => "w-fit", "compact" => true]); ?>
                 </div>
             </div>
         </div>
 
-        <div class="asset-content col-span-full md:col-span-8 md:col-start-1 md:row-start-2 lg:col-span-9 lg:col-start-1 lg:row-start-2">
+        <div
+            data-dom="asset-content"
+            class="asset-content col-span-full md:col-span-8 md:col-start-1 md:row-start-2 lg:col-span-9 lg:col-start-1 lg:row-start-2">
             <?php foreach ($page->medias()->toLayouts() as $layout): ?>
                 <section class="grid auto-cols-fr gap-2.5 not-last:mb-2.5" id="<?= $layout->id() ?>">
                     <?php foreach ($layout->columns() as $column): ?>
@@ -84,8 +91,8 @@
             <?php endforeach; ?>
         </div>
 
-        <div class="md:hidden flex items-stretch *:w-full col-span-full mt-10">
-            <?php snippet("project-nav"); ?>
+        <div class="col-span-full flex items-stretch *:w-full mt-10">
+            <?php snippet("project-nav", ["classes" => "justify-between"]); ?>
         </div>
 
     </article>

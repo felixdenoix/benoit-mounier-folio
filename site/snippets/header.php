@@ -84,7 +84,7 @@
     <!-- TODO: handle header height as its currently too big -->
     <header
       data-dom="header"
-      class="header py-(--spacing-grid-padding) w-screen fixed z-(--z-header) top-0 bg-white shadow-md">
+      class="header py-(--spacing-grid-padding) w-full fixed z-(--z-header) top-0 bg-white shadow-md">
         <div
           class="c-animated-grid leading-none w-full max-w-(--grid-max-width) px-(--spacing-grid-padding) mx-auto group gap-y-2 md:gap-y-0 md:h-(--text-lg) lg:h-(--text-xl) md:px-[var(--spacing-grid-padding)]"
           data-dom="grid"
