@@ -107,7 +107,6 @@ export default class Project extends Piece {
         };
 
         window.app.smoothScroll?.addScrollMark(trigger);
-        this.headerTriggerSet = true;
       });
     }
 
