@@ -92,14 +92,10 @@ export default class DefaultRenderer extends Renderer {
   }
 
   onEnter() {
-    lazyMediaHandler(this.page as Document);
+    lazyMediaHandler(this.content as Document);
   }
 
-  onEnterCompleted() {
-    setTimeout(() => {
-      globalThis.app.smoothScroll?.scrollTo(window.innerHeight);
-    }, 1000);
-  }
+  onEnterCompleted() {}
 
   onLeave() {}
 
