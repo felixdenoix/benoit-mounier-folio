@@ -60,16 +60,16 @@ export default class Project extends Piece {
     if (this.scrollRaf) {
       window.cancelAnimationFrame(this.scrollRaf);
     }
-    window.app.smoothScroll?.removeScrollMark(HEADING_TRIGGER_ID);
-    window.app.smoothScroll?.removeScrollMark(PROJECT_NAV_TRIGGER_ID);
+    globalThis.app.smoothScroll?.removeScrollMark(HEADING_TRIGGER_ID);
+    globalThis.app.smoothScroll?.removeScrollMark(PROJECT_NAV_TRIGGER_ID);
     window.removeEventListener("resize", this.debouncedResizeCallback);
   }
 
   handleResize() {
     this.initTextContentScrollData();
 
-    window.app.smoothScroll?.removeScrollMark(HEADING_TRIGGER_ID);
-    window.app.smoothScroll?.removeScrollMark(PROJECT_NAV_TRIGGER_ID);
+    globalThis.app.smoothScroll?.removeScrollMark(HEADING_TRIGGER_ID);
+    globalThis.app.smoothScroll?.removeScrollMark(PROJECT_NAV_TRIGGER_ID);
 
     this.setupScrollMarks();
   }
@@ -83,7 +83,7 @@ export default class Project extends Piece {
           top: 0,
           height: 0,
         };
-        const scrollOffset = window.app.smoothScroll?.scrollPosition || 0;
+        const scrollOffset = globalThis.app.smoothScroll?.scrollPosition || 0;
 
         const offset = elOffset + scrollOffset + elHeight / 2;
 
@@ -106,7 +106,7 @@ export default class Project extends Piece {
           },
         };
 
-        window.app.smoothScroll?.addScrollMark(trigger);
+        globalThis.app.smoothScroll?.addScrollMark(trigger);
       });
     }
 
@@ -117,7 +117,7 @@ export default class Project extends Piece {
         };
 
         const topOffset = this.$projectAssetContent?.offsetTop || 0;
-        const windowHeight = window.app.consts.innerHeight || 0;
+        const windowHeight = globalThis.app.consts.innerHeight || 0;
 
         const offset = height + topOffset - windowHeight;
 
@@ -134,7 +134,7 @@ export default class Project extends Piece {
           },
         };
 
-        window.app.smoothScroll?.addScrollMark(trigger);
+        globalThis.app.smoothScroll?.addScrollMark(trigger);
       });
     }
   }

@@ -1,12 +1,13 @@
 import App from "./app";
 import gsap from "gsap";
 
+export {};
+
 declare global {
   interface Window {
     app: App;
   }
 
-  let gsap: typeof gsap;
+  var app: App;
+  var gsap: typeof gsap;
 }
-
-export {};

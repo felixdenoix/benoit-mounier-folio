@@ -14,6 +14,7 @@ import {
 } from "@fiddle-digital/string-tune";
 import { loader as loadComponents } from "../components";
 import DefaultRenderer from "./defaultRenderer";
+import HomeRenderer from "./homeRenderer";
 
 export default class App {
   private router: Core | undefined;
@@ -29,16 +30,7 @@ export default class App {
     innerWidth: 0,
   };
 
-  constructor() {
-    this.router = new Core({
-      renderers: {
-        default: DefaultRenderer,
-      },
-      transitions: {
-        default: BaseTransition,
-      },
-    });
-  }
+  constructor() {}
 
   initSmooth() {
     const smooth = StringTune.getInstance();
@@ -66,10 +58,6 @@ export default class App {
     }
   }
 
-  startSmooth() {
-    this.smoothScroll?.start(60);
-  }
-
   async init() {
     globalThis.gsap = gsap;
     this.gsap = gsap;
@@ -87,7 +75,8 @@ export default class App {
     );
     this.initRouterEvents();
     this.initSmooth();
-    this.startSmooth();
+    // SmoothScroll is started from the taxi renderer
+    // this.startSmooth();
 
     await loadComponents(document.body);
 
@@ -98,7 +87,15 @@ export default class App {
     });
 
     this.handleStylesheetLoading(() => {
-      // console.log("😸 all stylesheets have loaded");
+      this.router = new Core({
+        renderers: {
+          default: DefaultRenderer,
+          home: HomeRenderer,
+        },
+        transitions: {
+          default: BaseTransition,
+        },
+      });
     });
   }
 
@@ -129,7 +126,6 @@ export default class App {
 
       // Update URL
       document.querySelector('meta[property="og:url"]')?.setAttribute("content", window.location.href);
-      // document.querySelectorAll("nav>a.header-link");
 
       if (hideHeader !== undefined) {
         document.querySelector("c-header")?.setAttribute("hide", "true");
@@ -188,35 +184,44 @@ export default class App {
     });
   }
 
-  private handleStylesheetLoading(callback: () => void) {
+  private async handleStylesheetLoading(callback?: () => void) {
     // trigger resize upon load end
     const styleSheets = Array.from(document.head.querySelectorAll('link[rel="stylesheet"]')) as HTMLLinkElement[];
 
     this.stylesheetToLoad = styleSheets.length;
 
-    const stylesheetsLoaded = () => {
-      requestAnimationFrame(() => {
-        window.dispatchEvent(new Event("resize"));
-        callback();
-      });
-    };
+    const styleSheetPromises = styleSheets.map((stylesheet) => {
+      return new Promise((resolve) => {
+        const stylesheetsLoaded = () => {
+          requestAnimationFrame(() => {
+            window.dispatchEvent(new Event("resize"));
+            resolve(true);
+          });
+        };
 
-    styleSheets.map((stylesheet) => {
-      const hasLoaded = Boolean(stylesheet.sheet);
+        const hasLoaded = Boolean(stylesheet.sheet);
 
-      if (hasLoaded) {
-        this.stylesheetToLoad--;
-        if (this.stylesheetToLoad === 0) {
-          stylesheetsLoaded();
-        }
-      } else {
-        stylesheet.onload = () => {
+        if (hasLoaded) {
           this.stylesheetToLoad--;
           if (this.stylesheetToLoad === 0) {
             stylesheetsLoaded();
           }
-        };
-      }
+        } else {
+          stylesheet.onload = () => {
+            this.stylesheetToLoad--;
+            if (this.stylesheetToLoad === 0) {
+              stylesheetsLoaded();
+            }
+          };
+        }
+      });
     });
+
+    await Promise.race([Promise.all(styleSheetPromises), new Promise((resolve) => setTimeout(resolve, 5000))]);
+
+    console.log("😸 stylesheets Loaded ");
+    if (callback) {
+      callback();
+    }
   }
 }

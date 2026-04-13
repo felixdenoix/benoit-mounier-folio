@@ -31,7 +31,7 @@ export default class BaseTransition extends Transition {
         });
       },
       onComplete: () => {
-        window.app.smoothScroll?.scrollTo({ position: 0, immediate: true });
+        globalThis.app.smoothScroll?.scrollTo({ position: 0, immediate: true });
         done();
       },
     });

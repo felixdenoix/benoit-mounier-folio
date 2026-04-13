@@ -18,7 +18,7 @@
   More about templates: https://getkirby.com/docs/guide/templates/basics
 */
 ?>
-<?php snippet("header", ["seo" => $page->seo(), "hide_header" => true]); ?>
+<?php snippet("header", ["seo" => $page->seo(), "hide_header" => true, "renderer" => "home"]); ?>
 
 <c-homepage log>
 

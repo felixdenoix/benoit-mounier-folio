@@ -18,10 +18,7 @@ $host = $_SERVER["HTTP_HOST"] ?? "benoit-mounier-folio.ddev.site";
 $isSecure = false;
 if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
     $isSecure = true;
-} elseif (
-    isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) &&
-    $_SERVER["HTTP_X_FORWARDED_PROTO"] === "https"
-) {
+} elseif (isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && $_SERVER["HTTP_X_FORWARDED_PROTO"] === "https") {
     $isSecure = true;
 }
 
@@ -43,11 +40,8 @@ return [
     "timnarr.imagex" => [
         "cache" => true,
         "compareFormatsWeights" => "balanced",
-        "customLazyloading" => false,
         "formats" => ["avif", "webp"],
-        "includeInitialFormat" => false,
-        "noSrcsetInImg" => false,
-        "relativeUrls" => false,
+        "noSrcsetInImg" => true,
     ], // https://github.com/timnarr/kirby-imagex?tab=readme-ov-file#global-options
     "thumbs" => [
         "srcsets" => [

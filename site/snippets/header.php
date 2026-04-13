@@ -113,8 +113,10 @@
         data-taxi>
         <div
             class="h-auto"
-            data-taxi-view
+            data-taxi-view="<?= $renderer ?? "default" ?>"
             <?= isset($hide_header) ? "data-hide-header='true'" : false ?>
             data-title="<?= isset($seo) ? $site->title()->esc() . " | " . $seo->title()->esc() : $site->title()->esc() . " | " . $page->title()->esc() ?>"
             data-description="<?= isset($seo) && $seo->description()->isNotEmpty() ? $seo->description()->html() : "" ?>"
             data-image="<?= isset($seo) && $seo->image() ? $seo->image()->url() : "" ?>">
+
+            <?= snippet("site-loader") ?>

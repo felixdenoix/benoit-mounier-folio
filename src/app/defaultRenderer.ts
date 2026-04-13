@@ -1,55 +1,143 @@
 import { Renderer } from "@unseenco/taxi";
-import { frameDOM } from "@fiddle-digital/string-tune";
+import { lazyMediaHandler } from "../utils";
+
+import { gsap } from "gsap";
+import { piecesManager, type PieceData } from "piecesjs";
+
+export type ExitLoaderComponentCallback = {
+  selector: string;
+  component: string;
+  method: string;
+};
 
 export default class DefaultRenderer extends Renderer {
-  initialLoad() {
-    // console.log("😸 initialLoad");
-    // run code that should only happen once for your site
+  $pageAssets: HTMLImageElement[] | undefined;
+  $siteLoader: HTMLElement | undefined;
+  $siteLoaderProgress: HTMLSpanElement | undefined;
+  siteLoaderQTo: any;
 
-    this.onEnter();
-    this.onEnterCompleted();
+  siteLoaderRaf: number | undefined;
+
+  pageAssetsCount: number = 0;
+  pageAssetloaded: number = 0;
+
+  exitLoaderComponentCallbacks: ExitLoaderComponentCallback[] | undefined;
+
+  constructor(
+    args: any,
+    options: {
+      exitLoaderComponentCallbacks?: ExitLoaderComponentCallback[];
+    } = {},
+  ) {
+    super(args);
+    this.exitLoaderComponentCallbacks = options.exitLoaderComponentCallbacks;
   }
 
-  // rest of your methods
+  initialLoad() {
+    this.$siteLoader = this.content.querySelector("#site-loader") as HTMLElement;
+
+    this.$siteLoaderProgress = this.content.querySelector("span[data-dom=progress]") as HTMLSpanElement;
+
+    this.$pageAssets = Array.from(this.content.querySelectorAll("img:not([loading=lazy])")).filter(
+      Boolean,
+    ) as HTMLImageElement[];
+
+    this.siteLoaderQTo = gsap.quickTo(this.$siteLoaderProgress, "textContent", {
+      duration: 1,
+      ease: "power3.out",
+      snap: "textContent",
+      onComplete: () => {
+        if (this.pageAssetsCount === this.pageAssetloaded) {
+          this.exitLoader();
+        }
+      },
+    });
+
+    this.pageAssetsCount = this.$pageAssets?.length || 0;
+
+    if (this.pageAssetsCount === 0) {
+      this.siteLoaderQTo(100);
+      return;
+    }
+
+    // Use map to create an array of Promises
+    const loadPromises = this.$pageAssets.map((asset) => {
+      return new Promise((resolve) => {
+        const handleLoad = () => {
+          this.pageAssetloaded++;
+          this.siteLoaderQTo((this.pageAssetloaded / this.pageAssetsCount) * 100);
+          resolve(true);
+        };
+
+        // Check if already loaded
+        if (asset.complete) {
+          handleLoad();
+        } else {
+          asset.addEventListener("load", handleLoad, { once: true });
+          asset.addEventListener("error", handleLoad, { once: true });
+        }
+      });
+    });
+
+    const timeout = new Promise((resolve) => {
+      setTimeout(resolve, 5000);
+    });
+
+    Promise.race([Promise.allSettled(loadPromises).catch(console.error), timeout]).then(() => {
+      this.siteLoaderQTo(100);
+    });
+  }
 
   onEnter() {
-    // console.log("😸 onEnter", arguments);
-    this.handleLazyMedias(document);
-    // run after the new content has been added to the Taxi container
+    lazyMediaHandler(this.page as Document);
   }
 
   onEnterCompleted() {
-    // console.log("😸 onEnterCompleted");
-    // run after the transition.onEnter has fully completed
+    setTimeout(() => {
+      globalThis.app.smoothScroll?.scrollTo(window.innerHeight);
+    }, 1000);
   }
 
-  onLeave() {
-    // console.log("😸 onLeave");
-    // run before the transition.onLeave method is called
+  onLeave() {}
+
+  onLeaveCompleted() {}
+
+  exitLoader() {
+    if (!this.$siteLoader) return;
+
+    gsap
+      .timeline({
+        delay: 0.5,
+        onComplete: () => {
+          globalThis.app.smoothScroll?.start(60);
+          this.onEnter();
+          this.onEnterCompleted();
+
+          if (this.exitLoaderComponentCallbacks?.length) {
+            this.handleExitLoaderCallbacks();
+          }
+        },
+      })
+      .to(this.$siteLoaderProgress!.parentElement, {
+        duration: 0.5,
+        opacity: 0,
+      })
+      .to(this.$siteLoader, { duration: 0.75, autoAlpha: 0 });
   }
 
-  onLeaveCompleted() {
-    // console.log("😸 onLeaveCompleted");
-    // run after the transition.onleave has fully completed
-  }
+  handleExitLoaderCallbacks() {
+    this.exitLoaderComponentCallbacks?.forEach(({ selector, component, method }) => {
+      const componentDOM = this.content.querySelector(selector);
+      const id = componentDOM && "cid" in componentDOM ? (componentDOM.cid as string) : null;
+      if (id) {
+        const pieceData = piecesManager.currentPieces?.[component]?.[id] as PieceData;
 
-  handleLazyMedias(doc: Document) {
-    const lazyMedias = Array.from(doc.querySelectorAll('[data-dom="lazy-media"]')) as HTMLImageElement[];
+        const piece = pieceData.piece as Record<string, any>;
 
-    frameDOM.mutate(() => {
-      lazyMedias.map((asset: HTMLImageElement) => {
-        if (asset.complete || asset.naturalHeight) {
-          asset.classList.add("loaded");
-          asset.classList.remove("error");
-        } else {
-          asset.onload = () => {
-            asset.classList.add("loaded");
-          };
-          asset.onerror = () => {
-            asset.classList.add("error");
-          };
+        if (method in piece && typeof piece[method] === "function") {
+          piece[method]();
         }
-      });
+      }
     });
   }
 }

@@ -30,15 +30,11 @@ export default class HomePage extends Piece {
 
     // 2. Attach the fixed debounced reference to the resize listener
     window.addEventListener("resize", this.debouncedSetupScrollHandlers);
-
-    setTimeout(() => {
-      window.app.smoothScroll?.scrollTo(window.innerHeight);
-    }, 1000);
   }
 
   unmount() {
     this.registeredScrollMarks?.forEach((el) => {
-      window.app.smoothScroll?.removeScrollMark(el);
+      globalThis.app.smoothScroll?.removeScrollMark(el);
     });
 
     // 3. Remove the listener using the exact same fixed reference
@@ -50,14 +46,14 @@ export default class HomePage extends Piece {
 
   setupScrollHandlers() {
     this.registeredScrollMarks?.forEach((el) => {
-      window.app.smoothScroll?.removeScrollMark(el);
+      globalThis.app.smoothScroll?.removeScrollMark(el);
     });
     this.registeredScrollMarks = new Set();
 
     frameDOM.measure(() => {
       const elOffset = this?.$hiatus?.offsetTop || 0;
 
-      const offset = elOffset - window.app.consts.innerHeight; // start on the last slide of the intro
+      const offset = elOffset - globalThis.app.consts.innerHeight; // start on the last slide of the intro
 
       const trigger: ScrollTriggerRule = {
         id: MENU_TRIGGER,
@@ -71,9 +67,13 @@ export default class HomePage extends Piece {
         },
       };
 
-      window.app.smoothScroll?.addScrollMark(trigger);
+      globalThis.app.smoothScroll?.addScrollMark(trigger);
       this.registeredScrollMarks.add(MENU_TRIGGER);
     });
+  }
+
+  introAnimation() {
+    globalThis.app.smoothScroll?.scrollTo(globalThis.app.consts.innerHeight);
   }
 }
 

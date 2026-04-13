@@ -82,9 +82,7 @@ export default class CustomHeader extends Piece {
       const menuWidth = this.$menu?.getBoundingClientRect().width || 0;
 
       // value from browser migth have units appened
-      const gridGutterWidth = window.app.rootStyles
-        ?.getPropertyValue("--grid-padding")
-        ?.match(/^\d+/gm)?.[0];
+      const gridGutterWidth = globalThis.app.rootStyles?.getPropertyValue("--grid-padding")?.match(/^\d+/gm)?.[0];
 
       const GRID_GUTTER_WIDTH = gridGutterWidth ? parseFloat(gridGutterWidth) : 10;
       // grid padding is same as grid gutter
@@ -94,10 +92,7 @@ export default class CustomHeader extends Piece {
       const projectTitleWidth = gridWidth - menuWidth - 3 * GRID_PADDING;
 
       frameDOM.mutate(() => {
-        this.$grid?.style.setProperty(
-          "--header-menu-project-title-width",
-          `${projectTitleWidth}px`,
-        );
+        this.$grid?.style.setProperty("--header-menu-project-title-width", `${projectTitleWidth}px`);
       });
     });
   }

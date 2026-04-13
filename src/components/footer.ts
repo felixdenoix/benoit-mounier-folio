@@ -13,11 +13,11 @@ export default class CustomFooter extends Piece {
   mount() {
     this.$navigation = this.$("nav") as HTMLElement;
 
-    // window.app.smoothScroll?.on("object:progress:footer", this.scrollProgress);
+    // globalThis.app.smoothScroll?.on("object:progress:footer", this.scrollProgress);
   }
 
   unmount() {
-    // window.app.smoothScroll?.off("object:progress:footer", this.scrollProgress);
+    // globalThis.app.smoothScroll?.off("object:progress:footer", this.scrollProgress);
   }
 
   // scrollProgress(e: any) {

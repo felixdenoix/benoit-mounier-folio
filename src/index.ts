@@ -1,7 +1,7 @@
 import App from "./app";
 
-const app = new App();
+const appInstance = new App();
 
-app.init();
+globalThis.app = appInstance;
 
-window.app = app;
+globalThis.app.init();
