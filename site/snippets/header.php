@@ -77,7 +77,7 @@
     <?= vite()->css("styles/templates/" . $page->template() . ".css", try: true) ?>
 </head>
 
-<body class="font-sans antialiased box-border">
+<body class="font-sans antialiased box-border" style="overflow: hidden;">
 
     <c-header
         <?= isset($hide_header) ? 'hide="true"' : false ?>

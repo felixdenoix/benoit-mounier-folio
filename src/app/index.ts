@@ -53,8 +53,8 @@ export default class App {
         this.smoothScroll.PositionTrackerVisible = true;
       }
 
-      this.smoothScroll.speed = 0.12;
-      this.smoothScroll.speedAccelerate = 0.35;
+      this.smoothScroll.speed = 0.08;
+      this.smoothScroll.speedAccelerate = 0.3;
     }
   }
 
@@ -75,6 +75,7 @@ export default class App {
     );
     this.initRouterEvents();
     this.initSmooth();
+
     // SmoothScroll is started from the taxi renderer
     // this.startSmooth();
 
@@ -87,6 +88,10 @@ export default class App {
     });
 
     this.handleStylesheetLoading(() => {
+      // } catch (e) {
+      // console.log("😸 error on smoothScroll init reverting to normal scroll");
+      document.body.style.overflow = "unset";
+      // }
       this.router = new Core({
         renderers: {
           default: DefaultRenderer,
