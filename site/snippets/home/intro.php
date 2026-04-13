@@ -52,7 +52,7 @@ foreach ($introItems as $introItem):
                                 ],
                                 "img" => [
                                     "shared" => [
-                                        "alt" => $image->alt() ?? "",
+                                        "alt" => $introItem["background"]->alt() ?? "",
                                         "class" => "h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]",
                                         "style" => [
                                             new CssStyle([
@@ -117,7 +117,7 @@ foreach ($introItems as $introItem):
                             ],
                             "img" => [
                                 "shared" => [
-                                    "alt" => $image->alt() ?? "",
+                                    "alt" => $img["file"]->alt() ?? "",
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
@@ -155,7 +155,7 @@ foreach ($introItems as $introItem):
                             ],
                             "img" => [
                                 "shared" => [
-                                    "alt" => $image->alt() ?? "",
+                                    "alt" => $img["file"]->alt() ?? "",
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
@@ -193,7 +193,7 @@ foreach ($introItems as $introItem):
                             ],
                             "img" => [
                                 "shared" => [
-                                    "alt" => $image->alt() ?? "",
+                                    "alt" => $img["file"]->alt() ?? "",
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([

@@ -4,9 +4,7 @@ export default class TextReveal extends Piece {
   private $paragraph: HTMLElement | undefined | null;
 
   constructor() {
-    super("TextReveal", {
-      stylesheets: [() => import("../styles/components/text-reveal.css")],
-    });
+    super("TextReveal");
   }
 
   mount() {

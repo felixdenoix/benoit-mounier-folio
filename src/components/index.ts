@@ -7,10 +7,6 @@ export type ComponentDefinition = {
 
 export const components: ComponentDefinition[] = [
   {
-    tag: "c-footer",
-    loader: () => import("./footer.ts"),
-  },
-  {
     tag: "c-header",
     loader: () => import("./header.ts"),
   },

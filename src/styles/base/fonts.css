@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Codec Pro";
+  src:
+    url("/assets/fonts/CodecProVariableGX.subset.woff2") format("woff2")
+      tech("variations"),
+    url("/assets/fonts/CodecProVariableGX.subset.woff2")
+      format("woff2-variations"),
+    url("/assets/fonts/CodecProVariableGX.subset.woff2") format("woff2"),
+    url("/assets/fonts/CodecProVariableGX.subset.woff") format("woff")
+      tech("variations"),
+    url("/assets/fonts/CodecProVariableGX.subset.woff")
+      format("woff-variations"),
+    url("/assets/fonts/CodecProVariableGX.subset.woff") format("woff"),
+    url("/assets/fonts/CodecProVariableGX.ttf") format("truetype")
+      tech("variations"),
+    url("/assets/fonts/CodecProVariableGX.ttf") format("truetype-variations"),
+    url("/assets/fonts/CodecProVariableGX.ttf") format("truetype");
+  font-weight: 38 682;
+  /*font-feature-settings: "frac" on;*/
+  font-display: swap;
+  font-feature-settings: "onum", "smcp", "kern", "zero";
+}

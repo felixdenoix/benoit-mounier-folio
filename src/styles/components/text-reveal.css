@@ -1,4 +1,4 @@
-@import "../index.css";
+@reference "../index.css";
 
 @property --word-global-total {
   syntax: "<number>";

@@ -2,9 +2,7 @@ import { Piece } from "piecesjs";
 
 export default class HomeIntro extends Piece {
   constructor() {
-    super("HomeIntro", {
-      stylesheets: [() => import("../styles/components/home-intro.css")],
-    });
+    super("HomeIntro");
   }
 }
 

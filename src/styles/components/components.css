@@ -1,4 +1,78 @@
-@reference "../index.css";
+/*@reference "../index.css";*/
+
+@property --header-menu-project-title {
+  syntax: "<length> | <percentage>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --header-menu-project-title-height {
+  syntax: "<length> | <number> | <percentage>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+c-header {
+  header {
+    /* Critical css in index.css */
+
+    html.-string & {
+      transition: opacity 0.5s ease-out !important;
+      transform: translate3d(0, calc(-100% * var(--progress)), 0);
+      /* the progress css var is set by the footer by using the `string-copy-from` attribute*/
+
+      &.hide {
+        opacity: 0;
+      }
+
+      &.collapsed {
+        transform: translate3d(0, -100%, 0);
+      }
+    }
+
+    .c-animated-grid {
+      transition:
+        grid-template-rows 750ms,
+        grid-template-columns 750ms;
+      display: grid;
+
+      --header-menu-project-title-height: 0px;
+
+      grid-template-rows: 0 min-content;
+
+      &.project-title {
+        --header-menu-project-title-height: calc(var(--text-md) * 1.2);
+        grid-template-rows:
+          var(--header-menu-project-title-height, 0px)
+          min-content;
+        /*--header-menu-project-title: 60%;*/
+      }
+    }
+
+    @variant md {
+      .c-animated-grid {
+        grid-template-rows: unset;
+        grid-template-columns:
+          0
+          minmax(var(--spacing-grid-padding), auto)
+          min-content
+          minmax(var(--spacing-grid-padding), auto);
+
+        &.project-title {
+          /*--header-menu-project-title: 60%;*/
+          grid-template-rows: unset;
+          grid-template-columns:
+            var(--header-menu-project-title-width, 0%)
+            minmax(var(--spacing-grid-padding), auto)
+            min-content
+            minmax(var(--spacing-grid-padding), auto);
+        }
+      }
+    }
+  }
+}
+
+
 
 @property --home-intro-progress {
   syntax: "<number>";
@@ -146,5 +220,77 @@ c-home-intro {
         }
       }
     }
+  }
+}
+
+
+@property --word-global-total {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --text-reveal-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --progress-unit {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --min-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --max-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --word-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --word-opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+c-text-reveal {
+  .-s-word {
+    display: inline-block;
+
+    --progress-unit: calc(1 / var(--word-global-total));
+    --min-progress: clamp(
+      0,
+      calc((var(--word-index) - 2) * var(--progress-unit)),
+      1
+    );
+    --max-progress: clamp(
+      0,
+      calc((var(--word-index) + 2) * var(--progress-unit)),
+      1
+    );
+    --word-progress: clamp(
+      var(--min-progress),
+      var(--text-reveal-progress),
+      var(--max-progress)
+    );
+
+    --word-opacity: calc(
+      (var(--word-progress) - var(--min-progress)) /
+        (var(--max-progress) - var(--min-progress))
+    );
+
+    will-change: opacity;
+    opacity: var(--word-opacity);
+  }
+
+  .-s-char {
+    display: inline-block;
   }
 }

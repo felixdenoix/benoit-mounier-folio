@@ -1,4 +1,4 @@
-@reference "../index.css";
+/*@reference "../index.css";*/
 
 .project {
   .text-content-shadow-wrapper {
@@ -54,6 +54,53 @@
         clip-path: rect(auto auto auto auto);
         transform: scaley(calc(100% * var(--css-progress)));
         transform-origin: top;
+      }
+    }
+  }
+}
+
+.editorial {
+  h1 {
+    @apply text-3xl font-extrabold;
+  }
+  h2 {
+    @apply text-2xl font-bold;
+  }
+  h3 {
+    @apply text-xl font-medium;
+  }
+}
+
+.expertise {
+  html.-string & {
+    .animate-opacity {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    hr {
+      scale: 0 1 1;
+      opacity: 0;
+      transition:
+        scale 1.5s ease-out,
+        opacity 0.35s ease-out;
+      &.from-left {
+        transform-origin: right;
+      }
+      &.from-right {
+        transform-origin: left;
+      }
+    }
+
+    &.-inview {
+      .animate-opacity {
+        opacity: 1;
+        transition-delay: 0;
+      }
+      hr {
+        scale: 1 1 1;
+        opacity: 1;
+        transition-delay: 0;
       }
     }
   }

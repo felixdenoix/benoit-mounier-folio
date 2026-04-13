@@ -9,9 +9,7 @@ export default class CustomHeader extends Piece {
   $grid: HTMLElement | undefined;
 
   constructor() {
-    super("Header", {
-      stylesheets: [() => import("../styles/components/header.css")],
-    });
+    super("Header");
   }
 
   mount() {

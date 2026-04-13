@@ -1,4 +1,4 @@
-@import "../index.css";
+@reference "../index.css";
 
 @property --header-menu-project-title {
   syntax: "<length> | <percentage>";

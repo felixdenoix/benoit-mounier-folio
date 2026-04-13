@@ -1,4 +1,4 @@
-@import "../index";
+@reference "../index.css";
 
 .expertise {
   html.-string & {

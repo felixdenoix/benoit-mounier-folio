@@ -1,0 +1,87 @@
+@layer base {
+  html {
+    @apply text-gray-text;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    /* ensure browser does not generate missing weights in font family */
+    font-synthesis-weight: none;
+    font-weight: var(--font-weight-normal);
+  }
+
+  picture,
+  img {
+    pointer-events: none;
+  }
+
+  @variant md {
+    :root {
+      --grid-columns: repeat(12, minmax(0, 1fr));
+      --header-height: 48px;
+    }
+  }
+
+  @variant lg {
+    :root {
+      --grid-padding: calc(4 * var(--spacing));
+      --header-height: 78px;
+    }
+  }
+
+  @variant xl {
+    :root {
+      --grid-padding: calc(6 * var(--spacing));
+    }
+  }
+
+  pre {
+    max-width: 100%;
+    overflow: scroll;
+  }
+
+  strong {
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  c-header {
+    header {
+      visibility: hidden;
+      opacity: 0;
+    }
+    html.-string & {
+      &:not([hide="true"]) {
+        header {
+          visibility: visible;
+          opacity: 1;
+          transition: opacity 0.35s ease-out;
+        }
+      }
+    }
+  }
+
+  c-home-intro {
+    .from-fade {
+      opacity: 0;
+      html.-inline & {
+        opacity: 1;
+      }
+    }
+  }
+
+  img[loading="lazy"][data-dom="lazy-media"] {
+    opacity: 0;
+    transition: opacity 0.35s ease-out;
+
+    &.loaded {
+      opacity: 1;
+    }
+    &.error {
+      /*TODO: handle background on loading error*/
+      content: "";
+    }
+  }
+}

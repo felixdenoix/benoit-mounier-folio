@@ -23,12 +23,13 @@ export default defineConfig(({ mode }) => {
           // "index.ts", "styles/index.css"
           resolve(process.cwd(), "src/index.ts"),
           resolve(process.cwd(), "src/styles/index.css"),
-          ...(fs.existsSync(resolve(process.cwd(), "src/styles/templates"))
-            ? fs
-                .readdirSync(resolve(process.cwd(), "src/styles/templates"))
-                .filter((file) => file.endsWith(".css"))
-                .map((file) => resolve(process.cwd(), "src/styles/templates", file))
-            : []),
+          // Load php page templates on the fly
+          // ...(fs.existsSync(resolve(process.cwd(), "src/styles/templates"))
+          //   ? fs
+          //       .readdirSync(resolve(process.cwd(), "src/styles/templates"))
+          //       .filter((file) => file.endsWith(".css"))
+          //       .map((file) => resolve(process.cwd(), "src/styles/templates", file))
+          //   : []),
         ],
       },
 

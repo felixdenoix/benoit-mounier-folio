@@ -31,9 +31,7 @@ export default class Project extends Piece {
   $projectAssetContent: HTMLElement | undefined;
 
   constructor() {
-    super("Project", {
-      stylesheets: [() => import("../styles/templates/project.css")],
-    });
+    super("Project");
   }
 
   mount() {

@@ -1,0 +1,127 @@
+@layer components {
+  .base-grid {
+    @apply grid grid-cols-(--grid-columns) px-(--spacing-grid-padding) max-w-(--grid-max-width) mx-auto gap-(--spacing-grid-padding);
+  }
+
+  .sub-grid {
+    @apply grid grid-cols-subgrid;
+  }
+
+  .link-after-fill {
+    &:after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      z-index: -1;
+    }
+  }
+}
+
+@utility width-col-* {
+  --col-width: calc((var(--grid-width) - 2 * var(--spacing-grid-padding)) / 12);
+  width: calc(
+    var(--col-width) * --value(integer) - var(--spacing-grid-padding)
+  );
+}
+
+@utility hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.grid-padding {
+  @apply p-grid-padding;
+}
+.grid-padding-x {
+  @apply px-grid-padding;
+}
+.grid-padding-y {
+  @apply py-grid-padding;
+}
+
+@utility bd {
+  border: 1px solid black;
+}
+@utility bdr {
+  border: 1px solid red;
+}
+@utility bdg {
+  border: 1px solid green;
+}
+@utility bdb {
+  border: 1px solid blue;
+}
+@utility bdo {
+  border: 1px solid orange;
+}
+
+.header-link-hover {
+  font-weight: unset;
+  font-variation-settings: "wght" var(--font-weight-bold);
+  transition: font-variation-settings 0.3s ease;
+  position: relative;
+  line-height: 1;
+  &:after,
+  &:before {
+    font-variation-settings: "wght" var(--font-weight-bold);
+    opacity: 0;
+    position: absolute;
+    top: 0%;
+    height: 100%;
+    transition: opacity 0.35s ease-out;
+    content: "\00B7";
+  }
+  &:before {
+    left: 0;
+    translate: -8px -10% 0;
+  }
+  &:after {
+    right: 0;
+    translate: 8px -10% 0;
+  }
+
+  &[data-current=""] {
+    font-variation-settings: "wght" var(--font-weight-bold);
+    &:after,
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-current=""]) {
+      font-variation-settings: "wght" var(--font-weight-normal);
+    }
+  }
+}
+
+/* Classes to apply the variable instances */
+.codec-pro-variable-italic { --codec-pro-variable-ital: 1000; }
+.codec-pro-variable-thin { --codec-pro-variable-wght: 38; }
+.codec-pro-variable-extralight { --codec-pro-variable-wght: 77; }
+.codec-pro-variable-light { --codec-pro-variable-wght: 118; }
+.codec-pro-variable-news { --codec-pro-variable-wght: 157; }
+.codec-pro-variable-regular { --codec-pro-variable-wght: 177; }
+.codec-pro-variable-bold { --codec-pro-variable-wght: 249; }
+.codec-pro-variable-extrabold { --codec-pro-variable-wght: 317; }
+.codec-pro-variable-heavy { --codec-pro-variable-wght: 377; }
+.codec-pro-variable-ultra { --codec-pro-variable-wght: 484; }
+.codec-pro-variable-ultrablack { --codec-pro-variable-wght: 593; }
+.codec-pro-variable-fat { --codec-pro-variable-wght: 682; }
+
+@utility text-cap {
+  text-box: trim-both cap alphabetic;
+}
+
+@utility cta {
+  @apply relative px-10 py-4 leading-none uppercase text-md font-extrabold text-cap;
+  text-box: trim-both cap alphabetic;
+}
+
+@utility cta-light {
+  @apply bg-white text-gray-text;
+}
