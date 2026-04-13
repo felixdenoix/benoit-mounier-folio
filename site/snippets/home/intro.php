@@ -1,18 +1,19 @@
 <?php
-// using the `toStructure()` method, we create a structure collection
-$items = $page->intro()->toStructure();
-// we can then loop through the entries and render the individual fields
-foreach ($items as $index => $item):
+// We now receive $introItems from the home controller, which contains all pre-processed data
+foreach ($introItems as $introItem):
 
-    $intro_block_id = "into-block-progress" . $index;
-    $scenes_count = count($item->scenes()->toStructure());
-    $height_class = $scenes_count > 0 ? "min-h-[200vh]" : "";
-    $scene_height_multiplicator = $scenes_count ? ($scenes_count < 2 ? 2 : $scenes_count) : 1;
+    $sceneData = $introItem["data"];
+    $intro_block_id = $introItem["introBlockId"];
+    $scenes_count = $introItem["scenesCount"];
+    $height_class = $introItem["heightClass"];
+    $scene_height_multiplicator = $introItem["sceneHeightMultiplicator"];
+
+    // Preparation of styles
     $style = new CssStyle([
-        "--bgc" => $item->background_color()->or("white"),
+        "--bgc" => $sceneData->background_color()->or("white"),
         "--scenes-count" => $scenes_count,
         "--scenes-height" => "calc($scene_height_multiplicator * 100vh)",
-        "--section-index" => $index * 10,
+        "--section-index" => $introItem["index"] * 10,
     ]);
     ?>
 
@@ -21,10 +22,10 @@ foreach ($items as $index => $item):
         string="progress"
         string-key="--home-intro-progress"
         string-id="<?= $intro_block_id ?>"
-        <?php if ($index === 0): ?>
+        <?php if ($introItem["index"] === 0): ?>
         string-offset-bottom="-100%"
         <?php endif; ?>
-        <?php if ($item->background_image()->isNotEmpty()): ?>
+        <?php if ($introItem["background"]): ?>
         string-enter-el="top"
         string-enter-vp="top"
         string-offset-bottom="0%"
@@ -33,17 +34,16 @@ foreach ($items as $index => $item):
         string-exit-vp="bottom"
         style="<?= $style ?>">
 
-        <?php if ($item->background_image()->isNotEmpty() || $item->title()->isNotEmpty()): ?>
+        <?php if ($introItem["background"] || $sceneData->title()->isNotEmpty()): ?>
 
             <div class="background-wrapper absolute h-(--scenes-height) w-9/10 lg:w-8/10 ">
                 <div
                     data-background
                     class="sticky grid place-items-center z-1 top-0 h-screen w-full left-[5%] lg:left-[10%]">
-                    <?php if ($item->background_image()->isNotEmpty()):
-                        $background = $item->background_image()->toFile(); ?>
+                    <?php if ($introItem["background"]): ?>
 
                         <?php snippet("imagex-picture", [
-                            "image" => $background,
+                            "image" => $introItem["background"],
                             "attributes" => [
                                 "picture" => [
                                     "shared" => [
@@ -55,11 +55,7 @@ foreach ($items as $index => $item):
                                         "class" => "h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]",
                                         "style" => [
                                             new CssStyle([
-                                                "--bg-image" => "url(data:{$background->mime()};base64,{$background->thumb([
-                                                    "width" => 30,
-                                                    "blur" => true,
-                                                    "quality" => 50,
-                                                ])->base64()})",
+                                                "--bg-image" => $introItem["backgroundLqip"],
                                             ]),
                                         ],
                                         "sizes" => "100vw",
@@ -73,20 +69,19 @@ foreach ($items as $index => $item):
                             ],
                             "srcset" => "ben-srcset",
                         ]); ?>
-                    <?php
-                    endif; ?>
+                    <?php endif; ?>
                     <div class="headings text-center w-full">
-                        <?php if ($item->title()->isNotEmpty()): ?>
+                        <?php if ($sceneData->title()->isNotEmpty()): ?>
                             <h1
                                 string="split"
                                 string-split="char|fit"
                                 class="font-extrabold text-[calc(var(--fit-font-size)*1px)]">
-                                <?= $item->title()->escape() ?>
+                                <?= $sceneData->title()->escape() ?>
                             </h1>
                         <?php endif; ?>
-                        <?php if ($item->subtitle()->isNotEmpty()): ?>
+                        <?php if ($sceneData->subtitle()->isNotEmpty()): ?>
                             <h2 class="text-md font-bold">
-                                <?= $item->subtitle()->escape() ?>
+                                <?= $sceneData->subtitle()->escape() ?>
                             </h2>
                         <?php endif; ?>
                     </div>
@@ -94,43 +89,27 @@ foreach ($items as $index => $item):
             </div>
         <?php endif; ?>
 
-        <?php
-        $scenes = $item->scenes()->toStructure();
-        $scenes_count = count($scenes);
+        <?php foreach ($introItem["processedScenes"] as $scene):
 
-        foreach ($scenes as $scene_index => $scene):
-
-            $step = 1 / $scenes_count;
-            $part_start = $scene_index * $step;
-            $part_end = $scene_index === $scenes_count - 1 ? 1 : ($scene_index + 1) * $step;
-            $string_part_of = "{$intro_block_id}[{$part_start}-{$part_end}]";
-            $scroll_classes = $scene->scroll_mode() == "normal" ? "sticky w-full" : "fixed w-9/10 lg:w-8/10";
-            $animation_classes = "animation-mode-{$scene->animation_mode()}";
-            $classes = join(" ", [$scroll_classes, $animation_classes]);
+            $sceneData = $scene["data"];
+            $scene_index = $scene["index"];
             ?>
             <div
                 string="progress-part"
-                string-part-of="<?= $string_part_of ?>"
-                class="z-10 scene h-screen top-0 aspect-16/9 <?= $classes ?>">
+                string-part-of="<?= $scene["stringPartOf"] ?>"
+                class="z-10 scene h-screen top-0 aspect-16/9 <?= $scene["classes"] ?>">
 
-                <?php
-                $ftFiles = $scene->images_ft()->toFiles();
-                $ftFilesCount = count($ftFiles);
-                $fileIndexes = range(1, $ftFilesCount);
-                if ($scene->animation_mode() == "random") {
-                    shuffle($fileIndexes);
-                }
-                foreach ($ftFiles as $imageFt): ?>
+                <?php foreach ($scene["imagesFt"] as $img): ?>
                     <?php snippet("imagex-picture", [
-                        "image" => $imageFt,
+                        "image" => $img["file"],
                         "attributes" => [
                             "picture" => [
                                 "shared" => [
                                     "class" => ["absolute h-full w-full inset-0 z-1 object-contain object-center from-top"],
                                     "style" => [
                                         new CssStyle([
-                                            "--animation-index" => "{$fileIndexes[$ftFiles->indexOf($imageFt)]}",
-                                            "--animation-count" => $ftFilesCount,
+                                            "--animation-index" => $img["animationIndex"],
+                                            "--animation-count" => $img["animationCount"],
                                         ]),
                                     ],
                                 ],
@@ -140,11 +119,7 @@ foreach ($items as $index => $item):
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
-                                            "--bg-image" => "url(data:{$imageFt->mime()};base64,{$imageFt->thumb([
-                                                "width" => 30,
-                                                "blur" => true,
-                                                "quality" => 50,
-                                            ])->base64()})",
+                                            "--bg-image" => $img["lqip"],
                                         ]),
                                     ],
                                     "sizes" => "100vw",
@@ -159,27 +134,19 @@ foreach ($items as $index => $item):
                         "srcset" => "ben-srcset",
                         "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
-                <?php endforeach;
-                ?>
+                <?php endforeach; ?>
 
-                <?php
-                $fbFiles = $scene->images_fb()->toFiles();
-                $fbFilesCount = count($fbFiles);
-                $fileIndexes = range(1, count($fbFiles));
-                if ($scene->animation_mode() === "random") {
-                    shuffle($fileIndexes);
-                }
-                foreach ($fbFiles as $imageFb): ?>
+                <?php foreach ($scene["imagesFb"] as $img): ?>
                     <?php snippet("imagex-picture", [
-                        "image" => $imageFb,
+                        "image" => $img["file"],
                         "attributes" => [
                             "picture" => [
                                 "shared" => [
                                     "class" => ["absolute h-full w-full inset-0 z-2 object-contain object-center from-bottom"],
                                     "style" => [
                                         new CssStyle([
-                                            "--animation-index" => $fileIndexes[$fbFiles->indexOf($imageFb)],
-                                            "--animation-count" => $fbFilesCount,
+                                            "--animation-index" => $img["animationIndex"],
+                                            "--animation-count" => $img["animationCount"],
                                         ]),
                                     ],
                                 ],
@@ -189,11 +156,7 @@ foreach ($items as $index => $item):
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
-                                            "--bg-image" => "url(data:{$imageFb->mime()};base64,{$imageFb->thumb([
-                                                "width" => 30,
-                                                "blur" => true,
-                                                "quality" => 50,
-                                            ])->base64()})",
+                                            "--bg-image" => $img["lqip"],
                                         ]),
                                     ],
                                     "sizes" => "100vw",
@@ -208,28 +171,19 @@ foreach ($items as $index => $item):
                         "srcset" => "ben-srcset",
                         "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
-                <?php endforeach;
-                ?>
+                <?php endforeach; ?>
 
-                <?php
-                $imagesFade = $scene->images_fade()->toFiles();
-                $imagesFadeCount = count($imagesFade);
-                $fileIndexes = range(1, count($imagesFade));
-                if ($scene->animation_mode() === "random") {
-                    shuffle($fileIndexes);
-                }
-                foreach ($imagesFade as $imageFade): ?>
-
+                <?php foreach ($scene["imagesFade"] as $img): ?>
                     <?php snippet("imagex-picture", [
-                        "image" => $imageFade,
+                        "image" => $img["file"],
                         "attributes" => [
                             "picture" => [
                                 "shared" => [
                                     "class" => ["absolute h-full w-full inset-0 object-contain object-center z-3 from-fade"],
                                     "style" => [
                                         new CssStyle([
-                                            "--animation-index" => "{$fileIndexes[$imagesFade->indexOf($imageFade)]}",
-                                            "--animation-count" => $imagesFadeCount,
+                                            "--animation-index" => $img["animationIndex"],
+                                            "--animation-count" => $img["animationCount"],
                                         ]),
                                     ],
                                 ],
@@ -239,11 +193,7 @@ foreach ($items as $index => $item):
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
-                                            "--bg-image" => "url(data:{$imageFade->mime()};base64,{$imageFade->thumb([
-                                                "width" => 30,
-                                                "blur" => true,
-                                                "quality" => 50,
-                                            ])->base64()})",
+                                            "--bg-image" => $img["lqip"],
                                         ]),
                                     ],
                                     "sizes" => "100vw",
@@ -258,12 +208,10 @@ foreach ($items as $index => $item):
                         "srcset" => "ben-srcset",
                         "loading" => $scene_index === 0 ? "eager" : "lazy",
                     ]); ?>
-                <?php endforeach;
-                ?>
+                <?php endforeach; ?>
             </div>
         <?php
-        endforeach;
-        ?>
+        endforeach; ?>
     </c-home-intro>
 <?php
 endforeach; ?>

@@ -23,7 +23,7 @@
 <c-homepage log>
 
   <div class="intro relative">
-    <?php snippet("home/intro"); ?>
+    <?php snippet("home/intro", ["introItems" => $introItems]); ?>
   </div>
 
   <div
@@ -65,16 +65,11 @@
 
       <!--TODO: extact to snipet et tout-->
       <div class="animate-opacity delay-750! flex flex-col lg:flex-row gap-4 lg:gap-unset justify-between items-center w-full mb-10 md:mb-26 text-white group">
-        <?php
-        $items = $page->callToAction()->toStructure();
-        foreach ($items as $item): ?>
+        <?php foreach ($ctaItems as $item): ?>
           <a
-            class="text cap block uppercase text-[1.3rem] text-bold decoration-1 underline transition-[text-decoration-color] ease-projects underline-offset-4 duration-500 not-pointer-coarse:group-has-[:hover]:decoration-transparent not-pointer-coarse:hover:decoration-inherit" href="<?= $item
-                ->projects()
-                ->random()
-                ->toPage()
-                ->url() ?>">
-            <?= $item->label() ?>
+            class="text cap block uppercase text-[1.3rem] text-bold decoration-1 underline transition-[text-decoration-color] ease-projects underline-offset-4 duration-500 not-pointer-coarse:group-has-[:hover]:decoration-transparent not-pointer-coarse:hover:decoration-inherit"
+            href="<?= $item["url"] ?>">
+            <?= $item["label"] ?>
           </a>
           <hr
             aria-hidden
@@ -82,8 +77,7 @@
           <span
             aria-hidden
             class="hidden lg:block last:hidden">|</span>
-        <?php endforeach;
-        ?>
+        <?php endforeach; ?>
       </div>
 
       <div class="animate-opacity delay-1250! contact mb-10 md:mb-20 lg:mb-30 flex justify-center">
