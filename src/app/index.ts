@@ -19,7 +19,6 @@ import HomeRenderer from "./homeRenderer";
 export default class App {
   private router: Core | undefined;
   public smoothScroll: StringTune | undefined;
-  private stylesheetToLoad: number = 0;
   public gsap: typeof gsap = gsap;
   public rootStyles: CSSStyleDeclaration | undefined;
   public consts: {
@@ -193,38 +192,27 @@ export default class App {
     // trigger resize upon load end
     const styleSheets = Array.from(document.head.querySelectorAll('link[rel="stylesheet"]')) as HTMLLinkElement[];
 
-    this.stylesheetToLoad = styleSheets.length;
-
     const styleSheetPromises = styleSheets.map((stylesheet) => {
       return new Promise((resolve) => {
-        const stylesheetsLoaded = () => {
-          requestAnimationFrame(() => {
-            window.dispatchEvent(new Event("resize"));
-            resolve(true);
-          });
-        };
-
         const hasLoaded = Boolean(stylesheet.sheet);
 
         if (hasLoaded) {
-          this.stylesheetToLoad--;
-          if (this.stylesheetToLoad === 0) {
-            stylesheetsLoaded();
-          }
+          resolve(true);
         } else {
-          stylesheet.onload = () => {
-            this.stylesheetToLoad--;
-            if (this.stylesheetToLoad === 0) {
-              stylesheetsLoaded();
-            }
-          };
+          stylesheet.onload = () => resolve(true);
+          stylesheet.onerror = () => resolve(false);
         }
       });
     });
 
     await Promise.race([Promise.all(styleSheetPromises), new Promise((resolve) => setTimeout(resolve, 5000))]);
 
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new Event("resize"));
+    });
+
     console.log("😸 stylesheets Loaded ");
+
     if (callback) {
       callback();
     }
