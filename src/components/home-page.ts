@@ -1,6 +1,6 @@
 import { type ScrollTriggerRule, frameDOM } from "@fiddle-digital/string-tune";
 import { Piece } from "piecesjs";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 
 const MENU_TRIGGER = "homepage-menu-trigger";
 

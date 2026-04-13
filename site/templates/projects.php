@@ -49,6 +49,7 @@
                             ],
                             "img" => [
                                 "shared" => [
+                                    "alt" => $image->alt() ?? "",
                                     "class" => ["object-cover h-full w-full bg-cover bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         "--bg-image: url(data:{$cover->mime()};base64,{$cover->thumb([

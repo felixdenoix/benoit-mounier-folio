@@ -52,6 +52,7 @@ foreach ($introItems as $introItem):
                                 ],
                                 "img" => [
                                     "shared" => [
+                                        "alt" => $image->alt() ?? "",
                                         "class" => "h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]",
                                         "style" => [
                                             new CssStyle([
@@ -116,6 +117,7 @@ foreach ($introItems as $introItem):
                             ],
                             "img" => [
                                 "shared" => [
+                                    "alt" => $image->alt() ?? "",
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
@@ -153,6 +155,7 @@ foreach ($introItems as $introItem):
                             ],
                             "img" => [
                                 "shared" => [
+                                    "alt" => $image->alt() ?? "",
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
@@ -190,6 +193,7 @@ foreach ($introItems as $introItem):
                             ],
                             "img" => [
                                 "shared" => [
+                                    "alt" => $image->alt() ?? "",
                                     "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
