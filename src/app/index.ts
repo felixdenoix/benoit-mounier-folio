@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import {
   StringLerp,
   StringPositionTracker,

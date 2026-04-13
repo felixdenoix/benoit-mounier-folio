@@ -79,6 +79,27 @@ $> dev exec kirby
 
 <details>
 
+<summary> #### Subsetting fonts</summary>
+
+- use https://fontsubset.com/ to create an unicode range of the chars that are needed for the font
+- use `fonttools` to subset fonts
+```bash
+$> fonttools subset ./CodecProVariableGX.ttf \
+    --with-zopfli \
+    --flavor=woff2 \
+    --no-hinting \
+    --no-notdef-outline \
+    --obfuscate-names \
+    --no-glyph-names \
+    --layout-features=dlig,onum,smcp,kern,zero \
+    --unicodes=U+0020-007E,U+00A0-00BD,U+00BF-00FF,U+2012-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2025-2026,U+2030,U+2039-203A,U+203D,U+2044,U+20A1,U+20A3-20A4,U+20A7,U+20AC,U+2116,U+2122,U+2126,U+212E,U+2190-2193,U+2196-2199
+```
+
+
+</details>
+
+<details>
+
 <summary> #### Add noise to image </summary>
     
 [source](https://web.archive.org/web/20260219003448/https://randombits.dev/articles/canvas-grain)

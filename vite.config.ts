@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import fs from "node:fs";
 import { defineConfig, type UserConfig } from "vite";
-import { fontless } from "fontless";
+// import { fontless } from "fontless";
 import tailwindcss from "@tailwindcss/vite";
 import kirby from "vite-plugin-kirby";
 
@@ -66,31 +66,28 @@ export default defineConfig(({ mode }) => {
     },
 
     plugins: [
-      fontless({
-        families: [
-          {
-            name: "Codec Pro",
-            src: [
-              {
-                url: "/assets/fonts/CodecProVariableGX.ttf",
-                format: "truetype-variations",
-              },
-            ],
-            weight: "38 682",
-          },
-        ],
-        defaults: {
-          preload: true,
-          subsets: ["latin-extended"],
-          formats: ["woff2", "ttf"],
-        },
-      }),
+      // fontless({
+      //   families: [
+      //     {
+      //       name: "Codec Pro",
+      //       src: [
+      //         {
+      //           url: "/assets/fonts/CodecProVariableGX.ttf",
+      //           format: "truetype-variations",
+      //         },
+      //       ],
+      //       weight: "38 682",
+      //     },
+      //   ],
+      //   defaults: {
+      //     preload: true,
+      //     subsets: ["latin-extended"],
+      //     formats: ["woff2", "ttf"],
+      //   },
+      // }),
       tailwindcss(),
       kirby({
-        watch: [
-          "../site/(templates|snippets|controllers|models|layouts)/**/*.php",
-          "../content/**/*",
-        ],
+        watch: ["../site/(templates|snippets|controllers|models|layouts)/**/*.php", "../content/**/*"],
         kirbyConfigDir: "site/config",
       }),
     ],
