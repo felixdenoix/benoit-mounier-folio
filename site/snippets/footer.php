@@ -20,20 +20,25 @@
         string-exit-el="bottom"
         string-exit-vp="bottom"
         string-offset-top="-40sh"
-        class="footer box-border block pt-8 px-grid-padding pb-grid-padding shadow-md-upwards">
-        <div class="base-grid w-full">
-            <div class="col-span-full flex justify-center mb-5">
+        class="footer box-border block shadow-md-upwards">
+        <div class="base-grid w-full py-8 mb:py-grid-padding px-grid-padding">
+            <div class="col-span-full flex justify-center">
                 <?php snippet("navigation", ["classes" => "text-md font-extrabold width-auto gap-5 md:gap-0 md:width-col-4 lg:width-col-3"]); ?>
             </div>
-
-            <div class="col-span-full flex justify-between">
-                <a class="bloc link [text-box-trim:trim-both] flex-1 text-left" href="<?= page("mentions-legales")?->url() ?>">mentions légales</a>
-                <a
-                    class="logo block uppercase font-extrabold flex-1 text-center"
-                    href="<?= $site->url() ?>">
-                    <h2><?= $site->title()->esc() ?></h2>
-                </a>
-                <a class="bloc link [text-box-trim:trim-both] flex-1 text-right" href="https://felixdenoix.fr">site par</a>
+        </div>
+        <div class="bg-gray-title w-full">
+            <div class="base-grid p-grid-padding w-full  text-white">
+                <div class="col-span-full flex justify-between items-end">
+                    <div class="flex flex-col">
+                        <a
+                            class="logo block font-extrabold flex-1 text-center uppercase"
+                            href="<?= $site->url() ?>">
+                            <h2><?= $site->title()->esc() ?></h2>
+                        </a>
+                        <a class="block link [text-box-trim:trim-both] flex-1 text-left" href="<?= page("mentions-legales")?->url() ?>">mentions légales</a>
+                    </div>
+                    <a class="block link [text-box-trim:trim-both] flex-1 text-right" href="https://felixdenoix.fr">site par</a>
+                </div>
             </div>
         </div>
     </footer>
