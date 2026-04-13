@@ -65,7 +65,8 @@ export default class DefaultRenderer extends Renderer {
       return new Promise((resolve) => {
         const handleLoad = () => {
           this.pageAssetloaded++;
-          this.siteLoaderQTo((this.pageAssetloaded / this.pageAssetsCount) * 100);
+          const progress = (this.pageAssetloaded / this.pageAssetsCount) * 100;
+          this.siteLoaderQTo(progress);
           resolve(true);
         };
 
@@ -83,9 +84,11 @@ export default class DefaultRenderer extends Renderer {
       setTimeout(resolve, 5000);
     });
 
-    Promise.race([Promise.allSettled(loadPromises).catch(console.error), timeout]).then(() => {
-      this.siteLoaderQTo(100);
-    });
+    Promise.race([Promise.allSettled(loadPromises), timeout])
+      .catch(console.error)
+      .finally(() => {
+        this.siteLoaderQTo(100);
+      });
   }
 
   onEnter() {
