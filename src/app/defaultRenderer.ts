@@ -34,9 +34,11 @@ export default class DefaultRenderer extends Renderer {
   }
 
   initialLoad() {
-    this.$siteLoader = this.content.querySelector("#site-loader") as HTMLElement;
+    this.$siteLoader = document.querySelector("#site-loader") as HTMLElement;
+    console.log("site-loader", this.$siteLoader);
 
-    this.$siteLoaderProgress = this.content.querySelector("span[data-dom=progress]") as HTMLSpanElement;
+    this.$siteLoaderProgress = document.querySelector("span[data-dom=progress]") as HTMLSpanElement;
+    console.log("site-loader-progress", this.$siteLoaderProgress);
 
     this.$pageAssets = Array.from(this.content.querySelectorAll("img:not([loading=lazy])")).filter(
       Boolean,
@@ -92,7 +94,7 @@ export default class DefaultRenderer extends Renderer {
   }
 
   onEnter() {
-    lazyMediaHandler(this.content as Document);
+    lazyMediaHandler(this.content);
   }
 
   onEnterCompleted() {}
@@ -119,9 +121,18 @@ export default class DefaultRenderer extends Renderer {
       })
       .to(this.$siteLoaderProgress!.parentElement, {
         duration: 0.5,
+        ease: "power3.out",
         opacity: 0,
       })
-      .to(this.$siteLoader, { duration: 0.75, autoAlpha: 0 });
+      .to(
+        this.$siteLoader,
+        {
+          duration: 0.5,
+          autoAlpha: 0,
+          ease: "power3.out",
+        },
+        "<50%",
+      );
   }
 
   handleExitLoaderCallbacks() {

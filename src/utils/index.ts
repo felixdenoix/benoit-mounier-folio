@@ -1,6 +1,6 @@
 import { frameDOM } from "@fiddle-digital/string-tune";
 
-export function lazyMediaHandler(doc: Document, mediaQuerySelector: string = '[data-dom="lazy-media"]') {
+export function lazyMediaHandler(doc: Document | ParentNode, mediaQuerySelector: string = '[data-dom="lazy-media"]') {
   const lazyMedias = Array.from(doc.querySelectorAll(mediaQuerySelector)) as HTMLImageElement[];
 
   frameDOM.mutate(() => {

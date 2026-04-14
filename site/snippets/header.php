@@ -78,8 +78,10 @@
 </head>
 
 <body class="font-sans antialiased box-border" style="overflow: hidden;">
+    <?= snippet("site-loader") ?>
 
     <c-header
+        id="c-header"
         <?= isset($hide_header) ? 'hide="true"' : false ?>
         class="w-full h-auto block"
         string-copy-from="footer">
@@ -118,5 +120,3 @@
             data-title="<?= isset($seo) ? $site->title()->esc() . " | " . $seo->title()->esc() : $site->title()->esc() . " | " . $page->title()->esc() ?>"
             data-description="<?= isset($seo) && $seo->description()->isNotEmpty() ? $seo->description()->html() : "" ?>"
             data-image="<?= isset($seo) && $seo->image() ? $seo->image()->url() : "" ?>">
-
-            <?= snippet("site-loader") ?>
