@@ -69,11 +69,7 @@ c-home-intro {
           --local-progress: calc(sin((var(--t) * pi) / 2));
 
           /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
-          transform: translate3d(
-            0,
-            calc((1 - var(--local-progress)) * var(--start-y)),
-            0
-          );
+          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
 
         .from-bottom {
@@ -88,11 +84,7 @@ c-home-intro {
           --local-progress: calc(sin((var(--t) * pi) / 2));
 
           /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
-          transform: translate3d(
-            0,
-            calc((1 - var(--local-progress)) * var(--start-y)),
-            0
-          );
+          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
 
         .from-fade {
@@ -116,11 +108,7 @@ c-home-intro {
           --local-progress: calc(sin(var(--t) * 90deg));
           --local-progress: calc(sin((var(--t) * pi) / 2));
           /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
-          transform: translate3d(
-            0,
-            calc((1 - var(--local-progress)) * var(--start-y)),
-            0
-          );
+          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
         .from-bottom {
           /*will-change: transform;*/
@@ -132,11 +120,7 @@ c-home-intro {
           --local-progress: calc(sin(var(--t) * 90deg));
           --local-progress: calc(sin((var(--t) * pi) / 2));
           /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
-          transform: translate3d(
-            0,
-            calc((1 - var(--local-progress)) * var(--start-y)),
-            0
-          );
+          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
         .from-fade {
           /*will-change: opacity;*/

@@ -1,7 +1,6 @@
 @theme inline {
   --font-sans:
-    "Codec Pro", "Gotham", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+    "Codec Pro", "Gotham", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --breakpoint-3xl: 120rem;
 
@@ -57,8 +56,7 @@
   --font-weight-fat: 682;
   --font-weight-black: 682;
 
-  --shadow-md-upwards:
-    0 -4px 6px -1px rgb(0 0 0 / 0.1), 0 -2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-md-upwards: 0 -4px 6px -1px rgb(0 0 0 / 0.1), 0 -2px 4px -2px rgb(0 0 0 / 0.1);
 
   --ease-projects: cubic-bezier(0.44, 0.07, 0.41, 1);
   --z-header: 100;

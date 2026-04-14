@@ -1,1 +1,13 @@
 pnpm-lock.yaml
+
+kirby/
+.ddev/
+.zed/
+
+site/accounts/
+site/plugins/
+site/cache/
+site/sessions/
+
+storage/
+vendor/

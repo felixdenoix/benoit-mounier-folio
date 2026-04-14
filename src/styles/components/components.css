@@ -72,8 +72,6 @@ c-header {
   }
 }
 
-
-
 @property --home-intro-progress {
   syntax: "<number>";
   inherits: true;
@@ -143,11 +141,7 @@ c-home-intro {
           --local-progress: calc(sin((var(--t) * pi) / 2));
 
           /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
-          transform: translate3d(
-            0,
-            calc((1 - var(--local-progress)) * var(--start-y)),
-            0
-          );
+          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
 
         .from-bottom {
@@ -162,11 +156,7 @@ c-home-intro {
           --local-progress: calc(sin((var(--t) * pi) / 2));
 
           /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
-          transform: translate3d(
-            0,
-            calc((1 - var(--local-progress)) * var(--start-y)),
-            0
-          );
+          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
 
         .from-fade {
@@ -190,11 +180,7 @@ c-home-intro {
           --local-progress: calc(sin(var(--t) * 90deg));
           --local-progress: calc(sin((var(--t) * pi) / 2));
           /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
-          transform: translate3d(
-            0,
-            calc((1 - var(--local-progress)) * var(--start-y)),
-            0
-          );
+          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
         .from-bottom {
           /*will-change: transform;*/
@@ -206,11 +192,7 @@ c-home-intro {
           --local-progress: calc(sin(var(--t) * 90deg));
           --local-progress: calc(sin((var(--t) * pi) / 2));
           /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
-          transform: translate3d(
-            0,
-            calc((1 - var(--local-progress)) * var(--start-y)),
-            0
-          );
+          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
         .from-fade {
           /*will-change: opacity;*/
@@ -222,7 +204,6 @@ c-home-intro {
     }
   }
 }
-
 
 @property --word-global-total {
   syntax: "<number>";
@@ -265,26 +246,11 @@ c-text-reveal {
     display: inline-block;
 
     --progress-unit: calc(1 / var(--word-global-total));
-    --min-progress: clamp(
-      0,
-      calc((var(--word-index) - 2) * var(--progress-unit)),
-      1
-    );
-    --max-progress: clamp(
-      0,
-      calc((var(--word-index) + 2) * var(--progress-unit)),
-      1
-    );
-    --word-progress: clamp(
-      var(--min-progress),
-      var(--text-reveal-progress),
-      var(--max-progress)
-    );
+    --min-progress: clamp(0, calc((var(--word-index) - 2) * var(--progress-unit)), 1);
+    --max-progress: clamp(0, calc((var(--word-index) + 2) * var(--progress-unit)), 1);
+    --word-progress: clamp(var(--min-progress), var(--text-reveal-progress), var(--max-progress));
 
-    --word-opacity: calc(
-      (var(--word-progress) - var(--min-progress)) /
-        (var(--max-progress) - var(--min-progress))
-    );
+    --word-opacity: calc((var(--word-progress) - var(--min-progress)) / (var(--max-progress) - var(--min-progress)));
 
     will-change: opacity;
     opacity: var(--word-opacity);

@@ -19,9 +19,7 @@
 
 @utility width-col-* {
   --col-width: calc((var(--grid-width) - 2 * var(--spacing-grid-padding)) / 12);
-  width: calc(
-    var(--col-width) * --value(integer) - var(--spacing-grid-padding)
-  );
+  width: calc(var(--col-width) * --value(integer) - var(--spacing-grid-padding));
 }
 
 @utility hide-scrollbar {
@@ -100,18 +98,42 @@
 }
 
 /* Classes to apply the variable instances */
-.codec-pro-variable-italic { --codec-pro-variable-ital: 1000; }
-.codec-pro-variable-thin { --codec-pro-variable-wght: 38; }
-.codec-pro-variable-extralight { --codec-pro-variable-wght: 77; }
-.codec-pro-variable-light { --codec-pro-variable-wght: 118; }
-.codec-pro-variable-news { --codec-pro-variable-wght: 157; }
-.codec-pro-variable-regular { --codec-pro-variable-wght: 177; }
-.codec-pro-variable-bold { --codec-pro-variable-wght: 249; }
-.codec-pro-variable-extrabold { --codec-pro-variable-wght: 317; }
-.codec-pro-variable-heavy { --codec-pro-variable-wght: 377; }
-.codec-pro-variable-ultra { --codec-pro-variable-wght: 484; }
-.codec-pro-variable-ultrablack { --codec-pro-variable-wght: 593; }
-.codec-pro-variable-fat { --codec-pro-variable-wght: 682; }
+.codec-pro-variable-italic {
+  --codec-pro-variable-ital: 1000;
+}
+.codec-pro-variable-thin {
+  --codec-pro-variable-wght: 38;
+}
+.codec-pro-variable-extralight {
+  --codec-pro-variable-wght: 77;
+}
+.codec-pro-variable-light {
+  --codec-pro-variable-wght: 118;
+}
+.codec-pro-variable-news {
+  --codec-pro-variable-wght: 157;
+}
+.codec-pro-variable-regular {
+  --codec-pro-variable-wght: 177;
+}
+.codec-pro-variable-bold {
+  --codec-pro-variable-wght: 249;
+}
+.codec-pro-variable-extrabold {
+  --codec-pro-variable-wght: 317;
+}
+.codec-pro-variable-heavy {
+  --codec-pro-variable-wght: 377;
+}
+.codec-pro-variable-ultra {
+  --codec-pro-variable-wght: 484;
+}
+.codec-pro-variable-ultrablack {
+  --codec-pro-variable-wght: 593;
+}
+.codec-pro-variable-fat {
+  --codec-pro-variable-wght: 682;
+}
 
 @utility text-cap {
   text-box: trim-both cap alphabetic;
