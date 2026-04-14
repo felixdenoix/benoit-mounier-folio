@@ -16,7 +16,7 @@ $compact ??= false;
             <span class="flex flex-col">
                 <span class="block text-md font-light text-cap transition-[font-weight] duration-500 ease-projects not-pointer-coarse:group-hover/prev:font-medium  <?= $compact
                     ? "hidden"
-                    : "" ?>"><?= $previous->title() ?></span>
+                    : "" ?>">Précédent</span>
             </span>
         </a>
     <?php endif; ?>
@@ -34,7 +34,7 @@ $compact ??= false;
                 <span class="flex flex-col align-bottom">
                     <span class="block text-md font-light text-cap text-right transition-[font-weight] duration-500 ease-projects not-pointer-coarse:group-hover/next:font-medium <?= $compact
                         ? "hidden"
-                        : "" ?>"><?= $next->title() ?></span>
+                        : "" ?>">Suivant</span>
                 </span>
             <span class="block *:h-5 *:w-auto rotate-180 transition-transform duration-500 ease-projects not-pointer-coarse:group-hover/next:scale-110"><?= svg(
                 "assets/icons/chevron.svg",
