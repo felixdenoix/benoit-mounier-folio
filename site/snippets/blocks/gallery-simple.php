@@ -34,7 +34,7 @@
                         ],
                     ],
                     "srcset" => "ben-srcset",
-                    "loading" => "lazy",
+                    "loading" => $loading ?? "lazy",
                 ]); ?>
             </li>
         <?php endforeach; ?>

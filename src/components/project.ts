@@ -73,7 +73,6 @@ export default class Project extends Piece {
   }
 
   setupScrollMarks() {
-    console.log("😸 SetupScrollMarks");
     const heading = this.$projectHeading?.dataset.heading;
     if (heading) {
       frameDOM.measure(() => {
@@ -124,7 +123,6 @@ export default class Project extends Piece {
           offset: offset,
           direction: "any",
           onEnter: () => {
-            console.log("😸 on enter this.$textContentProjectNav");
             this.$textContentProjectNav?.classList?.toggle("bottom-reached", true);
           },
           onLeave: () => {

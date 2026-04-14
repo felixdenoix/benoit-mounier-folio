@@ -74,21 +74,36 @@ $previous_project = $page->prevListed() ?? $page->templateSiblings(false)->liste
         <div
             data-dom="asset-content"
             class="asset-content col-span-full md:col-span-8 md:col-start-1 md:row-start-2 lg:col-span-9 lg:col-start-1 lg:row-start-2">
-            <?php foreach ($page->medias()->toLayouts() as $layout): ?>
+            <?php
+            $index = 0;
+            foreach ($page->medias()->toLayouts() as $layout): ?>
+                <!-- TODO: eager when index === 0 -->
                 <section class="grid auto-cols-fr gap-2.5 not-last:mb-2.5" id="<?= $layout->id() ?>">
-                    <?php foreach ($layout->columns() as $column): ?>
+                    <?php
+                    $column_index = 0;
+                    foreach ($layout->columns() as $column): ?>
                         <div class="col-span-full md:col-span-(--span) md:row-start-1" style="--span:<?= $column->span(12) ?>">
                             <div class="blocks h-full flex flex-col gap-2.5">
-                                <?php foreach ($column->blocks() as $block): ?>
+                                <?php
+                                $block_index = 0;
+                                foreach ($column->blocks() as $block): ?>
                                     <div class="h-full flex flex-col justify-stretch gap-2.5 [&_li:not(:last-of-type)]:mb-2.5 block-type-<?= $block->type() ?> *:h-full">
-                                        <?php snippet("blocks/" . $block->type(), ["block" => $block, "layout" => $layout]); ?>
+                                        <?php snippet("blocks/" . $block->type(), [
+                                            "block" => $block,
+                                            "layout" => $layout,
+                                            "loading" => $index === 0 && $column_index === 0 && $block_index === 0 ? "eager" : "lazy",
+                                        ]); ?>
                                     </div>
-                                <?php endforeach; ?>
+                                <?php $block_index++;endforeach;
+                                ?>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                    <?php $column_index++;endforeach;
+                    ?>
+
                 </section>
-            <?php endforeach; ?>
+            <?php $index++;endforeach;
+            ?>
         </div>
 
         <div class="col-span-full flex items-stretch *:w-full mt-10">

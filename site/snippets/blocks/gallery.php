@@ -5,19 +5,20 @@
   <ul>
     <?php foreach ($block->images()->toFiles() as $image): ?>
     <li>
-      <?php snippet('image', [
-        'alt'      => $image->alt(),
-        'contain'  => $block->crop()->isTrue(),
-        'lightbox' => true,
-        'ratio'    => $block->ratio()->or('auto'),
-        'src'      => $image->url(),
-      ]) ?>
+      <?php snippet("image", [
+          "alt" => $image->alt(),
+          "contain" => $block->crop()->isTrue(),
+          "lightbox" => true,
+          "ratio" => $block->ratio()->or("auto"),
+          "src" => $image->url(),
+      ]); ?>
+    <!-- TODO: use imagex -->
     </li>
-    <?php endforeach ?>
+    <?php endforeach; ?>
   </ul>
   <?php if ($block->caption()->isNotEmpty()): ?>
   <figcaption>
     <?= $block->caption() ?>
   </figcaption>
-  <?php endif ?>
+  <?php endif; ?>
 </figure>
