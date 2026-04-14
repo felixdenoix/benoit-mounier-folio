@@ -89,6 +89,7 @@ export default class Project extends Piece {
           offset: offset,
           direction: "any",
           onEnter: () => {
+            console.log("😸 HeadingTrigger onEnter");
             this.call(
               "toggleProjectMode",
               {
@@ -123,6 +124,7 @@ export default class Project extends Piece {
           offset: offset,
           direction: "any",
           onEnter: () => {
+            console.log("😸 NavTrigger on enter");
             this.$textContentProjectNav?.classList?.toggle("bottom-reached", true);
           },
           onLeave: () => {
