@@ -14,7 +14,7 @@ return [
             "active" => true,
         ],
     ],
-    "url" => ["https://benoit.felixdenoix.fr"],
+    "url" => ["https://benoit.felixdenoix.fr", "https://www.benoit.felixdenoix.fr"],
     "panel" => [
         "vue" => [
             "compiler" => false,

@@ -32,10 +32,10 @@ docroot: ./public
 # ...
 # Ensure vite can run freely
 web_extra_exposed_ports:
-  - name: vite
-    container_port: 5173
-    http_port: 5172
-    https_port: 5173
+    - name: vite
+      container_port: 5173
+      http_port: 5172
+      https_port: 5173
 # ...
 ```
 
@@ -83,6 +83,7 @@ $> dev exec kirby
 
 - use https://fontsubset.com/ to create an unicode range of the chars that are needed for the font
 - use `fonttools` to subset fonts
+
 ```bash
 $> fonttools subset ./CodecProVariableGX.ttf \
     --with-zopfli \
@@ -94,7 +95,6 @@ $> fonttools subset ./CodecProVariableGX.ttf \
     --layout-features=dlig,onum,smcp,kern,zero \
     --unicodes=U+0020-007E,U+00A0-00BD,U+00BF-00FF,U+2012-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2025-2026,U+2030,U+2039-203A,U+203D,U+2044,U+20A1,U+20A3-20A4,U+20A7,U+20AC,U+2116,U+2122,U+2126,U+212E,U+2190-2193,U+2196-2199
 ```
-
 
 </details>
 
@@ -109,51 +109,65 @@ Color version:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Realistic Film Grain Effect with Canvas</title>
-    <style>
-    body { margin: 20px; background: #0d0d0d; display: grid; place-items: center; font-family: sans-serif; }
-    canvas { max-width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
-    h1 { color: #fff; text-align: center; }
-    </style>
-</head>
-<body>
-    <h1>Vintage Film Grain Effect</h1>
-    <canvas id="canvas"></canvas>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Realistic Film Grain Effect with Canvas</title>
+        <style>
+            body {
+                margin: 20px;
+                background: #0d0d0d;
+                display: grid;
+                place-items: center;
+                font-family: sans-serif;
+            }
+            canvas {
+                max-width: 100%;
+                border-radius: 12px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            }
+            h1 {
+                color: #fff;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Vintage Film Grain Effect</h1>
+        <canvas id="canvas"></canvas>
 
-    <script>
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+        <script>
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
 
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.src = 'https://picsum.photos/1200/800?' + Date.now(); // Random beautiful photo
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.src = "https://picsum.photos/1200/800?" + Date.now(); // Random beautiful photo
 
-    img.onload = function() {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
+            img.onload = function () {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
 
-        // Add beautiful color film grain
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-        const intensity = 42;
+                // Add beautiful color film grain
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                const intensity = 42;
 
-        for (let i = 0; i < data.length; i += 4) {
-        data[i]     += (Math.random() - 0.5) * intensity * 1.1;
-        data[i + 1] += (Math.random() - 0.5) * intensity * 0.9;
-        data[i + 2] += (Math.random() - 0.5) * intensity * 1.3;
-        }
+                for (let i = 0; i < data.length; i += 4) {
+                    data[i] += (Math.random() - 0.5) * intensity * 1.1;
+                    data[i + 1] += (Math.random() - 0.5) * intensity * 0.9;
+                    data[i + 2] += (Math.random() - 0.5) * intensity * 1.3;
+                }
 
-        ctx.putImageData(imageData, 0, 0);
-    };
-    </script>
-</body>
+                ctx.putImageData(imageData, 0, 0);
+            };
+        </script>
+    </body>
 </html>
 ```
 
 Black and white version
+
 ```js
 function() {
     canvas.width = img.width;

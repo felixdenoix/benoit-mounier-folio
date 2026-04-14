@@ -1,8 +1,7 @@
 import { Renderer } from "@unseenco/taxi";
-import { lazyMediaHandler } from "../utils";
-
 import { gsap } from "gsap";
-import { piecesManager, type PieceData } from "piecesjs";
+
+import { callPieceMethod, lazyMediaHandler } from "../utils";
 
 export type ExitLoaderComponentCallback = {
   selector: string;
@@ -21,36 +20,23 @@ export default class DefaultRenderer extends Renderer {
   pageAssetsCount: number = 0;
   pageAssetloaded: number = 0;
 
-  exitLoaderComponentCallbacks: ExitLoaderComponentCallback[] | undefined;
-
-  constructor(
-    args: any,
-    options: {
-      exitLoaderComponentCallbacks?: ExitLoaderComponentCallback[];
-    } = {},
-  ) {
-    super(args);
-    this.exitLoaderComponentCallbacks = options.exitLoaderComponentCallbacks;
-  }
-
   initialLoad() {
     this.$siteLoader = document.querySelector("#site-loader") as HTMLElement;
-    console.log("site-loader", this.$siteLoader);
-
     this.$siteLoaderProgress = document.querySelector("span[data-dom=progress]") as HTMLSpanElement;
-    console.log("site-loader-progress", this.$siteLoaderProgress);
-
     this.$pageAssets = Array.from(this.content.querySelectorAll("img:not([loading=lazy])")).filter(
       Boolean,
     ) as HTMLImageElement[];
 
     this.siteLoaderQTo = gsap.quickTo(this.$siteLoaderProgress, "textContent", {
-      duration: 1,
+      duration: 0.5,
       ease: "power3.out",
       snap: "textContent",
       onComplete: () => {
         if (this.pageAssetsCount === this.pageAssetloaded) {
-          this.exitLoader();
+          this.exitLoader(() => {
+            this.onEnter();
+            this.onEnterCompleted();
+          });
         }
       },
     });
@@ -97,25 +83,34 @@ export default class DefaultRenderer extends Renderer {
     lazyMediaHandler(this.content);
   }
 
-  onEnterCompleted() {}
+  onEnterCompleted() {
+    callPieceMethod(
+      {
+        selector: "c-header",
+        component: "Header",
+        method: "setTransparent",
+        arguments: { value: false },
+      },
+      document,
+    );
+  }
 
   onLeave() {}
 
   onLeaveCompleted() {}
 
-  exitLoader() {
+  exitLoader(callback?: () => void) {
     if (!this.$siteLoader) return;
 
     gsap
       .timeline({
         delay: 0.5,
         onComplete: () => {
+          document.body.style.removeProperty("overflow");
           globalThis.app.smoothScroll?.start(60);
-          this.onEnter();
-          this.onEnterCompleted();
 
-          if (this.exitLoaderComponentCallbacks?.length) {
-            this.handleExitLoaderCallbacks();
+          if (callback) {
+            callback();
           }
         },
       })
@@ -133,21 +128,5 @@ export default class DefaultRenderer extends Renderer {
         },
         "<50%",
       );
-  }
-
-  handleExitLoaderCallbacks() {
-    this.exitLoaderComponentCallbacks?.forEach(({ selector, component, method }) => {
-      const componentDOM = this.content.querySelector(selector);
-      const id = componentDOM && "cid" in componentDOM ? (componentDOM.cid as string) : null;
-      if (id) {
-        const pieceData = piecesManager.currentPieces?.[component]?.[id] as PieceData;
-
-        const piece = pieceData.piece as Record<string, any>;
-
-        if (method in piece && typeof piece[method] === "function") {
-          piece[method]();
-        }
-      }
-    });
   }
 }

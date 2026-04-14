@@ -22,14 +22,14 @@ export default class HomePage extends Piece {
 
   mount() {
     this.$introSections = Array.from(this.$("c-home-intro") as NodeList) as HTMLElement[];
-
     this.$hiatus = this.domAttr("hiatus") as HTMLElement;
 
-    // Run the setup immediately once on mount
     this.setupScrollHandlers();
 
-    // 2. Attach the fixed debounced reference to the resize listener
     window.addEventListener("resize", this.debouncedSetupScrollHandlers);
+
+    // Ensure header is always transparent on page mount.
+    this.call("setTransparent", { value: true }, "Header");
   }
 
   unmount() {
@@ -37,10 +37,7 @@ export default class HomePage extends Piece {
       globalThis.app.smoothScroll?.removeScrollMark(el);
     });
 
-    // 3. Remove the listener using the exact same fixed reference
     window.removeEventListener("resize", this.debouncedSetupScrollHandlers);
-
-    // 4. Cancel any pending debounced executions to prevent memory leaks/errors
     this.debouncedSetupScrollHandlers.cancel();
   }
 
@@ -73,7 +70,7 @@ export default class HomePage extends Piece {
   }
 
   introAnimation() {
-    globalThis.app.smoothScroll?.scrollTo(globalThis.app.consts.innerHeight);
+    globalThis.app.smoothScroll?.scrollTo(window.innerHeight);
   }
 }
 

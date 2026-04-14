@@ -13,5 +13,5 @@
   font-weight: 38 682;
   /*font-feature-settings: "frac" on;*/
   font-display: swap;
-  font-feature-settings: "onum", "kern", "zero";
+  font-feature-settings: "kern";
 }

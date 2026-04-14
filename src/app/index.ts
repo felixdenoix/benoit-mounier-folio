@@ -72,11 +72,9 @@ export default class App {
         { maxWait: 750 },
       ),
     );
-    this.initRouterEvents();
-    this.initSmooth();
 
-    // SmoothScroll is started from the taxi renderer
-    // this.startSmooth();
+    this.initSmooth();
+    // SmoothScroll is started from the taxi DefaultRenderer
 
     await loadComponents(document.body);
 
@@ -87,10 +85,6 @@ export default class App {
     });
 
     this.handleStylesheetLoading(() => {
-      // } catch (e) {
-      // console.log("😸 error on smoothScroll init reverting to normal scroll");
-      document.body.style.overflow = "unset";
-      // }
       this.router = new Core({
         renderers: {
           default: DefaultRenderer,
@@ -100,6 +94,7 @@ export default class App {
           default: BaseTransition,
         },
       });
+      this.initRouterEvents();
     });
   }
 
@@ -107,9 +102,15 @@ export default class App {
     this.router?.on("NAVIGATE_IN", ({ to }: { to: CacheEntry }) => {
       const { title, description, image, hideHeader } = (to.content as HTMLElement).dataset;
 
-      // update header
-      const updatedLinks = Array.from((to.page as Document).querySelectorAll("nav>a.header-link"));
+      // update nav (header && footer)
       const currentLinks = Array.from(document.querySelectorAll("nav>a.header-link"));
+      const updatedLinks = Array.from((to.page as Document).querySelectorAll("nav>a.header-link"));
+
+      // The c-header component has a string-copy-progress from footer. On page change, need to remove the progress property as it is not reset on page change.
+      const header = document.querySelector("c-header") as HTMLElement;
+      if (header?.style && "--progress" in header.style) {
+        header.style.removeProperty("--progress");
+      }
 
       for (let index = 0; index < currentLinks.length; index++) {
         const link = currentLinks[index];
@@ -210,8 +211,6 @@ export default class App {
     requestAnimationFrame(() => {
       window.dispatchEvent(new Event("resize"));
     });
-
-    console.log("😸 stylesheets Loaded ");
 
     if (callback) {
       callback();
