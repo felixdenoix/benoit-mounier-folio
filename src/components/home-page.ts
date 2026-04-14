@@ -7,14 +7,7 @@ const MENU_TRIGGER = "homepage-menu-trigger";
 export default class HomePage extends Piece {
   public $introSections: HTMLElement[] | undefined;
   public $hiatus: HTMLElement | undefined;
-  private registeredScrollMarks = new Set<string>();
-  private debouncedSetupScrollHandlers = debounce(
-    () => {
-      this.setupScrollHandlers();
-    },
-    420,
-    { maxWait: 850 },
-  );
+  private debouncedSetupScrollHandlers = debounce(() => this.setupScrollHandlers(), 420, { maxWait: 850 });
 
   constructor() {
     super("HomePage");
@@ -33,21 +26,16 @@ export default class HomePage extends Piece {
   }
 
   unmount() {
-    this.registeredScrollMarks?.forEach((el) => {
-      globalThis.app.smoothScroll?.removeScrollMark(el);
-    });
+    globalThis.app.smoothScroll?.removeScrollMark(MENU_TRIGGER);
 
     window.removeEventListener("resize", this.debouncedSetupScrollHandlers);
     this.debouncedSetupScrollHandlers.cancel();
   }
 
   setupScrollHandlers() {
-    this.registeredScrollMarks?.forEach((el) => {
-      globalThis.app.smoothScroll?.removeScrollMark(el);
-    });
-    this.registeredScrollMarks = new Set();
-
     frameDOM.measure(() => {
+      globalThis.app.smoothScroll?.removeScrollMark(MENU_TRIGGER);
+
       const elOffset = this?.$hiatus?.offsetTop || 0;
 
       const offset = elOffset - globalThis.app.consts.innerHeight; // start on the last slide of the intro
@@ -65,7 +53,6 @@ export default class HomePage extends Piece {
       };
 
       globalThis.app.smoothScroll?.addScrollMark(trigger);
-      this.registeredScrollMarks.add(MENU_TRIGGER);
     });
   }
 

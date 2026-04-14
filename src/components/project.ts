@@ -25,7 +25,7 @@ export default class Project extends Piece {
   overflow: boolean = false;
   scrollRaf: number | undefined;
 
-  debouncedResizeCallback = debounce(this.handleResize, 300, {});
+  debouncedResizeCallback = debounce(() => this.handleResize(), 300, {});
 
   $textContentProjectNav: HTMLElement | undefined;
   $projectAssetContent: HTMLElement | undefined;
@@ -47,10 +47,13 @@ export default class Project extends Piece {
     this.initTextContentScrollData();
 
     if (this.scrollData.track) {
-      this.scrollRaf = window.requestAnimationFrame(this.handleTextContentScroll.bind(this));
+      this.scrollRaf = window.requestAnimationFrame((t) => this.handleTextContentScroll(t));
     }
-    window.addEventListener("resize", this.debouncedResizeCallback.bind(this), {
-      passive: true,
+
+    requestAnimationFrame(() => {
+      window.addEventListener("resize", this.debouncedResizeCallback, {
+        passive: true,
+      });
     });
   }
 
@@ -65,17 +68,18 @@ export default class Project extends Piece {
 
   handleResize() {
     this.initTextContentScrollData();
-
-    globalThis.app.smoothScroll?.removeScrollMark(HEADING_TRIGGER_ID);
-    globalThis.app.smoothScroll?.removeScrollMark(PROJECT_NAV_TRIGGER_ID);
-
     this.setupScrollMarks();
   }
 
   setupScrollMarks() {
+    console.log("😸 setupscrollMarks");
+
     const heading = this.$projectHeading?.dataset.heading;
     if (heading) {
       frameDOM.measure(() => {
+        const removedScrollMark = globalThis.app.smoothScroll?.removeScrollMark(HEADING_TRIGGER_ID);
+        console.log("😸 removedScrollMark", removedScrollMark);
+
         const { top: elOffset, height: elHeight } = this.$projectHeading?.getBoundingClientRect() || {
           top: 0,
           height: 0,
@@ -110,6 +114,9 @@ export default class Project extends Piece {
 
     if (this.$textContentProjectNav) {
       frameDOM.measure(() => {
+        const removedScrollMark = globalThis.app.smoothScroll?.removeScrollMark(PROJECT_NAV_TRIGGER_ID);
+        console.log("removedScrollMark", removedScrollMark);
+
         const { height } = this.$projectAssetContent?.getBoundingClientRect() || {
           height: 0,
         };
@@ -170,7 +177,7 @@ export default class Project extends Piece {
       });
     });
 
-    window?.requestAnimationFrame(this.handleTextContentScroll.bind(this));
+    this.scrollRaf = window?.requestAnimationFrame((t) => this.handleTextContentScroll(t));
   }
 }
 
