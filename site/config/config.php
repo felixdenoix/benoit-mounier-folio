@@ -176,4 +176,28 @@ return [
             ],
         ],
     ],
+    "hooks" => [
+        "route:after" => function ($route, $path, $method, $result, $final) {
+            if ($final === true && $result instanceof Kirby\Cms\Page && $result->template()->name() !== "error") {
+                $crawlerDetect = new Jaybizzle\CrawlerDetect\CrawlerDetect();
+
+                if ($crawlerDetect->isCrawler()) {
+                    // Manually trigger render (will pull from cache if active)
+                    $html = $result->render();
+
+                    // Post-process the HTML
+                    // 1. Remove the loader div and its contents
+                    // Regex handles the div with id="site-loader" and its immediate closing tags
+                    $html = preg_replace('/<div id="site-loader"[^>]*>.*?<\/div>\s*<\/div>/s', "", $html);
+
+                    // 2. Unlock body scrolling by removing the inline style typically used with loaders
+                    $html = str_replace('style="overflow: hidden;"', "", $html);
+
+                    // Return a modified response instead of the Page object
+                    return $this->response()->body($html);
+                }
+            }
+            return $result;
+        },
+    ],
 ];
