@@ -24,9 +24,7 @@ jobs:
           extensions: gd, zip # List required
       - name: Install composer dependencies
         # Replaced the Docker action with a native run command.
-        # Added standard production flags for faster autoloader execution.
         run: composer install --no-dev --optimize-autoloader --no-progress
-
       - uses: pnpm/action-setup@v4
         with:
           version: 10.19.0
@@ -66,3 +64,7 @@ jobs:
             composer.lock
             .phpactor.json
             .php-cs-fixer.dist.php
+
+      - name: Trigger Cache Clearing
+        run: |
+          curl -f -L -X POST "https://benoit.felixdenoix.fr/clear-my-cache-pretty-please/${{ secrets.DEPLOY_TOKEN }}"

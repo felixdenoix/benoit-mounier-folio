@@ -14,6 +14,7 @@ return [
             "active" => true,
         ],
     ],
+    "deploy_token" => "REXHCVYKBULITCJKBLIGRXEHCKBLUILKBHJNKCGVBYHXFSEWDG",
     "url" => ["https://benoit.felixdenoix.fr", "https://www.benoit.felixdenoix.fr"],
     "panel" => [
         "vue" => [

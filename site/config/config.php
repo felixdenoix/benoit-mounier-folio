@@ -200,4 +200,26 @@ return [
             return $result;
         },
     ],
+    "routes" => [
+        [
+            "pattern" => "clear-my-cache-pretty-please/(:any)",
+            "method" => "POST",
+            "action" => function ($token) {
+                $secret = option("deploy_token");
+
+                if (empty($secret) === false && $token === $secret) {
+                    kirby()->cache("pages")->flush();
+                    return [
+                        "status" => 200,
+                        "message" => "Cache cleared",
+                    ];
+                }
+
+                return [
+                    "status" => 403,
+                    "message" => "Forbidden",
+                ];
+            },
+        ],
+    ],
 ];
