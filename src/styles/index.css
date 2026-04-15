@@ -10,7 +10,7 @@
 
 /* Base */
 @import "./base/fonts.css";
-@import "./base/reset.css";
+@import "./base/base.css";
 
 /* Components */
 @import "./components/header.css";

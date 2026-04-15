@@ -12,22 +12,34 @@
 
 c-header {
   header {
-    /* Critical css in index.css */
+    visibility: hidden;
+    opacity: 0;
+  }
+  html.-string & {
+    header {
+      visibility: visible;
+      opacity: 0;
+      transition: opacity 0.35s ease-out;
+    }
+    /*transition-behavior: allow-discrete;*/
+    &:not([hide="true"]) {
+      header {
+        opacity: 1;
+        transition: opacity 0.35s ease-out;
+        transform: translate3d(0, calc(-100% * var(--progress)), 0);
 
-    html.-string & {
-      transition: opacity 0.5s ease-out !important;
-      transform: translate3d(0, calc(-100% * var(--progress)), 0);
-      /* the progress css var is set by the footer by using the `string-copy-from` attribute*/
+        &.hide {
+          opacity: 0;
+        }
 
-      &.hide {
-        opacity: 0;
-      }
-
-      &.collapsed {
-        transform: translate3d(0, -100%, 0);
+        &.collapsed {
+          transform: translate3d(0, -100%, 0);
+        }
       }
     }
+  }
 
+  header {
     .c-animated-grid {
       transition:
         grid-template-rows 750ms,

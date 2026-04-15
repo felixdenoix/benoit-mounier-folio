@@ -29,9 +29,9 @@ export default class BaseTransition extends Transition {
         frameDOM.mutate(() => {
           document.body.classList.add("cursor-progress");
         });
+        globalThis.app.smoothScroll?.scrollTo({ position: 0, immediate: false });
       },
       onComplete: () => {
-        globalThis.app.smoothScroll?.scrollTo({ position: 0, immediate: true });
         done();
       },
     });

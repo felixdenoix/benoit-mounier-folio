@@ -106,7 +106,7 @@ export default class App {
       // The c-header component has a string-copy-progress from footer. On page change, need to remove the progress property as it is not reset on page change.
       const header = document.querySelector("c-header") as HTMLElement;
       if (header?.style && "--progress" in header.style) {
-        header.style.removeProperty("--progress");
+        this.gsap.to(header, { duration: 0.75, "--progress": 0, ease: "power3.out" });
       }
 
       for (let index = 0; index < currentLinks.length; index++) {

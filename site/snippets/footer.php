@@ -26,7 +26,7 @@
                 <?php snippet("navigation", ["classes" => "text-md font-extrabold width-auto gap-5 md:gap-0 md:width-col-4 lg:width-col-3"]); ?>
             </div>
         </div>
-        <div class="bg-gray-title w-full">
+        <div class="bg-black w-full">
             <div class="base-grid p-grid-padding w-full  text-white">
                 <div class="col-span-full flex justify-between items-end">
                     <div class="flex flex-col">
