@@ -1,9 +1,6 @@
 import { Piece } from "piecesjs";
-import { frameDOM, type ScrollTriggerRule } from "@fiddle-digital/string-tune";
+import { frameDOM } from "@fiddle-digital/string-tune";
 import debounce from "lodash/debounce";
-
-const HEADING_TRIGGER_ID = "project-heading-trigger";
-const PROJECT_NAV_TRIGGER_ID = "project-nav-trigger";
 
 export default class Project extends Piece {
   $projectHeading: HTMLElement | undefined;
@@ -11,6 +8,8 @@ export default class Project extends Piece {
   $textContentScroller: HTMLElement | undefined;
   $textContentScrollWrapper: HTMLElement | undefined;
   $textContentShadowWrapper: HTMLElement | undefined;
+  headingObserver: IntersectionObserver | undefined;
+  navObserver: IntersectionObserver | undefined;
   scrollData = {
     parentDimension: 0,
     childDimension: 0,
@@ -61,86 +60,58 @@ export default class Project extends Piece {
     if (this.scrollRaf) {
       window.cancelAnimationFrame(this.scrollRaf);
     }
-    globalThis.app.smoothScroll?.removeScrollMark(HEADING_TRIGGER_ID);
-    globalThis.app.smoothScroll?.removeScrollMark(PROJECT_NAV_TRIGGER_ID);
+    this.headingObserver?.disconnect();
+    this.navObserver?.disconnect();
     window.removeEventListener("resize", this.debouncedResizeCallback);
   }
 
   handleResize() {
     this.initTextContentScrollData();
-    this.setupScrollMarks();
   }
 
   setupScrollMarks() {
-    console.log("😸 setupscrollMarks");
+    console.log("😸 setupscrollMarks (IntersectionObserver)");
 
     const heading = this.$projectHeading?.dataset.heading;
-    if (heading) {
-      frameDOM.measure(() => {
-        const removedScrollMark = globalThis.app.smoothScroll?.removeScrollMark(HEADING_TRIGGER_ID);
-        console.log("😸 removedScrollMark", removedScrollMark);
+    if (heading && this.$projectHeading) {
+      this.headingObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            // If the element is scrolling off the top of the screen (boundingClientRect.top < 0)
+            // and it is less than 50% visible (or completely invisible)
+            const isLeavingTop = entry.boundingClientRect.top < 0;
+            const crossedMiddle = isLeavingTop && entry.intersectionRatio <= 0.5;
 
-        const { top: elOffset, height: elHeight } = this.$projectHeading?.getBoundingClientRect() || {
-          top: 0,
-          height: 0,
-        };
-        const scrollOffset = globalThis.app.smoothScroll?.scrollPosition || 0;
+            if (crossedMiddle) {
+              console.log("😸 HeadingTrigger onEnter");
+              this.call("toggleProjectMode", { activate: true, heading }, "Header");
+            } else {
+              this.call("toggleProjectMode", { activate: false }, "Header");
+            }
+          });
+        },
+        { threshold: [0, 0.5] },
+      );
 
-        const offset = elOffset + scrollOffset + elHeight / 2;
-
-        const trigger: ScrollTriggerRule = {
-          id: HEADING_TRIGGER_ID,
-          offset: offset,
-          direction: "any",
-          onEnter: () => {
-            console.log("😸 HeadingTrigger onEnter");
-            this.call(
-              "toggleProjectMode",
-              {
-                activate: true,
-                heading: this.$projectHeading?.dataset.heading,
-              },
-              "Header",
-            );
-          },
-          onLeave: () => {
-            this.call("toggleProjectMode", { activate: false }, "Header");
-          },
-        };
-
-        globalThis.app.smoothScroll?.addScrollMark(trigger);
-      });
+      this.headingObserver.observe(this.$projectHeading);
     }
 
     if (this.$textContentProjectNav) {
-      frameDOM.measure(() => {
-        const removedScrollMark = globalThis.app.smoothScroll?.removeScrollMark(PROJECT_NAV_TRIGGER_ID);
-        console.log("removedScrollMark", removedScrollMark);
+      this.navObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              console.log("😸 NavTrigger on enter");
+              this.$textContentProjectNav?.classList.toggle("bottom-reached", true);
+            } else {
+              this.$textContentProjectNav?.classList.toggle("bottom-reached", false);
+            }
+          });
+        },
+        { rootMargin: "0px 0px 0px 0px", threshold: 0 },
+      );
 
-        const { height } = this.$projectAssetContent?.getBoundingClientRect() || {
-          height: 0,
-        };
-
-        const topOffset = this.$projectAssetContent?.offsetTop || 0;
-        const windowHeight = globalThis.app.consts.innerHeight || 0;
-
-        const offset = height + topOffset - windowHeight;
-
-        const trigger: ScrollTriggerRule = {
-          id: PROJECT_NAV_TRIGGER_ID,
-          offset: offset,
-          direction: "any",
-          onEnter: () => {
-            console.log("😸 NavTrigger on enter");
-            this.$textContentProjectNav?.classList?.toggle("bottom-reached", true);
-          },
-          onLeave: () => {
-            this.$textContentProjectNav?.classList?.toggle("bottom-reached", false);
-          },
-        };
-
-        globalThis.app.smoothScroll?.addScrollMark(trigger);
-      });
+      this.navObserver.observe(this.$textContentProjectNav);
     }
   }
 

@@ -1,13 +1,9 @@
-import { type ScrollTriggerRule, frameDOM } from "@fiddle-digital/string-tune";
 import { Piece } from "piecesjs";
-import debounce from "lodash/debounce";
-
-const MENU_TRIGGER = "homepage-menu-trigger";
 
 export default class HomePage extends Piece {
   public $introSections: HTMLElement[] | undefined;
   public $hiatus: HTMLElement | undefined;
-  private debouncedSetupScrollHandlers = debounce(() => this.setupScrollHandlers(), 420, { maxWait: 850 });
+  menuObserver: IntersectionObserver | undefined;
 
   constructor() {
     super("HomePage");
@@ -19,41 +15,34 @@ export default class HomePage extends Piece {
 
     this.setupScrollHandlers();
 
-    window.addEventListener("resize", this.debouncedSetupScrollHandlers);
-
     // Ensure header is always transparent on page mount.
     this.call("setTransparent", { value: true }, "Header");
   }
 
   unmount() {
-    globalThis.app.smoothScroll?.removeScrollMark(MENU_TRIGGER);
-
-    window.removeEventListener("resize", this.debouncedSetupScrollHandlers);
-    this.debouncedSetupScrollHandlers.cancel();
+    this.menuObserver?.disconnect();
   }
 
   setupScrollHandlers() {
-    frameDOM.measure(() => {
-      globalThis.app.smoothScroll?.removeScrollMark(MENU_TRIGGER);
+    if (this?.$hiatus) {
+      this.menuObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const isEnteringScreen = entry.boundingClientRect.top < entry.intersectionRect.bottom;
+            const crossedBottom = isEnteringScreen && entry.intersectionRatio > 0;
 
-      const elOffset = this?.$hiatus?.offsetTop || 0;
-
-      const offset = elOffset - globalThis.app.consts.innerHeight; // start on the last slide of the intro
-
-      const trigger: ScrollTriggerRule = {
-        id: MENU_TRIGGER,
-        offset: offset,
-        direction: "any",
-        onEnter: () => {
-          this.call("setTransparent", { value: false }, "Header");
+            if (crossedBottom) {
+              this.call("setTransparent", { value: false }, "Header");
+            } else {
+              this.call("setTransparent", { value: true }, "Header");
+            }
+          });
         },
-        onLeave: () => {
-          this.call("setTransparent", { value: true }, "Header");
-        },
-      };
+        { threshold: [0, 0.1] },
+      );
 
-      globalThis.app.smoothScroll?.addScrollMark(trigger);
-    });
+      this.menuObserver.observe(this.$hiatus);
+    }
   }
 
   introAnimation() {
