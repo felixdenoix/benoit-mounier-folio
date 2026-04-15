@@ -1,5 +1,3 @@
-@reference "../index.css";
-
 @property --home-intro-progress {
   syntax: "<number>";
   inherits: true;
@@ -123,10 +121,9 @@ c-home-intro {
           transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
         .from-fade {
-          /*will-change: opacity;*/
-          opacity: var(--progress-slice);
-          top: 0;
-          position: fixed !important;
+          --speed: calc(1 + var(--animation-index) / var(--animation-count));
+          --local-progress: calc(var(--progress-slice) * var(--speed));
+          opacity: clamp(0, var(--local-progress, 1), 1);
         }
       }
     }

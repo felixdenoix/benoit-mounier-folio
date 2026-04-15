@@ -1,5 +1,3 @@
-@reference "../index.css";
-
 @property --word-global-total {
   syntax: "<number>";
   inherits: true;

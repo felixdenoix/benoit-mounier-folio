@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @source "../../site/..";
+@source "./.."
 @source not "../../vendor";
 
 /* Abstracts */
@@ -12,7 +13,9 @@
 @import "./base/reset.css";
 
 /* Components */
-@import "./components/components.css";
+@import "./components/header.css";
+@import "./components/home-intro.css";
+@import "./components/text-reveal.css";
 
 /* Templates */
 @import "./templates/templates.css";

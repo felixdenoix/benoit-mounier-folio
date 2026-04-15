@@ -29,7 +29,7 @@ export default class App {
     innerWidth: 0,
   };
 
-  constructor() {}
+  private debouncedResizeHandler = debounce((e) => this.resizeHandler(e), 300);
 
   initSmooth() {
     const smooth = StringTune.getInstance();
@@ -62,19 +62,11 @@ export default class App {
     this.gsap = gsap;
 
     this.initGlobalVars();
-    window.addEventListener(
-      "resize",
-      debounce(
-        (e: Event) => {
-          this.initGlobalVars(e);
-        },
-        300,
-        { maxWait: 750 },
-      ),
-    );
 
     this.initSmooth();
     // SmoothScroll is started from the taxi DefaultRenderer
+
+    window.addEventListener("resize", this.debouncedResizeHandler);
 
     await loadComponents(document.body);
 
@@ -96,6 +88,11 @@ export default class App {
       });
       this.initRouterEvents();
     });
+  }
+
+  resizeHandler(e: Event) {
+    this.initGlobalVars(e);
+    this.smoothScroll?.onResize(true);
   }
 
   initRouterEvents() {

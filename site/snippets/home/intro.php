@@ -18,14 +18,13 @@ foreach ($introItems as $introItem):
     ?>
 
     <c-home-intro
-        class="block bg-(--bgc) sticky top-0 w-full h-(--scenes-height) <?= $height_class ?> object-center object-contain px-[5%] lg:px-[10%] z-(--section-index)"
+        class="block relative bg-(--bgc) w-full h-(--scenes-height) <?= $height_class ?> object-center object-contain px-[5%] lg:px-[10%] z-(--section-index)"
         string="progress"
         string-key="--home-intro-progress"
         string-id="<?= $intro_block_id ?>"
         <?php if ($introItem["index"] === 0): ?>
         string-offset-bottom="-100%"
-        <?php endif; ?>
-        <?php if ($introItem["background"]): ?>
+        <?php elseif ($introItem["background"]): ?>
         string-enter-el="top"
         string-enter-vp="top"
         string-offset-bottom="0%"
@@ -98,7 +97,7 @@ foreach ($introItems as $introItem):
             <div
                 string="progress-part"
                 string-part-of="<?= $scene["stringPartOf"] ?>"
-                class="z-10 scene h-screen top-0 aspect-16/9 <?= $scene["classes"] ?>">
+                class="z-10 scene top-0 sticky h-screen w-full <?= $scene["classes"] ?>">
 
                 <?php foreach ($scene["imagesFt"] as $img): ?>
                     <?php snippet("imagex-picture", [
@@ -182,7 +181,7 @@ foreach ($introItems as $introItem):
                         "attributes" => [
                             "picture" => [
                                 "shared" => [
-                                    "class" => ["absolute h-full w-full inset-0 object-contain object-center z-3 from-fade"],
+                                    "class" => ["block absolute bottom-0 h-screen w-full object-contain object-center z-3 from-fade"],
                                     "style" => [
                                         new CssStyle([
                                             "--animation-index" => $img["animationIndex"],
@@ -194,7 +193,7 @@ foreach ($introItems as $introItem):
                             "img" => [
                                 "shared" => [
                                     "alt" => $img["file"]->alt() ?? "",
-                                    "class" => ["h-full w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
+                                    "class" => ["h-screen w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
                                     "style" => [
                                         new CssStyle([
                                             "--bg-image" => $img["lqip"],

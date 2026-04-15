@@ -45,7 +45,7 @@ return function ($page) {
             $introBlockId = "into-block-progress" . $introIndex;
             $stringPartOf = "{$introBlockId}[{$partStart}-{$partEnd}]";
 
-            $scrollClasses = $scene->scroll_mode() == "normal" ? "sticky w-full" : "fixed w-9/10 lg:w-8/10";
+            $scrollClasses = $scene->scroll_mode() == "normal" ? "" : "bottom-0";
             $animationClasses = "animation-mode-{$scene->animation_mode()}";
 
             // Process scene images for LQIP

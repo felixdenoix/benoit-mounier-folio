@@ -1,5 +1,3 @@
-@reference "../index.css";
-
 @property --header-menu-project-title {
   syntax: "<length> | <percentage>";
   inherits: false;
