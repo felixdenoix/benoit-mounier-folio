@@ -63,7 +63,11 @@ c-home-intro {
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
           /* easeOutQuad approximation */
           --local-progress: calc(var(--t) * (2 - var(--t)));
-          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
+          transform: translate3d(
+            0,
+            round(calc((1 - var(--local-progress)) * var(--start-y)), 0.1px),
+            0
+          );
         }
 
         .from-bottom {
@@ -74,7 +78,11 @@ c-home-intro {
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
           /* easeOutQuad approximation */
           --local-progress: calc(var(--t) * (2 - var(--t)));
-          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
+          transform: translate3d(
+            0,
+            round(calc((1 - var(--local-progress)) * var(--start-y)), 0.1px),
+            0
+          );
         }
 
         .from-fade {
@@ -82,7 +90,7 @@ c-home-intro {
           backface-visibility: hidden;
           --speed: calc(1 + var(--animation-index) / var(--animation-count));
           --local-progress: calc(var(--progress-slice) * var(--speed));
-          opacity: clamp(0, var(--local-progress), 1);
+          opacity: round(clamp(0, var(--local-progress), 1), 0.01);
         }
       }
 
@@ -96,7 +104,11 @@ c-home-intro {
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
           /* easeOutQuad approximation */
           --local-progress: calc(var(--t) * (2 - var(--t)));
-          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
+          transform: translate3d(
+            0,
+            round(calc((1 - var(--local-progress)) * var(--start-y)), 0.1px),
+            0
+          );
         }
         .from-bottom {
           will-change: transform;
@@ -105,14 +117,18 @@ c-home-intro {
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
           /* easeOutQuad approximation */
           --local-progress: calc(var(--t) * (2 - var(--t)));
-          transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
+          transform: translate3d(
+            0,
+            round(calc((1 - var(--local-progress)) * var(--start-y)), 0.1px),
+            0
+          );
         }
         .from-fade {
           will-change: opacity;
           backface-visibility: hidden;
           --speed: calc(1 + var(--animation-index) / var(--animation-count));
           --local-progress: calc(var(--progress-slice) * var(--speed));
-          opacity: clamp(0, var(--local-progress, 1), 1);
+          opacity: round(clamp(0, var(--local-progress, 1), 1), 0.01);
         }
       }
     }
