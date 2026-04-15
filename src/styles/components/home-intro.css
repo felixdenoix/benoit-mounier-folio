@@ -56,37 +56,30 @@ c-home-intro {
         /* variation between stagger and random handled in snippet `snippets/home-intro` */
 
         .from-top {
-          /*will-change: transform;*/
+          will-change: transform;
+          backface-visibility: hidden;
           --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
-          /* Varying start position based on index (e.g., between -100% and -250%) */
           --start-y: calc(-100% - (var(--animation-index) * 10%));
-          /* Linear progress that hits 1.0 before the global scene ends */
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          /* Sine Out ease: https://easings.net/#easeOutSine */
-          --local-progress: calc(sin(var(--t) * 90deg));
-          --local-progress: calc(sin((var(--t) * pi) / 2));
-
-          /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
+          /* easeOutQuad approximation */
+          --local-progress: calc(var(--t) * (2 - var(--t)));
           transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
 
         .from-bottom {
-          /*will-change: transform;*/
+          will-change: transform;
+          backface-visibility: hidden;
           --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
-          /* Varying start position based on index (e.g., between -100% and -250%) */
           --start-y: calc(100% + (var(--animation-index) * 10%));
-          /* Linear progress that hits 1.0 before the global scene ends */
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          /* Sine Out ease: https://easings.net/#easeOutSine */
-          --local-progress: calc(sin(var(--t) * 90deg));
-          --local-progress: calc(sin((var(--t) * pi) / 2));
-
-          /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
+          /* easeOutQuad approximation */
+          --local-progress: calc(var(--t) * (2 - var(--t)));
           transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
 
         .from-fade {
-          /*will-change: opacity;*/
+          will-change: opacity;
+          backface-visibility: hidden;
           --speed: calc(1 + var(--animation-index) / var(--animation-count));
           --local-progress: calc(var(--progress-slice) * var(--speed));
           opacity: clamp(0, var(--local-progress), 1);
@@ -97,30 +90,26 @@ c-home-intro {
         --speed: 1.25;
         --animation-offset: 10%;
         .from-top {
-          /*will-change: transform;*/
-          /* Varying start position based on index (e.g., between -100% and -250%) */
+          will-change: transform;
+          backface-visibility: hidden;
           --start-y: calc(-100% - var(--animation-offset));
-          /* Linear progress that hits 1.0 before the global scene ends */
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          /* Sine Out ease: https://easings.net/#easeOutSine */
-          --local-progress: calc(sin(var(--t) * 90deg));
-          --local-progress: calc(sin((var(--t) * pi) / 2));
-          /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
+          /* easeOutQuad approximation */
+          --local-progress: calc(var(--t) * (2 - var(--t)));
           transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
         .from-bottom {
-          /*will-change: transform;*/
-          /* Varying start position based on index (e.g., between -100% and -250%) */
+          will-change: transform;
+          backface-visibility: hidden;
           --start-y: calc(100% + var(--animation-offset));
-          /* Linear progress that hits 1.0 before the global scene ends */
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          /* Sine Out ease: https://easings.net/#easeOutSine */
-          --local-progress: calc(sin(var(--t) * 90deg));
-          --local-progress: calc(sin((var(--t) * pi) / 2));
-          /* Translate from variable start-y to 0 based on the accelerated and eased local progress */
+          /* easeOutQuad approximation */
+          --local-progress: calc(var(--t) * (2 - var(--t)));
           transform: translate3d(0, calc((1 - var(--local-progress)) * var(--start-y)), 0);
         }
         .from-fade {
+          will-change: opacity;
+          backface-visibility: hidden;
           --speed: calc(1 + var(--animation-index) / var(--animation-count));
           --local-progress: calc(var(--progress-slice) * var(--speed));
           opacity: clamp(0, var(--local-progress, 1), 1);

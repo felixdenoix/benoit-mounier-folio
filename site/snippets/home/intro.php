@@ -97,7 +97,7 @@ foreach ($introItems as $introItem):
             <div
                 string="progress-part"
                 string-part-of="<?= $scene["stringPartOf"] ?>"
-                class="z-10 scene top-0 sticky h-screen w-full <?= $scene["classes"] ?>">
+                class="z-10 scene top-0 sticky h-screen w-full [contain:strict] <?= $scene["classes"] ?>">
 
                 <?php foreach ($scene["imagesFt"] as $img): ?>
                     <?php snippet("imagex-picture", [
