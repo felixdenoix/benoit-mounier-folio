@@ -1,4 +1,4 @@
-<div class="wrapper w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 min-h-screen">
+<div class="wrapper w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 min-h-screen text-white">
   <div class="flex text-white text-lg w-full items-center gap-grid-padding mb-10 md:mb-16">
     <hr class="bg-white w-full block from-left">
     <span class="animate-opacity">EXPERTISE</span>
@@ -6,11 +6,15 @@
   </div>
 
   <!--TODO: extact to snipet et tout-->
-  <div class="animate-opacity delay-750! flex flex-col lg:flex-row gap-4 lg:gap-unset justify-between items-center w-full mb-10 md:mb-26 text-white group">
+  <div class="animate-opacity delay-750! flex flex-col lg:flex-row gap-4 lg:gap-unset justify-between items-center w-full mb-10 md:mb-16 text-white group">
     <?php foreach ($ctaItems as $item): ?>
+
       <a
         class="text cap block uppercase text-[1.3rem] text-bold decoration-1 underline transition-[text-decoration-color] ease-projects underline-offset-4 duration-500 not-pointer-coarse:group-has-[:hover]:decoration-transparent not-pointer-coarse:hover:decoration-inherit"
-        href="<?= $item["url"] ?>">
+        href="<?= $item["url"] ?>"
+        data-expertise-id="<?= $item["id"] ?>"
+        data-projects="<?= json_encode($item["projects"]) ?>"
+      >
         <?= $item["label"] ?>
       </a>
       <hr
@@ -22,7 +26,33 @@
     <?php endforeach; ?>
   </div>
 
-  <div class="animate-opacity delay-1000! w-full grid place-items-center">
+  <div class="animate-opacity delay-1000! w-full h-[calc(100vh/3)] bdr grid place-items-stretch mb-10 md:mb-16">
+
+      <?php foreach ($ctaItems as $item): ?>
+
+        <div
+            class="col-[1/1] bdg h-full w-full row-[1/1] relative
+            grid grid-cols-1 grid-rows-1 place-items-stretch min-w-0 min-h-0
+            opacity-0"
+            data-expertise-id="<?= $item["id"] ?>"
+        >
+            <?php foreach ($item["projects"] as $link_project): ?>
+                <?php snippet("imagex-picture", [
+                    "image" => $link_project["asset"],
+                    "attributes" => [
+                        "picture" => [
+                            "class" => "col-[1/1] row-[1/1] place-self-stretch relative",
+                        ],
+                        "img" => [
+                            "class" => "w-full h-full object-contain object-center",
+                        ],
+                    ],
+                    "srcset" => "ben-srcset",
+                ]); ?>
+            <?php endforeach; ?>
+        </div>
+
+      <?php endforeach; ?>
 
   </div>
 

@@ -5,9 +5,30 @@ return function ($page) {
     $ctaItems = [];
     foreach ($page->callToAction()->toStructure() as $item) {
         $project = $item->projects()->toPages()->shuffle()->first();
+
+        $projects = [];
+        foreach ($item->projects()->toPages() as $p) {
+            $firstAsset = $p
+                ->medias()
+                ->toLayouts()
+                ->toBlocks()
+                ->filterBy("type", "gallery-simple")
+                ->first()
+                ?->medias()
+                ->toFiles()
+                ->first();
+
+            array_push($projects, [
+                "url" => $p ? $p->url() : "#",
+                "asset" => $firstAsset,
+            ]);
+        }
+
         $ctaItems[] = [
             "label" => $item->label(),
             "url" => $project ? $project->url() : "#",
+            "projects" => $projects,
+            "id" => rand(),
         ];
     }
 
