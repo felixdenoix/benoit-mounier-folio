@@ -22,6 +22,26 @@ Dates: []
 
 ----
 
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://mfb04d5dny9kiwnm"]},"id":"4a2ff417-8faf-4023-9676-7a2d6e25ed81","isHidden":false,"type":"gallery-simple"}],"id":"2ec58eb0-62ca-4629-87d2-8b2dcd63166f","width":"1/1"}],"id":"e16f5f44-a365-4338-93ad-fc946dbc8c6c"}]
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
 Nextproject: []
 
 ----

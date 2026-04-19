@@ -23,3 +23,7 @@ Uuid: kgaavkkwjzhxbhdh
 ----
 
 Template: image
+
+----
+
+Sort: 2
