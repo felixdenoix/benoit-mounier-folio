@@ -10,7 +10,7 @@ export default class HomePage extends Piece {
   }
 
   mount() {
-    this.$introSections = Array.from(this.$("c-home-intro") as NodeList) as HTMLElement[];
+    this.$introSections = Array.from((this.$("c-home-intro") as NodeList) || []) as HTMLElement[];
     this.$hiatus = this.domAttr("hiatus") as HTMLElement;
 
     this.setupScrollHandlers();
