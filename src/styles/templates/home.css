@@ -33,4 +33,44 @@
       }
     }
   }
+
+  .expertise-title {
+    opacity: 0;
+
+    .-s-char {
+      opacity: 0;
+      display: inline-block;
+    }
+
+    html.-string & {
+      opacity: 1;
+
+      .-s-char {
+        --direction: calc((var(--char-random) - 0.5) * 2); /* either 1 or -1 */
+        --y-translate: calc(
+          (25% * var(--direction)) + (var(--charWord-random) - 5) * 2%
+        );
+        transform: translate3d(0, var(--y-translate), 0);
+        opacity: 0;
+        transition:
+          transform 0.5s ease-out,
+          opacity 0.5s ease-in-out;
+        transition-delay:
+          var(--charWord-random) * 0.02s,
+          var(--charWord-random) * 0.015s;
+      }
+
+      &.-inview {
+        .-s-char {
+          transform: translate3d(0, 0, 0);
+          opacity: 1;
+
+          @starting-style {
+            transform: translate3d(0, var(--y-translate), 0);
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
 }

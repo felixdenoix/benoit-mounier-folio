@@ -48,7 +48,7 @@
       <p
         class="sticky *:inline-block top-[calc(50vh-var(--paragraph-height)/2)] text-white"
         string="split"
-        string-split="word"><?= $page->hiatus()->sp()->kirbytextinline()->splitsubelements("strong", 'class="text-gray-400"') ?></p>
+        string-split="word"><?= $page->hiatus()->sp()->kirbytextinline()->splitsubelements("strong", 'class="text-gray-text-light font-bold"') ?></p>
     </c-text-reveal>
   </div>
 

@@ -45,6 +45,7 @@ export default class HomeExpertise extends Piece {
     });
 
     if (elNeedsWatching) {
+      this.handleExperiencesScroll();
       document.addEventListener("scroll", this.debouncedHandleScroll, { passive: true });
     }
   }
@@ -121,7 +122,7 @@ export default class HomeExpertise extends Piece {
     }
   }
 
-  handleExperiencesScroll(_e: Event) {
+  handleExperiencesScroll() {
     frameDOM.measure(() => {
       Object.entries(this.$handledExperiences).forEach(([id, experience]) => {
         const boundingRect = experience.el?.getBoundingClientRect();
