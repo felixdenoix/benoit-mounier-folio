@@ -166,6 +166,7 @@ Calltoaction:
   label: Packaging
   projects:
     - 'page://jgtfvyjkbmmmmr4g'
+    - 'page://70tyokk4i69cxzzm'
 -
   label: 'Mise en page'
   projects:

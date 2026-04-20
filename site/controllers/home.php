@@ -8,26 +8,28 @@ return function ($page) {
 
         $projects = [];
         foreach ($item->projects()->toPages() as $p) {
-            $firstAsset = $p
-                ->medias()
-                ->toLayouts()
-                ->toBlocks()
-                ->filterBy("type", "gallery-simple")
-                ->first()
-                ?->medias()
-                ->toFiles()
-                ->first();
+            // $firstAsset = $p
+            //     ->medias()
+            //     ->toLayouts()
+            //     ->toBlocks()
+            //     ->filterBy("type", "gallery-simple")
+            //     ->first()
+            //     ?->medias()
+            //     ->toFiles()
+            //     ->first();
 
             array_push($projects, [
                 "url" => $p ? $p->url() : "#",
-                "asset" => $firstAsset,
+                "asset" => $p->cover(),
             ]);
         }
 
         $ctaItems[] = [
             "label" => $item->label(),
             "url" => $project ? $project->url() : "#",
+            "projects_count" => count($projects),
             "projects" => $projects,
+            "projects_encoded" => Json::encode($projects),
             "id" => rand(),
         ];
     }
