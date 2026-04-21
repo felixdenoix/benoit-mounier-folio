@@ -37,7 +37,8 @@
                                     "img" => [
                                         "shared" => [
                                             "class" =>
-                                                "w-full h-full object-contain object-center scale-101 opacity-0 scale-99! transition duration-400 ease-projects",
+                                                "w-full h-full object-contain object-center scale-101 scale-99! transition duration-400 ease-projects " .
+                                                ($item["projects_count"] > 1 ? "opacity-0" : "opacity-100"),
                                             "sizes" => "600px",
                                         ],
                                     ],

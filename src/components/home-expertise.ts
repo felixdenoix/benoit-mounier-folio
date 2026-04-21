@@ -19,6 +19,7 @@ export default class HomeExpertise extends Piece {
   private observer: IntersectionObserver | undefined;
   private activeId: string | null = null;
   private isDesktop: boolean = false;
+  private previousIsDesktop: boolean = false;
 
   private debouncedResize = debounce(() => this.setup(), 200);
 
@@ -28,7 +29,7 @@ export default class HomeExpertise extends Piece {
 
   mount() {
     frameDOM.measure(() => {
-      this.$expertiseEls = Array.from((this.domAttr("expertise") as NodeList) || []) as HTMLAnchorElement[];
+      this.init();
       this.setup();
     });
     window.addEventListener("resize", this.debouncedResize);
@@ -43,9 +44,11 @@ export default class HomeExpertise extends Piece {
     });
   }
 
-  private setup() {
-    this.isDesktop = window.matchMedia("(min-width: 768px)").matches;
-    this.observer?.disconnect();
+  private init() {
+    this.$expertiseEls = Array.from((this.domAttr("expertise") as NodeList) || []) as HTMLAnchorElement[];
+
+    const mediaGroups = Array.from(this.domAttr("media-group") as NodeList) as HTMLElement[];
+    const mediaMap = new Map(mediaGroups.map((mg) => [mg.dataset.expertiseId, mg]));
 
     this.$expertiseEls.forEach((el) => {
       const id = el.dataset.expertiseId;
@@ -54,27 +57,40 @@ export default class HomeExpertise extends Piece {
       const projectsRaw = el.dataset.expertiseProjects;
       const projects = projectsRaw ? JSON.parse(projectsRaw) : [];
       const projectsCount = el.dataset.projectsCount ? parseInt(el.dataset.projectsCount) : 0;
-      const mediaGroup = this.querySelector(`[data-dom="media-group"][data-expertise-id="${id}"]`) as HTMLElement;
+      const mediaGroup = mediaMap.get(id) as HTMLElement;
       const assets = mediaGroup ? Array.from(mediaGroup.querySelectorAll("img")) : [];
 
-      const data: ExpertiseData = {
+      this.expertises.set(id, {
         el,
         projects,
         projectsCount,
         mediaGroup,
         assets,
-      };
+      });
+    });
+  }
 
-      if (this.isDesktop) {
-        el.addEventListener("mousemove", this.onMouseMove);
-        el.addEventListener("mouseleave", this.onMouseLeave);
-        data.bcr = el.getBoundingClientRect();
-      } else {
-        this.setupObserver();
-        this.observer?.observe(el);
+  private setup() {
+    this.previousIsDesktop = this.isDesktop;
+    this.isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    this.observer?.disconnect();
+
+    if (!this.isDesktop) {
+      this.setupObserver();
+    }
+
+    this.expertises.forEach((data) => {
+      if (this.previousIsDesktop) {
+        data.el.removeEventListener("mousemove", this.onMouseMove);
+        data.el.removeEventListener("mouseleave", this.onMouseLeave);
       }
-
-      this.expertises.set(id, data);
+      if (this.isDesktop) {
+        data.el.addEventListener("mousemove", this.onMouseMove);
+        data.el.addEventListener("mouseleave", this.onMouseLeave);
+        data.bcr = data.el.getBoundingClientRect();
+      } else {
+        this.observer?.observe(data.el);
+      }
     });
   }
 
@@ -104,7 +120,7 @@ export default class HomeExpertise extends Piece {
         });
       },
       {
-        threshold: createThresholdArray(40),
+        threshold: createThresholdArray(30),
         rootMargin: `-${margin}px 0px -${margin}px 0px`,
       },
     );
@@ -114,13 +130,15 @@ export default class HomeExpertise extends Piece {
     if (!this.isDesktop) return;
 
     const target = e.currentTarget as HTMLAnchorElement;
-    const id = target.dataset.expertiseId;
-    const data = id ? this.expertises.get(id) : null;
+    requestAnimationFrame(() => {
+      const id = target.dataset.expertiseId;
+      const data = id ? this.expertises.get(id) : null;
 
-    if (data && data.bcr) {
-      const progress = (e.clientX - data.bcr.left) / data.bcr.width;
-      this.setActiveExpertise(id!, progress);
-    }
+      if (data && data.bcr) {
+        const progress = (e.clientX - data.bcr.left) / data.bcr.width;
+        this.setActiveExpertise(id!, progress);
+      }
+    });
   };
 
   private onMouseLeave = () => {
@@ -129,6 +147,7 @@ export default class HomeExpertise extends Piece {
   };
 
   private setActiveExpertise(id: string | null, progress: number = 0) {
+    console.log("😸 setActiveExpertise");
     if (this.activeId !== id) {
       if (this.activeId) {
         this.toggleExpertise(this.activeId, false);
@@ -149,6 +168,7 @@ export default class HomeExpertise extends Piece {
   }
 
   private toggleExpertise(id: string, active: boolean) {
+    console.log("😸 toggleExpertise");
     const data = this.expertises.get(id);
     if (!data || !data.mediaGroup) return;
 
@@ -166,6 +186,7 @@ export default class HomeExpertise extends Piece {
   }
 
   private updateAsset(id: string, index: number) {
+    console.log("😸 updateAsset");
     const data = this.expertises.get(id);
     if (!data || data.activeAssetIndex === index) return;
 
@@ -175,13 +196,14 @@ export default class HomeExpertise extends Piece {
         prevAsset?.classList.add("opacity-0", "scale-99!");
       }
 
-      const nextAsset = data.assets[index];
-      if (nextAsset) {
-        nextAsset.classList.remove("opacity-0", "scale-99!");
+      const nextProjectAsset = data.assets[index];
+      if (nextProjectAsset) {
+        nextProjectAsset.classList.remove("opacity-0", "scale-99!");
         data.activeAssetIndex = index;
 
         // Update URL on desktop
-        if (this.isDesktop && data.projects[index]?.url) {
+        const nextProjectUrl = data.projects[index]?.url;
+        if (nextProjectUrl && data.el.href !== nextProjectUrl) {
           data.el.href = data.projects[index].url;
         }
       }
