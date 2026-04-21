@@ -20,13 +20,12 @@
         string-offset-bottom="-30%">
 
         <div
-            class="block md:hidden bdg h-0 z-0 sticky top-[calc(50vh)] w-full"
-            data-dom="cta-wrapper"
-            data-cta-count="<?= count($ctaItems) ?>">
+            class="bdg pointer-events-none sticky md:absolute top-1/2 md:top-[unset] md:bottom-0 left-0 w-full h-0 md:h-[33vh] z-0"
+            data-dom="media-display">
             <?php foreach ($ctaItems as $index => $item): ?>
                 <div
-                    class="pointer-events-none absolute top-0 left-0 -translate-y-1/2 w-full h-[33vh] grid grid-cols-1 grid-rows-1 place-items-stretch min-w-0 min-h-0 opacity-70 scale-99 transition duration-300 ease-projects"
-                    data-dom="experience-mobile-media"
+                    class="absolute inset-0 h-[33vh] -translate-y-1/2 md:translate-y-0 grid grid-cols-1 grid-rows-1 place-items-stretch opacity-0 scale-99 transition duration-300 ease-projects"
+                    data-dom="media-group"
                     data-expertise-id="<?= $item["id"] ?>">
                         <?php foreach ($item["projects"] as $link_project): ?>
                             <?php snippet("imagex-picture", [
@@ -38,10 +37,7 @@
                                     "img" => [
                                         "shared" => [
                                             "class" =>
-                                                "w-full h-full object-contain object-center " .
-                                                ($item["projects_count"] > 1
-                                                    ? " scale-101 opacity-0 scale-99! transition duration-400 ease-projects"
-                                                    : " opacity-100"),
+                                                "w-full h-full object-contain object-center scale-101 opacity-0 scale-99! transition duration-400 ease-projects",
                                             "sizes" => "600px",
                                         ],
                                     ],
@@ -63,31 +59,6 @@
                 data-expertise-projects="<?= esc($item["projects_encoded"], "html") ?>"
                 data-projects-count="<?= $item["projects_count"] ?>">
                 <span class="pointer-events-none"><?= $item["label"] ?></span>
-                <div
-                    class="max-md:hidden pointer-events-none absolute bottom-0 left-0 w-full h-[33vh] grid grid-cols-1 grid-rows-1 place-items-stretch min-w-0 min-h-0 opacity-0 scale-99 transition duration-300 ease-projects group-hover/link:opacity-100 group-hover/link:scale-101"
-                    data-expertise-id="<?= $item["id"] ?>">
-                    <?php foreach ($item["projects"] as $link_project): ?>
-                        <?php snippet("imagex-picture", [
-                            "image" => $link_project["asset"],
-                            "attributes" => [
-                                "picture" => [
-                                    "class" => "col-[1/1] row-[1/1] place-self-stretch relative",
-                                ],
-                                "img" => [
-                                    "shared" => [
-                                        "class" =>
-                                            "w-full h-full object-contain object-center " .
-                                            ($item["projects_count"] > 1
-                                                ? " scale-101 opacity-0 scale-99! transition duration-400 ease-projects"
-                                                : " opacity-100"),
-                                        "sizes" => "600px",
-                                    ],
-                                ],
-                            ],
-                            "srcset" => "ben-srcset",
-                        ]); ?>
-                    <?php endforeach; ?>
-                </div>
             </a>
             <hr
                 aria-hidden
