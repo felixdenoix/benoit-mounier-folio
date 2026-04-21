@@ -1,6 +1,9 @@
 {
   "singleAttributePerLine": true,
-  "plugins": ["@prettier/plugin-php"],
+  "plugins": ["@prettier/plugin-php", "prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./src/styles/index.css",
+  "tailwindAttributes": ["class"],
+  "tailwindPreserveWhitespace": true,
   "overrides": [
     {
       "files": "*.php",
