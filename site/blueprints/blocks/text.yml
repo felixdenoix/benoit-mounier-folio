@@ -10,7 +10,10 @@ fields:
       - bold
       - email
       - link
-    nodes: false
+    nodes:
+      - paragraph
+      - heading
+      - bulletlist
     placeholder: field.blocks.text.placeholder
     toolbar:
       inline: false
