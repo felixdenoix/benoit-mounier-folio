@@ -55,7 +55,12 @@
                 data-expertise-id="<?= $item["id"] ?>"
                 data-expertise-projects="<?= esc($item["projects_encoded"], "html") ?>"
                 data-projects-count="<?= $item["projects_count"] ?>">
-                <span class="pointer-events-none"><?= $item["label"] ?></span>
+                <span
+                    class="block transform-[translate3d(calc(round(var(--magnetic-x,0),.1)*1px),calc(round(var(--magnetic-y,0),.1)*1px),0)] relative after:absolute after:-inset-3"
+                    string="magnetic"
+                    string-strength="0.08"
+                    string-radius="150"
+                    ><?= $item["label"] ?></span>
                 <div
                     class="hidden pointer-events-none absolute bottom-0 left-0 w-full h-[33vh] md:grid grid-cols-1 grid-rows-1 place-items-stretch min-w-0 min-h-0 opacity-0 scale-99 transition duration-500 ease-projects group-hover/link:opacity-100 group-hover/link:scale-101"
                     data-dom="desktop-media-group"

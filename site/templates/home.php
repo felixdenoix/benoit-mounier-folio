@@ -20,7 +20,7 @@
 ?>
 <?php snippet("header", ["seo" => $page->seo(), "hide_header" => true, "renderer" => "home"]); ?>
 
-<c-homepage log>
+<c-homepage>
 
   <div class="intro relative">
     <?php snippet("home/intro", ["introItems" => $introItems]); ?>
