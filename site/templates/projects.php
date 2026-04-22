@@ -31,7 +31,7 @@
 
     <ul
         style="--row-height: calc(100%/3);"
-        class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group">
+        class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group mb-grid-padding md:mb-20">
 
         <?php foreach ($entries as $project): ?>
             <li class="col-span-1 grid place-content-center aspect-3/2 relative place-items-stretch not-pointer-coarse:group-has-[:hover]:*:blur-xs hover:*:blur-none hover:*:scale-101 overflow-hidden transition duration-750 ease-projects">

@@ -1,9 +1,4 @@
-<div class="h-screen">
-</div>
-
-
 <c-home-expertise
-    log
     class="wrapper relative w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 min-h-[min(100vh,900px)] text-white">
 
     <div
