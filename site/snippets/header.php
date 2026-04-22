@@ -38,6 +38,15 @@
     ?>
     <title><?= $site->title()->esc() ?> | <?= $seoTitle ?></title>
 
+    <!--FAVICON START-->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Benoit Mounier" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <!--FAVICON END-->
+
     <meta property="og:url" content="<?= $page->url() ?>">
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= $seoTitle ?> | <?= $site->title()->esc() ?>">
