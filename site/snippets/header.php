@@ -92,12 +92,20 @@
     <c-header
         id="c-header"
         <?= isset($hide_header) ? 'hide="true"' : false ?>
-        class="w-full h-auto block"
-        string-copy-from="footer">
+        class="w-full h-auto block">
         <!-- TODO: handle header height as its currently too big -->
         <header
             data-dom="header"
-            class="header py-(--spacing-grid-padding) w-full fixed z-(--z-header) top-0 bg-white shadow-md">
+            string-copy-from="footer"
+            class="header py-(--spacing-grid-padding) w-full fixed z-(--z-header) top-0 bg-white">
+            <div
+                string="proximity[smooth]"
+                string-radius="300"
+                string-easing="absolute cubic-bezier(0.44,0.07,0.41,1)"
+                string-lerp="0.001"
+                class="absolute top-0 -z-1 shadow-md-proximity w-full h-full py-(--spacing-grid-padding)">
+                    <!--created dom-node for shadow as parent is already copying string from footer -->
+                </div>
             <div
                 class="c-animated-grid leading-none w-full max-w-(--grid-max-width) px-(--spacing-grid-padding) mx-auto group gap-y-2 md:gap-y-0 md:h-(--text-lg) lg:h-(--text-xl) md:px-[var(--spacing-grid-padding)]"
                 data-dom="grid">

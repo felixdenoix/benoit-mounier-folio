@@ -15,6 +15,7 @@ import {
 import { loader as loadComponents } from "../components";
 import DefaultRenderer from "./defaultRenderer";
 import HomeRenderer from "./homeRenderer";
+import { StringProximity } from "../utils/StringProximity";
 
 export default class App {
   private router: Core | undefined;
@@ -44,8 +45,10 @@ export default class App {
       this.smoothScroll.use(StringLerp);
       this.smoothScroll.use(StringProgress);
       this.smoothScroll.use(StringProgressPart);
+      this.smoothScroll.use(StringProximity);
       this.smoothScroll.use(StringScrollContainer);
       this.smoothScroll.use(StringSplit);
+      this.smoothScroll.use(StringProximity);
 
       if (import.meta.env.MODE === "development") {
         this.smoothScroll.use(StringPositionTracker);

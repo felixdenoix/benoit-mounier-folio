@@ -95,3 +95,8 @@ export function getIntersectionProgress(entry: IntersectionObserverEntry): numbe
   // Clamp the value between 0 and 1
   return Math.min(Math.max(progress, 0), 1);
 }
+
+export function round(value: number, precision = 1) {
+  const multiplier = Math.pow(10, precision);
+  return Math.round(value * multiplier) / multiplier;
+}

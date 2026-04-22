@@ -14,13 +14,15 @@
 
 <c-footer>
     <footer
-        string="progress"
+        string="progress|proximity"
+        string-radius="300"
         string-repeat
-        string-id="footer"
+        string-id="footer[smooth]"
         string-exit-el="bottom"
         string-exit-vp="bottom"
         string-offset-top="-40sh"
-        class="footer box-border block shadow-md-upwards">
+        string-easing="cubic-bezier(0.44,0.07,0.41,1)"
+        class="footer box-border block shadow-md-upwards-proximity">
         <div class="base-grid w-full py-8 mb:py-grid-padding px-grid-padding">
             <div class="col-span-full flex justify-center">
                 <?php snippet("navigation", ["classes" => "text-md font-extrabold width-auto gap-5 md:gap-0 md:width-col-4 lg:width-col-3"]); ?>
