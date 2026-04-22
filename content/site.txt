@@ -2,4 +2,16 @@ Title: Benoit Mounier
 
 ----
 
+Seotitle: Benoit Mounier - graphiste illustrateur
+
+----
+
+Seodescription: Graphiste freelance depuis 2013 à paris, je suis spécialisé dans le print et l’illustration. J’interviens sur la conception créative et le développement visuel de projets variés, avec une approche sur mesure, alliant créativité, cohérences et sens du détail.
+
+----
+
+Seoimage: - 'file://j4svftkgw1i3bnlz'
+
+----
+
 Email: benoit.mounier@test.com

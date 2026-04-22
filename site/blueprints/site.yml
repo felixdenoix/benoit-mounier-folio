@@ -42,6 +42,33 @@ tabs:
             #   - about
             #   - home
             #   - default
+  seo:
+    icon: search
+    label: SEO
+    fields:
+      seoTitle:
+        label: Default SEO title
+        type: text
+        help: Overrides the site title in meta and OG tags.
+      seoDescription:
+        label: Default meta description
+        type: textarea
+        size: small
+        maxLength: 250
+        buttons: false
+        files: false
+        help: Fallback description used when a page has no SEO description set.
+      seoImage:
+        label: Default OG image
+        type: files
+        multiple: false
+        template: image
+        size: small
+        help: Fallback Open Graph image (standard 1200x630px recommended).
+        create:
+          width: 1200
+          height: 630
+          crop: true
   settings:
     icon: cog
     fields:

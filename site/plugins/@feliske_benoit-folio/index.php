@@ -1,6 +1,17 @@
 <?php
 
 Kirby::plugin("feliske/benoit-folio", [
+    "siteMethods" => [
+        "seo" => function () {
+            return new Obj([
+                "title" => $this->seoTitle()->isNotEmpty()
+                    ? $this->seoTitle()
+                    : $this->title(),
+                "description" => $this->seoDescription(),
+                "image" => $this->seoImage()->toFile(),
+            ]);
+        },
+    ],
     "pageMethods" => [
         "seo" => function () {
             return new Obj([

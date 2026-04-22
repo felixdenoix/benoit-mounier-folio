@@ -1,5 +1,32 @@
 icon: search
 label: SEO
-sections:
-  seo:
-    extends: sections/seo
+# sections:
+#   seo:
+#     extends: sections/seo
+fields:
+  pageLinkLabel:
+    label: Link label
+    help: Label for the page when appearing in menu.
+    type: text
+  seoTitle:
+    label: SEO Title
+    type: text
+    help: Overrides the page title in search results and social shares.
+  seoDescription:
+    label: SEO Description
+    type: textarea
+    size: small
+    maxLength: 250
+    buttons: false
+    files: false
+  seoImage:
+    label: SEO Image
+    type: files
+    multiple: false
+    template: image
+    size: small
+    help: Recommended size 1200x630px.
+    create:
+      width: 1200
+      height: 630
+      crop: true

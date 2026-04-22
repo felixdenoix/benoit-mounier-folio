@@ -26,6 +26,9 @@
   */
 ?>
     <?php
+    // -- SEO cascade: page-level → site-level → defaults
+    $siteSeo = $site->seo();
+
     $seoTitle = $page->title()->esc();
     $seoDescription = "";
     $seoImage = null;
@@ -35,6 +38,22 @@
         $seoDescription = $seo->description()->html();
         $seoImage = $seo->image();
     }
+
+    // Site-level fallbacks
+    if (empty($seoDescription) && $siteSeo->description()->isNotEmpty()) {
+        $seoDescription = $siteSeo->description()->html();
+    }
+    if (!$seoImage && $siteSeo->image()) {
+        $seoImage = $siteSeo->image();
+    }
+
+    $ogImage = $seoImage
+        ? $seoImage->thumb([
+            "width" => 1200,
+            "height" => 630,
+            "crop" => true,
+        ])
+        : null;
     ?>
     <title><?= $site->title()->esc() ?> | <?= $seoTitle ?></title>
 
@@ -47,17 +66,36 @@
     <link rel="manifest" href="/site.webmanifest" />
     <!--FAVICON END-->
 
+    <?php if ($seoDescription): ?>
+        <meta name="description" content="<?= $seoDescription ?>">
+    <?php endif; ?>
+
+    <!-- Open Graph -->
     <meta property="og:url" content="<?= $page->url() ?>">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<?= $site->title()->esc() ?>">
     <meta property="og:title" content="<?= $seoTitle ?> | <?= $site->title()->esc() ?>">
 
     <?php if ($seoDescription): ?>
-        <meta name="description" content="<?= $seoDescription ?>">
         <meta property="og:description" content="<?= $seoDescription ?>">
     <?php endif; ?>
 
-    <?php if ($seoImage): ?>
-        <meta property="og:image" content="<?= $seoImage->url() ?>">
+    <?php if ($ogImage): ?>
+        <meta property="og:image" content="<?= $ogImage->url() ?>">
+        <meta property="og:image:width" content="<?= $ogImage->width() ?>">
+        <meta property="og:image:height" content="<?= $ogImage->height() ?>">
+    <?php endif; ?>
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= $seoTitle ?> | <?= $site->title()->esc() ?>">
+
+    <?php if ($seoDescription): ?>
+        <meta name="twitter:description" content="<?= $seoDescription ?>">
+    <?php endif; ?>
+
+    <?php if ($ogImage): ?>
+        <meta name="twitter:image" content="<?= $ogImage->url() ?>">
     <?php endif; ?>
 
     <?php
