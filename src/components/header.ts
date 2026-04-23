@@ -1,5 +1,6 @@
 import { Piece } from "piecesjs";
 import { frameDOM } from "@fiddle-digital/string-tune";
+import debounce from "lodash/debounce";
 
 export default class CustomHeader extends Piece {
   // private $tween: gsap.core.Tween | undefined;
@@ -10,6 +11,7 @@ export default class CustomHeader extends Piece {
   $header: HTMLElement | undefined;
 
   immediateTransform: boolean = false;
+  debouncedUpdateProjectTitleWidth = debounce((e) => this.updateProjectTitleWidth(e), 300);
 
   constructor() {
     super("Header");
@@ -67,22 +69,21 @@ export default class CustomHeader extends Piece {
 
       this.updateProjectTitleWidth();
 
-      window.addEventListener("resize", this.updateProjectTitleWidth.bind(this));
+      window.addEventListener("resize", this.debouncedUpdateProjectTitleWidth);
 
       frameDOM.mutate(() => {
         this.$grid?.classList.add("project-title");
       });
     } else {
-      window.removeEventListener("resize", this.updateProjectTitleWidth);
+      window.removeEventListener("resize", this.debouncedUpdateProjectTitleWidth);
 
       frameDOM.mutate(() => {
         this.$grid?.classList.remove("project-title");
-        // setTimeout(() => this)
       });
     }
   }
 
-  updateProjectTitleWidth() {
+  updateProjectTitleWidth(_e?: Event) {
     frameDOM.measure(() => {
       const gridWidth = this.$grid?.getBoundingClientRect().width || 0;
       const menuWidth = this.$menu?.getBoundingClientRect().width || 0;
