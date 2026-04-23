@@ -28,6 +28,7 @@ export default class Project extends Piece {
 
   $textContentProjectNav: HTMLElement | undefined;
   $projectAssetContent: HTMLElement | undefined;
+  $bottomNav: HTMLElement | undefined;
 
   constructor() {
     super("Project");
@@ -40,6 +41,7 @@ export default class Project extends Piece {
     this.$textContentShadowWrapper = this.domAttr("text-content-shadow-wrapper") as HTMLElement;
 
     this.$textContentProjectNav = this.domAttr("text-content-project-nav") as HTMLElement;
+    this.$bottomNav = this.domAttr("bottom-nav") as HTMLElement;
     this.$projectAssetContent = this.domAttr("asset-content") as HTMLElement;
 
     this.setupScrollMarks();
@@ -70,8 +72,6 @@ export default class Project extends Piece {
   }
 
   setupScrollMarks() {
-    console.log("😸 setupscrollMarks (IntersectionObserver)");
-
     const heading = this.$projectHeading?.dataset.heading;
     if (heading && this.$projectHeading) {
       this.headingObserver = new IntersectionObserver(
@@ -83,7 +83,6 @@ export default class Project extends Piece {
             const crossedMiddle = isLeavingTop && entry.intersectionRatio <= 0.5;
 
             if (crossedMiddle) {
-              console.log("😸 HeadingTrigger onEnter");
               this.call("toggleProjectMode", { activate: true, heading }, "Header");
             } else {
               this.call("toggleProjectMode", { activate: false }, "Header");
@@ -96,12 +95,11 @@ export default class Project extends Piece {
       this.headingObserver.observe(this.$projectHeading);
     }
 
-    if (this.$textContentProjectNav) {
+    if (this.$textContentProjectNav && this.$bottomNav) {
       this.navObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              console.log("😸 NavTrigger on enter");
               this.$textContentProjectNav?.classList.toggle("bottom-reached", true);
             } else {
               this.$textContentProjectNav?.classList.toggle("bottom-reached", false);
@@ -111,7 +109,7 @@ export default class Project extends Piece {
         { rootMargin: "0px 0px 0px 0px", threshold: 0 },
       );
 
-      this.navObserver.observe(this.$textContentProjectNav);
+      this.navObserver.observe(this.$bottomNav);
     }
   }
 

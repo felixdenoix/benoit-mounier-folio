@@ -106,7 +106,7 @@ $previous_project = $page->prevListed() ?? $page->templateSiblings(false)->liste
             ?>
         </div>
 
-        <div class="col-span-full flex items-stretch *:w-full mt-10">
+        <div class="col-span-full flex items-stretch *:w-full mt-10" data-dom="bottom-nav">
             <?php snippet("project-nav", ["classes" => "justify-between"]); ?>
         </div>
 

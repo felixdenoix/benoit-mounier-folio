@@ -127,6 +127,26 @@
 <body class="font-sans antialiased box-border" style="overflow: hidden;">
     <?= snippet("site-loader") ?>
 
+    <svg style="display: none">
+        <filter id="noise-filter">
+            <!-- Creates the fractal noise pattern -->
+            <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.15"
+                numOctaves="5"
+                stitchTiles="stitch" />
+            <!-- Converts noise to semi-transparent overlay -->
+            <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 1 0" />
+        </filter>
+    </svg>
+
+    <!--<div class="overlay fixed filter-[url(#noise-filter)] top-0 left-0 h-screen w-screen z-1000 pointer-events-none bg-red-600"></div>-->
+
     <c-header
         id="c-header"
         <?= isset($hide_header) ? 'hide="true"' : false ?>
@@ -134,6 +154,7 @@
         <!-- TODO: handle header height as its currently too big -->
         <header
             data-dom="header"
+            string
             string-copy-from="footer"
             class="header py-(--spacing-grid-padding) w-full fixed z-(--z-header) top-0 bg-white">
             <div
@@ -142,8 +163,8 @@
                 string-easing="absolute cubic-bezier(0.44,0.07,0.41,1)"
                 string-lerp="0.001"
                 class="absolute top-0 -z-1 shadow-md-proximity w-full h-full py-(--spacing-grid-padding)">
-                    <!--created dom-node for shadow as parent is already copying string from footer -->
-                </div>
+                <!--created dom-node for shadow as parent is already copying string from footer -->
+            </div>
             <div
                 class="c-animated-grid leading-none w-full max-w-(--grid-max-width) px-(--spacing-grid-padding) mx-auto group gap-y-2 md:gap-y-0 md:h-(--text-lg) lg:h-(--text-xl) md:px-[var(--spacing-grid-padding)]"
                 data-dom="grid">
