@@ -14,10 +14,10 @@
 
 <c-footer>
     <footer
-        string="progress|proximity"
+        string="progress|proximity[smooth]"
         string-radius="300"
         string-repeat
-        string-id="footer[smooth]"
+        string-id="footer"
         string-exit-el="bottom"
         string-exit-vp="bottom"
         string-offset-top="-40sh"
