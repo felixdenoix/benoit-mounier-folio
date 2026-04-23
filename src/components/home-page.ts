@@ -16,7 +16,7 @@ export default class HomePage extends Piece {
     this.setupScrollHandlers();
 
     // Ensure header is always transparent on page mount.
-    this.call("setTransparent", { value: true }, "Header");
+    // this.call("setTransparent", { value: true }, "Header");
   }
 
   unmount() {
@@ -30,6 +30,9 @@ export default class HomePage extends Piece {
           entries.forEach((entry) => {
             const isEnteringScreen = entry.boundingClientRect.top < entry.intersectionRect.bottom;
             const crossedBottom = isEnteringScreen && entry.intersectionRatio > 0;
+            const aboveViewport = entry.boundingClientRect.top < 0;
+
+            if (aboveViewport) return;
 
             if (crossedBottom) {
               this.call("setTransparent", { value: false }, "Header");

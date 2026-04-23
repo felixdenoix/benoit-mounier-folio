@@ -30,19 +30,34 @@ export function callPieceMethod(
   },
   domNode?: Document | ParentNode,
 ) {
+  const startTime = performance.now();
   const querySelectorDomNode = domNode || document;
 
-  const componentDOM = querySelectorDomNode.querySelector(data.selector);
-  const id = componentDOM && "cid" in componentDOM ? (componentDOM.cid as string) : null;
-  if (id) {
-    const pieceData = piecesManager.currentPieces?.[data.component]?.[id] as PieceData;
+  const attemptCall = () => {
+    const componentDOM = querySelectorDomNode.querySelector(data.selector);
+    const id = componentDOM && "cid" in componentDOM ? (componentDOM.cid as string) : null;
 
-    const piece = pieceData.piece as Record<string, any>;
+    if (id) {
+      const pieceData = piecesManager.currentPieces?.[data.component]?.[id] as PieceData;
+      if (pieceData) {
+        const piece = pieceData.piece as Record<string, any>;
 
-    if (data.method in piece && typeof piece[data.method] === "function") {
-      piece[data.method](data.arguments);
+        if (data.method in piece && typeof piece[data.method] === "function") {
+          piece[data.method](data.arguments);
+          return; // Success, stop the loop
+        }
+      }
     }
-  }
+
+    const elapsed = performance.now() - startTime;
+    if (elapsed < 1000) {
+      requestAnimationFrame(attemptCall);
+    } else {
+      console.warn(`[callPieceMethod] Could not call ${data.method} on ${data.component} (${data.selector}) after 1s`);
+    }
+  };
+
+  attemptCall();
 }
 
 /**

@@ -9,6 +9,7 @@
   https://getkirby.com/docs/guide/templates/snippets
 */
 ?>
+<div class="transition-overlay fixed inset-0 bg-white invisible opacity:0 pointer-events-none z-[calc(var(--z-header)-1)]"></div>
 </div>
 </main>
 

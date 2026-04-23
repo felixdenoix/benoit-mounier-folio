@@ -7,6 +7,9 @@ export default class CustomHeader extends Piece {
   $projectTitle: HTMLElement | undefined;
   $menu: HTMLElement | undefined;
   $grid: HTMLElement | undefined;
+  $header: HTMLElement | undefined;
+
+  immediateTransform: boolean = false;
 
   constructor() {
     super("Header");
@@ -15,17 +18,21 @@ export default class CustomHeader extends Piece {
   mount() {
     this.setTransparent({ value: this.hide });
 
-    frameDOM.measure(() => {
-      this.$projectTitleSlot = this.$("#header-menu-project-title") as HTMLElement;
-      this.$projectTitle = this.domAttr("project-title") as HTMLElement;
-      this.$menu = this.$("#header-menu-nav") as HTMLElement;
-      this.$grid = this.domAttr("grid") as HTMLElement;
-    });
+    this.$projectTitleSlot = this.$("#header-menu-project-title") as HTMLElement;
+    this.$projectTitle = this.domAttr("project-title") as HTMLElement;
+    this.$menu = this.$("#header-menu-nav") as HTMLElement;
+    this.$grid = this.domAttr("grid") as HTMLElement;
+    this.$header = this.domAttr("header") as HTMLElement;
   }
 
   // lifecycle method
   update() {
-    (this.domAttr("header") as HTMLElement)?.classList.toggle("hide", this.hide);
+    if (this.$header) {
+      frameDOM.mutate(() => {
+        this.$header!.classList.toggle("duration-[unset]", this.immediateTransform);
+        this.$header!.classList.toggle("hide", this.hide);
+      });
+    }
   }
 
   set hide(hide) {
@@ -43,7 +50,8 @@ export default class CustomHeader extends Piece {
 
   // Lifecycle END
 
-  setTransparent({ value, toggle }: { value?: boolean; toggle?: boolean }) {
+  setTransparent({ value, toggle, immediate }: { value?: boolean; toggle?: boolean; immediate?: boolean }) {
+    this.immediateTransform = immediate ?? false;
     if (toggle) {
       this.hide = !this.hide;
     } else if (value !== undefined && value !== this.hide) {

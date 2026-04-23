@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @source "../../site/..";
-@source "./.."; 
+@source "./..";
 @source not "../../vendor";
 
 /* Abstracts */
@@ -23,3 +23,6 @@
 
 /* Utilities */
 @import "./utilities/utilities.css";
+
+/*Safelisting variants used in js files*/
+@source inline("duration-[unset]");

@@ -7,24 +7,26 @@ export default class HomeRenderer extends DefaultRenderer {
 
   onEnter() {
     super.onEnter();
-    callPieceMethod({
-      selector: "c-homepage",
-      component: "HomePage",
-      method: "introAnimation",
-    });
-  }
-
-  onEnterCompleted(): void {
     callPieceMethod(
       {
         selector: "c-header",
         component: "Header",
         method: "setTransparent",
-        arguments: { value: true },
+        arguments: { value: true, immediate: true },
       },
       document,
     );
+  }
 
+  onEnterCompleted(): void {
     globalThis.app.smoothScroll?.onResize(true);
+    requestAnimationFrame(() => {
+      console.log("😸 onEnterCompleted");
+      callPieceMethod({
+        selector: "c-homepage",
+        component: "HomePage",
+        method: "introAnimation",
+      });
+    });
   }
 }

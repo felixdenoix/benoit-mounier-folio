@@ -154,7 +154,6 @@
         <!-- TODO: handle header height as its currently too big -->
         <header
             data-dom="header"
-            string
             string-copy-from="footer"
             class="header py-(--spacing-grid-padding) w-full fixed z-(--z-header) top-0 bg-white">
             <div

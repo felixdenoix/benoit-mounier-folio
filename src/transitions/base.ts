@@ -21,20 +21,26 @@ export default class BaseTransition extends Transition {
    * @param { { from: HTMLElement, trigger: string|HTMLElement|false, done: function } } props
    */
   onLeave({ from, done }: LeaveTransitionParams) {
-    // do something ...
-    gsap.to(from, {
-      autoAlpha: 0,
-      duration: 1,
-      onStart: () => {
-        frameDOM.mutate(() => {
-          document.body.classList.add("cursor-progress");
-        });
-        globalThis.app.smoothScroll?.scrollTo({ position: 0, immediate: false });
+    const transitionOverlay = from.querySelector(".transition-overlay");
+    gsap.fromTo(
+      transitionOverlay ? transitionOverlay : from,
+      { autoAlpha: 0 },
+      {
+        autoAlpha: 1,
+        duration: 1,
+        onStart: () => {
+          frameDOM.mutate(() => {
+            document.body.classList.add("cursor-progress");
+          });
+        },
+        onComplete: () => {
+          globalThis.app.smoothScroll?.scrollTo({ position: 0, immediate: true });
+          requestAnimationFrame(() => {
+            done();
+          });
+        },
       },
-      onComplete: () => {
-        done();
-      },
-    });
+    );
   }
 
   /**
@@ -54,6 +60,7 @@ export default class BaseTransition extends Transition {
           frameDOM.mutate(() => {
             document.body.classList.remove("cursor-progress");
           });
+
           done();
         },
         duration: 1,
