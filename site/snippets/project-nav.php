@@ -3,7 +3,7 @@ $next = $page->nextListed() ?? $page->templateSiblings(false)->listed()->first()
 $previous = $page->prevListed() ?? $page->templateSiblings(false)->listed()->last();
 $compact ??= false;
 ?>
-<div class="project-nav flex items-center relative group whitespace-nowrap transition duration-300 ease-projects group-[&.bottom-reached]:opacity-0 leading-none text-cap! <?= $classes ??
+<div class="project-nav flex items-center relative group whitespace-nowrap transition duration-450 ease-projects group-[&.bottom-reached]:ease-out group-[&.bottom-reached]:duration-150 group-[&.bottom-reached]:opacity-0 leading-none text-cap! <?= $classes ??
     "" ?>">
 
     <?php if ($previous): ?>

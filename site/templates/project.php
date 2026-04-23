@@ -91,7 +91,7 @@ $previous_project = $page->prevListed() ?? $page->templateSiblings(false)->liste
                                         <?php snippet("blocks/" . $block->type(), [
                                             "block" => $block,
                                             "layout" => $layout,
-                                            "loading" => $index === 0 && $column_index === 0 && $block_index === 0 ? "eager" : "lazy",
+                                            "loading" => $index < 1 && $column_index < 2 && $block_index < 3 ? "eager" : "lazy",
                                         ]); ?>
                                     </div>
                                 <?php $block_index++;endforeach;
