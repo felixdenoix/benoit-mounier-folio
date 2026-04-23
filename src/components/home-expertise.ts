@@ -63,21 +63,31 @@ export default class HomeExpertise extends Piece {
       const projects = projectsRaw ? JSON.parse(projectsRaw) : [];
       const projectsCount = el.dataset.projectsCount ? parseInt(el.dataset.projectsCount) : 0;
 
-      const mobileMediaGroup = mobileMap.get(id) || null;
-      const mobileAssets = mobileMediaGroup ? Array.from(mobileMediaGroup.querySelectorAll("img")) : [];
-
-      const desktopMediaGroup = desktopMap.get(id) || null;
-      const desktopAssets = desktopMediaGroup ? Array.from(desktopMediaGroup.querySelectorAll("img")) : [];
-
-      this.expertises.set(id, {
+      const expertise: ExpertiseData = {
         el,
         projects,
         projectsCount,
-        mobileMediaGroup,
-        mobileAssets,
-        desktopMediaGroup,
-        desktopAssets,
-      });
+        mobileMediaGroup: null,
+        mobileAssets: [],
+        desktopMediaGroup: null,
+        desktopAssets: [],
+      };
+
+      if (!this.isDesktop) {
+        const mobileMediaGroup = mobileMap.get(id) || null;
+        const mobileAssets = mobileMediaGroup ? Array.from(mobileMediaGroup.querySelectorAll("img")) : [];
+
+        expertise.mobileMediaGroup = mobileMediaGroup;
+        expertise.mobileAssets = mobileAssets;
+      } else {
+        const desktopMediaGroup = desktopMap.get(id) || null;
+        const desktopAssets = desktopMediaGroup ? Array.from(desktopMediaGroup.querySelectorAll("img")) : [];
+
+        expertise.desktopMediaGroup = desktopMediaGroup;
+        expertise.desktopAssets = desktopAssets;
+      }
+
+      this.expertises.set(id, expertise);
     });
   }
 
@@ -206,10 +216,11 @@ export default class HomeExpertise extends Piece {
       data.el.classList.toggle("text-white", active);
 
       if (!this.isDesktop && data.mobileMediaGroup) {
-        data.mobileMediaGroup.classList.toggle("opacity-100", active);
-        data.mobileMediaGroup.classList.toggle("opacity-0", !active);
-        data.mobileMediaGroup.classList.toggle("scale-101", active);
-        data.mobileMediaGroup.classList.toggle("scale-99", !active);
+        data.mobileMediaGroup.classList.toggle("opacity-100!", active);
+        data.mobileMediaGroup.classList.toggle("scale-101!", active);
+        // both classes are inlined by tailwind in index.js
+        // data.mobileMediaGroup.classList.toggle("opacity-0", !active);
+        // data.mobileMediaGroup.classList.toggle("scale-99", !active);
       }
 
       // Default to first asset if becoming active and there are multiple projects

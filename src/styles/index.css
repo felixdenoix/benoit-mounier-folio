@@ -26,3 +26,5 @@
 
 /*Safelisting variants used in js files*/
 @source inline("duration-[unset]");
+@source inline("opacity-100!");
+@source inline("scale-101!");

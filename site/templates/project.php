@@ -8,7 +8,7 @@ $next_project = $page->nextListed() ?? $page->templateSiblings(false)->listed()-
 $previous_project = $page->prevListed() ?? $page->templateSiblings(false)->listed()->last();
 ?>
 
-<c-project log>
+<c-project>
 
     <article class="project base-grid pb-10">
 
