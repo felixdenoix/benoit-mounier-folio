@@ -58,7 +58,7 @@
                 <span
                     class="block transform-[translate3d(calc(round(var(--magnetic-x,0),.1)*1px),calc(round(var(--magnetic-y,0),.1)*1px),0)] relative after:absolute after:-inset-3"
                     string="magnetic"
-                    string-strength="0.08"
+                    string-strength="0.12"
                     string-radius="150"
                     ><?= $item["label"] ?></span>
                 <div
