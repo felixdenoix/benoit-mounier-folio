@@ -8,6 +8,7 @@ import {
   StringLerp,
   StringMagnetic,
   StringPositionTracker,
+  StringFPSTracker,
   StringProgress,
   StringProgressPart,
   StringScrollContainer,
@@ -31,7 +32,48 @@ export default class App {
     innerWidth: 0,
   };
 
+  async init() {
+    globalThis.gsap = gsap;
+    this.gsap = gsap;
+
+    requestAnimationFrame(() => {
+      this.initGlobalVars();
+    });
+
+    this.initSmooth();
+    // SmoothScroll is started from the taxi DefaultRenderer
+
+    window.addEventListener("resize", this.debouncedResizeHandler);
+
+    await loadComponents(document.body);
+
+    gsap.config({
+      autoSleep: 60,
+      force3D: true,
+      nullTargetWarn: import.meta.env.MODE === "development",
+    });
+
+    const onStylesheetsLoaded = () => {
+      this.router = new Core({
+        renderers: {
+          default: DefaultRenderer,
+          home: HomeRenderer,
+        },
+        transitions: {
+          default: BaseTransition,
+        },
+      });
+      this.initRouterEvents();
+    };
+
+    this.handleStylesheetLoading(onStylesheetsLoaded);
+  }
+
   private debouncedResizeHandler = debounce((e) => this.resizeHandler(e), 300);
+  resizeHandler(e: Event) {
+    this.initGlobalVars(e);
+    this.smoothScroll?.onResize(true);
+  }
 
   initSmooth() {
     const smooth = StringTune.getInstance();
@@ -54,49 +96,13 @@ export default class App {
       if (import.meta.env.MODE === "development") {
         this.smoothScroll.use(StringPositionTracker);
         this.smoothScroll.PositionTrackerVisible = true;
+        this.smoothScroll.use(StringFPSTracker);
+        this.smoothScroll.FPSTrackerVisible = true;
       }
 
       this.smoothScroll.speed = 0.08;
       this.smoothScroll.speedAccelerate = 0.3;
     }
-  }
-
-  async init() {
-    globalThis.gsap = gsap;
-    this.gsap = gsap;
-
-    this.initGlobalVars();
-
-    this.initSmooth();
-    // SmoothScroll is started from the taxi DefaultRenderer
-
-    window.addEventListener("resize", this.debouncedResizeHandler);
-
-    await loadComponents(document.body);
-
-    gsap.config({
-      autoSleep: 60,
-      force3D: true,
-      nullTargetWarn: import.meta.env.MODE === "development",
-    });
-
-    this.handleStylesheetLoading(() => {
-      this.router = new Core({
-        renderers: {
-          default: DefaultRenderer,
-          home: HomeRenderer,
-        },
-        transitions: {
-          default: BaseTransition,
-        },
-      });
-      this.initRouterEvents();
-    });
-  }
-
-  resizeHandler(e: Event) {
-    this.initGlobalVars(e);
-    this.smoothScroll?.onResize(true);
   }
 
   initRouterEvents() {
@@ -209,9 +215,9 @@ export default class App {
 
     await Promise.race([Promise.all(styleSheetPromises), new Promise((resolve) => setTimeout(resolve, 5000))]);
 
-    requestAnimationFrame(() => {
-      window.dispatchEvent(new Event("resize"));
-    });
+    // requestAnimationFrame(() => {
+    //   window.dispatchEvent(new Event("resize"));
+    // });
 
     if (callback) {
       callback();

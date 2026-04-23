@@ -69,7 +69,10 @@ export default class DefaultRenderer extends Renderer {
     });
 
     const timeout = new Promise((resolve) => {
-      setTimeout(resolve, 5000);
+      setTimeout(() => {
+        this.pageAssetsCount = this.pageAssetloaded;
+        resolve(true);
+      }, 5000);
     });
 
     Promise.race([Promise.allSettled(loadPromises), timeout])
@@ -102,12 +105,15 @@ export default class DefaultRenderer extends Renderer {
   exitLoader(callback?: () => void) {
     if (!this.$siteLoader) return;
 
+    globalThis.app.smoothScroll?.start(60);
+
     gsap
       .timeline({
         delay: 0.5,
         onComplete: () => {
-          document.body.style.removeProperty("overflow");
-          globalThis.app.smoothScroll?.start(60);
+          requestAnimationFrame(() => {
+            document.body.style.removeProperty("overflow");
+          });
 
           if (callback) {
             callback();
