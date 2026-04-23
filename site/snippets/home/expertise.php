@@ -16,11 +16,11 @@
         string-offset-bottom="-30%">
 
         <div
-            class="pointer-events-none sticky md:absolute top-1/2 md:top-[unset] md:bottom-0 left-0 w-full h-0 md:h-[33vh] z-0"
+            class="pointer-events-none sticky md:absolute top-1/2 md:top-[unset] md:bottom-0 left-0 w-full h-0 md:h-[33svh] z-0"
             data-dom="media-display">
             <?php foreach ($ctaItems as $index => $item): ?>
                 <div
-                    class="absolute inset-0 h-[33vh] -translate-y-1/2 md:translate-y-0 grid grid-cols-1 grid-rows-1 place-items-stretch opacity-0 scale-99 transition duration-300 ease-projects"
+                    class="absolute inset-0 h-[33svh] -translate-y-1/2 md:translate-y-0 grid grid-cols-1 grid-rows-1 place-items-stretch opacity-0 scale-99 transition duration-300 ease-projects"
                     data-dom="media-group"
                     data-expertise-id="<?= $item["id"] ?>">
                     <?php foreach ($item["projects"] as $link_project): ?>
@@ -62,7 +62,7 @@
                     string-radius="150"
                     ><?= $item["label"] ?></span>
                 <div
-                    class="hidden pointer-events-none absolute bottom-0 left-0 w-full h-[33vh] md:grid grid-cols-1 grid-rows-1 place-items-stretch min-w-0 min-h-0 opacity-0 scale-99 transition duration-500 ease-projects group-hover/link:opacity-100 group-hover/link:scale-101"
+                    class="hidden pointer-events-none absolute bottom-0 left-0 w-full h-[33svh] md:grid grid-cols-1 grid-rows-1 place-items-stretch min-w-0 min-h-0 opacity-0 scale-99 transition duration-500 ease-projects group-hover/link:opacity-100 group-hover/link:scale-101"
                     data-dom="desktop-media-group"
                     data-expertise-id="<?= $item["id"] ?>">
                     <?php foreach ($item["projects"] as $index => $link_project): ?>
