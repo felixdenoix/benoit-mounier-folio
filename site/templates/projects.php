@@ -34,7 +34,7 @@
         class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group mb-grid-padding md:mb-20">
 
         <?php foreach ($entries as $project): ?>
-            <li class="col-span-1 grid place-content-center aspect-3/2 relative place-items-stretch not-pointer-coarse:group-has-[:hover]:*:blur-xs hover:*:blur-none hover:*:scale-101 overflow-hidden transition duration-750 ease-projects">
+            <li class="col-span-1 grid place-content-center aspect-3/2 relative place-items-stretch not-pointer-coarse:group-has-[:hover]:*:brightness-90 group-has-[:focus]:*:brightness-90 hover:*:scale-103 hover:*:brightness-100! focus:*:scale-103 focus:*:brightness-100! overflow-hidden transition duration-750 ease-projects" tabindex="0">
 
                 <?php if ($cover = $project->cover()): ?>
                     <?php snippet("imagex-picture", [
@@ -45,6 +45,7 @@
                                     "class" => [
                                         "absolute h-full w-full inset-0 -z-1 object-cover object-center scale-102 duration-400 ease-projects transition",
                                     ],
+                                    "aria-hidden" => "true",
                                 ],
                             ],
                             "img" => [
