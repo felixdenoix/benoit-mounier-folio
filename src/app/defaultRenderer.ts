@@ -115,8 +115,20 @@ export default class DefaultRenderer extends Renderer {
       {
         selector: "c-header",
         component: "Header",
-        method: "toggleProjectMode",
-        arguments: { activate: false },
+        method: "resetPosition",
+        arguments: {
+          callback: () => {
+            callPieceMethod(
+              {
+                selector: "c-header",
+                component: "Header",
+                method: "toggleProjectMode",
+                arguments: { activate: false },
+              },
+              document,
+            );
+          },
+        },
       },
       document,
     );

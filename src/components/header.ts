@@ -42,7 +42,7 @@ export default class CustomHeader extends Piece {
   }
 
   get hide() {
-    return this.getAttribute("hide") === "true";
+    return this?.getAttribute("hide") === "true";
   }
 
   // Important to automatically call the update function if attribute is changing
@@ -61,7 +61,7 @@ export default class CustomHeader extends Piece {
     }
   }
 
-  toggleProjectMode(params: { activate?: boolean; heading?: string }) {
+  toggleProjectMode(params: { activate?: boolean; heading?: string; callback?: () => void }) {
     if (params.activate && params.heading && this.$projectTitle) {
       frameDOM.mutate(() => {
         this.$projectTitle!.innerHTML = params.heading as string;
@@ -80,6 +80,10 @@ export default class CustomHeader extends Piece {
       frameDOM.mutate(() => {
         this.$grid?.classList.remove("project-title");
       });
+    }
+
+    if (params.callback) {
+      params.callback();
     }
   }
 
@@ -102,6 +106,16 @@ export default class CustomHeader extends Piece {
         this.$grid?.style.setProperty("--header-menu-project-title-width", `${projectTitleWidth}px`);
       });
     });
+  }
+
+  resetPosition(options: { callback: () => void } = { callback: () => {} }) {
+    if (this.$header) {
+      globalThis.app.gsap.to(this.$header, {
+        duration: 0.35,
+        "--progress": 0,
+        onComplete: options.callback,
+      });
+    }
   }
 }
 
