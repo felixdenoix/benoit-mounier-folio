@@ -39,7 +39,7 @@
       string-offset-bottom="-60%"
       string-exit-el="bottom"
       string-exit-vp="bottom"
-      string-easing="cubic-bezier(.19,.6,.4,1)"
+      string-easing="cubic-bezier(.19,.6,.4,.85)"
     >
       <!--
         ajusting scroll height and offset
