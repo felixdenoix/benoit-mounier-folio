@@ -1,6 +1,7 @@
 import { StringTune, frameDOM } from "@fiddle-digital/string-tune";
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
@@ -232,6 +233,7 @@ export default class App {
       nullTargetWarn: import.meta.env.MODE === "development",
     });
     gsap.registerPlugin(ScrollToPlugin);
+    gsap.registerPlugin(ScrollTrigger);
     globalThis.gsap = gsap;
     this.gsap = gsap;
   }

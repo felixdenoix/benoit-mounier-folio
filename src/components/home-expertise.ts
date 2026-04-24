@@ -3,6 +3,7 @@ import debounce from "lodash/debounce";
 import throttle from "lodash/throttle";
 import { frameDOM } from "@fiddle-digital/string-tune";
 import { createThresholdArray, getIntersectionProgress } from "../utils";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 interface ExpertiseData {
   el: HTMLAnchorElement;
@@ -26,6 +27,8 @@ export default class HomeExpertise extends Piece {
 
   private debouncedResize = debounce(() => this.setup(), 200);
   private throttledMouseMove = throttle((e) => this.onMouseMove(e), 200, { leading: true });
+
+  private desktopScrollTrigger: ScrollTrigger | undefined;
 
   constructor() {
     super("HomeExpertise");
@@ -52,6 +55,7 @@ export default class HomeExpertise extends Piece {
       exp.el.removeEventListener("mouseleave", this.onMouseLeave);
     });
   }
+
   private init() {
     this.$expertiseEls = Array.from((this.domAttr("expertise") as NodeList) || []) as HTMLAnchorElement[];
 
@@ -91,6 +95,7 @@ export default class HomeExpertise extends Piece {
 
         expertise.desktopMediaGroup = desktopMediaGroup;
         expertise.desktopAssets = desktopAssets;
+        expertise.activeAssetIndex = 0;
       }
 
       this.expertises.set(id, expertise);
@@ -137,6 +142,10 @@ export default class HomeExpertise extends Piece {
         this.updateAsset(id, data.activeAssetIndex, true);
       }
     });
+
+    if (this.isDesktop) {
+      this.desktopInviewAnimation();
+    }
   }
 
   private setupObserver() {
@@ -262,6 +271,33 @@ export default class HomeExpertise extends Piece {
       if (nextProjectUrl && data.el.href !== nextProjectUrl) {
         data.el.href = nextProjectUrl;
       }
+    });
+  }
+
+  desktopInviewAnimation() {
+    this.desktopScrollTrigger = ScrollTrigger.create({
+      trigger: this,
+      start: "top 70%",
+      end: "bottom bottom-=70px",
+      snap: {
+        directional: true,
+        snapTo: (value, self) => {
+          if (self?.direction === 1) {
+            return 1;
+          }
+          return value;
+        },
+      },
+      onEnter: (_self) => {
+        this.$expertiseEls[0].focus();
+      },
+      onLeave: (self) => {
+        self.disable();
+      },
+      onSnapComplete: (self) => {
+        self.disable();
+      },
+      toggleActions: "play none none none",
     });
   }
 }
