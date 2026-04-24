@@ -59,7 +59,7 @@ c-home-intro {
           will-change: transform;
           backface-visibility: hidden;
           --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
-          --start-y: calc(-100% - (var(--animation-index) * 10%));
+          --start-y: calc(-100% - (var(--animation-index) * 30%));
           --t: clamp(0, var(--progress-slice) * var(--speed), 1);
           /* easeOutQuad approximation */
           --local-progress: calc(var(--t) * (2 - var(--t)));

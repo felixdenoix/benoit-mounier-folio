@@ -49,7 +49,7 @@ export default class HomePage extends Piece {
   }
 
   introAnimation() {
-    globalThis.app.smoothScroll?.scrollTo(window.innerHeight);
+    globalThis.app.gsap.to(window, { duration: 1.5, scrollTo: window.innerHeight, ease: "power3.out" });
   }
 }
 

@@ -1,5 +1,7 @@
 import { StringTune, frameDOM } from "@fiddle-digital/string-tune";
 import gsap from "gsap";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
+
 import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
@@ -33,12 +35,11 @@ export default class App {
   };
 
   async init() {
-    globalThis.gsap = gsap;
-    this.gsap = gsap;
-
     requestAnimationFrame(() => {
       this.initGlobalVars();
     });
+
+    this.initGSAP();
 
     this.initSmooth();
     // SmoothScroll is started from the taxi DefaultRenderer
@@ -46,12 +47,6 @@ export default class App {
     window.addEventListener("resize", this.debouncedResizeHandler);
 
     await loadComponents(document.body);
-
-    gsap.config({
-      autoSleep: 60,
-      force3D: true,
-      nullTargetWarn: import.meta.env.MODE === "development",
-    });
 
     const onStylesheetsLoaded = () => {
       this.router = new Core({
@@ -228,5 +223,16 @@ export default class App {
     if (callback) {
       callback();
     }
+  }
+
+  private initGSAP() {
+    gsap.config({
+      autoSleep: 60,
+      force3D: true,
+      nullTargetWarn: import.meta.env.MODE === "development",
+    });
+    gsap.registerPlugin(ScrollToPlugin);
+    globalThis.gsap = gsap;
+    this.gsap = gsap;
   }
 }
