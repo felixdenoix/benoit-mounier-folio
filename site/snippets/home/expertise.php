@@ -98,7 +98,7 @@
     <div
         class="contact mb-20 lg:mb-30 flex justify-center opacity-0 transition-opacity duration-500 ease-projects [&.-inview]:opacity-100"
         string
-        string-offset-bottom="-30%">
+        string-offset-bottom="-20%">
 
         <?php if ($site->email()->isNotEmpty()): ?>
             <c-mailto

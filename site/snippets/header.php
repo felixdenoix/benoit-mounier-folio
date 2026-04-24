@@ -121,7 +121,9 @@
 ?>
     <link rel="shortcut icon" type="image/x-icon" href="<?= url("favicon.ico") ?>">
     <?= vite()->css("styles/index.css", try: true) ?>
-    <?= vite()->css("styles/templates/" . $page->template() . ".css", try: true) ?>
+    <?php
+// vite()->css("styles/templates/" . $page->template() . ".css", try: true)
+?>
 </head>
 
 <body class="font-sans antialiased box-border" style="overflow: hidden;">
