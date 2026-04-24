@@ -17,6 +17,7 @@
 @import "./components/footer.css";
 @import "./components/home-intro.css";
 @import "./components/text-reveal.css";
+@import "./components/home-expertise.css";
 
 /* Templates */
 @import "./templates/templates.css";

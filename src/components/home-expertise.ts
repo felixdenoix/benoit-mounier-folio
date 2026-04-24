@@ -29,6 +29,7 @@ export default class HomeExpertise extends Piece {
   private throttledMouseMove = throttle((e) => this.onMouseMove(e), 200, { leading: true });
 
   private desktopScrollTrigger: ScrollTrigger | undefined;
+  private expertiseTimeline: gsap.core.Timeline | undefined;
 
   constructor() {
     super("HomeExpertise");
@@ -41,6 +42,10 @@ export default class HomeExpertise extends Piece {
 
       this.init();
       this.setup(false);
+
+      if (this.isDesktop) {
+        this.desktopInviewAnimation();
+      }
     });
     window.addEventListener("resize", this.debouncedResize);
   }
@@ -54,6 +59,8 @@ export default class HomeExpertise extends Piece {
       }
       exp.el.removeEventListener("mouseleave", this.onMouseLeave);
     });
+
+    this.expertiseTimeline?.kill();
   }
 
   private init() {
@@ -142,10 +149,6 @@ export default class HomeExpertise extends Piece {
         this.updateAsset(id, data.activeAssetIndex, true);
       }
     });
-
-    if (this.isDesktop) {
-      this.desktopInviewAnimation();
-    }
   }
 
   private setupObserver() {
@@ -275,6 +278,51 @@ export default class HomeExpertise extends Piece {
   }
 
   desktopInviewAnimation() {
+    this.expertiseTimeline?.kill();
+    this.desktopScrollTrigger?.kill();
+
+    this.classList.add("hide-focus");
+
+    // Ensure keyboard navigation kills animation.
+    window.addEventListener(
+      "keyup",
+      (e) => {
+        if (e.key === "Tab") {
+          this.expertiseTimeline?.kill();
+        }
+      },
+      { once: true },
+    );
+
+    const tl = gsap.timeline({
+      repeat: -1,
+      paused: true,
+    });
+
+    //
+    this.$expertiseEls.forEach((el) => {
+      tl.call(
+        (link) => {
+          requestAnimationFrame(() => {
+            link?.focus({ preventScroll: true, focusVisible: false });
+          });
+        },
+        [el],
+        "+=2.5",
+      );
+
+      el.addEventListener(
+        "mousemove",
+        () => {
+          tl.clear();
+          this.classList.remove("hide-focus");
+        },
+        { once: true },
+      );
+    });
+
+    this.expertiseTimeline = tl;
+
     this.desktopScrollTrigger = ScrollTrigger.create({
       trigger: this,
       start: "top 70%",
@@ -289,7 +337,8 @@ export default class HomeExpertise extends Piece {
         },
       },
       onEnter: (_self) => {
-        this.$expertiseEls[0].focus();
+        this.$expertiseEls[0]?.focus();
+        this.expertiseTimeline?.play();
       },
       onLeave: (self) => {
         self.disable();
