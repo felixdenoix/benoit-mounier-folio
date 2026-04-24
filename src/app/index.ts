@@ -213,7 +213,13 @@ export default class App {
       });
     });
 
-    await Promise.race([Promise.all(styleSheetPromises), new Promise((resolve) => setTimeout(resolve, 5000))]);
+    let timeoutId: any;
+    const timeoutPromise = new Promise((resolve) => {
+      timeoutId = setTimeout(resolve, 5000);
+    });
+
+    await Promise.race([Promise.all(styleSheetPromises), timeoutPromise]);
+    clearTimeout(timeoutId);
 
     // requestAnimationFrame(() => {
     //   window.dispatchEvent(new Event("resize"));

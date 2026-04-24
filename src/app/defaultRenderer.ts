@@ -19,6 +19,8 @@ export default class DefaultRenderer extends Renderer {
 
   pageAssetsCount: number = 0;
   pageAssetloaded: number = 0;
+  readyToExit: boolean = false;
+  hasExited: boolean = false;
 
   initialLoad() {
     this.$siteLoader = document.querySelector("#site-loader") as HTMLElement;
@@ -32,7 +34,9 @@ export default class DefaultRenderer extends Renderer {
       ease: "power3.out",
       snap: "textContent",
       onComplete: () => {
-        if (this.pageAssetsCount === this.pageAssetloaded) {
+        // Ensure we only exit once, even if onComplete fires multiple times
+        if (this.readyToExit && !this.hasExited) {
+          this.hasExited = true;
           this.exitLoader(() => {
             this.onEnter();
             this.onEnterCompleted();
@@ -44,6 +48,7 @@ export default class DefaultRenderer extends Renderer {
     this.pageAssetsCount = this.$pageAssets?.length || 0;
 
     if (this.pageAssetsCount === 0) {
+      this.readyToExit = true;
       this.siteLoaderQTo(100);
       return;
     }
@@ -58,8 +63,12 @@ export default class DefaultRenderer extends Renderer {
           resolve(true);
         };
 
-        // Check if already loaded
-        if (asset.complete) {
+        // Modern performance optimization: use image.decode() if available.
+        // Even for cached images (asset.complete === true), we use .decode()
+        // to offload decoding to a background thread, preventing UI jank on reveal.
+        if (typeof (asset as any).decode === "function") {
+          asset.decode().then(handleLoad).catch(handleLoad);
+        } else if (asset.complete) {
           handleLoad();
         } else {
           asset.addEventListener("load", handleLoad, { once: true });
@@ -68,16 +77,19 @@ export default class DefaultRenderer extends Renderer {
       });
     });
 
-    const timeout = new Promise((resolve) => {
-      setTimeout(() => {
-        this.pageAssetsCount = this.pageAssetloaded;
+    let timeoutId: number | undefined;
+
+    const timeoutPromise = new Promise((resolve) => {
+      timeoutId = setTimeout(() => {
         resolve(true);
       }, 5000);
     });
 
-    Promise.race([Promise.allSettled(loadPromises), timeout])
+    Promise.race([Promise.allSettled(loadPromises), timeoutPromise])
       .catch(console.error)
       .finally(() => {
+        clearTimeout(timeoutId);
+        this.readyToExit = true;
         this.siteLoaderQTo(100);
       });
   }
