@@ -1,6 +1,17 @@
 /*@reference "../index.css";*/
 
 .project {
+  .text-content {
+    ul {
+      @apply list-inside list-disc;
+      li {
+        * {
+          display: inline;
+        }
+      }
+    }
+  }
+
   .text-content-shadow-wrapper {
     &.overflowing {
       transform-style: preserve-3d;

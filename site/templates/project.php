@@ -23,15 +23,15 @@ $previous_project = $page->prevListed() ?? $page->templateSiblings(false)->liste
             string-id="project-heading"
             data-dom="project-heading"
             data-heading="<?= $headline->esc() . ($sub_headline_dataset ? " " . $sub_headline_dataset : "") ?>"
-            class="project header col-span-full row-span-1 grid place-items-center text-black pt-(--header-height) pb-8 md:pb-16 lg:pb-20 xl:pb-26">
+            class="project header col-span-full row-span-1 grid place-items-center pt-(--header-height) pb-8 md:pb-12 lg:pb-14 xl:pb-18">
             <h1
-                class="block w-fit text-3xl md:text-4xl font-heavy mt-8 md:mt-16 lg:mt-20 xl:mt-26"><?= $headline ?></h1>
+                class="block w-fit leading-none text-3xl md:text-4xl font-extrabold mt-8 md:mt-16 lg:mt-20 xl:mt-26"><?= $headline ?></h1>
             <?php if ($sub_headline): ?>
-                <h2 class="block w-fit text-2xl"><?= $sub_headline ?></h2>
+                <h2 class="block w-fit leading-none text-2xl font-bold"><?= $sub_headline ?></h2>
             <?php endif; ?>
         </header>
 
-        <div class="text-content flex flex-col col-span-10 col-start-2 mb-[calc(var(--spacing-grid-padding)*2)] md:mb-0 md:col-span-4 md:col-end-13 lg:col-span-3 lg:col-end-13 relative">
+        <div class="text-content flex flex-col col-span-10 col-start-2 mb-[calc(var(--spacing-grid-padding)*2)] md:mb-0 md:col-span-4 md:col-end-13 lg:col-span-3 lg:col-end-13 relative leading-[1.28]">
             <div class="text-content-wrapper sticky z-0 top-[calc(var(--header-height)+var(--grid-padding))] md:max-h-[calc(100svh-var(--header-height)-2*var(--grid-padding))] h-full flex flex-col justify-between gap-y-4">
                 <div
                     data-dom="text-content-shadow-wrapper"
