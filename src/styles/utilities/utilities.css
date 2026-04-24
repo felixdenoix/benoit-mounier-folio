@@ -1,6 +1,6 @@
 @layer components {
   .base-grid {
-    @apply grid grid-cols-(--grid-columns) px-(--spacing-grid-padding) max-w-(--grid-max-width) mx-auto gap-(--spacing-grid-padding);
+    @apply mx-auto grid max-w-(--grid-max-width) grid-cols-(--grid-columns) gap-(--spacing-grid-padding) px-(--spacing-grid-padding);
   }
 
   .sub-grid {
@@ -19,7 +19,9 @@
 
 @utility width-col-* {
   --col-width: calc((var(--grid-width) - 2 * var(--spacing-grid-padding)) / 12);
-  width: calc(var(--col-width) * --value(integer) - var(--spacing-grid-padding));
+  width: calc(
+    var(--col-width) * --value(integer) - var(--spacing-grid-padding)
+  );
 }
 
 @utility hide-scrollbar {
@@ -27,16 +29,20 @@
     display: none;
   }
 
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .grid-padding {
   @apply p-grid-padding;
 }
+
 .grid-padding-x {
   @apply px-grid-padding;
 }
+
 .grid-padding-y {
   @apply py-grid-padding;
 }
@@ -44,15 +50,19 @@
 @utility bd {
   border: 1px solid black;
 }
+
 @utility bdr {
   border: 1px solid red;
 }
+
 @utility bdg {
   border: 1px solid green;
 }
+
 @utility bdb {
   border: 1px solid blue;
 }
+
 @utility bdo {
   border: 1px solid orange;
 }
@@ -63,6 +73,7 @@
   transition: font-variation-settings 0.3s ease;
   position: relative;
   line-height: 1;
+
   &:after,
   &:before {
     font-variation-settings: "wght" var(--font-weight-bold);
@@ -73,10 +84,12 @@
     transition: opacity 0.35s ease-out;
     content: "\00B7";
   }
+
   &:before {
     left: 0;
     translate: -8px -10% 0;
   }
+
   &:after {
     right: 0;
     translate: 8px -10% 0;
@@ -84,6 +97,7 @@
 
   &[data-current=""] {
     font-variation-settings: "wght" var(--font-weight-bold);
+
     &:after,
     &:before {
       opacity: 1;
@@ -140,10 +154,16 @@
 }
 
 @utility cta {
-  @apply relative px-10 py-4 leading-none uppercase text-md font-extrabold text-cap;
+  @apply relative px-10 py-4 text-md leading-none font-extrabold uppercase text-cap;
   text-box: trim-both cap alphabetic;
 }
 
 @utility cta-light {
   @apply bg-white text-gray-text;
+}
+
+@utility noise-overlay {
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.6 0 0 0 0 0.6 0 0 0 0 0.6 0 0 0 0.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

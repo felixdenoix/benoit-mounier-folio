@@ -127,25 +127,7 @@
 <body class="font-sans antialiased box-border" style="overflow: hidden;">
     <?= snippet("site-loader") ?>
 
-    <svg style="display: none">
-        <filter id="noise-filter">
-            <!-- Creates the fractal noise pattern -->
-            <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.15"
-                numOctaves="5"
-                stitchTiles="stitch" />
-            <!-- Converts noise to semi-transparent overlay -->
-            <feColorMatrix
-                type="matrix"
-                values="0 0 0 0 0
-                  0 0 0 0 0
-                  0 0 0 0 0
-                  0 0 0 1 0" />
-        </filter>
-    </svg>
-
-    <!--<div class="overlay fixed filter-[url(#noise-filter)] top-0 left-0 h-screen w-screen z-1000 pointer-events-none bg-red-600"></div>-->
+    <div class="overlay fixed inset-0 noise-overlay z-1000 pointer-events-none"></div>
 
     <c-header
         id="c-header"
