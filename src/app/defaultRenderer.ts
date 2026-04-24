@@ -110,7 +110,17 @@ export default class DefaultRenderer extends Renderer {
     );
   }
 
-  onLeave() {}
+  onLeave() {
+    callPieceMethod(
+      {
+        selector: "c-header",
+        component: "Header",
+        method: "toggleProjectMode",
+        arguments: { activate: false },
+      },
+      document,
+    );
+  }
 
   onLeaveCompleted() {}
 
