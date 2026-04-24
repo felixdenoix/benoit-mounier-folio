@@ -10,17 +10,15 @@
  * https://getkirby.com/docs/guide/templates/controllers
  */
 return function ($page) {
-
     /**
      * We use the collection helper to fetch the notes collection defined in `/site/collections/notes.php`
      *
      * More about collections:
      * https://getkirby.com/docs/guide/templates/collections
      */
-    $projects = collection('projects');
+    $projects = page("projects")->children()->listed();
 
     return [
-        'entries' => $projects
+        "entries" => $projects,
     ];
-
 };
