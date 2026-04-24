@@ -1,5 +1,6 @@
 import { Piece } from "piecesjs";
 import debounce from "lodash/debounce";
+import throttle from "lodash/throttle";
 import { frameDOM } from "@fiddle-digital/string-tune";
 import { createThresholdArray, getIntersectionProgress } from "../utils";
 
@@ -24,6 +25,7 @@ export default class HomeExpertise extends Piece {
   private previousIsDesktop: boolean = false;
 
   private debouncedResize = debounce(() => this.setup(), 200);
+  private throttledMouseMove = throttle((e) => this.onMouseMove(e), 200, { leading: true });
 
   constructor() {
     super("HomeExpertise");
@@ -31,8 +33,11 @@ export default class HomeExpertise extends Piece {
 
   mount() {
     frameDOM.measure(() => {
+      this.previousIsDesktop = this.isDesktop;
+      this.isDesktop = window.matchMedia("(min-width: 768px)").matches;
+
       this.init();
-      this.setup();
+      this.setup(false);
     });
     window.addEventListener("resize", this.debouncedResize);
   }
@@ -41,11 +46,12 @@ export default class HomeExpertise extends Piece {
     window.removeEventListener("resize", this.debouncedResize);
     this.observer?.disconnect();
     this.expertises.forEach((exp) => {
-      exp.el.removeEventListener("mousemove", this.onMouseMove);
+      if (this.throttledMouseMove) {
+        exp.el.removeEventListener("mousemove", this.throttledMouseMove);
+      }
       exp.el.removeEventListener("mouseleave", this.onMouseLeave);
     });
   }
-
   private init() {
     this.$expertiseEls = Array.from((this.domAttr("expertise") as NodeList) || []) as HTMLAnchorElement[];
 
@@ -91,9 +97,11 @@ export default class HomeExpertise extends Piece {
     });
   }
 
-  private setup() {
-    this.previousIsDesktop = this.isDesktop;
-    this.isDesktop = window.matchMedia("(min-width: 768px)").matches;
+  private setup(deviceCheck: boolean = true) {
+    if (deviceCheck) {
+      this.previousIsDesktop = this.isDesktop;
+      this.isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    }
 
     const modeChanged = this.isDesktop !== this.previousIsDesktop;
 
@@ -110,13 +118,13 @@ export default class HomeExpertise extends Piece {
       const elProjectsCount = data.projectsCount;
 
       if (elProjectsCount > 1 && this.previousIsDesktop && !this.isDesktop) {
-        data.el.removeEventListener("mousemove", this.onMouseMove);
+        data.el.removeEventListener("mousemove", this.throttledMouseMove);
         data.el.removeEventListener("mouseleave", this.onMouseLeave);
       }
 
       if (this.isDesktop) {
         if (elProjectsCount > 1) {
-          data.el.addEventListener("mousemove", this.onMouseMove);
+          data.el.addEventListener("mousemove", this.throttledMouseMove);
           data.el.addEventListener("mouseleave", this.onMouseLeave);
           data.bcr = data.el.getBoundingClientRect();
         }
@@ -172,9 +180,8 @@ export default class HomeExpertise extends Piece {
   private onMouseMove = (e: MouseEvent) => {
     if (!this.isDesktop) return;
 
-    const target = e.currentTarget as HTMLAnchorElement;
+    const id = (e.currentTarget as HTMLAnchorElement)?.dataset.expertiseId;
     requestAnimationFrame(() => {
-      const id = target.dataset.expertiseId;
       const data = id ? this.expertises.get(id) : null;
 
       if (data && data.bcr) {
@@ -186,6 +193,7 @@ export default class HomeExpertise extends Piece {
 
   private onMouseLeave = () => {
     if (!this.isDesktop) return;
+    if (this.throttledMouseMove) this.throttledMouseMove.cancel();
     this.setActiveExpertise(null);
   };
 
@@ -208,6 +216,7 @@ export default class HomeExpertise extends Piece {
     }
   }
 
+  // Only in use for mobile client as desktop is using hover
   private toggleExpertise(id: string, active: boolean) {
     const data = this.expertises.get(id);
     if (!data) return;
@@ -218,7 +227,7 @@ export default class HomeExpertise extends Piece {
       if (!this.isDesktop && data.mobileMediaGroup) {
         data.mobileMediaGroup.classList.toggle("opacity-100!", active);
         data.mobileMediaGroup.classList.toggle("scale-101!", active);
-        // both classes are inlined by tailwind in index.js
+        // // both classes are inlined by tailwind in index.js
         // data.mobileMediaGroup.classList.toggle("opacity-0", !active);
         // data.mobileMediaGroup.classList.toggle("scale-99", !active);
       }
@@ -239,11 +248,11 @@ export default class HomeExpertise extends Piece {
 
       assets.forEach((asset, i) => {
         const isActive = i === index;
-        asset.classList.toggle("opacity-0", !isActive);
-        asset.classList.toggle("scale-99!", !isActive);
+        asset.classList.toggle("opacity-100!", isActive);
+        asset.classList.toggle("scale-101!", isActive);
         // We don't necessarily need to add opacity-100 if the PHP starts with it or other classes,
         // but for safety and to match the 'hide' logic:
-        if (isActive) asset.classList.remove("opacity-0", "scale-99!");
+        if (!isActive) asset.classList.remove("opacity-100!", "scale-101!");
       });
 
       data.activeAssetIndex = index;
