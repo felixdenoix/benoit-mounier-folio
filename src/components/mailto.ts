@@ -14,7 +14,7 @@ export default class Mailto extends Piece {
 
     this.insertAdjacentHTML(
       "beforeend",
-      `<span class="success block absolute opacity-0 bg-inherit w-full text-center pointer-events-none">COPIÉ</span>`,
+      `<span class="success block col-start-1 row-start-1 text-inherit opacity-0 bg-inherit w-fit text-center pointer-events-none font-[number:inherit] whitespace-nowrap">adresse copiée</span>`,
     );
 
     this.$link = this.$("a[href]") as HTMLLinkElement;

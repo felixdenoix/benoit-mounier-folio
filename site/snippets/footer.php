@@ -26,7 +26,7 @@
         class="footer box-border block shadow-md-upwards-proximity">
         <div class="base-grid w-full py-8 mb:py-grid-padding px-grid-padding">
             <div class="col-span-full flex justify-center">
-                <?php snippet("navigation", ["classes" => "text-md font-extrabold width-auto gap-5 md:gap-0 md:width-col-4 lg:width-col-3"]); ?>
+                <?php snippet("navigation", ["classes" => "text-md font-extrabold width-auto gap-8 md:gap-0 md:width-col-4 lg:width-col-3"]); ?>
             </div>
         </div>
         <div class="bg-black w-full leading-none">
@@ -34,23 +34,23 @@
                 <div class="col-span-full flex justify-between items-end">
                     <div class="flex flex-col gap-2">
                         <a
-                            class="logo block font-extrabold flex-1 text-center uppercase"
+                            class="logo block font-extrabold flex-1 text-center uppercase h-"
                             href="<?= $site->url() ?>">
-                            <h2><?= $site->title()->esc() ?></h2>
+                            <h2 class="leading-none"><?= $site->title()->esc() ?></h2>
                         </a>
                         <a class="block link [text-box-trim:trim-both] text-xs flex-1 text-left" href="<?= page(
                             "mentions-legales",
                         )?->url() ?>">mentions légales</a>
                     </div>
-                    <div class="flex-col gap-1 flex text-right">
-                        <c-mailto>
+                    <div class="flex-col gap-2 flex text-right text-white">
+                        <c-mailto class="grid place-items-end w-fit font-extrabold">
                             <a
                                 data-events-click="handleClick"
                                 href="mailto:<?= $site->email() ?>"
-                                class="block font-extrabold"><span class=" pointer-events-none">contact</span>
+                                class="block col-start-1 row-start-1"><span class=" pointer-events-none">contact</span>
                             </a>
                         </c-mailto>
-                        <a class="block link [text-box-trim:trim-both] flex-1 text-xs text-right" href="https://felixdenoix.fr">site par</a>
+                        <a class="block link [text-box-trim:trim-both] flex-1 text-xs text-right" rel="noopener" target="_blank"  href="https://felixdenoix.fr">site par</a>
                     </div>
                 </div>
             </div>

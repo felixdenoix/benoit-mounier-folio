@@ -1,5 +1,3 @@
-<div class="bg-amber-100 h-screen"></div>
-
 <c-home-expertise
     class="wrapper relative w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 text-white">
 
@@ -37,7 +35,7 @@
                                         "class" =>
                                             "w-full h-full object-contain object-center scale-101 transition duration-400 brightness-80 ease-projects " .
                                             ($item["projects_count"] > 1 ? "opacity-0 scale-99!" : "opacity-100"),
-                                        "sizes" => "600px",
+                                        "sizes" => "400px",
                                     ],
                                 ],
                             ],
@@ -104,11 +102,11 @@
 
         <?php if ($site->email()->isNotEmpty()): ?>
             <c-mailto
-                class="cta cta-light grid place-items-center w-fit">
+                class="cta cta-light grid place-items-center w-fit uppercase">
                 <a
                     data-events-click="handleClick"
                     href="mailto:<?= $site->email() ?>"
-                    class="block"><span class=" pointer-events-none">contact</span>
+                    class="block col-start-1 row-start-1"><span class=" pointer-events-none">contact</span>
                 </a>
             </c-mailto>
         <?php endif; ?>

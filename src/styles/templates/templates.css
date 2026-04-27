@@ -5,9 +5,13 @@
     ul {
       @apply list-inside list-disc;
       li {
+        list-style-type: "•  ";
         * {
           display: inline;
         }
+      }
+      ::marker {
+        font-weight: 300;
       }
     }
   }

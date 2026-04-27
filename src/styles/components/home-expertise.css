@@ -4,6 +4,9 @@ c-home-expertise {
     *:focus-visible,
     :focus-within {
       outline: none !important;
+      border-color: transparent;
+      -webkit-box-shadow: none;
+      box-shadow: none;
     }
   }
 }

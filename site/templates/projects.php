@@ -25,13 +25,13 @@
 
 <div class="pt-(--header-height)">
 
-    <header class="heading py-20 p-20 grid place-items-center">
-        <h1 class="text-3xl font-bold">PROJETS</h1>
+    <header class="heading pt-(--header-height) pb-8 md:pb-12 lg:pb-14 xl:pb-18 p-10 grid place-items-center">
+        <h1 class="leading-none text-3xl md:text-4xl font-extrabold">PROJETS</h1>
     </header>
 
     <ul
         style="--row-height: calc(100%/3);"
-        class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group mb-grid-padding md:mb-20">
+        class="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-(--spacing-grid-padding) group mb-10 md:mb-20">
 
         <?php foreach ($entries as $project): ?>
             <li class="col-span-1 grid place-content-center aspect-3/2 relative place-items-stretch not-pointer-coarse:group-has-[:hover]:*:brightness-90 group-has-[:focus]:*:brightness-90 hover:*:scale-103 hover:*:brightness-100! focus:*:scale-103 focus:*:brightness-100! overflow-hidden transition duration-750 ease-projects" tabindex="0">

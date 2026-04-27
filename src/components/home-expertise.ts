@@ -316,6 +316,11 @@ export default class HomeExpertise extends Piece {
         () => {
           tl.clear();
           this.classList.remove("hide-focus");
+
+          const activeElement = document.activeElement as HTMLElement;
+          if (activeElement) {
+            activeElement.blur();
+          }
         },
         { once: true },
       );
