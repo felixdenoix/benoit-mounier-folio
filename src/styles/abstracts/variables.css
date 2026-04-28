@@ -21,7 +21,7 @@
 
 /* To use whenever needing to size element by columns but without using grid columns*/
 @property --col-width {
-  syntax: "length";
+  syntax: "<length>";
   inherits: false;
   initial-value: 0px;
 }

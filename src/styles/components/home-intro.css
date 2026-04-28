@@ -8,20 +8,34 @@
   inherits: true;
   initial-value: 0;
 }
-@property --animation-index {
+/*@property --animation-index {
   syntax: "<number>";
   inherits: true;
   initial-value: 0;
-}
-@property --animation-count {
+}*/
+/*@property --animation-count {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}*/
+
+@property --speed {
   syntax: "<number>";
   inherits: true;
   initial-value: 1;
 }
 
-c-home-intro {
-  /* Critical css in index.css */
-  clip-path: inset(0);
+@property --start-y {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@scope (c-home-intro) {
+  :scope {
+    /* Critical css in index.css */
+    clip-path: inset(0);
+  }
 
   .scene {
     contain: paint;
@@ -41,87 +55,34 @@ c-home-intro {
 
     html.-string & {
       &.animation-mode-random,
-      &.animation-mode-none,
       &.animation-mode-stagger,
       &.animation-mode-simultaneous {
         overflow: hidden;
+
+        .from-top {
+          will-change: transform;
+          backface-visibility: hidden;
+          --t: clamp(0, var(--progress-slice) * var(--speed), 1);
+          transform: translate3d(0, calc((1 - var(--t)) * var(--start-y)), 0);
+        }
+
+        .from-bottom {
+          will-change: transform;
+          backface-visibility: hidden;
+          --t: clamp(0, var(--progress-slice) * var(--speed), 1);
+          transform: translate3d(0, calc((1 - var(--t)) * var(--start-y)), 0);
+        }
+
+        .from-fade {
+          will-change: opacity;
+          backface-visibility: hidden;
+          --local-progress: calc(var(--progress-slice) * var(--speed));
+          opacity: clamp(0, var(--local-progress), 1);
+        }
       }
 
       &.animation-mode-none {
         transform: unset;
-      }
-
-      &.animation-mode-random,
-      &.animation-mode-stagger {
-        /* variation between stagger and random handled in snippet `snippets/home-intro` */
-
-        .from-top {
-          will-change: transform;
-          backface-visibility: hidden;
-          --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
-          --start-y: calc(-100% - (var(--animation-index) * 30%));
-          --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          transform: translate3d(
-            0,
-            round(calc((1 - var(--t)) * var(--start-y)), 0.1px),
-            0
-          );
-        }
-
-        .from-bottom {
-          will-change: transform;
-          backface-visibility: hidden;
-          --speed: calc(1 + (var(--animation-index) / var(--animation-count)));
-          --start-y: calc(100% + (var(--animation-index) * 10%));
-          --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          transform: translate3d(
-            0,
-            round(calc((1 - var(--t)) * var(--start-y)), 0.1px),
-            0
-          );
-        }
-
-        .from-fade {
-          will-change: opacity;
-          backface-visibility: hidden;
-          --speed: calc(1 + var(--animation-index) / var(--animation-count));
-          --local-progress: calc(var(--progress-slice) * var(--speed));
-          opacity: round(clamp(0, var(--local-progress), 1), 0.01);
-        }
-      }
-
-      &.animation-mode-simultaneous {
-        --speed: 1.25;
-        --animation-offset: 10%;
-        .from-top {
-          will-change: transform;
-          backface-visibility: hidden;
-          --start-y: calc(-100% - var(--animation-offset));
-          --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          transform: translate3d(
-            0,
-            round(calc((1 - var(--t)) * var(--start-y)), 0.1px),
-            0
-          );
-        }
-        .from-bottom {
-          will-change: transform;
-          backface-visibility: hidden;
-          --start-y: calc(100% + var(--animation-offset));
-          --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          transform: translate3d(
-            0,
-            round(calc((1 - var(--t)) * var(--start-y)), 0.1px),
-            0
-          );
-        }
-        .from-fade {
-          will-change: opacity;
-          backface-visibility: hidden;
-          --speed: calc(1 + var(--animation-index) / var(--animation-count));
-          --local-progress: calc(var(--progress-slice) * var(--speed));
-          opacity: round(clamp(0, var(--local-progress, 1), 1), 0.01);
-        }
       }
     }
   }

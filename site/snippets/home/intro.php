@@ -108,8 +108,8 @@ foreach ($introItems as $introItem):
                                     "class" => ["absolute h-full w-full inset-0 z-1 object-contain object-center from-top"],
                                     "style" => [
                                         new CssStyle([
-                                            "--animation-index" => $img["animationIndex"],
-                                            "--animation-count" => $img["animationCount"],
+                                            "--speed" => $img["speed"],
+                                            "--start-y" => $img["startY"],
                                         ]),
                                     ],
                                 ],
@@ -146,8 +146,8 @@ foreach ($introItems as $introItem):
                                     "class" => ["absolute h-full w-full inset-0 z-2 object-contain object-center from-bottom"],
                                     "style" => [
                                         new CssStyle([
-                                            "--animation-index" => $img["animationIndex"],
-                                            "--animation-count" => $img["animationCount"],
+                                            "--speed" => $img["speed"],
+                                            "--start-y" => $img["startY"],
                                         ]),
                                     ],
                                 ],
@@ -184,8 +184,8 @@ foreach ($introItems as $introItem):
                                     "class" => ["block absolute bottom-0 h-screen w-full object-contain object-center z-3 from-fade"],
                                     "style" => [
                                         new CssStyle([
-                                            "--animation-index" => $img["animationIndex"],
-                                            "--animation-count" => $img["animationCount"],
+                                            "--speed" => $img["speed"],
+                                            "--start-y" => $img["startY"],
                                         ]),
                                     ],
                                 ],

@@ -72,7 +72,7 @@ return function ($page) {
             $animationClasses = "animation-mode-{$scene->animation_mode()}";
 
             // Process scene images for LQIP
-            $processImages = function ($filesField, $animationMode) {
+            $processImages = function ($filesField, $animationMode, $type) {
                 $files = $filesField->toFiles();
                 $count = $files->count();
                 $indexes = range(1, $count);
@@ -83,6 +83,25 @@ return function ($page) {
                 $results = [];
                 $fIndex = 0;
                 foreach ($files as $file) {
+                    $index = $indexes[$fIndex];
+
+                    // Math matching home-intro.css
+                    $speed = round(1 + $index / $count, 5);
+                    if ($animationMode === "simultaneous" && ($type === "top" || $type === "bottom")) {
+                        $speed = 1.25;
+                    }
+
+                    $startY = 0;
+                    if ($type === "top") {
+                        $offset = $animationMode === "simultaneous" ? 10 : 30;
+                        // write on two lines because of tkn php fixer
+                        $startY = -100;
+                        $startY = $startY - $index * $offset;
+                    } elseif ($type === "bottom") {
+                        $offset = $animationMode === "simultaneous" ? 10 : 10;
+                        $startY = 100 + $index * $offset;
+                    }
+
                     $results[] = [
                         "file" => $file,
                         "lqip" =>
@@ -95,8 +114,10 @@ return function ($page) {
                                 ])
                                 ->base64() .
                             ")",
-                        "animationIndex" => $indexes[$fIndex],
+                        "animationIndex" => $index,
                         "animationCount" => $count,
+                        "speed" => $speed,
+                        "startY" => $startY . "%",
                     ];
                     $fIndex++;
                 }
@@ -108,9 +129,9 @@ return function ($page) {
                 "stringPartOf" => $stringPartOf,
                 "classes" => $scrollClasses . " " . $animationClasses,
                 "index" => $sceneIndex,
-                "imagesFt" => $processImages($scene->images_ft(), $scene->animation_mode()),
-                "imagesFb" => $processImages($scene->images_fb(), $scene->animation_mode()),
-                "imagesFade" => $processImages($scene->images_fade(), $scene->animation_mode()),
+                "imagesFt" => $processImages($scene->images_ft(), $scene->animation_mode(), "top"),
+                "imagesFb" => $processImages($scene->images_fb(), $scene->animation_mode(), "bottom"),
+                "imagesFade" => $processImages($scene->images_fade(), $scene->animation_mode(), "fade"),
             ];
             $sceneIndex++;
         }
