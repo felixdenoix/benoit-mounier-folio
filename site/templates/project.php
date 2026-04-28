@@ -87,11 +87,12 @@ $previous_project = $page->prevListed() ?? $page->templateSiblings(false)->liste
                                 <?php
                                 $block_index = 0;
                                 foreach ($column->blocks() as $block): ?>
-                                    <div class="h-full flex flex-col justify-stretch gap-2.5 [&_li:not(:last-of-type)]:mb-2.5 block-type-<?= $block->type() ?> *:h-full">
+                                    <div class="h-full flex flex-col justify-stretch gap-2.5 [&_li:not(:last-of-type)]:mb-2.5 block-type-<?= $block->type() ?>">
                                         <?php snippet("blocks/" . $block->type(), [
                                             "block" => $block,
                                             "layout" => $layout,
                                             "loading" => $index < 1 && $column_index < 2 && $block_index < 3 ? "eager" : "lazy",
+                                            "css_class" => "h-full",
                                         ]); ?>
                                     </div>
                                 <?php $block_index++;endforeach;
@@ -106,8 +107,8 @@ $previous_project = $page->prevListed() ?? $page->templateSiblings(false)->liste
             ?>
         </div>
 
-        <div class="col-span-full flex items-stretch *:w-full mt-10" data-dom="bottom-nav">
-            <?php snippet("project-nav", ["classes" => "justify-between"]); ?>
+        <div class="col-span-full flex items-stretch mt-10" data-dom="bottom-nav">
+            <?php snippet("project-nav", ["classes" => "w-full justify-between"]); ?>
         </div>
 
     </article>

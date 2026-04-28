@@ -2,7 +2,7 @@
 /** @var \Kirby\Cms\Block $block */
 ?>
 
-<div class="gallery-simple overriden">
+<div class="gallery-simple overriden <?= isset($css_class) && $css_class ? $css_class : "" ?>">
     <ul class="h-full flex flex-col justify-stretch ">
         <?php foreach ($block->medias()->toFiles() as $image): ?>
             <li class="h-full">

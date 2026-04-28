@@ -13,7 +13,7 @@
 </div>
 </main>
 
-<c-footer>
+<c-footer class="content-visibility-auto">
     <footer
         string="progress|proximity[smooth]"
         string-radius="300"
@@ -23,7 +23,7 @@
         string-exit-vp="bottom"
         string-offset-top="-40sh"
         string-easing="cubic-bezier(0.44,0.07,0.41,1)"
-        class="footer box-border block shadow-md-upwards-proximity">
+        class="footer box-border block shadow-md-upwards-proximity relative overflow-x-hidden">
         <div class="base-grid w-full py-8 mb:py-grid-padding px-grid-padding">
             <div class="col-span-full flex justify-center">
                 <?php snippet("navigation", ["classes" => "text-md font-extrabold width-auto gap-8 md:gap-0 md:width-col-4 lg:width-col-3"]); ?>

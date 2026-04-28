@@ -13,12 +13,12 @@
 */
 ?>
 <?php if ($block->url()->isNotEmpty()): ?>
-<figure>
+<figure class="<?= isset($css_class) && $css_class ? $css_class : "" ?>">
   <span class="video" style="--w:16;--h:9">
     <?= video($block->url()) ?>
   </span>
   <?php if ($block->caption()->isNotEmpty()): ?>
   <figcaption class="video-caption"><?= $block->caption() ?></figcaption>
-  <?php endif ?>
+  <?php endif; ?>
 </figure>
-<?php endif ?>
+<?php endif; ?>

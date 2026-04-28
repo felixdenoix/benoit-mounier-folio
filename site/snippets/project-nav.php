@@ -10,7 +10,7 @@ $compact ??= false;
         <a
             class="peer/prev flex-1/3 flex gap-4 z-10 items-center relative after:content-[''] after:absolute after:-inset-x-2 after:z-10 after:inset-y-0 group/prev"
             href="<?= $previous->url() ?>">
-            <span class="block *:h-5 *:w-auto transition-transform duration-500 ease-projects not-pointer-coarse:group-hover/prev:scale-110"><?= svg(
+            <span class="block [&_svg]:h-5 [&_svg]:w-auto transition-transform duration-500 ease-projects not-pointer-coarse:group-hover/prev:scale-110"><?= svg(
                 "assets/icons/chevron.svg",
             ) ?></span>
             <span class="flex flex-col">
@@ -36,7 +36,7 @@ $compact ??= false;
                         ? "hidden"
                         : "" ?>">Suivant</span>
                 </span>
-            <span class="block *:h-5 *:w-auto rotate-180 transition-transform duration-500 ease-projects not-pointer-coarse:group-hover/next:scale-110"><?= svg(
+            <span class="block [&_svg]:h-5 [&_svg]:w-auto rotate-180 transition-transform duration-500 ease-projects not-pointer-coarse:group-hover/next:scale-110"><?= svg(
                 "assets/icons/chevron.svg",
             ) ?></span>
         </a>

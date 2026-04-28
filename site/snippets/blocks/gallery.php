@@ -1,7 +1,7 @@
 <?php
 /** @var \Kirby\Cms\Block $block */
 ?>
-<figure class="gallery">
+<figure class="gallery <?= isset($css_class) && $css_class ? $css_class : "" ?>">
   <ul>
     <?php foreach ($block->images()->toFiles() as $image): ?>
     <li>

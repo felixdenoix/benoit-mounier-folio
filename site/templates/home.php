@@ -46,7 +46,7 @@
           -50% - 1/2*(100%/paragraph-repeat-count)
       -->
       <p
-        class="sticky *:inline-block top-[calc(50vh-var(--paragraph-height)/2)] text-white"
+        class="sticky top-[calc(50vh-var(--paragraph-height)/2)] text-white [&_span]:inline-block"
         string="split"
         string-split="word"><?= $page->hiatus()->sp()->kirbytextinline()->splitsubelements("strong", 'class="text-gray-text-light font-bold"') ?></p>
     </c-text-reveal>
