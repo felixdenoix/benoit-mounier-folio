@@ -41,10 +41,6 @@
       string-exit-vp="bottom"
       string-easing="cubic-bezier(.19,.6,.4,.85)"
     >
-      <!--
-        ajusting scroll height and offset
-          -50% - 1/2*(100%/paragraph-repeat-count)
-      -->
       <p
         class="sticky top-[calc(50vh-var(--paragraph-height)/2)] text-white [&_span]:inline-block"
         string="split"

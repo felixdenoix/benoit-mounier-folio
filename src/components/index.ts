@@ -19,10 +19,6 @@ export const components: ComponentDefinition[] = [
     loader: () => import("./home-expertise.ts"),
   },
   {
-    tag: "c-home-intro",
-    loader: () => import("./home-intro.ts"),
-  },
-  {
     tag: "c-mailto",
     loader: () => import("./mailto.ts"),
   },

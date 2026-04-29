@@ -20,14 +20,17 @@ export default class HomeRenderer extends DefaultRenderer {
 
   onEnterCompleted(): void {
     globalThis.app.smoothScroll?.onResize(true);
-    setTimeout(() => {
-      requestAnimationFrame(() => {
-        callPieceMethod({
-          selector: "c-homepage",
-          component: "HomePage",
-          method: "introAnimation",
+
+    if (globalThis.app.smoothScroll?.scrollPosition === 0) {
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          callPieceMethod({
+            selector: "c-homepage",
+            component: "HomePage",
+            method: "introAnimation",
+          });
         });
-      });
-    }, 500);
+      }, 500);
+    }
   }
 }

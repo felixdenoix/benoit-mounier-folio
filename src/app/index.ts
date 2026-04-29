@@ -30,9 +30,11 @@ export default class App {
   public consts: {
     innerHeight: number;
     innerWidth: number;
+    vh: number;
   } = {
     innerHeight: 0,
     innerWidth: 0,
+    vh: 0,
   };
 
   async init() {
@@ -65,7 +67,7 @@ export default class App {
     this.handleStylesheetLoading(onStylesheetsLoaded);
   }
 
-  private debouncedResizeHandler = debounce((e) => this.resizeHandler(e), 300);
+  private debouncedResizeHandler = debounce((e) => this.resizeHandler(e), 500);
   resizeHandler(e: Event) {
     this.initGlobalVars(e);
     this.smoothScroll?.onResize(true);
@@ -185,8 +187,10 @@ export default class App {
   private initGlobalVars(e?: Event) {
     frameDOM.measure(() => {
       const windowElement = (e?.target as Window) || window;
+      const ruler = windowElement.document.getElementById("ruler") as HTMLElement;
       this.rootStyles = getComputedStyle(windowElement.document.documentElement);
 
+      this.consts.vh = ruler.getBoundingClientRect().height / 100;
       this.consts.innerHeight = windowElement.innerHeight;
       this.consts.innerWidth = windowElement.innerWidth;
     });

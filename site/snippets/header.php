@@ -17,7 +17,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
     <?php
 /*
@@ -129,7 +129,8 @@
 <body class="font-sans antialiased box-border" style="overflow: hidden;">
     <?= snippet("site-loader") ?>
 
-    <div class="overlay fixed inset-0 noise-overlay z-1000 pointer-events-none"></div>
+    <!--<div class="overlay fixed inset-0 noise-overlay z-1000 pointer-events-none"></div>-->
+    <div class="ruler invisible h-screen absolute" id="ruler"></div>
 
     <c-header
         id="c-header"

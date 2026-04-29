@@ -12,13 +12,13 @@ foreach ($introItems as $introItem):
     $style = new CssStyle([
         "--bgc" => $sceneData->background_color()->or("white"),
         "--scenes-count" => $scenes_count,
-        "--scenes-height" => "calc($scene_height_multiplicator * 100vh)",
+        "--scenes-height" => "calc($scene_height_multiplicator * 100lvh)",
         "--section-index" => $introItem["index"] * 10,
     ]);
     ?>
 
-    <c-home-intro
-        class="block relative bg-(--bgc) w-full h-(--scenes-height) <?= $height_class ?> object-center object-contain px-[5%] lg:px-[10%] z-(--section-index)"
+    <div
+        class="c-home-intro block relative bg-(--bgc) w-full h-(--scenes-height) <?= $height_class ?> object-center object-contain px-[5%] lg:px-[10%] z-(--section-index) contain-strict"
         string="progress"
         string-key="--home-intro-progress"
         string-id="<?= $intro_block_id ?>"
@@ -35,10 +35,10 @@ foreach ($introItems as $introItem):
 
         <?php if ($introItem["background"] || $sceneData->title()->isNotEmpty()): ?>
 
-            <div class="background-wrapper absolute h-(--scenes-height) w-9/10 lg:w-8/10 ">
+            <div class="background-wrapper overflow-clip absolute h-(--scenes-height) w-9/10 lg:w-8/10 ">
                 <div
                     data-background
-                    class="sticky grid place-items-center z-1 top-0 h-screen w-full left-[5%] lg:left-[10%]">
+                    class="sticky grid place-items-center z-1 top-0 h-lvh w-full left-[5%] lg:left-[10%]">
                     <?php if ($introItem["background"]): ?>
 
                         <?php snippet("imagex-picture", [
@@ -46,7 +46,7 @@ foreach ($introItems as $introItem):
                             "attributes" => [
                                 "picture" => [
                                     "shared" => [
-                                        "class" => "absolute h-full w-full inset-0 z-1 object-contain object-center",
+                                        "class" => "absolute h-lvh w-full inset-0 z-1 object-contain object-center",
                                     ],
                                 ],
                                 "img" => [
@@ -97,15 +97,53 @@ foreach ($introItems as $introItem):
             <div
                 string="progress-part"
                 string-part-of="<?= $scene["stringPartOf"] ?>"
-                class="z-10 scene top-0 sticky h-screen w-full [contain:strict] <?= $scene["classes"] ?>">
+                class="z-10 scene top-0 sticky h-lvh w-full <?= $scene["classes"] ?>">
 
-                <?php foreach ($scene["imagesFt"] as $img): ?>
+                <?php foreach ($scene["imagesFade"] as $index => $img): ?>
                     <?php snippet("imagex-picture", [
                         "image" => $img["file"],
                         "attributes" => [
                             "picture" => [
                                 "shared" => [
-                                    "class" => ["absolute h-full w-full inset-0 z-1 object-contain object-center from-top"],
+                                    "class" => ["block absolute bottom-0 h-lvh w-full object-contain object-center z-3 from-fade"],
+                                    "style" => [
+                                        new CssStyle([
+                                            "--speed" => $img["speed"],
+                                            "--start-y" => $img["startY"],
+                                        ]),
+                                    ],
+                                ],
+                            ],
+                            "img" => [
+                                "shared" => [
+                                    "alt" => $img["file"]->alt() ?? "",
+                                    "class" => ["h-lvh w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
+                                    "style" => [
+                                        new CssStyle([
+                                            "--bg-image" => $img["lqip"],
+                                        ]),
+                                    ],
+                                    "sizes" => "100vw",
+                                ],
+                            ],
+                            "sources" => [
+                                "shared" => [
+                                    "sizes" => "100vw",
+                                ],
+                            ],
+                        ],
+                        "srcset" => "ben-srcset",
+                        "loading" => $scene_index === 0 ? "eager" : "lazy",
+                    ]); ?>
+                <?php endforeach; ?>
+
+                <?php foreach ($scene["imagesFt"] as $index => $img): ?>
+                    <?php snippet("imagex-picture", [
+                        "image" => $img["file"],
+                        "attributes" => [
+                            "picture" => [
+                                "shared" => [
+                                    "class" => ["absolute h-lvh w-full inset-0 z-1 object-contain object-center from-top"],
                                     "style" => [
                                         new CssStyle([
                                             "--speed" => $img["speed"],
@@ -137,13 +175,13 @@ foreach ($introItems as $introItem):
                     ]); ?>
                 <?php endforeach; ?>
 
-                <?php foreach ($scene["imagesFb"] as $img): ?>
+                <?php foreach ($scene["imagesFb"] as $index => $img): ?>
                     <?php snippet("imagex-picture", [
                         "image" => $img["file"],
                         "attributes" => [
                             "picture" => [
                                 "shared" => [
-                                    "class" => ["absolute h-full w-full inset-0 z-2 object-contain object-center from-bottom"],
+                                    "class" => ["absolute h-lvh w-full inset-0 z-2 object-contain object-center from-bottom"],
                                     "style" => [
                                         new CssStyle([
                                             "--speed" => $img["speed"],
@@ -175,46 +213,9 @@ foreach ($introItems as $introItem):
                     ]); ?>
                 <?php endforeach; ?>
 
-                <?php foreach ($scene["imagesFade"] as $img): ?>
-                    <?php snippet("imagex-picture", [
-                        "image" => $img["file"],
-                        "attributes" => [
-                            "picture" => [
-                                "shared" => [
-                                    "class" => ["block absolute bottom-0 h-screen w-full object-contain object-center z-3 from-fade"],
-                                    "style" => [
-                                        new CssStyle([
-                                            "--speed" => $img["speed"],
-                                            "--start-y" => $img["startY"],
-                                        ]),
-                                    ],
-                                ],
-                            ],
-                            "img" => [
-                                "shared" => [
-                                    "alt" => $img["file"]->alt() ?? "",
-                                    "class" => ["h-screen w-full object-contain bg-contain bg-center bg-[var(--bg-image)]"],
-                                    "style" => [
-                                        new CssStyle([
-                                            "--bg-image" => $img["lqip"],
-                                        ]),
-                                    ],
-                                    "sizes" => "100vw",
-                                ],
-                            ],
-                            "sources" => [
-                                "shared" => [
-                                    "sizes" => "100vw",
-                                ],
-                            ],
-                        ],
-                        "srcset" => "ben-srcset",
-                        "loading" => $scene_index === 0 ? "eager" : "lazy",
-                    ]); ?>
-                <?php endforeach; ?>
             </div>
         <?php
         endforeach; ?>
-    </c-home-intro>
+    </div>
 <?php
 endforeach; ?>

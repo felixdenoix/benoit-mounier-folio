@@ -31,15 +31,13 @@
   initial-value: 0;
 }
 
-@scope (c-home-intro) {
+@scope (div.c-home-intro) {
   :scope {
     /* Critical css in index.css */
     clip-path: inset(0);
   }
 
   .scene {
-    contain: paint;
-
     .from-top {
       transition: transform 0.35s ease-out;
       transform: translate3d(0, -100%, 0);
@@ -61,23 +59,34 @@
 
         .from-top {
           will-change: transform;
-          backface-visibility: hidden;
-          --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          transform: translate3d(0, calc((1 - var(--t)) * var(--start-y)), 0);
+          /*backface-visibility: hidden;*/
+          transform: translate3d(
+            0,
+            calc(
+              (1 - clamp(0, var(--progress-slice) * var(--speed), 1)) *
+                var(--start-y)
+            ),
+            0
+          );
         }
 
         .from-bottom {
           will-change: transform;
-          backface-visibility: hidden;
-          --t: clamp(0, var(--progress-slice) * var(--speed), 1);
-          transform: translate3d(0, calc((1 - var(--t)) * var(--start-y)), 0);
+          /*backface-visibility: hidden;*/
+          transform: translate3d(
+            0,
+            calc(
+              (1 - clamp(0, var(--progress-slice) * var(--speed), 1)) *
+                var(--start-y)
+            ),
+            0
+          );
         }
 
         .from-fade {
           will-change: opacity;
-          backface-visibility: hidden;
-          --local-progress: calc(var(--progress-slice) * var(--speed));
-          opacity: clamp(0, var(--local-progress), 1);
+          /*backface-visibility: hidden;*/
+          opacity: clamp(0, calc(var(--progress-slice) * var(--speed)), 1);
         }
       }
 

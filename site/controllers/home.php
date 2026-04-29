@@ -86,7 +86,7 @@ return function ($page) {
                     $index = $indexes[$fIndex];
 
                     // Math matching home-intro.css
-                    $speed = round(1 + $index / $count, 5);
+                    $speed = round(1 + $index / $count, 2);
                     if ($animationMode === "simultaneous" && ($type === "top" || $type === "bottom")) {
                         $speed = 1.25;
                     }
