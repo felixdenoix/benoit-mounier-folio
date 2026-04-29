@@ -18,8 +18,9 @@ foreach ($introItems as $introItem):
     ?>
 
     <div
-        class="c-home-intro block relative bg-(--bgc) w-full h-(--scenes-height) <?= $height_class ?> object-center object-contain px-[5%] lg:px-[10%] z-(--section-index) contain-[layout_paint]"
+        class="c-home-intro block relative bg-(--bgc) w-full h-(--scenes-height) <?= $height_class ?> object-center object-contain px-[5%] lg:px-[10%] z-(--section-index)"
         string="progress"
+        string-repeat="true"
         string-key="--home-intro-progress"
         string-id="<?= $intro_block_id ?>"
         <?php if ($introItem["index"] === 0): ?>
@@ -53,12 +54,12 @@ foreach ($introItems as $introItem):
                                     "shared" => [
                                         "alt" => $introItem["background"]->alt() ?? "",
                                         "class" => "h-full w-full object-contain",
-                                        "sizes" => "(min-width: 1024px) 80vw, 30vw",
+                                        "sizes" => "(min-width: 768px) 80vw, 30vw",
                                     ],
                                 ],
                                 "sources" => [
                                     "shared" => [
-                                        "sizes" => "(min-width: 1024px) 80vw, 30vw",
+                                        "sizes" => "(min-width: 768px) 80vw, 30vw",
                                     ],
                                 ],
                             ],
@@ -95,16 +96,6 @@ foreach ($introItems as $introItem):
                 class="z-10 scene top-0 sticky h-lvh w-full <?= $scene["classes"] ?>">
 
                 <?php foreach ($scene["imagesFt"] as $img): ?>
-
-                    <!--<img
-                        src="<?= $img["file"]->resize(400)->url() ?>"
-                        class="absolute md:hidden h-lvh w-full inset-0 z-1 object-contain object-center from-top"
-                        style="<?= new CssStyle([
-                            "--speed" => $img["speed"],
-                            "--start-y" => $img["startY"],
-                        ]) ?>" />-->
-                    <!--
-                    -->
                     <?php snippet("imagex-picture", [
                         "image" => $img["file"],
                         "attributes" => [
@@ -115,6 +106,7 @@ foreach ($introItems as $introItem):
                                         new CssStyle([
                                             "--speed" => $img["speed"],
                                             "--start-y" => $img["startY"],
+                                            "transform" => "translateY(calc((1 - clamp(0, var(--progress-slice) * var(--speed), 1)) * var(--start-y)))", // transform is placed here instead of in css to prevent tailwind from transforming it to translate3d to prevent the creation of a new composition layer
                                         ]),
                                     ],
                                 ],
@@ -123,13 +115,13 @@ foreach ($introItems as $introItem):
                                 "shared" => [
                                     "alt" => $img["file"]->alt() ?? "",
                                     "class" => ["h-full w-full object-contain"],
-                                    "sizes" => "(min-width: 1024px) 80vw, 30vw",
+                                    "sizes" => "(min-width: 768px) 80vw, 30vw",
                                     "decoding" => "async",
                                 ],
                             ],
                             "sources" => [
                                 "shared" => [
-                                    "sizes" => "(min-width: 1024px) 80vw, 30vw",
+                                    "sizes" => "(min-width: 768px) 80vw, 30vw",
                                 ],
                             ],
                         ],
@@ -139,13 +131,6 @@ foreach ($introItems as $introItem):
                 <?php endforeach; ?>
 
                 <?php foreach ($scene["imagesFb"] as $img): ?>
-                    <!--<img
-                        src="<?= $img["file"]->resize(400)->url() ?>"
-                        class="md:hidden absolute h-lvh w-full inset-0 z-2 object-contain object-center from-bottom"
-                        style="<?= new CssStyle([
-                            "--speed" => $img["speed"],
-                            "--start-y" => $img["startY"],
-                        ]) ?>" />-->
                     <?php snippet("imagex-picture", [
                         "image" => $img["file"],
                         "attributes" => [
@@ -156,6 +141,8 @@ foreach ($introItems as $introItem):
                                         new CssStyle([
                                             "--speed" => $img["speed"],
                                             "--start-y" => $img["startY"],
+                                            "transform" => "translateY(
+                                            calc((1 - clamp(0, var(--progress-slice) * var(--speed), 1)) * var(--start-y)))", // transform is placed here instead of in css to prevent tailwind from transforming it to translate3d to prevent the creation of a new composition layer
                                         ]),
                                     ],
                                 ],
@@ -164,13 +151,13 @@ foreach ($introItems as $introItem):
                                 "shared" => [
                                     "alt" => $img["file"]->alt() ?? "",
                                     "class" => ["h-full w-full object-contain"],
-                                    "sizes" => "(min-width: 1024px) 80vw, 30vw",
+                                    "sizes" => "(min-width: 768px) 80vw, 30vw",
                                     "decoding" => "async",
                                 ],
                             ],
                             "sources" => [
                                 "shared" => [
-                                    "sizes" => "(min-width: 1024px) 80vw, 30vw",
+                                    "sizes" => "(min-width: 768px) 80vw, 30vw",
                                 ],
                             ],
                         ],
@@ -180,14 +167,6 @@ foreach ($introItems as $introItem):
                 <?php endforeach; ?>
 
                 <?php foreach ($scene["imagesFade"] as $img): ?>
-                    <!--<img
-                        src="<?= $img["file"]->resize(400)->url() ?>"
-                        class="md:hidden absolute bottom-0 h-lvh w-full object-contain object-center z-3 from-fade"
-                        style="<?= new CssStyle([
-                            "--speed" => $img["speed"],
-                            "--start-y" => $img["startY"],
-                        ]) ?>" />-->
-
                     <?php snippet("imagex-picture", [
                         "image" => $img["file"],
                         "attributes" => [
@@ -206,13 +185,13 @@ foreach ($introItems as $introItem):
                                 "shared" => [
                                     "alt" => $img["file"]->alt() ?? "",
                                     "class" => ["h-lvh w-full object-contain"],
-                                    "sizes" => "(min-width: 1024px) 80vw, 30vw",
+                                    "sizes" => "(min-width: 768px) 80vw, 30vw",
                                     "decoding" => "async",
                                 ],
                             ],
                             "sources" => [
                                 "shared" => [
-                                    "sizes" => "(min-width: 1024px) 80vw, 30vw",
+                                    "sizes" => "(min-width: 768px) 80vw, 30vw",
                                 ],
                             ],
                         ],

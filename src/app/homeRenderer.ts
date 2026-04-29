@@ -21,7 +21,10 @@ export default class HomeRenderer extends DefaultRenderer {
   onEnterCompleted(): void {
     globalThis.app.smoothScroll?.onResize(true);
 
-    if (globalThis.app.smoothScroll?.scrollPosition === 0) {
+    if (
+      !globalThis.app.smoothScroll?.scrollPosition ||
+      globalThis.app.smoothScroll?.scrollPosition < globalThis.app.consts.vh * 50
+    ) {
       setTimeout(() => {
         requestAnimationFrame(() => {
           callPieceMethod({
