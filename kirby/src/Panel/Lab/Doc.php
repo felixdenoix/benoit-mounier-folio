@@ -42,9 +42,9 @@ class Doc
 		public string|null $since = null,
 		public array $slots = [],
 	) {
-		$this->description = Doc::kt($this->description ?? "");
-		$this->deprecated = Doc::kt($this->deprecated ?? "");
-		$this->docBlock = Doc::kt($this->docBlock ?? "");
+		$this->description = Doc::kt($this->description ?? '');
+		$this->deprecated  = Doc::kt($this->deprecated ?? '');
+		$this->docBlock    = Doc::kt($this->docBlock ?? '');
 	}
 
 	/**
@@ -52,8 +52,9 @@ class Doc
 	 */
 	public static function exists(string $name): bool
 	{
-		return file_exists(static::file($name, "dist")) ||
-			file_exists(static::file($name, "dev"));
+		return
+			file_exists(static::file($name, 'dist')) ||
+			file_exists(static::file($name, 'dev'));
 	}
 
 	public static function factory(string $name): static|null
@@ -62,10 +63,10 @@ class Doc
 		$name = basename($name);
 
 		// read data
-		$file = static::file($name, "dev");
+		$file = static::file($name, 'dev');
 
 		if (file_exists($file) === false) {
-			$file = static::file($name, "dist");
+			$file = static::file($name, 'dist');
 		}
 
 		try {
@@ -74,8 +75,9 @@ class Doc
 			return null;
 		}
 
+
 		// filter internal components
-		if (isset($data["tags"]["internal"]) === true) {
+		if (isset($data['tags']['internal']) === true) {
 			return null;
 		}
 
@@ -83,28 +85,28 @@ class Doc
 		$gather = function (string $part, string $class) use ($data) {
 			$parts = A::map(
 				$data[$part] ?? [],
-				fn($x) => $class::factory($x)?->toArray(),
+				fn ($x) => $class::factory($x)?->toArray()
 			);
 
 			$parts = array_filter($parts);
-			usort($parts, fn($a, $b) => $a["name"] <=> $b["name"]);
+			usort($parts, fn ($a, $b) => $a['name'] <=> $b['name']);
 
 			return $parts;
 		};
 
 		return new static(
-			name: $name,
-			source: $data["sourceFile"],
-			description: $data["description"] ?? null,
-			deprecated: $data["tags"]["deprecated"][0]["description"] ?? null,
-			docBlock: $data["docsBlocks"][0] ?? null,
-			examples: $data["tags"]["examples"] ?? [],
-			events: $gather("events", Event::class),
-			isUnstable: isset($data["tags"]["unstable"]) === true,
-			methods: $gather("methods", Method::class),
-			props: $gather("props", Prop::class),
-			since: $data["tags"]["since"][0]["description"] ?? null,
-			slots: $gather("slots", Slot::class),
+			name:        $name,
+			source:      $data['sourceFile'],
+			description: $data['description'] ?? null,
+			deprecated:  $data['tags']['deprecated'][0]['description'] ?? null,
+			docBlock:    $data['docsBlocks'][0] ?? null,
+			examples:    $data['tags']['examples'] ?? [],
+			events:      $gather('events', Event::class),
+			isUnstable:  isset($data['tags']['unstable']) === true,
+			methods:     $gather('methods', Method::class),
+			props:       $gather('props', Prop::class),
+			since:       $data['tags']['since'][0]['description'] ?? null,
+			slots:       $gather('slots', Slot::class)
 		);
 	}
 
@@ -114,13 +116,13 @@ class Doc
 	public static function file(string $name, string $context): string
 	{
 		$root = match ($context) {
-			"dev" => App::instance()->root("panel") . "/tmp",
-			"dist" => App::instance()->root("panel") . "/dist/ui",
+			'dev'  => App::instance()->root('panel') . '/tmp',
+			'dist' => App::instance()->root('panel') . '/dist/ui',
 		};
 
-		$name = Str::after($name, "k-");
+		$name = Str::after($name, 'k-');
 		$name = Str::kebabToCamel($name);
-		return $root . "/" . $name . ".json";
+		return $root . '/' . $name . '.json';
 	}
 
 	/**
@@ -129,10 +131,10 @@ class Doc
 	public static function kt(string $text, bool $inline = false): string
 	{
 		return App::instance()->kirbytext($text, [
-			"markdown" => [
-				"breaks" => false,
-				"inline" => $inline,
-			],
+			'markdown' => [
+				'breaks' => false,
+				'inline' => $inline,
+			]
 		]);
 	}
 
@@ -141,16 +143,13 @@ class Doc
 	 */
 	public function lab(): string|null
 	{
-		$root = App::instance()->root("panel") . "/lab";
+		$root = App::instance()->root('panel') . '/lab';
 
-		foreach (
-			glob($root . "/{,*/,*/*/,*/*/*/}index.php", GLOB_BRACE)
-			as $example
-		) {
+		foreach (glob($root . '/{,*/,*/*/,*/*/*/}index.php', GLOB_BRACE) as $example) {
 			$props = require $example;
 
-			if (($props["docs"] ?? null) === $this->name) {
-				return Str::before(Str::after($example, $root), "index.php");
+			if (($props['docs'] ?? null) === $this->name) {
+				return Str::before(Str::after($example, $root), 'index.php');
 			}
 		}
 
@@ -159,8 +158,7 @@ class Doc
 
 	public function source(): string
 	{
-		return "https://github.com/getkirby/kirby/tree/main/panel/" .
-			$this->source;
+		return 'https://github.com/getkirby/kirby/tree/main/panel/' . $this->source;
 	}
 
 	/**
@@ -169,18 +167,18 @@ class Doc
 	public function toArray(): array
 	{
 		return [
-			"component" => $this->name,
-			"deprecated" => $this->deprecated,
-			"description" => $this->description,
-			"docBlock" => $this->docBlock,
-			"events" => $this->events,
-			"examples" => $this->examples,
-			"isUnstable" => $this->isUnstable,
-			"methods" => $this->methods,
-			"props" => $this->props,
-			"since" => $this->since,
-			"slots" => $this->slots,
-			"source" => $this->source(),
+			'component'   => $this->name,
+			'deprecated'  => $this->deprecated,
+			'description' => $this->description,
+			'docBlock'    => $this->docBlock,
+			'events'      => $this->events,
+			'examples'    => $this->examples,
+			'isUnstable'  => $this->isUnstable,
+			'methods'     => $this->methods,
+			'props'       => $this->props,
+			'since'       => $this->since,
+			'slots'       => $this->slots,
+			'source'      => $this->source(),
 		];
 	}
 
@@ -191,12 +189,12 @@ class Doc
 	public function toItem(): array
 	{
 		return [
-			"image" => [
-				"icon" => $this->isUnstable ? "lab" : "book",
-				"back" => "light-dark(white, var(--color-gray-800))",
+			'image' => [
+				'icon' => $this->isUnstable ? 'lab' : 'book',
+				'back' => 'light-dark(white, var(--color-gray-800))',
 			],
-			"text" => $this->name,
-			"link" => "/lab/docs/" . $this->name,
+			'text' => $this->name,
+			'link' => '/lab/docs/' . $this->name,
 		];
 	}
 }
