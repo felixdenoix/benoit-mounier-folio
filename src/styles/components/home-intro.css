@@ -1,3 +1,5 @@
+@reference "../index.css";
+
 @property --home-intro-progress {
   syntax: "<number>";
   inherits: true;
@@ -34,7 +36,8 @@
 @scope (div.c-home-intro) {
   :scope {
     /*contain: layout paint;*/
-    content-visibility: auto; /* Only renders the content when it's needed for the scroll */
+    content-visibility: auto;
+    contain-intrinsic-size: auto var(--scenes-height);
 
     /* Critical css in index.css */
     /*clip-path: inset(0);*/
@@ -42,11 +45,12 @@
   }
 
   .scene {
-    /*contain: layout paint;*/
+    contain: layout paint;
 
-    &:not(.-inview) {
-      visibility: hidden;
-    }
+    content-visibility: auto;
+    contain-intrinsic-size: auto 100vh;
+
+
     .from-top {
       transition: transform 0.35s ease-out;
       transform: translate3d(0, -100%, 0);
@@ -67,8 +71,10 @@
         overflow: hidden;
 
         .from-top {
-          will-change: transform;
-          backface-visibility: hidden;
+          @media (min-width: 768px) {
+            will-change: transform;
+            backface-visibility: hidden;
+          }
           transform: translate3d(
             0,
             calc(
@@ -80,8 +86,10 @@
         }
 
         .from-bottom {
-          will-change: transform;
-          backface-visibility: hidden;
+          @media (min-width: 768px) {
+            will-change: transform;
+            backface-visibility: hidden;
+          }
           transform: translate3d(
             0,
             calc(
@@ -93,8 +101,10 @@
         }
 
         .from-fade {
-          /*will-change: opacity;*/
-          /*backface-visibility: hidden;*/
+          @media (min-width: 768px) {
+            will-change: transform;
+            backface-visibility: hidden;
+          }
           opacity: clamp(0, calc(var(--progress-slice) * var(--speed)), 1);
         }
       }
