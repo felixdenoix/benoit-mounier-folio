@@ -1,12 +1,10 @@
 <c-home-expertise
-    class="wrapper relative w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 text-white">
+
+    class="expertise wrapper relative w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 text-white">
 
     <div
-        class=" text-gray-text-light text-2xl w-full text-center gap-grid-padding mb-16 block expertise-title font-bold"
-        string="split"
-        string-repeat="true"
-        string-offset-bottom="-30%"
-        string-split="char[random(0,1)]|char-word[random(0,10)]">
+        string
+        class="animate-opacity text-gray-text-light text-2xl w-full text-center gap-grid-padding mb-16 block expertise-title font-bold">
         EXPERTISE
     </div>
 
@@ -96,7 +94,7 @@
     </div>
 
     <div
-        class="contact my-20 lg:my-30 flex justify-center opacity-0 transition-opacity duration-500 ease-projects [&.-inview]:opacity-100"
+        class="contact my-20 lg:my-30 flex justify-center duration-500 ease-projects animate-opacity"
         string
         string-offset-bottom="-20%">
 

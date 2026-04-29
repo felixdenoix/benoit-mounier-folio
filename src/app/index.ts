@@ -1,4 +1,15 @@
-import { StringTune, frameDOM } from "@fiddle-digital/string-tune";
+import {
+  StringTune,
+  frameDOM,
+  StringLerp,
+  StringMagnetic,
+  // StringPositionTracker,
+  // StringFPSTracker,
+  StringProgress,
+  StringProgressPart,
+  StringScrollContainer,
+  StringSplit,
+} from "@fiddle-digital/string-tune";
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -7,16 +18,6 @@ import { Core } from "@unseenco/taxi";
 import type { CacheEntry } from "@unseenco/taxi/src/Core";
 import BaseTransition from "../transitions/base";
 import debounce from "lodash/debounce";
-import {
-  StringLerp,
-  StringMagnetic,
-  StringPositionTracker,
-  StringFPSTracker,
-  StringProgress,
-  StringProgressPart,
-  StringScrollContainer,
-  StringSplit,
-} from "@fiddle-digital/string-tune";
 import { loader as loadComponents } from "../components";
 import DefaultRenderer from "./defaultRenderer";
 import HomeRenderer from "./homeRenderer";
@@ -81,6 +82,7 @@ export default class App {
       this.smoothScroll.setupSettings({
         lerp: 0.3,
         strength: 0.1,
+        accessDevtoolToken: import.meta.env.VITE_STRING_TUNE_DEVTOOLS_TOKEN,
       });
 
       this.smoothScroll.use(StringLerp);
@@ -91,11 +93,11 @@ export default class App {
       this.smoothScroll.use(StringScrollContainer);
       this.smoothScroll.use(StringSplit);
 
-      if (import.meta.env.MODE === "development") {
-        this.smoothScroll.use(StringPositionTracker);
-        this.smoothScroll.PositionTrackerVisible = true;
-        this.smoothScroll.use(StringFPSTracker);
-        this.smoothScroll.FPSTrackerVisible = true;
+      if (import.meta.env.DEV) {
+        //   this.smoothScroll.use(StringPositionTracker);
+        //   this.smoothScroll.PositionTrackerVisible = true;
+        //   this.smoothScroll.use(StringFPSTracker);
+        //   this.smoothScroll.FPSTrackerVisible = true;
       }
 
       this.smoothScroll.speed = 0.08;
