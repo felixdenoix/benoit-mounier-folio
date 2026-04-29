@@ -33,11 +33,20 @@
 
 @scope (div.c-home-intro) {
   :scope {
+    /*contain: layout paint;*/
+    content-visibility: auto; /* Only renders the content when it's needed for the scroll */
+
     /* Critical css in index.css */
-    clip-path: inset(0);
+    /*clip-path: inset(0);*/
+    overflow: clip;
   }
 
   .scene {
+    /*contain: layout paint;*/
+
+    &:not(.-inview) {
+      visibility: hidden;
+    }
     .from-top {
       transition: transform 0.35s ease-out;
       transform: translate3d(0, -100%, 0);
@@ -59,7 +68,7 @@
 
         .from-top {
           will-change: transform;
-          /*backface-visibility: hidden;*/
+          backface-visibility: hidden;
           transform: translate3d(
             0,
             calc(
@@ -72,7 +81,7 @@
 
         .from-bottom {
           will-change: transform;
-          /*backface-visibility: hidden;*/
+          backface-visibility: hidden;
           transform: translate3d(
             0,
             calc(
@@ -84,7 +93,7 @@
         }
 
         .from-fade {
-          will-change: opacity;
+          /*will-change: opacity;*/
           /*backface-visibility: hidden;*/
           opacity: clamp(0, calc(var(--progress-slice) * var(--speed)), 1);
         }

@@ -51,7 +51,7 @@ export default class HomePage extends Piece {
   introAnimation() {
     globalThis.app.gsap.to(window, {
       duration: 2,
-      scrollTo: globalThis.app.consts.vh * 100 || window.innerHeight,
+      scrollTo: { y: globalThis.app.consts.vh * 100 || window.innerHeight, autoKill: true },
       ease: "power3.out",
     });
   }

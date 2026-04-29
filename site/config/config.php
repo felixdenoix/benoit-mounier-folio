@@ -96,7 +96,6 @@ return [
                 "800w" => ["width" => 800, "crop" => true, "quality" => 80],
                 "1200w" => ["width" => 1200, "crop" => true, "quality" => 80],
                 "1440w" => ["width" => 1440, "crop" => true, "quality" => 80],
-                "2048w" => ["width" => 2048, "crop" => true, "quality" => 80],
             ],
             "ben-srcset-webp" => [
                 // preset for webp
@@ -128,13 +127,6 @@ return [
                     "format" => "webp",
                     "sharpen" => 10,
                 ],
-                "2048w" => [
-                    "width" => 2048,
-                    "crop" => true,
-                    "quality" => 75,
-                    "format" => "webp",
-                    "sharpen" => 10,
-                ],
             ],
             "ben-srcset-avif" => [
                 // preset for avif
@@ -161,13 +153,6 @@ return [
                 ],
                 "1440w" => [
                     "width" => 1440,
-                    "crop" => true,
-                    "quality" => 65,
-                    "format" => "avif",
-                    "sharpen" => 25,
-                ],
-                "2048w" => [
-                    "width" => 2048,
                     "crop" => true,
                     "quality" => 65,
                     "format" => "avif",

@@ -46,16 +46,16 @@ return function ($page) {
         $backgroundImage = $item->background_image()->toFile();
         $backgroundLqip = null;
         if ($backgroundImage) {
-            $backgroundLqip =
-                "url(data:{$backgroundImage->mime()};base64," .
-                $backgroundImage
-                    ->thumb([
-                        "width" => 30,
-                        "blur" => true,
-                        "quality" => 50,
-                    ])
-                    ->base64() .
-                ")";
+            // $backgroundLqip =
+            //     "url(data:{$backgroundImage->mime()};base64," .
+            //     $backgroundImage
+            //         ->thumb([
+            //             "width" => 30,
+            //             "blur" => true,
+            //             "quality" => 50,
+            //         ])
+            //         ->base64() .
+            //     ")";
         }
 
         $processedScenes = [];
@@ -93,7 +93,7 @@ return function ($page) {
 
                     $startY = 0;
                     if ($type === "top") {
-                        $offset = $animationMode === "simultaneous" ? 10 : 30;
+                        $offset = $animationMode === "simultaneous" ? 10 : 20;
                         // write on two lines because of tkn php fixer
                         $startY = -100;
                         $startY = $startY - $index * $offset;
@@ -104,16 +104,16 @@ return function ($page) {
 
                     $results[] = [
                         "file" => $file,
-                        "lqip" =>
-                            "url(data:{$file->mime()};base64," .
-                            $file
-                                ->thumb([
-                                    "width" => 30,
-                                    "blur" => true,
-                                    "quality" => 50,
-                                ])
-                                ->base64() .
-                            ")",
+                        // "lqip" =>
+                        //     "url(data:{$file->mime()};base64," .
+                        //     $file
+                        //         ->thumb([
+                        //             "width" => 30,
+                        //             "blur" => true,
+                        //             "quality" => 50,
+                        //         ])
+                        //         ->base64() .
+                        //     ")",
                         "animationIndex" => $index,
                         "animationCount" => $count,
                         "speed" => $speed,
