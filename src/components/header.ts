@@ -1,6 +1,6 @@
 import { Piece } from "piecesjs";
 import { frameDOM } from "@fiddle-digital/string-tune";
-import debounce from "lodash/debounce";
+import throttle from "lodash/throttle";
 
 export default class CustomHeader extends Piece {
   // private $tween: gsap.core.Tween | undefined;
@@ -11,7 +11,7 @@ export default class CustomHeader extends Piece {
   $header: HTMLElement | undefined;
 
   immediateTransform: boolean = false;
-  debouncedUpdateProjectTitleWidth = debounce((e) => this.updateProjectTitleWidth(e), 300);
+  throttlededUpdateProjectTitleWidth = throttle((e) => this.updateProjectTitleWidth(e), 200);
 
   constructor() {
     super("Header");
@@ -25,6 +25,11 @@ export default class CustomHeader extends Piece {
     this.$menu = this.$("#header-menu-nav") as HTMLElement;
     this.$grid = this.domAttr("grid") as HTMLElement;
     this.$header = this.domAttr("header") as HTMLElement;
+  }
+
+  unmount(update?: boolean): void {
+    this.throttlededUpdateProjectTitleWidth.flush();
+    this.off("resize", window, this.throttlededUpdateProjectTitleWidth);
   }
 
   // lifecycle method
@@ -69,13 +74,13 @@ export default class CustomHeader extends Piece {
 
       this.updateProjectTitleWidth();
 
-      window.addEventListener("resize", this.debouncedUpdateProjectTitleWidth);
+      this.on("resize", window, this.throttlededUpdateProjectTitleWidth, { passive: true });
 
       frameDOM.mutate(() => {
         this.$grid?.classList.add("project-title");
       });
     } else {
-      window.removeEventListener("resize", this.debouncedUpdateProjectTitleWidth);
+      this.off("resize", window, this.throttlededUpdateProjectTitleWidth);
 
       frameDOM.mutate(() => {
         this.$grid?.classList.remove("project-title");

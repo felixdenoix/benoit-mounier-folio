@@ -51,11 +51,7 @@ export default class Project extends Piece {
       this.scrollRaf = window.requestAnimationFrame((t) => this.handleTextContentScroll(t));
     }
 
-    requestAnimationFrame(() => {
-      window.addEventListener("resize", this.debouncedResizeCallback, {
-        passive: true,
-      });
-    });
+    this.on("resize", window, this.debouncedResizeCallback, { passive: true });
   }
 
   unmount() {
@@ -64,7 +60,9 @@ export default class Project extends Piece {
     }
     this.headingObserver?.disconnect();
     this.navObserver?.disconnect();
-    window.removeEventListener("resize", this.debouncedResizeCallback);
+
+    this.debouncedResizeCallback.flush();
+    this.off("resize", window, this.debouncedResizeCallback);
   }
 
   handleResize() {

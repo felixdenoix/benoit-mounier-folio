@@ -1,14 +1,16 @@
 import { Piece } from "piecesjs";
+import debounce from "lodash/debounce";
 
 export default class TextReveal extends Piece {
   private $paragraph: HTMLElement | undefined | null;
+  private debouncedResizeHandler = debounce(this.handleResize.bind(this), 300);
 
   constructor() {
     super("TextReveal");
   }
 
   mount() {
-    this.on("resize", window, this.handleResize);
+    this.on("resize", window, this.debouncedResizeHandler, { passive: true });
 
     this.$paragraph = this.$<HTMLElement>("p") as HTMLElement;
 
@@ -18,7 +20,8 @@ export default class TextReveal extends Piece {
   }
 
   unmount() {
-    this.off("resize", window, this.handleResize);
+    this.debouncedResizeHandler.flush();
+    this.off("resize", window, this.debouncedResizeHandler);
   }
 
   handleResize() {

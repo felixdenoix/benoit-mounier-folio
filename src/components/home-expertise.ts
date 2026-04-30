@@ -47,11 +47,11 @@ export default class HomeExpertise extends Piece {
         this.desktopInviewAnimation();
       }
     });
-    window.addEventListener("resize", this.debouncedResize);
+    this.on("resize", window, this.debouncedResize);
   }
 
   unmount() {
-    window.removeEventListener("resize", this.debouncedResize);
+    this.off("resize", window, this.debouncedResize);
     this.observer?.disconnect();
     this.expertises.forEach((exp) => {
       if (this.throttledMouseMove) {
@@ -284,8 +284,9 @@ export default class HomeExpertise extends Piece {
     this.classList.add("hide-focus");
 
     // Ensure keyboard navigation kills animation.
-    window.addEventListener(
+    this.on(
       "keyup",
+      window,
       (e) => {
         if (e.key === "Tab") {
           this.expertiseTimeline?.kill();
@@ -299,7 +300,6 @@ export default class HomeExpertise extends Piece {
       paused: true,
     });
 
-    //
     this.$expertiseEls.forEach((el) => {
       tl.call(
         (link) => {
