@@ -30,7 +30,7 @@
     data-dom="hiatus"
     class="max-md:content-visibility-auto z-1 hiatus pt-[50svh] pb-[25vh] grid place-items-center min-h-screen p-grid-padding bg-black relative">
     <c-text-reveal
-      class="w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 max-w-200 text-xl text-white leading-none h-[calc(10*var(--paragraph-height))]"
+      class="w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 max-w-200 text-xl text-white leading-none h-[calc(4*var(--paragraph-height))]"
       style="--paragraph-height:auto;"
       string="progress"
       string-key="--text-reveal-progress"
