@@ -76,7 +76,7 @@
 
   img[loading="lazy"][data-dom="lazy-media"] {
     opacity: 0;
-    transition: opacity 0.35s ease-out;
+    transition: opacity 0.65s var(--ease-projects);
 
     &.loaded {
       opacity: 1;
