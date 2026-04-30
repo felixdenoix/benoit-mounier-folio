@@ -22,15 +22,16 @@
 
       &:after,
       &:before {
-        --shadow-offset: 8px;
+        /*border: 1px solid red;*/
+        --shadow-offset: 5px;
         position: absolute;
         display: block;
         z-index: 1;
         content: "";
         left: calc(-1 * var(--shadow-offset));
         width: calc(100% + 2 * var(--shadow-offset));
-        height: 6px;
-        filter: blur(2px);
+        height: 30px;
+        /*filter: blur(2px);*/
         background-size: 100% 100%;
         background-repeat: no-repeat;
         mask-composite: intersect;
@@ -41,13 +42,12 @@
 
       &:after {
         bottom: 0;
-        background: radial-gradient(
-          ellipse at 50% 150%,
-          rgba(0, 0, 0, 0.9),
-          rgba(0, 0, 0, 0.7) 4%,
-          rgba(0, 0, 0, 0.4) 20%,
-          rgba(0, 0, 0, 0) 80%,
-          transparent
+        background: linear-gradient(
+          to top,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 1) 25%,
+          rgba(255, 255, 255, 0.8) 66%,
+          rgba(255, 255, 255, 0) 100%
         );
         background-position: bottom;
         clip-path: rect(auto auto auto auto);
@@ -57,17 +57,16 @@
 
       &:before {
         top: 0;
-        background: radial-gradient(
-          ellipse at 50% -50%,
-          rgba(0, 0, 0, 0.7),
-          rgba(0, 0, 0, 0.5) 4%,
-          rgba(0, 0, 0, 0.4) 10%,
-          rgba(0, 0, 0, 0) 80%,
-          transparent
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 1) 25%,
+          rgba(255, 255, 255, 0.8) 66%,
+          rgba(255, 255, 255, 0) 100%
         );
         background-position: top;
         clip-path: rect(auto auto auto auto);
-        transform: scaley(calc(100% * var(--css-progress)));
+        transform: scaleY(calc(100% * var(--css-progress)));
         transform-origin: top;
       }
     }

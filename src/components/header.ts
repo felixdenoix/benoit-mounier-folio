@@ -27,7 +27,7 @@ export default class CustomHeader extends Piece {
     this.$header = this.domAttr("header") as HTMLElement;
   }
 
-  unmount(update?: boolean): void {
+  unmount(): void {
     this.throttlededUpdateProjectTitleWidth.flush();
     this.off("resize", window, this.throttlededUpdateProjectTitleWidth);
   }
