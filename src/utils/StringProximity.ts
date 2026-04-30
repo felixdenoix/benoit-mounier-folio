@@ -13,6 +13,7 @@ export class StringProximity extends StringModule {
       ...this.attributesToMap,
       { key: "radius", type: "dimension", fallback: 100 },
       { key: "easing", type: "easing", fallback: "cubic-bezier(0.25, 0.25, 0.25, 0.25)" },
+      { key: "duration", type: "number", fallback: 0.3 },
       { key: "lerp", type: "number", fallback: 0.1 },
     ];
   }
@@ -64,26 +65,31 @@ export class StringProximity extends StringModule {
     }
   }
 
-  override onFrame(): void {
+  override onFrame(data: StringData): void {
     if (this.objects.length === 0) return;
 
     for (let i = 0; i < this.objects.length; i++) {
       const object = this.objects[i];
       const target = object.getProperty<number>("target-proximity") ?? 0;
       const current = object.getProperty<number>("proximity-distance") ?? 0;
-      const lerp = object.getProperty<number>("lerp") ?? 0.1;
+      const duration = object.getProperty<number>("duration") ?? 0.3;
 
       if (current === target) {
         continue;
       }
 
+      // Calculate progress factor based on frame delta and desired duration
+      // This ensures the animation takes a consistent amount of time regardless of FPS
+      const progress = duration > 0 ? data.time.delta / (duration * 1000) : 1;
+
       const step = this.tools.lerp.process({
         from: current,
         to: target,
-        progress: lerp,
+        progress: Math.min(progress, 1),
       });
 
-      const next = round(step < 0.005 ? target : current + step, 5);
+      // Snap to target if step is extremely small or we are close enough
+      const next = Math.abs(target - current) < 0.00001 ? target : round(current + step, 6);
 
       object.setProperty("proximity-distance", next);
     }

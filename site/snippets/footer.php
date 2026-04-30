@@ -22,6 +22,7 @@
         string-exit-el="bottom"
         string-exit-vp="bottom"
         string-offset-top="-40sh"
+        string-duration=".4"
         string-easing="cubic-bezier(0.44,0.07,0.41,1)"
         class="footer box-border block shadow-md-upwards-proximity relative overflow-x-hidden">
         <div class="base-grid w-full py-8 mb:py-grid-padding px-grid-padding">

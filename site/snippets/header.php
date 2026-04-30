@@ -144,8 +144,8 @@
             <div
                 string="proximity[smooth]"
                 string-radius="300"
-                string-easing="absolute cubic-bezier(0.44,0.07,0.41,1)"
-                string-lerp="0.001"
+                string-easing="cubic-bezier(0.44,0.07,0.41,1)"
+                string-duration=".4"
                 class="absolute top-0 -z-1 shadow-md-proximity w-full h-full py-(--spacing-grid-padding)">
                 <!--created dom-node for shadow as parent is already copying string from footer -->
             </div>
