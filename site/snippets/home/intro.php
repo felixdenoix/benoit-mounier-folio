@@ -48,6 +48,7 @@ foreach ($introItems as $introItem):
                                 "picture" => [
                                     "shared" => [
                                         "class" => "absolute h-lvh w-full inset-0 z-1 object-contain object-center",
+                                        "aria-hidden" => "true",
                                     ],
                                 ],
                                 "img" => [
@@ -109,6 +110,7 @@ foreach ($introItems as $introItem):
                                             "transform" => "translateY(calc((1 - clamp(0, var(--progress-slice) * var(--speed), 1)) * var(--start-y)))", // transform is placed here instead of in css to prevent tailwind from transforming it to translate3d to prevent the creation of a new composition layer
                                         ]),
                                     ],
+                                    "aria-hidden" => "true",
                                 ],
                             ],
                             "img" => [
@@ -144,6 +146,7 @@ foreach ($introItems as $introItem):
                                             "transform" => "translateY(
                                             calc((1 - clamp(0, var(--progress-slice) * var(--speed), 1)) * var(--start-y)))", // transform is placed here instead of in css to prevent tailwind from transforming it to translate3d to prevent the creation of a new composition layer
                                         ]),
+                                        "aria-hidden" => "true",
                                     ],
                                 ],
                             ],
@@ -179,6 +182,7 @@ foreach ($introItems as $introItem):
                                             "--start-y" => $img["startY"],
                                         ]),
                                     ],
+                                    "aria-hidden" => "true",
                                 ],
                             ],
                             "img" => [
