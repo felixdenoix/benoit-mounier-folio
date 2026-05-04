@@ -63,5 +63,6 @@ AddOutputFilterByType DEFLATE application/x-javascript
 # (hardens against attacks from malicious file uploads)
 Header set Content-Type "text/plain" "expr=-z %{CONTENT_TYPE}"
 Header set X-Content-Type-Options "nosniff"
+Header set Cache-Control "max-age=3600, public"
 
 </IfModule>
