@@ -34,20 +34,6 @@ jobs:
           cache: "pnpm"
       - run: pnpm install --no-frozen-lockfile
       - run: pnpm run build
-      # - name: FTP Deployer
-      #   uses: sand4rt/ftp-deployer@v1.8
-      #   with:
-      #     sftp: false # optional
-      #     host: ${{ secrets.ftp_server }} # e.g. ftp.host.com or sftp.host.com (without ftp:// or ftps://)
-      #     port: 21 # optional, default is: 21
-      #     username: ${{ secrets.ftp_user }} # FTP username
-      #     password: ${{ secrets.ftp_password }} # FTP password
-      #     remote_folder: website/ # optional, remote path of your FTP server
-      #     local_folder: . # optional, local path, default is: dist
-      #     cleanup: false # optional, remove existing files inside FTP remote folder
-      #     include: '["**/*"]' # optional, e.g. '['dist']'
-      #     exclude: '["**/.git*","**/.git*/**","**/node_modules/**","content/**","storage/**","public/media/**",".ddev/**",".husky/**","src/**","pnpm-workspace.yaml","pnpm-lock.yaml","package.json","vite.config.js","tsconfig.json","lint-staged.config.js",".editorconfig,.oxfmtrc.json","composer.lock",".phpactor.json",".php-cs-fixer.dist.php"]'
-      #     passive: true
       - name: FTP Deployment
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
@@ -67,6 +53,7 @@ jobs:
             public/media/**
             .ddev/**
             .husky/**
+            .zed/**
             src/**
             pnpm-workspace.yaml
             pnpm-lock.yaml
