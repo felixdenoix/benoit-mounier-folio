@@ -62,6 +62,7 @@ AddOutputFilterByType DEFLATE application/x-javascript
 # serve files as plain text if the actual content type is not known
 # (hardens against attacks from malicious file uploads)
 Header set Content-Type "text/plain" "expr=-z %{CONTENT_TYPE}"
+
 Header set X-Content-Type-Options "nosniff"
 Header set Cache-Control "max-age=6048000, public"
 # 3600×24×7×10 = 6048000

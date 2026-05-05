@@ -1,39 +1,35 @@
-
-
 <IfModule mod_rewrite.c>
 # That was ONLY to protect you from 500 errors
 # if your server did not have mod_rewrite enabled
 
+RewriteEngine On
 
-    RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+# Handle Authorization Header
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Prevent direct access to the "public" folder - redirect to root
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /public/
-    RewriteRule ^public/(.*) /$1 [R=302,L]
+# Prevent direct access to the "public" folder - redirect to root
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /public/
+RewriteRule ^public/(.*) /$1 [R=302,L]
 
-    #RewriteRule ^public/(.*)$ /$1 [R=302,L]
+# Redirect Trailing Slashes If Not A Folder...
+# - but look for the file in the "public" folder
+#   (ensure we are not already in the "public" folder)
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{DOCUMENT_ROOT}/public/$1 !-d
+RewriteRule ^(.*)/$ /$1 [R=302,L]
 
+# Rewrite "everything" to the "public" subdirectory if not already
+# This ignores existing files/dirs in the document root
+RewriteCond %{REQUEST_URI} ^/(.*)
+RewriteRule !^public/ public/%1
 
-    # Redirect Trailing Slashes If Not A Folder...
-    # - but look for the file in the "public" folder
-    #   (ensure we are not already in the "public" folder)
-    RewriteCond %{REQUEST_URI} !^/public/
-    RewriteCond %{DOCUMENT_ROOT}/public/$1 !-d
-    RewriteRule ^(.*)/$ /$1 [R=302,L]
-
-    # Rewrite "everything" to the "public" subdirectory if not already
-    # This ignores existing files/dirs in the document root
-    RewriteCond %{REQUEST_URI} ^/(.*)
-    RewriteRule !^public/ public/%1 
-
-    # Handle Front Controller... (as before)
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
-
+# Handle Front Controller... (as before)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
 
 </IfModule>
