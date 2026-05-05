@@ -43,6 +43,7 @@ jobs:
           protocol: ftps
           port: 21
           timeout: 360000
+          server-dir: website/
           exclude: |
             **/.git*
             **/.git*/**
