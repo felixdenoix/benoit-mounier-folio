@@ -72,6 +72,7 @@
                                 ],
                                 "img" => [
                                     "shared" => [
+                                        "alt" => $link_project["asset"]->alt(),
                                         "class" =>
                                             "w-full h-full object-contain object-center scale-99" .
                                             ($item["projects_count"] > 1 ? " opacity-0 transition duration-500 ease-projects" : " opacity-100 scale-101!"), // TODO: handle opacity based on index
