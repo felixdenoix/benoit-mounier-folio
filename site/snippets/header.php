@@ -121,6 +121,8 @@
 ?>
     <link rel="shortcut icon" type="image/x-icon" href="<?= url("favicon.ico") ?>">
     <?= vite()->css("styles/index.css", try: true) ?>
+    <link rel="preload" href="<?= vite()->file("assets/fonts/CodecProVariableGX.subset.woff2") ?>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?= vite()->file("assets/fonts/CodecProVariableGX.subset.woff") ?>" as="font" type="font/woff" crossorigin>
     <?php
 // vite()->css("styles/templates/" . $page->template() . ".css", try: true)
 ?>
