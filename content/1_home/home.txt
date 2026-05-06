@@ -145,33 +145,30 @@ Intro:
 
 ----
 
-Hiatus:
-
-GRAPHISTE FREELANCE DEPUIS 2013 À PARIS, JE SUIS SPÉCIALISÉ DANS LE **PRINT** ET **L’ILLUSTRATION**.
-J’INTERVIENS SUR LA **CONCEPTION CRÉATIVE** ET LE **DÉVELOPPEMENT VISUEL** DE PROJETS VARIÉS, AVEC UNE APPROCHE SUR MESURE, ALLIANT CRÉATIVITÉ, COHÉRENCES ET SENS DU DÉTAIL.
+Hiatus: GRAPHISTE FREELANCE DEPUIS 2013 À PARIS, JE SUIS SPÉCIALISÉ DANS LE **PACKAGING, LE GRAPHISME ÉDITORIAL ET PUBLICITAIRE, L'IDENTITÉ VISUELLE AINSI QUE L'ILLUSTRATION.** J'INTERVIENS SUR LA CONCEPTION CRÉATIVE ET LE DÉVELOPPEMENT VISUEL DE PROJETS VARIÉS, AVEC UNE APPROCHE SUR MESURE, ALLIANT CRÉATIVITÉ, COHÉRENCE ET SENS DU DÉTAIL.
 
 ----
 
 Calltoaction:
 
 -
-  label: 'Identité visuelle'
+  label: packaging
   projects:
+    - 'page://jgtfvyjkbmmmmr4g'
     - 'page://70tyokk4i69cxzzm'
 -
   label: illustration
   projects:
-    - 'page://qbpjaiv5qyfvylyp'
+    - 'page://hs1gp6jnsqekc0dt'
 -
-  label: Packaging
+  label: 'Identité visuelle'
   projects:
-    - 'page://jgtfvyjkbmmmmr4g'
-    - 'page://70tyokk4i69cxzzm'
+    - 'page://kassenqxctzsa5lp'
 -
   label: 'Mise en page'
   projects:
-    - 'page://qbpjaiv5qyfvylyp'
-    - 'page://jgtfvyjkbmmmmr4g'
+    - 'page://ylvtzx3blaookfby'
+    - 'page://dzard9wvmeq0qkut'
 
 ----
 

@@ -1,0 +1,49 @@
+Title: WA DESIGN GALERIE
+
+----
+
+Cover: - 'file://ldafudtuqszak0if'
+
+----
+
+Headline: WA
+
+----
+
+Subheadline: DESIGN GALERIE
+
+----
+
+Text: <p><strong>À l’occasion des 70 ans des lampes Akari, la galerie WA leur a dédié une exposition, où étaient présentés 70 modèles de 1ère édition. <br>Pour cet événement, j'ai contribué à la conception d’un ouvrage consacré à la genèse de ces lampes et de leur créateur, Isamu Noguchi.</strong></p><p></p><p><strong>Réalisations :</strong></p><ul><li><p>Création de plus de 300 dessins de lampes.</p></li><li><p>Participation à la mise en page du livre d’exposition.</p></li><li><p>Création d’un poster, regroupant les dessins de plus de 230 modèles commercialisés depuis les années 50.</p></li></ul>
+
+----
+
+Dates: - '2021'
+
+----
+
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://74dyb0xnosryftz9"]},"id":"888bc37c-58a8-4426-b70b-5165f8e31883","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://sxswafvivf5xxoz5"]},"id":"c4783499-ab51-4561-a705-7d2acd2be05c","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://n9g9ietk9vic7gf2"]},"id":"8a1c9345-a252-402b-be90-da06b3661a91","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://7g7odc9ecwjqmadq"]},"id":"54c7e9d5-75a3-4d83-93cf-4a8991bd3a3d","isHidden":false,"type":"gallery-simple"}],"id":"72de69d1-73a4-4297-b281-38abaa0c5e8a","width":"1/1"}],"id":"f0276a90-f8a2-4608-9ae4-d24c1b08bcf1"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://ta8pnbef3lfm44ax","file://osrfmrav6aqzsa40"]},"id":"63a57887-385b-4059-b27c-71071a51162b","isHidden":false,"type":"gallery-simple"}],"id":"f440f8b4-3a00-4505-ae47-6d64ad253e42","width":"2/3"},{"blocks":[{"content":{"medias":["file://iclvd4yov1zlihtt"]},"id":"d8f5afa2-860c-4d22-a8d5-7bf40fe67027","isHidden":false,"type":"gallery-simple"}],"id":"03cc4c19-becc-4be1-89da-edd79b2a9f81","width":"1/3"}],"id":"3599cefa-0795-46e8-a181-d755a545bb25"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://m8io4yqx96o4t6kr"]},"id":"19ad19fb-df17-402e-950e-d665305b9e4e","isHidden":false,"type":"gallery-simple"}],"id":"7030a83a-41db-4c7b-b32d-6f83fb12123c","width":"1/1"}],"id":"e2d23469-4a0d-49a2-9d0d-ab18e054f99d"}]
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
+Nextproject: []
+
+----
+
+Uuid: 8swgoikdbkx7mpyi

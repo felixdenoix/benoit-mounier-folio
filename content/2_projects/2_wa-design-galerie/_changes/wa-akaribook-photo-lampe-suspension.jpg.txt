@@ -1,0 +1,33 @@
+Caption: 
+
+----
+
+Alt: 
+
+----
+
+License: 
+
+----
+
+Link: 
+
+----
+
+Sort: 2
+
+----
+
+Uuid: osrfmrav6aqzsa40
+
+----
+
+Template: image
+
+----
+
+Focus: 62.0% 62.5%
+
+----
+
+Lock: Cx0vDLCO

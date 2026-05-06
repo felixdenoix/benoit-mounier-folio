@@ -1,0 +1,52 @@
+Title: ANTARGAZ
+
+----
+
+Cover: - 'file://jjotokdbsrcv9slt'
+
+----
+
+Headline: ANTARGAZ
+
+----
+
+Subheadline: ÉNERGIE
+
+----
+
+Text: <p><strong>Antargaz est une marque française de distribution d'énergie gazière. Je les ai régulièrement</strong> <strong>accompagné dans la conception de supports de communication variés.</strong></p><p></p><p><strong>Réalisations :</strong></p><ul><li><p><strong>Communication multimédia :</strong> dépliants, flyers, infographies, kakémonos, encarts et pages promotionnels. Habillages et bannières web.</p></li></ul>
+
+----
+
+Dates:
+
+- '2014'
+- '2024'
+
+----
+
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://ppawsztbkcvo4jvy"]},"id":"888bc37c-58a8-4426-b70b-5165f8e31883","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://rwpvahbrgasrlt2e"]},"id":"c4783499-ab51-4561-a705-7d2acd2be05c","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://zgrgz8b4is2ndsix"]},"id":"8a1c9345-a252-402b-be90-da06b3661a91","isHidden":false,"type":"gallery-simple"},{"content":{"medias":[]},"id":"54c7e9d5-75a3-4d83-93cf-4a8991bd3a3d","isHidden":false,"type":"gallery-simple"},{"content":{"medias":[]},"id":"73d70fb7-294e-41da-bc51-dc16c179214c","isHidden":false,"type":"gallery-simple"},{"content":{"medias":[]},"id":"d71eae74-45ed-4a6e-b9b3-ef7ed6d32d49","isHidden":false,"type":"gallery-simple"},{"content":{"medias":[]},"id":"30757ef8-f0d5-49c0-8669-df2ceb53e425","isHidden":false,"type":"gallery-simple"}],"id":"72de69d1-73a4-4297-b281-38abaa0c5e8a","width":"1/1"}],"id":"f0276a90-f8a2-4608-9ae4-d24c1b08bcf1"}]
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
+Nextproject: []
+
+----
+
+Uuid: dzard9wvmeq0qkut

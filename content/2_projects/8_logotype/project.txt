@@ -1,0 +1,52 @@
+Title: LOGOTYPE
+
+----
+
+Cover: - 'file://em5b1f3lneylbr8l'
+
+----
+
+Headline: LOGOTYPE
+
+----
+
+Subheadline: 
+
+----
+
+Text: <p><strong>La réalisation de logos est au coeur de l'identité visuelle. Qu'il s'agisse d’un projet porté par un particulier, une association ou une entreprise, je pense chaque logo pour traduire ses valeurs et son univers. Mon travail de création s’appuie sur l'écoute et l'analyse afin d’offrir une identité cohérente et durable.</strong></p><p></p><p><strong>Réalisations :</strong></p><ul><li><p>Création de logos, retouche ou évolution de logo déjà existant.</p></li></ul>
+
+----
+
+Dates:
+
+- '2014'
+- '2018'
+
+----
+
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://qqyrln4tr0txaucg"]},"id":"888bc37c-58a8-4426-b70b-5165f8e31883","isHidden":false,"type":"gallery-simple"},{"content":{"title":"","subtitle":""},"id":"9fae2e7d-99b0-4009-97c9-b712506743b5","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://9vvtyurejwk2rwbr"]},"id":"c4783499-ab51-4561-a705-7d2acd2be05c","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://x6j0yshjhaqs2suf"]},"id":"8a1c9345-a252-402b-be90-da06b3661a91","isHidden":false,"type":"gallery-simple"},{"content":{"title":"","subtitle":""},"id":"ff6abf49-8699-402f-885b-88f957026ddc","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://cbbk9ly8lbgzowid"]},"id":"54c7e9d5-75a3-4d83-93cf-4a8991bd3a3d","isHidden":false,"type":"gallery-simple"},{"content":{"title":"","subtitle":""},"id":"15f5cc1b-110f-410c-b573-d5461d472595","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://qdrbzqwlajdwv8i2"]},"id":"0f938129-a819-4017-a5d1-edcf2b6d2993","isHidden":false,"type":"gallery-simple"}],"id":"72de69d1-73a4-4297-b281-38abaa0c5e8a","width":"1/1"}],"id":"f0276a90-f8a2-4608-9ae4-d24c1b08bcf1"}]
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
+Nextproject: []
+
+----
+
+Uuid: kassenqxctzsa5lp

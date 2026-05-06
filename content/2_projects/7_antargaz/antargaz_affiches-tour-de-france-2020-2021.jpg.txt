@@ -1,0 +1,25 @@
+Caption: 
+
+----
+
+Alt: 
+
+----
+
+License: 
+
+----
+
+Link: 
+
+----
+
+Sort: 3
+
+----
+
+Uuid: zgrgz8b4is2ndsix
+
+----
+
+Template: image

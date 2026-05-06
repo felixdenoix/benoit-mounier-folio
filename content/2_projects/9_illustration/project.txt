@@ -1,0 +1,52 @@
+Title: ILLUSTRATION
+
+----
+
+Cover: - 'file://ie3h6x0wxckzy73w'
+
+----
+
+Headline: ILLUSTRATION
+
+----
+
+Subheadline: 
+
+----
+
+Text: <p><strong>Je réalise des illustrations et des projets plus graphiques, aussi bien traditionnels que numériques. Qu'il s'agisse de créations personnelles ou de commandes spécifiques, j'aime varier les styles et m'adapter à l’univers de chaque projet, pensé comme une pièce unique ou s'inscrivant dans une logique de série.</strong></p><p></p><p><strong>Réalisations :</strong></p><ul><li><p>&nbsp;Illustrations et croquis au crayon, à l’encre, feutre ou DAO, tout format et généralement sur papier d’art. Travail &amp; recherches graphiques.</p></li></ul>
+
+----
+
+Dates:
+
+- '2014'
+- "Aujourd'hui"
+
+----
+
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://bra0l7ul7b9cd1xv","file://fvezwudq93qakbwp","file://f0lwm3rybumes4am","file://nmuhrsufamz18o6q"]},"id":"888bc37c-58a8-4426-b70b-5165f8e31883","isHidden":false,"type":"gallery-simple"},{"content":{"title":"","subtitle":""},"id":"7b1b2352-f943-4e63-b191-a5d299a5cf61","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://3u5pm32clrask86q"]},"id":"cb381ed0-19bc-434b-8315-f2d05ff6cc19","isHidden":false,"type":"gallery-simple"}],"id":"72de69d1-73a4-4297-b281-38abaa0c5e8a","width":"1/1"}],"id":"f0276a90-f8a2-4608-9ae4-d24c1b08bcf1"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://7blukpqtgcrtv9za"]},"id":"e97a7e0f-aeef-4f2a-94d2-5f15ebbf4b3d","isHidden":false,"type":"gallery-simple"}],"id":"034bda32-11f7-456a-a1d3-265531d8a51b","width":"2/3"},{"blocks":[{"content":{"medias":["file://amvbomxcea3fhcjr"]},"id":"4771ae8a-3d0a-4310-a108-9a6c12d645db","isHidden":false,"type":"gallery-simple"}],"id":"6ef5c8fe-3993-4f0e-b172-d327db5e4872","width":"1/3"}],"id":"e8a109f8-7469-495e-a1c7-3a5d7147c254"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://na16m8tmsvlxekvr"]},"id":"6c306f3a-152a-4457-8cde-22f376fb38e9","isHidden":false,"type":"gallery-simple"},{"content":{"title":"","subtitle":""},"id":"6e7499b2-34f0-4d60-aa2b-d27d9408bbd9","isHidden":false,"type":"gallery-title"},{"content":{"medias":["file://lvne4li8jfhmjpdu"]},"id":"5f2fb21e-4db1-400b-a3fb-8b55bd93c5a9","isHidden":false,"type":"gallery-simple"}],"id":"3315fa8f-89a4-4208-9126-a81efa5fb965","width":"1/1"}],"id":"fdae6856-1e9b-4ae3-83f6-697fb741ce68"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://gnzvenm7vm5gvm2h"]},"id":"3cc7b197-5961-4799-9506-5066421a0628","isHidden":false,"type":"gallery-simple"}],"id":"714d1616-79f1-47e4-ae79-d1f58e5e4912","width":"1/2"},{"blocks":[{"content":{"medias":["file://r3jdm6utyk65u8m5"]},"id":"c8deee0b-20f5-42d8-be75-a7ca097b902c","isHidden":false,"type":"gallery-simple"}],"id":"60f05397-e35d-46a4-9fde-5329bb3f44b9","width":"1/2"}],"id":"40a3b085-8e0d-4c85-b771-a6ddeed17096"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"title":"","subtitle":""},"id":"4f606610-c3c0-4da0-a601-ee9c5e543400","isHidden":false,"type":"gallery-title"}],"id":"e91a618a-321f-4042-8d41-8fa2d8b5e904","width":"1/1"}],"id":"b097441e-f334-4f20-9a06-f4b3d855a73d"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://sqqddpnczgwfubra"]},"id":"12d5b874-bbab-4618-a575-b3c21087b63b","isHidden":false,"type":"gallery-simple"}],"id":"c8ba9cd1-6498-4dbf-85b3-eb9c413f4ff8","width":"1/2"},{"blocks":[{"content":{"medias":["file://ufwuhljld4prxah0"]},"id":"7305e05c-2b49-49cc-8b12-9365af30f222","isHidden":false,"type":"gallery-simple"}],"id":"d0cdafd6-165e-45f7-9790-fc39cb7426d3","width":"1/2"}],"id":"57f595f6-509b-4e32-9c59-beaf8a0986d3"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://vwgpnelay3o2z24k"]},"id":"e22469b4-b105-4728-a387-8ddf3de0abd4","isHidden":false,"type":"gallery-simple"}],"id":"221a0cab-de02-4650-bc3f-8a0ce09093a9","width":"1/1"}],"id":"1595413b-fe29-4bfa-8c2d-0a0b0860c294"}]
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
+Nextproject: []
+
+----
+
+Uuid: hs1gp6jnsqekc0dt

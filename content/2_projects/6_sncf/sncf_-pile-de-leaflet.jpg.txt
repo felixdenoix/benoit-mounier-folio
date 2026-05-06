@@ -1,0 +1,29 @@
+Caption: 
+
+----
+
+Alt: 
+
+----
+
+License: 
+
+----
+
+Link: 
+
+----
+
+Sort: 1
+
+----
+
+Uuid: flrzytel0imzq8uu
+
+----
+
+Template: image
+
+----
+
+Focus: 76.7% 64.8%

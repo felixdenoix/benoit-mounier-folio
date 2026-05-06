@@ -1,4 +1,4 @@
-Title: Mentions légales
+Title: Mentions Légales
 
 ----
 
@@ -14,15 +14,15 @@ Listed: []
 
 ----
 
-Pagelinklabel: 
+Pagelinklabel:
 
 ----
 
-Seotitle: 
+Seotitle:
 
 ----
 
-Seodescription: 
+Seodescription:
 
 ----
 

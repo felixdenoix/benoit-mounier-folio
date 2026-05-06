@@ -1,0 +1,29 @@
+Caption: 
+
+----
+
+Alt: 
+
+----
+
+License: 
+
+----
+
+Link: 
+
+----
+
+Sort: 6
+
+----
+
+Uuid: ta8pnbef3lfm44ax
+
+----
+
+Template: image
+
+----
+
+Focus: 30.6% 53.7%

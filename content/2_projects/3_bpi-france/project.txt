@@ -2,11 +2,11 @@ Title: BPI France
 
 ----
 
-Cover: - 'file://mfb04d5dny9kiwnm'
+Cover: - 'file://kjlczranzb9arlsw'
 
 ----
 
-Headline: 
+Headline: bpifrance
 
 ----
 
@@ -14,15 +14,15 @@ Subheadline:
 
 ----
 
-Text: 
+Text: <p><strong>La Banque Publique d’Investissement finance et accompagne une multitude d'entreprises dans leur développement ainsi que dans leurs projets d'innovations. J'ai été contacté afin de mettre en avant des fonds dédiés aux thématiques d'énergie et d'environnement.</strong></p><p></p><p><strong>Réalisations :</strong></p><ul><li><p>Création d'une infographie et e-mailing sur le lancement de deux fonds d'investissement : Le<strong> fond bois et éco matériaux</strong> et le <strong>fond énergie environnement.</strong></p></li></ul><p>Ces deux infographies complémentaires, ont été pensées pour fonctionner de manières indépendantes ou en synergie</p>
 
 ----
 
-Dates: []
+Dates: - '2021'
 
 ----
 
-Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://mfb04d5dny9kiwnm"]},"id":"4a2ff417-8faf-4023-9676-7a2d6e25ed81","isHidden":false,"type":"gallery-simple"}],"id":"2ec58eb0-62ca-4629-87d2-8b2dcd63166f","width":"1/1"}],"id":"e16f5f44-a365-4338-93ad-fc946dbc8c6c"}]
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://n3stu8hixrclekui"]},"id":"5b901dc0-cd66-4b62-a401-946ba0fe1807","isHidden":false,"type":"gallery-simple"}],"id":"8b64dd6d-5ea4-4e9e-b90f-c082b606a0ca","width":"1/2"},{"blocks":[{"content":{"medias":["file://fqmnwvhy6l6oj937"]},"id":"0f12266c-725e-425a-bd3d-6b992177d4ac","isHidden":false,"type":"gallery-simple"}],"id":"1c9bb895-1ef9-47ed-8783-74cb3d0356c2","width":"1/2"}],"id":"b7d1ae13-4c74-4a36-95ce-e77d5fe704f8"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://tg2nwqznn6emkmpv"]},"id":"42ca0bf7-4035-4f59-a5ee-bc64ad6ab0ad","isHidden":false,"type":"gallery-simple"}],"id":"3f500298-4a12-46cc-ada0-3363c086349f","width":"1/1"}],"id":"e8dd025d-0f8b-46c7-bf63-dfc119b82072"},{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://gxgzzzfgcxxlynxg","file://nevtvpqkq6inttcr"]},"id":"a20936c2-b65f-4f1d-8625-778b9ce84001","isHidden":false,"type":"gallery-simple"}],"id":"06eccbeb-fa50-4d39-85fe-69aa7533ece9","width":"1/4"},{"blocks":[{"content":{"medias":["file://zytps0mikioz8oaw","file://rqerakcqjq7w0jif"]},"id":"06f9f573-9a3f-476f-a335-dae598288ac7","isHidden":false,"type":"gallery-simple"}],"id":"4039fc63-6dc2-4118-aa50-910d0dbcbefb","width":"1/4"},{"blocks":[{"content":{"medias":["file://o1obr2igxkf8rd7d","file://de7qjejamoq6gbrg"]},"id":"357314ad-fc1e-4421-978a-bfff2183a40b","isHidden":false,"type":"gallery-simple"}],"id":"0e1480ea-9e6d-424d-afc6-0f0900cce3aa","width":"1/4"},{"blocks":[{"content":{"medias":["file://o9ncqwbcskhuewqs","file://a7orobdygy6xvzaj"]},"id":"5ec60c3b-4229-4415-b3bc-9b0867c13fcf","isHidden":false,"type":"gallery-simple"}],"id":"66753fa8-3a87-483e-af9f-b4b81515fd30","width":"1/4"}],"id":"c4e870be-db37-48d6-98ea-455c56936d84"}]
 
 ----
 

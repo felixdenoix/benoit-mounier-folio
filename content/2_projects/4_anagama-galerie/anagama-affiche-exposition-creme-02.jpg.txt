@@ -1,0 +1,25 @@
+Caption: 
+
+----
+
+Alt: 
+
+----
+
+License: 
+
+----
+
+Link: 
+
+----
+
+Sort: 4
+
+----
+
+Uuid: k3unbpezpq98l2bz
+
+----
+
+Template: image

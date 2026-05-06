@@ -2,20 +2,4 @@ Title: Projets
 
 ----
 
-Pagelinklabel: 
-
-----
-
-Seotitle: Projets
-
-----
-
-Seodescription: 
-
-----
-
-Seoimage: []
-
-----
-
 Uuid: sjotagqxg8lke9uz

@@ -1,0 +1,52 @@
+Title: SNCF
+
+----
+
+Cover: - 'file://rrhs00rddldmpssv'
+
+----
+
+Headline: SNCF
+
+----
+
+Subheadline: 
+
+----
+
+Text: <p><strong>Tchou-tchou. <br>Attention, le train va entrer en gare. Éloignez-vous de la bordure du quai. Pour faire votre réclamation, munissez-vous de votre référence de dossier puis déposez votre demande via le formulaire de la page.</strong></p><p></p><p><strong>Réalisations :</strong></p><ul><li><p><strong>Communication multimédia :</strong> infographies, e-mailing, Kakémonos, affiches, plaquettes et dépliants.</p></li></ul><p>Supports institutionnels à destination du grand public comme aux professionnels du secteur.</p>
+
+----
+
+Dates:
+
+- '2014'
+- "Aujoud'hui"
+
+----
+
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://flrzytel0imzq8uu"]},"id":"888bc37c-58a8-4426-b70b-5165f8e31883","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://b2stkbcimrgkt9lx"]},"id":"c4783499-ab51-4561-a705-7d2acd2be05c","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://17anzdkrzjw0xhhe"]},"id":"8a1c9345-a252-402b-be90-da06b3661a91","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://lb1dxrphqqdhsdox"]},"id":"54c7e9d5-75a3-4d83-93cf-4a8991bd3a3d","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://u3fe33cwnokedyjp"]},"id":"73d70fb7-294e-41da-bc51-dc16c179214c","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://zvtlri7ia3apkivw"]},"id":"d71eae74-45ed-4a6e-b9b3-ef7ed6d32d49","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://exkx1nkgxvtuef7x"]},"id":"30757ef8-f0d5-49c0-8669-df2ceb53e425","isHidden":false,"type":"gallery-simple"}],"id":"72de69d1-73a4-4297-b281-38abaa0c5e8a","width":"1/1"}],"id":"f0276a90-f8a2-4608-9ae4-d24c1b08bcf1"}]
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
+Nextproject: []
+
+----
+
+Uuid: ylvtzx3blaookfby

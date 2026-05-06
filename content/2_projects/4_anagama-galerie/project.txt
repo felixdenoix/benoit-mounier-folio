@@ -1,0 +1,52 @@
+Title: ANAGAMA GALERIE
+
+----
+
+Cover: - 'file://taatluhzrytrlaim'
+
+----
+
+Headline: ANAGAMA
+
+----
+
+Subheadline: GALERIE
+
+----
+
+Text: <p><strong>J'ai participé pendant quelques années à travaillé sur l'image de cette galerie d'art contemporain, qui expose aux côtés de créations en céramique, des réalisations de peintres, sculpteurs, verriers ou ébénistes d’art.</strong></p><p></p><p><strong>Réalisations :</strong></p><ul><li><p>Affiches signature de la galerie.</p></li><li><p>Dépliants d'expositions temporaires, invitations.</p></li></ul>
+
+----
+
+Dates:
+
+- '2014'
+- '2018'
+
+----
+
+Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"content":{"medias":["file://g9qulql6o0us3sxz"]},"id":"888bc37c-58a8-4426-b70b-5165f8e31883","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://fjqhdcrsz2ynegon"]},"id":"c4783499-ab51-4561-a705-7d2acd2be05c","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://k3unbpezpq98l2bz"]},"id":"8a1c9345-a252-402b-be90-da06b3661a91","isHidden":false,"type":"gallery-simple"},{"content":{"medias":["file://14ikqgo0bvny6kb2"]},"id":"54c7e9d5-75a3-4d83-93cf-4a8991bd3a3d","isHidden":false,"type":"gallery-simple"}],"id":"72de69d1-73a4-4297-b281-38abaa0c5e8a","width":"1/1"}],"id":"f0276a90-f8a2-4608-9ae4-d24c1b08bcf1"}]
+
+----
+
+Pagelinklabel: 
+
+----
+
+Seotitle: 
+
+----
+
+Seodescription: 
+
+----
+
+Seoimage: []
+
+----
+
+Nextproject: []
+
+----
+
+Uuid: 0eehdh87fptcyg5m
