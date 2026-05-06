@@ -78,6 +78,15 @@ $> dev exec kirby
 ## Learnings
 
 <details>
+    <summary>#### github workflows</summary>
+    
+for ftp deploys, create a file in project root:
+`.ftp-deploy-sync-state.json`
+to ensure no bug with `FIN` packet and empty files
+
+</details>
+
+<details>
 
 <summary> #### Subsetting fonts</summary>
 
