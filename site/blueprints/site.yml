@@ -46,11 +46,12 @@ tabs:
     icon: search
     label: SEO
     fields:
-      seoTitle:
+      seo_title:
         label: Default SEO title
         type: text
         help: Overrides the site title in meta and OG tags.
-      seoDescription:
+        required: true
+      seo_description:
         label: Default meta description
         type: textarea
         size: small
@@ -58,13 +59,15 @@ tabs:
         buttons: false
         files: false
         help: Fallback description used when a page has no SEO description set.
-      seoImage:
+        required: true
+      seo_image:
         label: Default OG image
         type: files
         multiple: false
         template: image
         size: small
         help: Fallback Open Graph image (standard 1200x630px recommended).
+        required: true
         create:
           width: 1200
           height: 630

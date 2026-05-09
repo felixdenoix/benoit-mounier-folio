@@ -29,21 +29,26 @@
     // -- SEO cascade: page-level → site-level → defaults
     $siteSeo = $site->seo();
 
-    $seoTitle = $page->title()->esc();
+    $seoTitle = $page->title();
     $seoDescription = "";
     $seoImage = null;
 
     if (isset($seo)) {
-        $seoTitle = $seo->title()->esc();
-        $seoDescription = $seo->description()->html();
+        $seoTitle = $seo->title();
+        $seoDescription = $seo->description();
         $seoImage = $seo->image();
     }
 
     // Site-level fallbacks
-    if (empty($seoDescription) && $siteSeo->description()->isNotEmpty()) {
-        $seoDescription = $siteSeo->description()->html();
+    if (empty($seoTitle)) {
+        $seoTitle = $siteSeo->title();
+    } else {
+        $seoTitle = $siteSeo->title() . " | " . $seoTitle;
     }
-    if (!$seoImage && $siteSeo->image()) {
+    if (empty($seoDescription)) {
+        $seoDescription = $siteSeo->description();
+    }
+    if (empty($seoImage)) {
         $seoImage = $siteSeo->image();
     }
 
@@ -55,7 +60,7 @@
         ])
         : null;
     ?>
-    <title><?= $site->title()->esc() ?> | <?= $seoTitle ?></title>
+    <title><?= $seoTitle ?></title>
 
     <!--FAVICON START-->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -74,7 +79,7 @@
     <meta property="og:url" content="<?= $page->url() ?>">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="<?= $site->title()->esc() ?>">
-    <meta property="og:title" content="<?= $seoTitle ?> | <?= $site->title()->esc() ?>">
+    <meta property="og:title" content="<?= $seoTitle ?>">
 
     <?php if ($seoDescription): ?>
         <meta property="og:description" content="<?= $seoDescription ?>">
@@ -88,7 +93,7 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?= $seoTitle ?> | <?= $site->title()->esc() ?>">
+    <meta name="twitter:title" content="<?= $seoTitle ?>">
 
     <?php if ($seoDescription): ?>
         <meta name="twitter:description" content="<?= $seoDescription ?>">
@@ -179,6 +184,6 @@
             class="h-auto"
             data-taxi-view="<?= $renderer ?? "default" ?>"
             <?= isset($hide_header) ? "data-hide-header='true'" : false ?>
-            data-title="<?= isset($seo) ? $site->title()->esc() . " | " . $seo->title()->esc() : $site->title()->esc() . " | " . $page->title()->esc() ?>"
-            data-description="<?= isset($seo) && $seo->description()->isNotEmpty() ? $seo->description()->html() : "" ?>"
-            data-image="<?= isset($seo) && $seo->image() ? $seo->image()->url() : "" ?>">
+            data-title="<?= $seoTitle ?>"
+            data-description="<?= $seoDescription ?>"
+            data-image="<?= $seoImage->url() ?>">

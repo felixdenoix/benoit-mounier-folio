@@ -4,11 +4,9 @@ Kirby::plugin("feliske/benoit-folio", [
     "siteMethods" => [
         "seo" => function () {
             return new Obj([
-                "title" => $this->seoTitle()->isNotEmpty()
-                    ? $this->seoTitle()
-                    : $this->title(),
-                "description" => $this->seoDescription(),
-                "image" => $this->seoImage()->toFile(),
+                "title" => $this->seo_title()->esc(),
+                "description" => $this->seo_description()->kirbytext()->inline(),
+                "image" => $this->seo_image()->toFile(),
             ]);
         },
     ],
@@ -16,15 +14,17 @@ Kirby::plugin("feliske/benoit-folio", [
         "seo" => function () {
             return new Obj([
                 // Fallback to the regular page title if the SEO title is empty
-                "title" => $this->seoTitle()->isNotEmpty()
-                    ? $this->seoTitle()
-                    : $this->title(),
+                "title" => $this->seo_title()->isNotEmpty()
+                    ? $this->seo_title()->esc()
+                    : null,
 
                 // Return the description field directly
-                "description" => $this->seoDescription(),
+                "description" => $this->seo_description()->isNotEmpty()
+                    ? $this->seo_description()->kirbytext()->inline()
+                    : null,
 
                 // Return the file object (or null if no image was selected)
-                "image" => $this->seoImage()->toFile(),
+                "image" => $this->seo_image()->toFile(),
             ]);
         },
     ],

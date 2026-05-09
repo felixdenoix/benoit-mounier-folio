@@ -176,15 +176,23 @@ Pagelinklabel: À PROPOS
 
 ----
 
+Seo-title: Graphiste Illustrateur
+
+----
+
+Seo-description: 
+
+----
+
+Seo-image: []
+
+----
+
 Seotitle: 
 
 ----
 
 Seodescription: 
-
-----
-
-Seoimage: []
 
 ----
 

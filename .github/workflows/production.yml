@@ -10,30 +10,67 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 2
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.3" # Specify your desired PHP version
-          extensions: gd, zip # List required
+          php-version: "8.3"
+          extensions: gd, zip
+
       - name: Install composer dependencies
-        # Replaced the Docker action with a native run command.
         run: composer install --no-dev --optimize-autoloader --no-progress
+
       - uses: pnpm/action-setup@v4
         with:
           version: 10.19.0
+
       - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: "pnpm"
+
       - run: pnpm install --no-frozen-lockfile
       - run: pnpm run build
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-site
+          path: |
+            .
+            !.git
+            !.zed
+            !.ddev
+            !.husky
+            !src
+            !node_modules
+            !content/**
+            !storage/**
+            !pnpm-workspace.yaml
+            !pnpm-lock.yaml
+            !package.json
+            !vite.config.js
+            !tsconfig.json
+            !lint-staged.config.js
+            !.editorconfig
+            !.oxfmtrc.json
+            !.phpactor.json
+            !.php-cs-fixer.dist.php
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: built-site
+
       - name: FTP Deployment
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
@@ -67,6 +104,10 @@ jobs:
             .phpactor.json
             .php-cs-fixer.dist.php
 
+  clear-cache:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
       - name: Trigger Cache Clearing
         run: |
           curl -f -L -X POST "https://benoitmounier.fr/clear-my-cache-pretty-please/${{ secrets.DEPLOY_TOKEN }}"

@@ -26,7 +26,7 @@ Seodescription:
 
 ----
 
-Seoimage: []
+seo_image: []
 
 ----
 

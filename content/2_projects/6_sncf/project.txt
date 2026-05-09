@@ -10,7 +10,7 @@ Headline: SNCF
 
 ----
 
-Subheadline: 
+Subheadline:
 
 ----
 
@@ -29,19 +29,19 @@ Medias: [{"attrs":{"title":"","subtitle":"","id":""},"columns":[{"blocks":[{"con
 
 ----
 
-Pagelinklabel: 
+Pagelinklabel:
 
 ----
 
-Seotitle: 
+Seotitle:
 
 ----
 
-Seodescription: 
+Seodescription:
 
 ----
 
-Seoimage: []
+seo_image: []
 
 ----
 

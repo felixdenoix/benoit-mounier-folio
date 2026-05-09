@@ -8,18 +8,18 @@ fields:
     label: Link label
     help: Label for the page when appearing in menu.
     type: text
-  seoTitle:
+  seo_title:
     label: SEO Title
     type: text
     help: Overrides the page title in search results and social shares.
-  seoDescription:
+  seo_description:
     label: SEO Description
     type: textarea
     size: small
     maxLength: 250
     buttons: false
     files: false
-  seoImage:
+  seo_image:
     label: SEO Image
     type: files
     multiple: false
