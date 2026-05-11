@@ -17,7 +17,7 @@ return [
     ],
 
     "deploy_token" => "REXHCVYKBULITCJKBLIGRXEHCKBLUILKBHJNKCGVBYHXFSEWDG",
-    "url" => "/",
+    "url" => "https://benoitmounier.fr",
 
     "panel" => [
         "vue" => [
