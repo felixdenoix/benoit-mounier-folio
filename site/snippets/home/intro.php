@@ -39,7 +39,8 @@ foreach ($introItems as $introItem):
             <div class="background-wrapper overflow-clip absolute h-(--scenes-height) w-9/10 lg:w-8/10 ">
                 <div
                     data-background
-                    class="sticky grid place-items-center z-1 top-0 h-lvh w-full left-[5%] lg:left-[10%]">
+                    class="sticky grid place-items-center z-1 top-0 h-lvh w-full left-[5%] lg:left-[10%]"
+                    data-nosnippet>
                     <?php if ($introItem["background"]): ?>
 
                         <?php snippet("imagex-picture", [
@@ -94,7 +95,8 @@ foreach ($introItems as $introItem):
             <div
                 string="progress-part"
                 string-part-of="<?= $scene["stringPartOf"] ?>"
-                class="z-10 scene top-0 sticky h-lvh w-full <?= $scene["classes"] ?>">
+                class="z-10 scene top-0 sticky h-lvh w-full <?= $scene["classes"] ?>"
+                data-nosnippet>
 
                 <?php foreach ($scene["imagesFt"] as $img): ?>
                     <?php snippet("imagex-picture", [

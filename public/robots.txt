@@ -1,4 +1,6 @@
 User-agent: *
 Disallow: /panel
+Disallow: /cgi-bin
+Disallow: /content
 
 Sitemap: https://benoitmounier.fr/sitemap.xml
