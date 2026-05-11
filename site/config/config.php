@@ -200,10 +200,14 @@ return [
                     ];
                 }
 
-                return [
-                    "status" => 403,
-                    "message" => "Forbidden",
-                ];
+                return new Kirby\Cms\Response(
+                    json_encode([
+                        "status" => 403,
+                        "message" => "Forbidden",
+                    ]),
+                    "application/json",
+                    403,
+                );
             },
         ],
         [
