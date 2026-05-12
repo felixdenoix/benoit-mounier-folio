@@ -12,7 +12,7 @@
 */
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
 
@@ -65,7 +65,7 @@
     <!--FAVICON START-->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Benoit Mounier" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -124,7 +124,7 @@
     base URL of your site.
   */
 ?>
-    <link rel="shortcut icon" type="image/x-icon" href="<?= url("favicon.ico") ?>">
+    <link rel="icon" type="image/x-icon" href="<?= url("favicon.ico") ?>">
     <?= vite()->css("styles/index.css", try: true) ?>
     <link rel="preload" href="<?= vite()->file("assets/fonts/CodecProVariableGX.subset.woff2") ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?= vite()->file("assets/fonts/CodecProVariableGX.subset.woff") ?>" as="font" type="font/woff" crossorigin>

@@ -5,7 +5,7 @@ Kirby::plugin("feliske/benoit-folio", [
         "seo" => function () {
             return new Obj([
                 "title" => $this->seo_title()->esc(),
-                "description" => $this->seo_description()->kirbytext()->inline(),
+                "description" => $this->seo_description()->html(),
                 "image" => $this->seo_image()->toFile(),
             ]);
         },
@@ -20,7 +20,7 @@ Kirby::plugin("feliske/benoit-folio", [
 
                 // Return the description field directly
                 "description" => $this->seo_description()->isNotEmpty()
-                    ? $this->seo_description()->kirbytext()->inline()
+                    ? $this->seo_description()->html()
                     : null,
 
                 // Return the file object (or null if no image was selected)
