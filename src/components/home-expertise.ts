@@ -331,7 +331,7 @@ export default class HomeExpertise extends Piece {
     this.desktopScrollTrigger = ScrollTrigger.create({
       trigger: this,
       start: "top 70%",
-      end: "bottom bottom-=70px",
+      end: "top top+=120px",
       snap: {
         directional: true,
         snapTo: (value, self) => {
