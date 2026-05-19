@@ -2,7 +2,7 @@ import { Piece } from "piecesjs";
 import debounce from "lodash/debounce";
 import throttle from "lodash/throttle";
 import { frameDOM } from "@fiddle-digital/string-tune";
-import { createThresholdArray, getIntersectionProgress } from "../utils";
+import { createThresholdArray, getIntersectionProgress, round } from "../utils";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 interface ExpertiseData {
@@ -197,16 +197,20 @@ export default class HomeExpertise extends Piece {
       const data = id ? this.expertises.get(id) : null;
 
       if (data && data.bcr) {
-        const progress = (e.clientX - data.bcr.left) / data.bcr.width;
+        const progress = round((e.clientX - data.bcr.left) / data.bcr.width, 1);
         this.setActiveExpertise(id!, progress);
       }
     });
   };
 
-  private onMouseLeave = () => {
+  private onMouseLeave = (e: MouseEvent) => {
     if (!this.isDesktop) return;
     if (this.throttledMouseMove) this.throttledMouseMove.cancel();
     this.setActiveExpertise(null);
+    const id = (e.currentTarget as HTMLAnchorElement)?.dataset.expertiseId;
+    if (id) {
+      this.updateAsset(id, -1);
+    }
   };
 
   private setActiveExpertise(id: string | null, progress: number = 0) {
