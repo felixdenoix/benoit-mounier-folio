@@ -109,10 +109,12 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Cache Clearing
-        run: |
-          sleep 5
-          curl -f -L -X POST \
-            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
-            --retry 3 --retry-delay 5 \
-            "https://benoitmounier.fr/clear-my-cache-pretty-please/${{ secrets.DEPLOY_TOKEN }}"
+      - name: Clean Cache Files
+        uses: StephanThierry/ftp-delete-action@v2.1
+        with:
+          host: ${{ secrets.ftp_server }}
+          user: ${{ secrets.ftp_user }}
+          password: ${{ secrets.ftp_password }}
+          workingDir: "/storage/cache"
+          remoteDirectories: "/benoitmounier.fr/pages;/www.benoitmounier.fr/pages"
+          options: "-e 'set ssl:verify-certificate false'"
