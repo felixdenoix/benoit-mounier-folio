@@ -186,30 +186,30 @@ return [
         },
     ],
     "routes" => [
-        [
-            "pattern" => "clear-my-cache-pretty-please/(:any)",
-            "method" => "POST",
-            "action" => function ($token) {
-                $secret = option("deploy_token");
+        // [
+        //     "pattern" => "clear-my-cache-pretty-please/(:any)",
+        //     "method" => "POST",
+        //     "action" => function ($token) {
+        //         $secret = option("deploy_token");
 
-                if (empty($secret) === false && $token === $secret) {
-                    kirby()->cache("pages")->flush();
-                    return [
-                        "status" => 200,
-                        "message" => "Cache cleared",
-                    ];
-                }
+        //         if (empty($secret) === false && $token === $secret) {
+        //             kirby()->cache("pages")->flush();
+        //             return [
+        //                 "status" => 200,
+        //                 "message" => "Cache cleared",
+        //             ];
+        //         }
 
-                return new Kirby\Cms\Response(
-                    json_encode([
-                        "status" => 403,
-                        "message" => "Forbidden",
-                    ]),
-                    "application/json",
-                    403,
-                );
-            },
-        ],
+        //         return new Kirby\Cms\Response(
+        //             json_encode([
+        //                 "status" => 403,
+        //                 "message" => "Forbidden",
+        //             ]),
+        //             "application/json",
+        //             403,
+        //         );
+        //     },
+        // ],
         [
             "pattern" => "sitemap.xml",
             "action" => function () {

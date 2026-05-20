@@ -109,12 +109,23 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
       - name: Clean Cache Files
-        uses: StephanThierry/ftp-delete-action@v2.1
-        with:
-          host: ${{ secrets.ftp_server }}
-          user: ${{ secrets.ftp_user }}
-          password: ${{ secrets.ftp_password }}
-          workingDir: "/storage/cache"
-          remoteDirectories: "/benoitmounier.fr/pages;/www.benoitmounier.fr/pages"
-          options: "-e 'set ssl:verify-certificate false'"
+        run: |
+          lftp -u "${{ secrets.ftp_user }}","${{ secrets.ftp_password }}" "${{ secrets.ftp_server }}" <<EOF
+          set net:timeout 10
+          set net:max-retries 2
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ftp:ssl-auth TLS
+          set ssl:verify-certificate false
+          set ssl:check-hostname false
+          set ftp:passive-mode true
+          cd /storage/cache
+          rm -rf benoitmounier.fr/pages
+          rm -rf www.benoitmounier.fr/pages
+          rm -rf benoit.felixdenoix.fr/pages
+          bye
+          EOF
