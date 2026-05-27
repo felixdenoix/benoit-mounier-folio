@@ -103,6 +103,15 @@
         <meta name="twitter:image" content="<?= $ogImage->url() ?>">
     <?php endif; ?>
 
+    <!--
+    Source - https://stackoverflow.com/a/51345273
+    Posted by Mahesh Sharma, modified by community. See post 'Timeline' for change history
+    License - CC BY-SA 4.0
+    -->
+
+    <meta name="robots" content="index, follow">
+
+
     <?php
 /*
     Stylesheets can be included using the `css()` helper.
