@@ -34,6 +34,7 @@ return [
     "url" => $dynamicUrl,
     "debug" => true,
     "yaml.handler" => "symfony", // already makes use of the more modern Symfony YAML parser: https://getkirby.com/docs/reference/system/options/yaml (will become the default in a future Kirby version)
+    "smartypants" => true,
     "afbora.kirby-minify-html" => [
         "enabled" => false,
     ], // https://github.com/afbora/kirby-minify-html?tab=readme-ov-file#available-minify-options

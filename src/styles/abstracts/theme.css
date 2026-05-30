@@ -5,9 +5,6 @@
 
   --breakpoint-3xl: 120rem;
 
-  --codec-pro-variable-wght: 38;
-  --codec-pro-variable-ital: 100;
-
   --text-xs: var(--step--2);
   --text-xs--line-height: calc(1.25 / 0.875);
   --text-sm: var(--step--1);
@@ -42,21 +39,21 @@
   --grid-padding: calc(2.5 * var(--spacing));
   --spacing-grid-padding: var(--grid-padding);
 
-  --font-weight-thin: 38;
-  --font-weight-extralight: 77;
-  --font-weight-light: 118;
-  --font-weight-news: 157;
-  --font-weight-normal: 177;
-  --font-weight-regular: 177;
-  --font-weight-medius: 190;
-  --font-weight-medium: 200;
-  --font-weight-bold: 249;
-  --font-weight-extrabold: 317;
-  --font-weight-heavy: 377;
-  --font-weight-ultra: 484;
-  --font-weight-ultrablack: 593;
-  --font-weight-fat: 682;
-  --font-weight-black: 682;
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 250;
+  --font-weight-news: 300;
+  --font-weight-normal: 400;
+  --font-weight-regular: 400;
+  --font-weight-medius: 440;
+  --font-weight-medium: 475;
+  --font-weight-bold: 500;
+  --font-weight-extrabold: 600;
+  --font-weight-heavy: 700;
+  --font-weight-ultra: 800;
+  --font-weight-ultrablack: 850;
+  --font-weight-fat: 900;
+  --font-weight-black: 900;
 
   --shadow-md-upwards:
     0 -4px 6px -1px rgb(0 0 0 / 0.1), 0 -2px 4px -2px rgb(0 0 0 / 0.1);

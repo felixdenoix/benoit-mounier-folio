@@ -113,7 +113,7 @@
 
 /* Classes to apply the variable instances */
 .codec-pro-variable-italic {
-  --codec-pro-variable-ital: 1000;
+  /*--codec-pro-variable-ital: 1000;*/
 }
 .codec-pro-variable-thin {
   --codec-pro-variable-wght: 38;
